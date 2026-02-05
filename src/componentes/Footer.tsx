@@ -1,9 +1,46 @@
-import React from 'react'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const Footer = () => {
+const Footer:React.FC = () => {
   return (
-    <div>Footer</div>
-  )
-}
+    <footer className="flex flex-col gap-3 bg-primary-700 p-3 text-neutral-50 font-Otros">
+      <div className="flex justify-around items-start">
 
-export default Footer
+        <div className="flex flex-col items-center">
+          <img src="/" alt="logo" className="h-16 w-16"/>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="font-Titulos font-medium text-base">Políticas</label>
+          <NavLink to="/politicas-cookies" className="text-sm hover:underline">Políticas cookies</NavLink>
+          <NavLink to="/termino-servicio" className="text-sm hover:underline">Términos de servicio</NavLink>
+          <NavLink to="/politicas-privacidad" className="text-sm hover:underline">Políticas de privacidad</NavLink>
+          <NavLink to="/politicas-seguridad" className="text-sm hover:underline">Políticas de seguridad</NavLink>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="font-Titulos font-medium text-base">Contacto</label>
+          <NavLink to="/contacto-telefono" className="text-sm hover:underline">614 68 43 55</NavLink>
+          <NavLink to="/contacto-email" className="text-sm hover:underline">listO@gmail.com</NavLink>
+          <NavLink to="/contacto-direccion" className="text-sm hover:underline">Av/ Avestruz 12 (Badajoz)</NavLink>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <label className="font-Titulos font-medium text-base">Tecnologías</label>
+          <NavLink to="/contacto-react" className="text-sm hover:underline">React</NavLink>
+          <NavLink to="/tecnologias-tailwind" className="text-sm hover:underline">Tailwind</NavLink>
+          <NavLink to="/tecnologias-html" className="text-sm hover:underline">Html</NavLink>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center">
+        <span className="text-sm">© listO / Todos los derechos reservados</span>
+      </div>
+
+    </footer>
+  );
+};
+
+export default Footer;
+
+
