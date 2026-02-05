@@ -1,9 +1,9 @@
-import Table from "./componentes/Table";
+import Dialog from "./componentes/Dialog";
 
 function App() {
   return (
     <>
-      <Table></Table>
+      <Dialog titulo="Hola" descripcion="hola"></Dialog>
     </>
   );
 }

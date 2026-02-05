@@ -12,7 +12,7 @@ const Table = () => {
     getData();
   }, []);
   return (
-    <div className="flex flex-col gap-6 max-h-100 overflow-auto  p-6">
+    <div className="flex flex-col gap-2 md:gap-6 max-h-100 overflow-auto  p-6">
       <div className="flex flex-row w-full">
         <label>Nombre</label>
       </div>
