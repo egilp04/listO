@@ -10,7 +10,7 @@ const Footer:React.FC = () => {
           <img src="/" alt="logo" className="h-16 w-16"/>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 text-center">
           <label className="font-Titulos font-medium text-base">Políticas</label>
           <NavLink to="/politicas-cookies" className="text-sm hover:underline">Políticas cookies</NavLink>
           <NavLink to="/termino-servicio" className="text-sm hover:underline">Términos de servicio</NavLink>
