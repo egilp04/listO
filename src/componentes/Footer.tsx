@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="flex justify-around items-center">
 
         <div className="flex flex-col items-center justify-center">
-          <img src="/src/assets/img/logo/logo.png" alt="logo" className="h-32 w-32 object-contain" />
+          <img src="/src/assets/img/logo/logo.png" alt="logo" className="h-40 w-40 object-contain" />
         </div>
 
         <div className="flex flex-col gap-1 items-center text-center">
