@@ -90,9 +90,9 @@
 /* --text-h2-md: text-4xl;
 --text-h2-sm: text-3xl; */
 
-/* --text-h4-lg: text-4xl; */
-/* --text-h4-md: text-3xl;
---text-h3-sm: text-2-xl; */
+/* --text-h3-lg: text-4xl; */
+/* --text-h3-md: text-3xl;
+----text-h3-sm: text-2xl; */
 
 /* --text-h4-lg: text-3xl;
 --text-h4-md: text-2xl;
@@ -192,11 +192,6 @@ hover, focus: primary-700
 disabled: neutral-300
  */
 
-/* paginacion:
-gap-2
-div con los elementos -> h-7
- */
-
 /* checkbox:
 gap-2
 lg :text-xl
@@ -206,7 +201,7 @@ sm: text-sm
 
 /* menu:
  gap-1
- imgaen:
+ imagen:
     h-10
     w-10 
     size-10
