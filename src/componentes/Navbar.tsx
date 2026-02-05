@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from './Button';
+import { NavLink } from 'react-router-dom';
 
 interface NavbarProps {
   usuario?: string;
@@ -7,55 +9,53 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
-  return <>
-   <nav className="flex justify-between items-center p-3 bg-white border-2 border-dashed border-primary-500 rounded-xl ">
-    <div className="flex items-center gap-1">
-      <div className="navbar-logo">
-        <img src="" alt="logo" className="h-10 w-10"/>
+  return (
+    <nav className="flex justify-between items-center p-3 bg-white  rounded-xl">
+      <div className="flex items-center gap-1">
+        <NavLink to="/" className="navbar-logo">
+          <img src="/src/assets/img/logo/logo.png" alt="logo" className="h-20 w-20 object-contain md:h-24" />
+        </NavLink>
+        <div className="text-base text-black ml-2">
+          {estaLogueado && <span>Hola, {usuario}</span>}
+        </div>
       </div>
-      <div className="text-base text-black">
-        {estaLogueado && <span>Hola, {usuario}</span>}
-      </div>
-    </div>
-    
-    <div className="flex items-center gap-2">
-      <div className="flex gap-1">
-        {estaLogueado && (
-          <>
-          {/* {boton mi biblioteca} */}
-          {/* {boton estadisticas} */}
-          {/* {boton mi perfil} */}
-          {esAdmin &&(
+
+      <div className="flex items-center gap-2">
+        <div className="flex gap-1">
+          {estaLogueado && (
             <>
-            {/* {boton estadisticas globales} */}
-            {/* {boton gestion} */}
+              <Button variant="secundario" size="sm">Mi Biblioteca</Button>
+              <Button variant="secundario" size="sm">Estadisticas</Button>
+              <Button variant="secundario" size="sm">Mi Perfil</Button>
+              {esAdmin && (
+                <>
+                  <Button variant="secundario" size="sm">Estadisticas Globales</Button>
+                  <Button variant="secundario" size="sm">Gestión</Button>
+                </>
+              )}
             </>
           )}
-          </>
-        )}
+        </div>
+
+        <div className="flex gap-3">
+          {!estaLogueado && (
+            <>
+              <Button variant="secundario">Log in</Button>
+              <Button variant="secundario">Registro</Button>
+              <Button variant="secundario">Comienza</Button>
+            </>
+          )}
+
+          {estaLogueado && (
+            <>
+              <Button variant="fantasma">Salir</Button>
+            </>
+          )}
+
+        </div>
       </div>
-
-      <div className="flex gap-3">
-        {!estaLogueado &&(
-          <>
-          {/* {boton log in (tipo primario)} */}
-          {/* {boton  registro y es tipo secundario} */}
-          {/* {boton comienza (dudas) } */}
-          {/* {boton comienza tipo primario} */}
-          </>
-        )}
-
-        {estaLogueado &&(
-          <>
-          {/* boton Salir tipo salir*/}
-          </>
-        )}
-          
-      </div>
-    </div>
-  </nav>
-
-  </>;
+    </nav>
+  );
 };
 
 export default Navbar;

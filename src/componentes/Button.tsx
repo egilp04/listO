@@ -12,18 +12,18 @@ export default function Button({
     className = "",
     ...props
 }: ButtonProps) {
-    const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2";
+    const baseStyles = "inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none";
 
     const sizeStyles = {
-        lg: "h-[40px] min-w-[90px] px-4 text-lg",
-        md: "h-[36px] min-w-[90px] px-3 text-base",
-        sm: "h-[24px] min-w-[90px] px-2 text-sm",
+        lg: "h-[var(--spacing-btn-h-lg)] min-w-[var(--spacing-btn-w-lg)] px-4 text-lg",
+        md: "h-[var(--spacing-btn-h-md)] min-w-[var(--spacing-btn-w-md)] px-3 text-base",
+        sm: "h-[var(--spacing-btn-h-sm)] min-w-[var(--spacing-btn-w-sm)] px-2 text-sm",
     };
 
     const variants = {
-        primario: "bg-[#8993FF] text-white hover:bg-[#ACCBFF] active:bg-[#DBEDFF] disabled:bg-[#EAF4FF] focus:ring-[#8993FF]",
-        secundario: "bg-neutral-200 text-black hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-100 focus:ring-neutral-400",
-        fantasma: "bg-transparent text-[#8993FF] hover:bg-[#F5F9FF] active:bg-[#EAF4FF] disabled:text-[#DBEDFF] focus:ring-[#8993FF]",
+        primario: "bg-[var(--color-primary-700)] text-white hover:bg-[var(--color-primary-600)] active:bg-[var(--color-primary-500)] disabled:bg-[var(--color-primary-200)]",
+        secundario: "bg-gray-100 text-black hover:bg-gray-200 active:bg-[var(--color-primary-700)] active:text-white disabled:bg-gray-50",
+        fantasma: "bg-transparent text-[var(--color-primary-700)] hover:bg-[var(--color-primary-100)] active:bg-[var(--color-primary-200)] disabled:text-[var(--color-primary-300)]",
     };
 
     return (
