@@ -1,3 +1,9 @@
+import "./App.css";
+import CardBiblioteca from "./componentes/tarjetas/cardBiblioteca";
+import CardLanding from "./componentes/tarjetas/cardLanding";
+import CardEstadistica from "./componentes/tarjetas/cardEstadistica";
+import CardEstadisticaT from "./componentes/tarjetas/cardEstadisticaT";
+import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
 import { BrowserRouter } from 'react-router-dom'
 import Footer from './componentes/Footer'
 import Navbar from './componentes/Navbar'
