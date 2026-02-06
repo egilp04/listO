@@ -9,6 +9,9 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) => {
+
+    const texto = login ? "Login" : "Enviar";
+
     return (
         <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
 
@@ -37,7 +40,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
                 }
 
-                <Button>Login</Button>
+                <Button>{texto}</Button>
 
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
 

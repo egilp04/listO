@@ -158,6 +158,34 @@
   .flex-login-passwd {
     @apply flex flex-col w-full gap-4 md:gap-6;
   }
+
+  .card-genero {
+    @apply bg-white shadow-xl rounded-xl p-6 w-full max-w-[380px] mx-auto flex flex-col gap-3 h-fit;
+  }
+
+  .header-genero {
+    @apply flex flex-col w-full gap-1 mb-1;
+  }
+
+  .btn-atras-genero {
+    @apply self-start text-gray-600 hover:bg-gray-100 p-1 rounded-full transition-colors flex items-center justify-center -ml-1;
+  }
+
+  .titulo-genero {
+    @apply w-full text-center;
+  }
+
+  .form-body {
+    @apply flex flex-col gap-3;
+  }
+
+  .footer-boton {
+    @apply flex justify-center w-full mt-2;
+  }
+
+  .seccion-tipo {
+    @apply flex flex-col gap-1;
+  }
 }
 
 
