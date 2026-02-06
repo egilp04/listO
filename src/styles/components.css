@@ -68,4 +68,8 @@
         @apply grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-6;
     }
 
+    .flex-login-passwd{
+        @apply flex flex-col w-lg gap-4
+    }
+
 }

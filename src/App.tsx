@@ -5,6 +5,7 @@ import Inputs from "./componentes/Inputs/Inputs";
 import Select from "./componentes/Inputs/Select";
 import TextArea from "./componentes/Inputs/TextArea";
 import { Registro } from "./componentes/Formularios/Registro";
+import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 
 function App() {
 
@@ -31,8 +32,9 @@ function App() {
       <Checkbox label="¿aceptas políticas?" name="politicas-2" disabled></Checkbox>
       <TextArea label="Comentarios del Proyecto" name="comentarios-normal-1" placeholder="Escribe aquí tus observaciones..."/>
       <TextArea label="Comentarios del Proyecto" name="comentarios-normal-2" placeholder="Escribe aquí tus observaciones..." error="sobrepasa las letras"/>
-      <TextArea label="Comentarios del Proyecto" name="comentarios-normal-3" placeholder="Escribe aquí tus observaciones..." disabled/> */}
-      <Registro></Registro>
+      <TextArea label="Comentarios del Proyecto" name="comentarios-normal-3" placeholder="Escribe aquí tus observaciones..." disabled/>
+      <Registro></Registro> */}
+      <Login_ChangePasswd></Login_ChangePasswd>
     </div>
   );
 }
