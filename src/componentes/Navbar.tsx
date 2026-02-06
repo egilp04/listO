@@ -47,21 +47,21 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         <div className="botones-navbar">
           {estaLogueado && (
             <>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Mi Biblioteca
               </Button>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Estadísticas
               </Button>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Mi Perfil
               </Button>
               {esAdmin && (
                 <>
-                  <Button variant="secundario" size="sm">
+                  <Button variant="secundario">
                     Estadísticas Globales
                   </Button>
-                  <Button variant="secundario" size="sm">
+                  <Button variant="secundario">
                     Gestión
                   </Button>
                 </>
