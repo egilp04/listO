@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "./Button"; 
+import Button from "./Button";
 import { NavLink } from "react-router-dom";
 
 interface NavbarProps {
@@ -40,28 +40,27 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </span>
       </div>
       <div
-        className={`${
-          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-        }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
+        className={`${close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
+          }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
       >
         <div className="botones-navbar">
           {estaLogueado && (
             <>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Mi Biblioteca
               </Button>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Estadísticas
               </Button>
-              <Button variant="secundario" size="sm">
+              <Button variant="secundario">
                 Mi Perfil
               </Button>
               {esAdmin && (
                 <>
-                  <Button variant="secundario" size="sm">
+                  <Button variant="secundario">
                     Estadísticas Globales
                   </Button>
-                  <Button variant="secundario" size="sm">
+                  <Button variant="secundario">
                     Gestión
                   </Button>
                 </>

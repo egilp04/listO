@@ -37,7 +37,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
                 }
 
-                <Button size="lg">Login</Button>
+                <Button>Login</Button>
 
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
 

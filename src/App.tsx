@@ -2,11 +2,10 @@
 // import Table from "./componentes/Table";
 
 import { useEffect, useState } from "react";
-import CardEstadisticas from "./componentes/CardEstadisticas";
+import CardEstadisticas from "./componentes/tarjetas/cardEstadistica";
 import "./App.css";
 import CardBiblioteca from "./componentes/tarjetas/cardBiblioteca";
 import CardLanding from "./componentes/tarjetas/cardLanding";
-import CardEstadistica from "./componentes/tarjetas/cardEstadistica";
 import CardEstadisticaT from "./componentes/tarjetas/cardEstadisticaT";
 import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
 import { BrowserRouter } from 'react-router-dom'

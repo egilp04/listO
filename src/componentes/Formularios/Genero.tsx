@@ -18,15 +18,15 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
 
             <form className="card-registro" {...props}>
                 <h2>{titulo}</h2>
-                <Inputs label ="nombre" type="text" name="nombre_item" placeholder="Ej:Suspense"></Inputs>
+                <Inputs label="nombre" type="text" name="nombre_item" placeholder="Ej:Suspense"></Inputs>
                 <div className="">
-                  <h3>Tipo:</h3>
-                  <Checkbox label="Juego"></Checkbox>
-                  <Checkbox label="Libro"></Checkbox>
+                    <h3>Tipo:</h3>
+                    <Checkbox label="Juego"></Checkbox>
+                    <Checkbox label="Libro"></Checkbox>
                 </div>
                 <TextArea label="Descripción" placeholder="Añada su descripción"></TextArea>
 
-                <Button size="lg">Guardar</Button>
+                <Button>Guardar</Button>
 
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
 
