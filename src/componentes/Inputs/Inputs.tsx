@@ -7,7 +7,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 function Inputs({ label, error, name, disabled, variant = "primario", ...props }: InputFieldProps) {
-  const cursorClass = disabled ? "cursor-not-allowed" : "cursor-text";
+
   const colorClass = error ? "input-error" : `input-border-${variant}`;
 
   return (
@@ -19,7 +19,7 @@ function Inputs({ label, error, name, disabled, variant = "primario", ...props }
         id={name}
         name={name}
         disabled={disabled}
-        className={`input-style-comun input-responsive ${colorClass} ${disabled ? "input-disabled" : cursorClass}`}
+        className={`input-style-comun input-responsive ${disabled ? "input-disabled cursor-not-allowed" : `${colorClass}`}`}
         {...props}
       />
       {error && <p className="span-error mt-1 h-4">{error}</p>}

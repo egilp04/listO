@@ -8,7 +8,6 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 function TextArea({ label, error, name, disabled, variant = "primario", ...props }: TextAreaProps) {
 
-  const cursorClass = disabled ? "cursor-not-allowed" : "cursor-text";
   const colorClass = error ? "input-error" : `input-border-${variant}`;
 
   return (
@@ -23,7 +22,7 @@ function TextArea({ label, error, name, disabled, variant = "primario", ...props
         id={name}
         name={name}
         disabled={disabled}
-        className={`input-style-comun textarea-style textarea-responsive ${colorClass} ${disabled ? "input-disabled" : cursorClass}`}
+        className={`input-style-comun textarea-style textarea-responsive ${disabled ? "input-disabled cursor-not-allowed" : `cursor-text  ${colorClass}`}`}
         {...props}
       />
       {error ? (
