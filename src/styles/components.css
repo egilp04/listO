@@ -53,7 +53,11 @@
     }
 
     .select-responsive {
-        @apply h-8 p-1 text-xs md:h-10 md:p-2 md:text-sm lg:h-11 lg:p-3 lg:text-base;
+        @apply h-8 p-1 text-xs md:h-10 md:p-2 md:text-sm lg:h-11 lg:p-2 lg:text-base;
+    }
+
+    .select-color-text {
+        @apply text-primary-600
     }
 
 }

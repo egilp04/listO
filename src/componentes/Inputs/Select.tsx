@@ -13,13 +13,12 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 export default function Select({options, value="",variant = "primario", disabled, ...props}: SelectProps) {
   
   const colorClass = `input-border-${variant}`;
-  const cursorClass = disabled ? "cursor-not-allowed" : "cursor-pointer";
-
+  
   return (
     <select
       value={value}
       disabled={disabled}
-      className={`select-responsive ${colorClass} ${disabled ? "input-disabled" : cursorClass}`}
+      className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
       {...props}
     >
       <option value= "" disabled hidden>Seleccionar</option>
