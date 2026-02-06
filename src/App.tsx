@@ -1,12 +1,24 @@
 import "./App.css";
 import CardBiblioteca from "./componentes/tarjetas/cardBiblioteca";
 import CardLanding from "./componentes/tarjetas/cardLanding";
+import CardEstadistica from "./componentes/tarjetas/cardEstadistica";
+import CardEstadisticaT from "./componentes/tarjetas/cardEstadisticaT";
 
 function App() {
 
   return (
     <>
       <div className="p-10 bg-gray-100 min-h-screen flex flex-col items-center justify-center gap-10">
+
+        <div className="w-full max-w-sm flex flex-col gap-4">
+          <CardEstadistica
+            numero={4}
+            texto="Total libros subidos este año"
+            imagen="https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
+          />
+          <CardEstadisticaT numero={1} texto="El código Da Vinci" />
+          <CardEstadisticaT numero={2} texto="Cien años de soledad" />
+        </div>
         <CardBiblioteca
           item={{
             imagen: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=800&auto=format&fit=crop",
