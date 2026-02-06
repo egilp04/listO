@@ -39,4 +39,8 @@
         @apply flex flex-col items-center bg-white rounded-xl overflow-hidden shadow-elevation-1 mx-auto w-full max-w-[400px] md:max-w-[400px] lg:max-w-[800px];
     }
 
+    .card-estadistica-g {
+        @apply bg-primary-500 rounded-[12px] flex items-center justify-between w-full gap-[14px] md:gap-[30px] lg:gap-[47px] p-[10px] md:p-[15px] lg:p-[20px]
+    }
+
 }
