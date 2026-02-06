@@ -1,0 +1,6 @@
+[
+  { "id": 1, "label": "Total libros subidos este año", "value": 4 },
+  { "id": 2, "label": "Valoración Media", "value": 8 },
+  { "id": 3, "label": "Libros Completados", "value": 8 },
+  { "id": 4, "label": "Videojuegos Completados", "value": 8 }
+]

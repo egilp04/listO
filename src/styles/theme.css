@@ -70,12 +70,13 @@
   --spacing-btn-w-lg: 90px;
   --spacing-btn-w-md: 86px;
   --spacing-btn-w-sm: 54px;
-  --spacing-peronalzazo-6: 6px;
-  --spacing-peronalzazo-14: 14px;
-  --spacing-peronalzazo-47: 47px;
-  --spacing-peronalzazo-50: 50px;
-  --spacing-peronalzazo-70: 70px;
-  --spacing-peronalzazo-150: 150px;
+  --spacing-personalizado-6: 6px;
+  --spacing-personalizado-14: 14px;
+  --spacing-personalizado-30: 30px;
+  --spacing-personalizado-47: 47px;
+  --spacing-personalizado-50: 50px;
+  --spacing-personalizado-70: 70px;
+  --spacing-personalizado-150: 150px;
 }
 
 /* TAMAÑO TEXTOS */

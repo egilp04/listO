@@ -1,0 +1,6 @@
+[
+  { "id": 1, "label": "Libros subidos este año", "value": 4 },
+  { "id": 2, "label": "Libros subidos este año", "value": 8 },
+  { "id": 3, "label": "Libros subidos este mes", "value": 8 },
+  { "id": 4, "label": "Libros subidos este mes", "value": 8 }
+]
