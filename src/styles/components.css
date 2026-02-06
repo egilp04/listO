@@ -14,4 +14,36 @@
   .close-icon {
     @apply flex w-full justify-end;
   }
+
+  .tarjeta-estadisticas {
+    @apply rounded-sm hover:shadow-elevation-3 max-w-50;
+  }
+
+  .tarjeta-total-estadisticas {
+    @apply bg-primary-500 text-primary-50 flex flex-row gap-5 justify-center items-center md:gap-personalizado-30 lg:gap-personalizado-47 p-2;
+  }
+  .numero-estadisticas-total {
+    @apply bg-primary-50 text-primary-700 h-full w-3 rounded-sm p-2 text-center flex justify-center items-center;
+  }
+
+  .tarjeta-individual-estadisticas {
+    @apply bg-primary-50 text-primary-700 flex flex-col p-1 md:gap-2 border border-primary-700;
+  }
+
+  .numero-estadistica-individual {
+    @apply w-auto bg-primary-300 p-2 rounded-sm text-primary-700 h-full text-center flex justify-center items-center;
+  }
+
+  .tarjeta-estadisticas-top {
+    @apply bg-primary-50 text-primary-700 flex flex-col gap-1 md:gap-personalizado-6 lg:gap-2;
+  }
+  .tarjeta-estadisticas-top-user {
+    @apply bg-primary-50 text-primary-700 border border-neutral-100;
+  }
+  .tarjeta-estadisticas-top-admin {
+    @apply text-primary-50 bg-primary-700;
+  }
+  .numero-estadisticas-top {
+    @apply bg-primary-300 text-primary-700 rounded-xl h-personalizado-6 w-personalizado-6 md:h-3 md:w-3 text-center flex justify-center items-center;
+  }
 }

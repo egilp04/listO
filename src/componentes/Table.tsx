@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 
+interface infoInterface {
+  nombre: string;
+}
+
 const Table = () => {
-  const [info, setInfo] = useState<string[]>([]);
+  const [info, setInfo] = useState<infoInterface[]>([]);
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch("src/mock/usuarios.json");
-      const datos = await res.json();
-      setInfo(datos);
+      try {
+        const res = await fetch("src/mock/usuarios.json");
+        const datos = await res.json();
+        setInfo(datos);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
   }, []);
