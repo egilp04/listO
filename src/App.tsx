@@ -1,36 +1,31 @@
-// import Dialog from "./componentes/Dialog";
-// import Table from "./componentes/Table";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
+import AppLayout from "./layouts/AppLayout";
 
-import { useEffect, useState } from "react";
-import CardEstadisticas from "./componentes/tarjetas/cardEstadistica";
-import "./App.css";
-import CardBiblioteca from "./componentes/tarjetas/cardBiblioteca";
-import CardLanding from "./componentes/tarjetas/cardLanding";
-import CardEstadisticaT from "./componentes/tarjetas/cardEstadisticaT";
-import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
-import { BrowserRouter } from 'react-router-dom'
-import Footer from './componentes/Footer'
-import Navbar from './componentes/Navbar'
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    // children: [{ path: "/", element: <Landing /> }],
+    // children: [{ path: "/biblioteca", element: <biblioteca /> }],
+    // children: [{ path: "/estadisticas", element: <estadisticas /> }],
+    // children: [{ path: "/estadisticasglobales", element: <estadisticasglobales /> }],
+    // children: [{ path: "/gestion", element: <gestion /> }],
+    // // children: [{ path: "/perfil", element: <perfil /> }],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      // { path: "/signIn", element: <SignInPage /> },
+      // { path: "/signUp", element: <SignUpPage /> },
+      // { path: "/recuperar-pass", element: <recuperar-pass /> },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col bg-white">
-        <header className="p-4 flex flex-col gap-4">
-          <Navbar />
-
-          <Navbar usuario="Mery" estaLogueado={true} />
-
-          <Navbar usuario="Admin" estaLogueado={true} esAdmin={true} />
-        </header>
-
-        <main className="flex-1 p-8">
-        </main>
-
-        <Footer />
-      </div>
-    </BrowserRouter>
-  )
+  return <RouterProvider router={router} />;
 }
 
 export default App;
+
+//botones de usuarios, gestion -> lleva useNavigate
