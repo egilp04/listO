@@ -3,76 +3,35 @@
 
 import { useEffect, useState } from "react";
 import CardEstadisticas from "./componentes/CardEstadisticas";
+import "./App.css";
+import CardBiblioteca from "./componentes/tarjetas/cardBiblioteca";
+import CardLanding from "./componentes/tarjetas/cardLanding";
+import CardEstadistica from "./componentes/tarjetas/cardEstadistica";
+import CardEstadisticaT from "./componentes/tarjetas/cardEstadisticaT";
+import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
+import { BrowserRouter } from 'react-router-dom'
+import Footer from './componentes/Footer'
+import Navbar from './componentes/Navbar'
 
 function App() {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        // const res = await fetch("src/mock/cardsAdminStats.json");
-        // const res = await fetch("src/mock/cardsIndividualStats.json");
-        // const res = await fetch("src/mock/cardsTotalStats.json");
-        const res = await fetch("src/mock/cardTopStatsAdmin.json");
-        const info = await res.json();
-        setData(info);
-        console.log(info);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
   return (
-    <>
-      {/* <Dialog titulo="Hola" descripcion="hola"></Dialog>
-      <Table></Table> */}
-      {/* <div className="flex flex-col gap-10">
-        {data.map(({ label, value }) => (
-          <CardEstadisticas
-            label={label}
-            variante="total"
-            conteo={value}
-          ></CardEstadisticas>
-        ))}
-      </div> */}
-      {/* {
-        <div className="flex flex-col gap-10">
-          {data.map(({ label, value }) => (
-            <CardEstadisticas
-              label={label}
-              conteo={value}
-              variante="individual"
-              imagen="src/assets/img/estrella.png"
-            ></CardEstadisticas>
-          ))}
-        </div>
-      } */}
-      {/* {
-        <div className="flex flex-col gap-10">
-          {data.map(({ label, value }) => (
-            <CardEstadisticas
-              label={label}
-              variante="topAdmin"
-              imagen="src/assets/img/estrella.png"
-              totalTop={value}
-            ></CardEstadisticas>
-          ))}
-        </div>
-      } */}
-      {
-        <div className="flex flex-col gap-10">
-          {data.map(({ label, value }) => (
-            <CardEstadisticas
-              label={label}
-              variante="topUser"
-              imagen="src/assets/img/estrella.png"
-              totalTop={value}
-            ></CardEstadisticas>
-          ))}
-        </div>
-      }
-    </>
-  );
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col bg-white">
+        <header className="p-4 flex flex-col gap-4">
+          <Navbar />
+
+          <Navbar usuario="Mery" estaLogueado={true} />
+
+          <Navbar usuario="Admin" estaLogueado={true} esAdmin={true} />
+        </header>
+
+        <main className="flex-1 p-8">
+        </main>
+
+        <Footer />
+      </div>
+    </BrowserRouter>
+  )
 }
 
 export default App;
