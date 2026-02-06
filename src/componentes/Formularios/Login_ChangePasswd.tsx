@@ -1,7 +1,7 @@
 import type { FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
     error?: string;
