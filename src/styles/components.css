@@ -1,3 +1,56 @@
 @layer components {
+    /* --- INPUTS DE TEXTO RESPONSIVOS --- */
+    /* Se adaptan solos en una línea: móvil (h-6) -> tablet (md:h-9) -> escritorio (lg:h-10) */
+    .input-responsive {
+        @apply h-6 p-2 text-xs md:h-9 md:p-3 md:text-sm lg:h-10 lg:text-base;
+    }
 
+    /* --- CHECKBOX RESPONSIVOS --- */
+    /* Define el tamaño del cuadro en una sola línea: móvil (size-3) -> tablet (md:size-4) -> escritorio (lg:size-5) */
+    .checkbox-responsive {
+        @apply size-3 md:size-4 lg:size-5;
+    }
+
+    /* --- ESTILOS BASE Y ESTADOS --- */
+    .input-style-comun {
+        @apply w-full flex items-center border-2 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400;
+    }
+
+    /* El modificador ! asegura que el cursor 'not-allowed' tenga prioridad sobre el pointer */
+    .input-disabled {
+        @apply bg-gray-100 border-neutral-300 cursor-not-allowed! text-neutral-400;
+    }
+
+    .label-disabled {
+        @apply text-neutral-400 cursor-not-allowed!;
+    }
+
+    /* --- VARIANTES Y ERRORES --- */
+    .input-border-primario { 
+        @apply border-primary-500 hover:border-primary-600 focus:border-primary-700; 
+    }
+
+    .input-border-info { 
+        @apply border-info-500 hover:border-info-600 focus:border-info-700; 
+    }
+
+    .input-error { 
+        @apply border-danger-500; 
+    }
+
+    .span-error {
+        @apply text-danger-500 text-xs font-Otros;
+    }
+
+    .checkbox-container {
+        @apply flex items-center gap-2 my-2; /* gap-2 es la separación de 8px según tu diseño */
+    }
+
+    .checkbox-input {
+        @apply rounded border-gray-300 text-primary-600 focus:ring-primary-500 transition-all;
+    }
+
+    .textArea-style {
+        @apply w-full h-full gap-1 p-2 px-3;
+    }
 }

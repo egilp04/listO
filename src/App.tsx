@@ -1,20 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Checkbox from "./componentes/Inputs/Checkbox";
+import Inputs from "./componentes/Inputs/Inputs";
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-      <Inputs label="nombre" input="text" placeholder='Ponga su nombre' size="lg" tiporegex="nombre_Ape"></Inputs>
-      <Inputs label="nombre" input="text" placeholder='Ponga su nombre' size="sm"></Inputs>
-      <Inputs label="nombre" input="text" placeholder='Ponga su nombre' size="md"></Inputs>
-      <Inputs label="textarea" input="textarea" placeholder='Esto es un textarea' size="lg"></Inputs>
-      <Inputs label="introduce tu  número" input="number" placeholder='ej: 5' size="md"></Inputs>
-      <Inputs label="introduce tu  número" input="number" placeholder='ej: 5' size="md" disabled></Inputs>
-      <Inputs label="nombre" input="text" placeholder='Ponga su nombre' size="md" error ="No coincide la regex"></Inputs>
+      <Inputs label="nombre" name="text" type = "text" placeholder='Ponga su nombre'></Inputs>
+      <Inputs label="nombre" name="text" placeholder='Ponga su nombre' error= "NO es el nombre" ></Inputs>
+      <Inputs label="nombre" name="text" placeholder='Ponga su nombre' ></Inputs>
+      <Inputs label="introduce tu  número" name="number" type = "number" placeholder='ej: 5' ></Inputs>
+      <Inputs label="introduce tu  número" name="number" type = "number" placeholder='ej: 5' disabled></Inputs>
+      <Inputs label="nombre" name="text" placeholder='Ponga su nombre'></Inputs>
+      <Checkbox label="¿aceptas políticas?" name="politicas" ></Checkbox>
+      <Checkbox label="¿aceptas políticas?" name="politicas" disabled></Checkbox>
     </>
   );
 }
