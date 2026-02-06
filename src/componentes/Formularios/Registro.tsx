@@ -7,11 +7,11 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
 }
 
-export const Registro = ({ error }: RegistroProps) => {
+export const Registro = ({ error,...props }: RegistroProps) => {
   return (
     <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
       
-      <div className="card-registro">
+      <form className="card-registro" {...props}>
         <h2>Registro</h2>
         
         <div className="grid-registro">
@@ -26,7 +26,7 @@ export const Registro = ({ error }: RegistroProps) => {
         <Checkbox label="Aceptar políticas" name="politicas" />
         <Button size="lg">Registrar</Button>
 
-      </div>
+      </form>
     </div>
   );
 };

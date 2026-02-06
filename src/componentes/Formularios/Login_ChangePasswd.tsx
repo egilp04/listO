@@ -1,17 +1,18 @@
 import type { FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
+import { Link } from 'react-router-dom';
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
     error?: string;
     login?: boolean
 }
 
-export const Login_ChangePasswd = ({ error, login }: RegistroProps) => {
+export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) => {
     return (
         <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
 
-            <div className="card-registro">
+            <form className="card-login_passwd" {...props}>
                 {login ? (
                     <>
                         <h2>Inicio Sesión</h2>
@@ -20,7 +21,9 @@ export const Login_ChangePasswd = ({ error, login }: RegistroProps) => {
                             <Inputs label="Usuario" type="text" placeholder="Ej: enrique@gmail.com" name="nombre" />
                             <Inputs label="Apellidos" type="password" placeholder="********" name="`passwd" />
                         </div>
-                        <span>¿Has olvidado la contraseña?Pulse Aquí</span>
+                        <span>¿Has olvidado la contraseña? Pulse Aquí.
+                            {/* <Link to="">AQUÍ</Link> */}
+                        </span>
                     </>
                 ) : (<>
 
@@ -38,7 +41,7 @@ export const Login_ChangePasswd = ({ error, login }: RegistroProps) => {
 
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
 
-            </div>
+            </form>
         </div>
     );
 };
