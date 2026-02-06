@@ -7,18 +7,20 @@ interface DialogInterface {
 
 const Dialog = ({ titulo, descripcion }: DialogInterface) => {
   return (
-    <div className="flex flex-col gap-8 rounded-sm p-6 max-w-125 bg-primary-50 shadow-elevation-3 border border-neutral-100">
-      <div className="flex w-full justify-end">x</div>
+    <div className="dialog">
+      <div className="close-icon">
+        <span className="material-symbols-outlined">close</span>
+      </div>
       <div className="flex flex-col gap-4 ">
         <h2>{titulo}</h2>
         <p>{descripcion}</p>
       </div>
       <div className="flex flex-row gap-2 justify-end pr-2">
-        <Button>
+        <Button variant="fantasma">
           <span>No, cancelar</span>
         </Button>
         <Button>
-          <span>No, cancelar</span>
+          <span>Sí, confirmar</span>
         </Button>
       </div>
     </div>

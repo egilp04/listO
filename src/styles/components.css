@@ -1,3 +1,17 @@
 @layer components {
+  .table {
+    @apply flex flex-col gap-2 md:gap-6 max-h-100 overflow-auto p-6;
+  }
 
+  .rows-table {
+    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row;
+  }
+
+  .dialog {
+    @apply flex flex-col gap-8 rounded-sm p-6 max-w-125 bg-primary-50 shadow-elevation-3 border border-neutral-100;
+  }
+
+  .close-icon {
+    @apply flex w-full justify-end;
+  }
 }
