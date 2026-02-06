@@ -16,6 +16,6 @@
     }
 
     .card-biblioteca {
-        @apply flex flex-col bg-white rounded-xl shadow-elevation-1 gap-3 md:gap-3 lg:gap-5 overflow-hidden max-w-[320px];
+        @apply flex flex-col bg-white rounded-xl shadow-elevation-1 gap-2 md:gap-2 lg:gap-3 overflow-hidden max-w-[320px];
     }
 }
