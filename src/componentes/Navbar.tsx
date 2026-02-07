@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 interface NavbarProps {
   usuario?: string;
@@ -9,6 +9,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
+  const location = useLocation();
   const [close, setClose] = useState(true);
 
   const handleClick = () => {
@@ -70,11 +71,16 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </div>
         <div className="botones-navbar">
           {!estaLogueado ? (
-            <>
-              <Button variant="secundario">Log in</Button>
-              <Button variant="secundario">Registro</Button>
-              <Button variant="secundario">Comienza</Button>
-            </>
+            location.pathname === '/' ? (
+              <NavLink to="/login">
+                <Button variant="primario">Comienza</Button>
+              </NavLink>
+            ) : (
+              <>
+                <NavLink to="/login"><Button variant="secundario">Log in</Button></NavLink>
+                <NavLink to="/registro"><Button variant="secundario">Registro</Button></NavLink>
+              </>
+            )
           ) : (
             <Button variant="fantasma">Salir</Button>
           )}
