@@ -1,7 +1,7 @@
-import EstadisticasGlobales from "./pages/EstadisticasGlobales";
+import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
 
 function App() {
-  return <EstadisticasGlobales></EstadisticasGlobales>;
+  return <FormularioGestionGeneros></FormularioGestionGeneros>;
 }
 
 export default App;
