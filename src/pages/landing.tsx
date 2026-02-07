@@ -7,23 +7,25 @@ import Button from "../componentes/Button";
 import card1 from "../assets/img/cards/carta_landing1.webp";
 import card2 from "../assets/img/cards/carta_landing2.webp";
 import card3 from "../assets/img/cards/carta_landing3.webp";
+import card0 from "../assets/img/cards/carta_landing0.webp";
 import card4 from "../assets/img/cards/carta_landing4.webp";
+import card5 from "../assets/img/cards/carta_landing5.webp";
 
 const Landing = () => {
   const heroImage = "https://placehold.co/800x500?text=Hero+Image";
+  const featureImage0 = card0;
   const featureImage1 = card1;
   const featureImage2 = card2;
   const featureImage3 = card3;
   const featureImage4 = card4;
-  const statsImage = "https://placehold.co/600x400?text=Stats+Image";
+  const featureImage5 = card5;
 
   return (
     <div className="min-h-screen flex flex-col bg-primary-50">
       <Navbar estaLogueado={false} />
       <main className="grow flex flex-col items-center w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 gap-20">
-        {/* Sección Hero */}
-        <section className="flex flex-col items-center text-center gap-8 w-full max-w-4xl">
-          <div className="flex flex-col gap-4 md:gap-8">
+        <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
+          <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
             <h1>El espacio para tus historias</h1>
             <p>
               Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine
@@ -33,9 +35,9 @@ const Landing = () => {
           <Link to="/login">
             <Button variant="primario">Comenzar</Button>
           </Link>
-          <div className="w-full max-w-3xl mt-8">
+          <div className="w-full mt-8">
             <img
-              src={heroImage}
+              src={featureImage5}
               alt="Bitácora digital"
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
@@ -54,8 +56,6 @@ const Landing = () => {
             </p>
           </div>
         </section>
-
-        {/* Carta 1 */}
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -64,8 +64,6 @@ const Landing = () => {
             invertido={false}
           />
         </section>
-
-        {/* Carta 2 */}
         <section className="w-full">
           <CardLanding
             titulo="Tu crítica, tus reglas"
@@ -74,8 +72,6 @@ const Landing = () => {
             invertido={true}
           />
         </section>
-
-        {/* Carta 3 */}
         <section className="w-full">
           <CardLanding
             titulo="Ordena tu caos digital"
@@ -84,13 +80,11 @@ const Landing = () => {
             invertido={false}
           />
         </section>
-
-        {/* Carta 4 */}
         <section className="w-full">
           <CardLanding
             titulo="Visualiza tus logros"
             descripcion="Descubre tus verdaderos hábitos de consumo cultural. Accede a tu panel de estadísticas y deja que los datos cuenten tu historia."
-            imagen={featureImage4}
+            imagen={featureImage0}
             invertido={true}
           />
         </section>
@@ -100,7 +94,7 @@ const Landing = () => {
           <CardLanding
             titulo="Listas completadas"
             descripcion="ListO no es solo una App, es la suma de tus ideas. Listas esperando a ser completadas por ti."
-            imagen={statsImage}
+            imagen={featureImage4}
             invertido={false}
           />
         </section>
