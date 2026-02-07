@@ -14,7 +14,7 @@ export const Genero = ({ error, crear = true, ...props }: RegistroProps) => {
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
   return (
-    <div className="flex justify-center items-center bg-gray-50">
+    <div className="flex justify-center items-center">
       <form className="card-registro" {...props}>
         <h2>{titulo}</h2>
         <Inputs
