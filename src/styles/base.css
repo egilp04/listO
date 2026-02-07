@@ -5,6 +5,12 @@
     box-sizing: border-box;
   }
 
+  html,
+  body,
+  #root {
+    @apply min-h-screen h-full;
+  }
+
   h1 {
     @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl;
   }

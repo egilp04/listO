@@ -4,7 +4,7 @@ import Table from "../componentes/Table";
 
 const GestionAdmin = () => {
   return (
-    <div className="bg-primary-200 flex flex-col h-screen gap-4 lg:gap-12 2xl:gap-14 p-4">
+    <div className="bg-primary-200 flex flex-col min-h-screen gap-4 lg:gap-12 2xl:gap-14 p-4">
       <div className="w-full">
         <span className="material-symbols-outlined">arrow_back</span>
       </div>
