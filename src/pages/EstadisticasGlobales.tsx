@@ -49,10 +49,10 @@ const EstadisticasGlobales = () => {
           <CardEstadisticaG texto={label} numero={value}></CardEstadisticaG>
         ))}
       </div>
-      <div className="w-full flex flex-col items-center justify-center">
-        <div className="flex flex-col bg-primary-500 p-6 w-auto rounded-sm">
-          <div className="flex flex-row gap-2">
-            <div className="h-10 w-10 flex flex-row gap-2">
+      <div className="w-full flex flex-col items-center justify-center pr-10 pl-10 md:pr-28 md:pl-28 mb-10">
+        <div className="flex flex-col bg-primary-500 p-6 w-full rounded-sm">
+          <div className="flex flex-row gap-6 items-center">
+            <div className=" w-20 flex flex-row gap-2 h-full">
               {" "}
               <img src="src/assets/img/logo/logo.webp"></img>
             </div>
