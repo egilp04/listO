@@ -1,7 +1,7 @@
-import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
 import { BrowserRouter } from 'react-router-dom'
 import Footer from './componentes/Footer'
 import Navbar from './componentes/Navbar'
+import Biblioteca from "./pages/biblioteca";
 
 function App() {
   return (
@@ -16,8 +16,8 @@ function App() {
         </header>
 
         <main className="flex-1 p-8 flex flex-col gap-8">
-          <h2 className="text-2xl font-bold mb-4">Demo CardEstadisticaG</h2>
-          <CardEstadisticaG numero={100} texto="Total Usuarios" />
+          <h2 className="text-2xl font-bold mb-4">Mi Biblioteca</h2>
+          <Biblioteca />
         </main>
 
         <Footer />
