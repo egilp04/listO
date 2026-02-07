@@ -24,7 +24,7 @@
   }
 
   .card-estadistica {
-    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25  md:p-2.5 rounded-sm lg:p-5;
+    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5;
   }
 
   .card-landing.invertido {
@@ -136,7 +136,12 @@
   }
 
   .select-responsive {
-    @apply h-8 p-1 text-xs md:h-10 md:p-2 md:text-sm lg:h-11 lg:p-2 lg:text-base;
+
+    @apply appearance-none h-8 p-1 text-xs md:h-10 md:p-2 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:text-base;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em 1.5em;
   }
 
   .select-color-text {
