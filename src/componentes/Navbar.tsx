@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
       <div className="flex items-center gap-3">
         <NavLink to="/" className="navbar-logo">
           <img
-            src="/src/assets/img/logo/logo.png"
+            src="/src/assets/img/logo/logo.webp"
             alt="logo"
             className="h-20 w-20 object-contain md:h-24"
           />
@@ -41,29 +41,20 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </span>
       </div>
       <div
-        className={`${close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-          }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
+        className={`${
+          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
+        }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
       >
         <div className="botones-navbar">
           {estaLogueado && (
             <>
-              <Button variant="secundario">
-                Mi Biblioteca
-              </Button>
-              <Button variant="secundario">
-                Estadísticas
-              </Button>
-              <Button variant="secundario">
-                Mi Perfil
-              </Button>
+              <Button variant="secundario">Mi Biblioteca</Button>
+              <Button variant="secundario">Estadísticas</Button>
+              <Button variant="secundario">Mi Perfil</Button>
               {esAdmin && (
                 <>
-                  <Button variant="secundario">
-                    Estadísticas Globales
-                  </Button>
-                  <Button variant="secundario">
-                    Gestión
-                  </Button>
+                  <Button variant="secundario">Estadísticas Globales</Button>
+                  <Button variant="secundario">Gestión</Button>
                 </>
               )}
             </>
@@ -71,14 +62,18 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </div>
         <div className="botones-navbar">
           {!estaLogueado ? (
-            location.pathname === '/' ? (
+            location.pathname === "/" ? (
               <NavLink to="/login">
                 <Button variant="primario">Comienza</Button>
               </NavLink>
             ) : (
               <>
-                <NavLink to="/login"><Button variant="secundario">Log in</Button></NavLink>
-                <NavLink to="/registro"><Button variant="secundario">Registro</Button></NavLink>
+                <NavLink to="/login">
+                  <Button variant="secundario">Log in</Button>
+                </NavLink>
+                <NavLink to="/registro">
+                  <Button variant="secundario">Registro</Button>
+                </NavLink>
               </>
             )
           ) : (

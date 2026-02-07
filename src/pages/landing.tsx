@@ -1,14 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from '../componentes/Navbar';
-import Footer from '../componentes/Footer';
-import Button from '../componentes/Button';
-import CardLanding from '../componentes/tarjetas/cardLanding';
+import { Link } from "react-router-dom";
+import Navbar from "../componentes/Navbar";
+import Footer from "../componentes/Footer";
+import CardLanding from "../componentes/tarjetas/cardLanding";
+import Button from "../componentes/Button";
 
-import card1 from '../assets/img/cards/carta_landing1.jpg';
-import card2 from '../assets/img/cards/carta_landing2.jpg';
-import card3 from '../assets/img/cards/carta_landing3.jpg';
-import card4 from '../assets/img/cards/carta_landing4.jpg';
+import card1 from "../assets/img/cards/carta_landing1.webp";
+import card2 from "../assets/img/cards/carta_landing2.webp";
+import card3 from "../assets/img/cards/carta_landing3.webp";
+import card4 from "../assets/img/cards/carta_landing4.webp";
 
 const Landing = () => {
   const heroImage = "https://placehold.co/800x500?text=Hero+Image";
@@ -21,21 +20,18 @@ const Landing = () => {
   return (
     <div className="min-h-screen flex flex-col bg-primary-50">
       <Navbar estaLogueado={false} />
-      <main className="flex-grow flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 gap-20">
+      <main className="grow flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 gap-20">
         {/* Sección Hero */}
         <section className="flex flex-col items-center text-center gap-8 w-full max-w-4xl">
           <div className="space-y-4">
-            <h1>
-              El espacio para tus historias
-            </h1>
+            <h1>El espacio para tus historias</h1>
             <p>
-              Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine y música en un catálogo personal único y organizado
+              Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine
+              y música en un catálogo personal único y organizado
             </p>
           </div>
           <Link to="/login">
-            <Button variant="primario">
-              Comenzar
-            </Button>
+            <Button variant="primario">Comenzar</Button>
           </Link>
           <div className="w-full max-w-3xl mt-8">
             <img
@@ -49,7 +45,12 @@ const Landing = () => {
               Tu bitácora digital de entretenimiento
             </h2>
             <p className="text-base md:text-lg text-black leading-relaxed font-Otros">
-              Nuestra aplicación te permite registrar y valorar todos los libros, juegos y contenidos multimedia que has terminado. Podrás documentar cada título con su fecha, reseña e imagen, y visualizar tu historial mediante estadísticas de progreso anual y puntuación media, siendo el espacio ideal para preservar y organizar tus experiencias culturales.
+              Nuestra aplicación te permite registrar y valorar todos los
+              libros, juegos y contenidos multimedia que has terminado. Podrás
+              documentar cada título con su fecha, reseña e imagen, y visualizar
+              tu historial mediante estadísticas de progreso anual y puntuación
+              media, siendo el espacio ideal para preservar y organizar tus
+              experiencias culturales.
             </p>
           </div>
         </section>
@@ -107,6 +108,6 @@ const Landing = () => {
       <Footer />
     </div>
   );
-}
+};
 
 export default Landing;
