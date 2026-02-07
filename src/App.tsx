@@ -1,25 +1,33 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
+import Estadisticas from "./pages/Estadisticas";
+import Landing from "./pages/landing";
+import MiPerfil from "./pages/miPerfil";
+import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 
 const router = createBrowserRouter([
-  {
+  /*{
     element: <AppLayout />,
-    // children: [{ path: "/", element: <Landing /> }],
-    // children: [{ path: "/biblioteca", element: <biblioteca /> }],
-    // children: [{ path: "/estadisticas", element: <estadisticas /> }],
-    // children: [{ path: "/estadisticasglobales", element: <estadisticasglobales /> }],
-    // children: [{ path: "/gestion", element: <gestion /> }],
-    // // children: [{ path: "/perfil", element: <perfil /> }],
+    children: [
+      { path: "/", element: <Landing /> },
+    ],
+  },*/
+  {
+    path: "/",
+    element: <Estadisticas />,
+  },
+  /*{
+    path: "/miperfil",
+    element: <MiPerfil />,
   },
   {
     element: <AuthLayout />,
     children: [
-      // { path: "/signIn", element: <SignInPage /> },
-      // { path: "/signUp", element: <SignUpPage /> },
-      // { path: "/recuperar-pass", element: <recuperar-pass /> },
+      { path: "/login", element: <Login_ChangePasswd login={true} /> },
+      { path: "/registro", element: <Login_ChangePasswd login={false} /> },
     ],
-  },
+  },*/
 ]);
 
 function App() {
@@ -28,4 +36,4 @@ function App() {
 
 export default App;
 
-//botones de usuarios, gestion -> lleva useNavigate
+
