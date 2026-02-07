@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../componentes/Footer";
 import Navbar from "../componentes/Navbar";
 
 const AuthLayout = () => {
@@ -10,7 +9,6 @@ const AuthLayout = () => {
       <main className="flex-1 container mx-auto px-4 py-6">
         <Outlet></Outlet>
       </main>
-      <Footer></Footer>
     </div>
   );
 };
