@@ -1,17 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import Landing from "./pages/landing";
 import MiPerfil from "./pages/miPerfil";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
+import Landing from "./pages/landing";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Landing />} /> */}
-        <Route path="/" element={<MiPerfil />} />
+         <Route path="/" element={<Landing />} /> 
         <Route path="/login" element={<Login_ChangePasswd login={true} />} />
         <Route path="/registro" element={<Login_ChangePasswd login={false} />} />
-        {/* <Route path="/miperfil" element={<MiPerfil />} /> */}
+        <Route path="/miperfil" element={<MiPerfil />} /> 
       </Routes>
     </BrowserRouter>
   );
