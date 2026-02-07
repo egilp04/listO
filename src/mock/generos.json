@@ -1,0 +1,35 @@
+[
+  {
+    "nombre": "Juan Pérez García",
+    "genero": "Masculino"
+  },
+  {
+    "nombre": "María Rodríguez López",
+    "genero": "Femenino"
+  },
+  {
+    "nombre": "Carlos Sánchez Fernández",
+    "genero": "Masculino"
+  },
+  {
+    "genero": "Femenino"
+  },
+  {
+    "genero": "Masculino"
+  },
+  {
+    "genero": "Femenino"
+  },
+  {
+    "genero": "Masculino"
+  },
+  {
+    "genero": "Femenino"
+  },
+  {
+    "genero": "Masculino"
+  },
+  {
+    "genero": "Femenino"
+  }
+]

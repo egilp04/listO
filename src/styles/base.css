@@ -1,0 +1,57 @@
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body,
+  #root {
+    @apply min-h-screen h-full;
+  }
+
+  h1 {
+    @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl;
+  }
+
+  h2 {
+    @apply text-primary-700 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl;
+  }
+
+  h4 {
+    @apply text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl;
+  }
+
+  span {
+    @apply font-Otros font-bold text-sm md:text-base lg:text-lg;
+  }
+
+  p {
+    @apply font-normal font-Otros text-sm md:text-lg lg:text-xl;
+  }
+
+  label {
+    @apply font-normal font-Otros text-sm md:text-base lg:text-xl;
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-1;
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-sm;
+  }
+  *::-webkit-scrollbar-track:hover {
+    @apply bg-transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 rounded-sm;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-700;
+  }
+}
