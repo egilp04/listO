@@ -4,21 +4,20 @@ import Footer from "../componentes/Footer";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
 
-import card1 from "../assets/img/cards/carta_landing1.webp";
-import card2 from "../assets/img/cards/carta_landing2.webp";
-import card3 from "../assets/img/cards/carta_landing3.webp";
-import card0 from "../assets/img/cards/carta_landing0.webp";
-import card4 from "../assets/img/cards/carta_landing4.webp";
-import card5 from "../assets/img/cards/carta_landing5.webp";
+import card0 from '../assets/img/cards/carta_landing0.webp';
+import card1 from '../assets/img/cards/carta_landing1.webp';
+import card2 from '../assets/img/cards/carta_landing2.webp';
+import card3 from '../assets/img/cards/carta_landing3.webp';
+import card4 from '../assets/img/cards/carta_landing4.webp';
+import card5 from '../assets/img/cards/carta_landing5.webp';
 
 const Landing = () => {
-  const heroImage = "https://placehold.co/800x500?text=Hero+Image";
-  const featureImage0 = card0;
+  const heroImage = card0;
   const featureImage1 = card1;
   const featureImage2 = card2;
   const featureImage3 = card3;
   const featureImage4 = card4;
-  const featureImage5 = card5;
+  const statsImage = card5;
 
   return (
     <div className="min-h-screen flex flex-col bg-primary-50">
@@ -43,16 +42,11 @@ const Landing = () => {
             />
           </div>
           <div className="space-y-6 mt-8 max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-medium text-primary-600 font-Titulos">
+            <h2>
               Tu bitácora digital de entretenimiento
             </h2>
-            <p className="text-base md:text-lg text-black leading-relaxed font-Otros">
-              Nuestra aplicación te permite registrar y valorar todos los
-              libros, juegos y contenidos multimedia que has terminado. Podrás
-              documentar cada título con su fecha, reseña e imagen, y visualizar
-              tu historial mediante estadísticas de progreso anual y puntuación
-              media, siendo el espacio ideal para preservar y organizar tus
-              experiencias culturales.
+            <p>
+              Nuestra aplicación te permite registrar y valorar todos los libros, juegos y contenidos multimedia que has terminado. Podrás documentar cada título con su fecha, reseña e imagen, y visualizar tu historial mediante estadísticas de progreso anual y puntuación media, siendo el espacio ideal para preservar y organizar tus experiencias culturales.
             </p>
           </div>
         </section>
