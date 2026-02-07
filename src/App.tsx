@@ -1,8 +1,5 @@
-import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
-import { BrowserRouter } from "react-router-dom";
-import Footer from "./componentes/Footer";
-import Navbar from "./componentes/Navbar";
-import { Genero } from "./componentes/Formularios/Genero";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Landing from "./pages/landing";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import Select from "./componentes/Inputs/Select";
 import { useState } from "react";
@@ -23,9 +20,12 @@ function App() {
   };
 
   return (
-    <>
-      <Login_ChangePasswd login={true}></Login_ChangePasswd>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login_ChangePasswd login={true} />} />
+      </Routes>
+    </BrowserRouter>
     // <BrowserRouter>
     //   <div className="min-h-screen flex flex-col bg-white">
     //     <header className="p-4 flex flex-col gap-4">
