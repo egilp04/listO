@@ -2,8 +2,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
 import GestionItem from "./pages/GestionItem";
+import Landing from "./pages/landing";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Landing />,
+  },
   {
     element: <AppLayout />,
     // children: [{ path: "/", element: <Landing /> }],

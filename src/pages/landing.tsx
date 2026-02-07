@@ -81,17 +81,28 @@ const Landing = () => {
           <CardLanding
             titulo="Visualiza tus logros"
             descripcion="Descubre tus verdaderos hábitos de consumo cultural. Accede a tu panel de estadísticas y deja que los datos cuenten tu historia."
-            imagen={featureImage5}
+            imagen={featureImage4}
             invertido={true}
           />
         </section>
-        <section className="w-full">
-          <CardLanding
-            titulo="Listas completadas"
-            descripcion="ListO no es solo una App, es la suma de tus ideas. Listas esperando a ser completadas por ti."
-            imagen={featureImage4}
-            invertido={false}
-          />
+        <section className="w-full py-16">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
+            <div className="flex flex-col items-center text-center gap-6 max-w-md">
+              <h2>
+                Miles de listas<br />completadas con éxito
+              </h2>
+              <p>
+                ListO no es solo una App, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias.
+              </p>
+            </div>
+            <div className="w-full md:w-auto max-w-sm">
+              <img
+                src={featureImage5}
+                alt="Listas completadas"
+                className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
+              />
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
