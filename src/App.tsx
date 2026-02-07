@@ -1,36 +1,31 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MiPerfil from "./pages/miPerfil";
-import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
-import Landing from "./pages/landing";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AuthLayout from "./layouts/AuthLayout";
+import AppLayout from "./layouts/AppLayout";
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    // children: [{ path: "/", element: <Landing /> }],
+    // children: [{ path: "/biblioteca", element: <biblioteca /> }],
+    // children: [{ path: "/estadisticas", element: <estadisticas /> }],
+    // children: [{ path: "/estadisticasglobales", element: <estadisticasglobales /> }],
+    // children: [{ path: "/gestion", element: <gestion /> }],
+    // // children: [{ path: "/perfil", element: <perfil /> }],
+  },
+  {
+    element: <AuthLayout />,
+    children: [
+      // { path: "/signIn", element: <SignInPage /> },
+      // { path: "/signUp", element: <SignUpPage /> },
+      // { path: "/recuperar-pass", element: <recuperar-pass /> },
+    ],
+  },
+]);
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-         <Route path="/" element={<Landing />} /> 
-        <Route path="/login" element={<Login_ChangePasswd login={true} />} />
-        <Route path="/registro" element={<Login_ChangePasswd login={false} />} />
-        <Route path="/miperfil" element={<MiPerfil />} /> 
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
-// <BrowserRouter>
-//   <div className="min-h-screen flex flex-col bg-white">
-//     <header className="p-4 flex flex-col gap-4">
-//       <Navbar />
 
-//       <Navbar usuario="Mery" estaLogueado={true} />
-
-//       <Navbar usuario="Admin" estaLogueado={true} esAdmin={true} />
-//     </header>
-
-//     <main className="flex-1 p-8 flex flex-col gap-8">
-//       <h2 className="text-2xl font-bold mb-4">Demo CardEstadisticaG</h2>
-//       <CardEstadisticaG numero={100} texto="Total Usuarios" />
-//     </main>
-
-//     <Footer />
-//   </div>
-// </BrowserRouter>
 export default App;
+
+//botones de usuarios, gestion -> lleva useNavigate
