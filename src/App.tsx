@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
+import GestionItem from "./pages/GestionItem";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,9 @@ const router = createBrowserRouter([
     // children: [{ path: "/estadisticasglobales", element: <estadisticasglobales /> }],
     // children: [{ path: "/gestion", element: <gestion /> }],
     // // children: [{ path: "/perfil", element: <perfil /> }],
+    children: [
+      { path: "/gestion", element: <GestionItem /> }
+    ],
   },
   {
     element: <AuthLayout />,
