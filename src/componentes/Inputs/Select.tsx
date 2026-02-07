@@ -1,6 +1,6 @@
 import type { SelectHTMLAttributes } from "react";
 
-interface Option {
+export interface Option {
   value: string | number;
   label: string;
 }
@@ -10,10 +10,15 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   variant?: "primario" | "info";
 }
 
-export default function Select({options, value="",variant = "primario", disabled, ...props}: SelectProps) {
-  
+export default function Select({
+  options,
+  value = "",
+  variant = "primario",
+  disabled,
+  ...props
+}: SelectProps) {
   const colorClass = `input-border-${variant}`;
-  
+
   return (
     <select
       value={value}
@@ -21,9 +26,11 @@ export default function Select({options, value="",variant = "primario", disabled
       className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
       {...props}
     >
-      <option value= "" disabled hidden>Seleccionar</option>
-      
-      {options.map(option => (
+      <option value="" disabled hidden>
+        Seleccionar
+      </option>
+
+      {options.map((option) => (
         <option key={option.value} value={option.value}>
           {option.label}
         </option>

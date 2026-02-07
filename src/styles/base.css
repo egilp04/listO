@@ -5,6 +5,12 @@
     box-sizing: border-box;
   }
 
+  html,
+  body,
+  #root {
+    @apply min-h-screen h-full;
+  }
+
   h1 {
     @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl;
   }
@@ -31,5 +37,21 @@
 
   label {
     @apply font-normal font-Otros text-sm md:text-base lg:text-xl;
+  }
+
+  *::-webkit-scrollbar {
+    @apply w-1;
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-sm;
+  }
+  *::-webkit-scrollbar-track:hover {
+    @apply bg-transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 rounded-sm;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-700;
   }
 }
