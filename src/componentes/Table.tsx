@@ -20,7 +20,7 @@ const Table = () => {
     getData();
   }, []);
   return (
-    <div className="table">
+    <div className="table-admin">
       <div className="flex flex-row w-full">
         <label>Nombre</label>
       </div>
