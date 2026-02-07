@@ -32,4 +32,20 @@
   label {
     @apply font-normal font-Otros text-sm md:text-base lg:text-xl;
   }
+
+  *::-webkit-scrollbar {
+    @apply w-1;
+  }
+  *::-webkit-scrollbar-track {
+    @apply bg-transparent rounded-sm;
+  }
+  *::-webkit-scrollbar-track:hover {
+    @apply bg-transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 rounded-sm;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-700;
+  }
 }

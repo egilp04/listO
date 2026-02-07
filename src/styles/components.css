@@ -1,6 +1,6 @@
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:h-[40px] lg:min-w-[90px] lg:px-4 lg:text-lg md:h-[36px] md:min-w-[90px] md:px-3 md:text-base sm:h-[24px] sm:min-w-[90px] sm:px-2 sm:text-sm
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:h-[40px] lg:min-w-[90px] lg:px-4 lg:text-lg md:h-[36px] md:min-w-[90px] md:px-3 md:text-base sm:h-[24px] sm:min-w-[90px] sm:px-2 sm:text-sm;
   }
 
   .btn-primario {
@@ -40,16 +40,17 @@
   }
 
   .card-estadistica-g {
-    @apply bg-primary-500 rounded-[12px] flex items-center justify-between w-full gap-[14px] md:gap-[30px] lg:gap-[47px] p-[10px] md:p-[15px] lg:p-[20px]
+    @apply bg-primary-500 rounded-[12px] flex items-center justify-between w-full gap-[14px] md:gap-[30px] lg:gap-[47px] p-[10px] md:p-[15px] lg:p-[20px];
   }
 
   .botones-navbar {
     @apply flex flex-col md:flex-row gap-2 w-full md:w-auto justify-center;
   }
 
-  .table {
-    @apply flex flex-col gap-2 md:gap-6 max-h-100 overflow-auto p-6;
+  .table-admin {
+    @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2;
   }
+  
 
   .rows-table {
     @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row;
@@ -96,11 +97,11 @@
   }
 
   .input-disabled {
-    @apply bg-gray-100 border-neutral-300 cursor-not-allowed ! text-neutral-400;
+    @apply bg-gray-100 border-neutral-300 cursor-not-allowed !text-neutral-400;
   }
 
   .label-disabled {
-    @apply text-neutral-400 cursor-not-allowed !;
+    @apply text-neutral-400 cursor-not-allowed;
   }
 
   .input-border-primario {
@@ -140,7 +141,7 @@
   }
 
   .select-color-text {
-    @apply text-primary-600
+    @apply text-primary-600;
   }
 
   .card-registro {
@@ -159,7 +160,6 @@
     @apply flex flex-col w-full gap-4 md:gap-6;
   }
 }
-
 
 /* .tarjeta-estadisticas-top {
   @apply bg-primary-50 text-primary-700 flex flex-col gap-1 md:gap-personalizado-6 lg:gap-2;
