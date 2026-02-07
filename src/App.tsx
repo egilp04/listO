@@ -1,7 +1,7 @@
 import CardEstadisticaG from "./componentes/tarjetas/cardEstadisticaG";
-import { BrowserRouter } from 'react-router-dom'
-import Footer from './componentes/Footer'
-import Navbar from './componentes/Navbar'
+import { BrowserRouter } from "react-router-dom";
+import Footer from "./componentes/Footer";
+import Navbar from "./componentes/Navbar";
 import { Genero } from "./componentes/Formularios/Genero";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import Select from "./componentes/Inputs/Select";
@@ -23,17 +23,8 @@ function App() {
   };
 
   return (
-
     <>
-    
-       <Registro></Registro>
-      {/* <Select 
-          id="cat-select"
-          name="categoria"
-          value={categoria}
-          onChange={handleChange}
-          options={opcionesCategorias}
-        /> */}
+      <Login_ChangePasswd login={true}></Login_ChangePasswd>
     </>
     // <BrowserRouter>
     //   <div className="min-h-screen flex flex-col bg-white">
@@ -53,7 +44,7 @@ function App() {
     //     <Footer />
     //   </div>
     // </BrowserRouter>
-  )
+  );
 }
 
 export default App;
