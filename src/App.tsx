@@ -4,12 +4,36 @@ import Footer from './componentes/Footer'
 import Navbar from './componentes/Navbar'
 import { Genero } from "./componentes/Formularios/Genero";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
+import Select from "./componentes/Inputs/Select";
+import { useState } from "react";
+import { Registro } from "./componentes/Formularios/Registro";
 
 function App() {
+  const [categoria, setCategoria] = useState("");
+  const opcionesCategorias = [
+    { value: 1, label: "Tecnología" },
+    { value: 2, label: "Hogar" },
+    { value: 3, label: "Moda" },
+    { value: 4, label: "Deportes" }
+  ];
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategoria(e.target.value);
+    console.log("Valor seleccionado:", e.target.value);
+  };
+
   return (
 
     <>
-    <Login_ChangePasswd login={true}></Login_ChangePasswd>
+    
+       <Registro></Registro>
+      {/* <Select 
+          id="cat-select"
+          name="categoria"
+          value={categoria}
+          onChange={handleChange}
+          options={opcionesCategorias}
+        /> */}
     </>
     // <BrowserRouter>
     //   <div className="min-h-screen flex flex-col bg-white">
