@@ -36,7 +36,7 @@
   }
 
   .card-landing {
-    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full xl:max-w-200 hover:shadow-elevation-3;
+    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3;
   }
 
   .card-estadistica-g {

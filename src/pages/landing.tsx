@@ -4,12 +4,12 @@ import Footer from "../componentes/Footer";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
 
-import card0 from '../assets/img/cards/carta_landing0.webp';
-import card1 from '../assets/img/cards/carta_landing1.webp';
-import card2 from '../assets/img/cards/carta_landing2.webp';
-import card3 from '../assets/img/cards/carta_landing3.webp';
-import card4 from '../assets/img/cards/carta_landing4.webp';
-import card5 from '../assets/img/cards/carta_landing5.webp';
+import card0 from "../assets/img/cards/carta_landing0.webp";
+import card1 from "../assets/img/cards/carta_landing1.webp";
+import card2 from "../assets/img/cards/carta_landing2.webp";
+import card3 from "../assets/img/cards/carta_landing3.webp";
+import card4 from "../assets/img/cards/carta_landing4.webp";
+import card5 from "../assets/img/cards/carta_landing5.webp";
 
 const Landing = () => {
   const heroImage = card0;
@@ -17,15 +17,14 @@ const Landing = () => {
   const featureImage2 = card2;
   const featureImage3 = card3;
   const featureImage4 = card4;
-  const statsImage = card5;
+  const featureImage5 = card5;
 
   return (
     <div className="min-h-screen flex flex-col bg-primary-50">
       <Navbar estaLogueado={false} />
-      <main className="grow flex flex-col items-center w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 gap-20">
-        {/* Sección Hero */}
-        <section className="flex flex-col items-center text-center gap-8 w-full max-w-4xl">
-          <div className="flex flex-col gap-4 md:gap-8">
+      <main className="grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-10 gap-20">
+        <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
+          <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
             <h1>El espacio para tus historias</h1>
             <p>
               Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine
@@ -35,24 +34,25 @@ const Landing = () => {
           <Link to="/login">
             <Button variant="primario">Comenzar</Button>
           </Link>
-          <div className="w-full max-w-3xl mt-8">
+          <div className="w-full mt-8">
             <img
               src={heroImage}
               alt="Bitácora digital"
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
           </div>
-          <div className="space-y-6 mt-8 max-w-3xl">
-            <h2>
-              Tu bitácora digital de entretenimiento
-            </h2>
+          <div className="space-y-6 mt-8">
+            <h2>Tu bitácora digital de entretenimiento</h2>
             <p>
-              Nuestra aplicación te permite registrar y valorar todos los libros, juegos y contenidos multimedia que has terminado. Podrás documentar cada título con su fecha, reseña e imagen, y visualizar tu historial mediante estadísticas de progreso anual y puntuación media, siendo el espacio ideal para preservar y organizar tus experiencias culturales.
+              Nuestra aplicación te permite registrar y valorar todos los
+              libros, juegos y contenidos multimedia que has terminado. Podrás
+              documentar cada título con su fecha, reseña e imagen, y visualizar
+              tu historial mediante estadísticas de progreso anual y puntuación
+              media, siendo el espacio ideal para preservar y organizar tus
+              experiencias culturales.
             </p>
           </div>
         </section>
-
-        {/* Carta 1 */}
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -61,8 +61,6 @@ const Landing = () => {
             invertido={false}
           />
         </section>
-
-        {/* Carta 2 */}
         <section className="w-full">
           <CardLanding
             titulo="Tu crítica, tus reglas"
@@ -71,8 +69,6 @@ const Landing = () => {
             invertido={true}
           />
         </section>
-
-        {/* Carta 3 */}
         <section className="w-full">
           <CardLanding
             titulo="Ordena tu caos digital"
@@ -81,8 +77,6 @@ const Landing = () => {
             invertido={false}
           />
         </section>
-
-        {/* Carta 4 */}
         <section className="w-full">
           <CardLanding
             titulo="Visualiza tus logros"
@@ -91,15 +85,24 @@ const Landing = () => {
             invertido={true}
           />
         </section>
-
-        {/* Sección Estadísticas */}
-        <section className="w-full">
-          <CardLanding
-            titulo="Listas completadas"
-            descripcion="ListO no es solo una App, es la suma de tus ideas. Listas esperando a ser completadas por ti."
-            imagen={statsImage}
-            invertido={false}
-          />
+        <section className="w-full py-16">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
+            <div className="flex flex-col items-center text-center gap-6 max-w-md">
+              <h2>
+                Miles de listas<br />completadas con éxito
+              </h2>
+              <p>
+                ListO no es solo una App, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias.
+              </p>
+            </div>
+            <div className="w-full md:w-auto max-w-sm">
+              <img
+                src={featureImage5}
+                alt="Listas completadas"
+                className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
+              /> 
+            </div>
+          </div>
         </section>
       </main>
       <Footer />
