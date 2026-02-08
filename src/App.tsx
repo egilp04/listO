@@ -16,6 +16,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Estadisticas />,
+
+
   },
   /*{
     path: "/miperfil",
@@ -37,3 +39,6 @@ function App() {
 export default App;
 
 
+// { path: "/admin/items", element: <GestionItem /> },
+//       { path: "/estadisticas", element: <Estadisticas /> },
+//       { path: "/estadisticas/globales", element: <EstadisticasGlobales /> },
