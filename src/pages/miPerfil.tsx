@@ -55,7 +55,7 @@ const MiPerfil = () => {
                 </div>
             </div>
             
-        </div> // 2. CIERRE DEL CONTENEDOR PRINCIPAL
+        </div>
     );
 };
 
