@@ -37,7 +37,7 @@ const Landing = () => {
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
           </div>
-          <div className="flex flex-col mt-8 sm:gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
+          <div className="flex flex-col mt-8 mb-[40px] sm:gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
             <h2>Tu bitácora digital de entretenimiento</h2>
             <p>
               Nuestra aplicación es el refugio definitivo para tu curiosidad intelectual, permitiéndote registrar, 
@@ -54,7 +54,7 @@ const Landing = () => {
             </p>
           </div>
         </section>
-      <div className="flex flex-col gap-1.5 lg:gap-4 w-full sm:gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
+      <div className="flex flex-col gap-[50px] lg:gap-4 w-full sm:gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -96,10 +96,6 @@ const Landing = () => {
               </h2>
               <p>
                 ListO no es solo una aplicación, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias, cada función ha sido diseñada para resolver las necesidades reales de quienes buscan un control total sobre su biblioteca de libros y su catálogo de videojuegos.
-
-                A diferencia de otras plataformas, ListO no es una red social. Entendemos que cada usuario es un individuo diferente con sus propios ritmos de lectura y juego; por eso, aquí no hay muros de noticias ni comparaciones constantes. Es un espacio privado y técnico donde el protagonista es tu progreso. Desde el registro de ediciones específicas y horas de juego, hasta la gestión de pendientes y la valoración crítica de cada título terminado, la app se adapta a tu perfil único.
-
-                Este proyecto nace de la escucha activa, evolucionando para ofrecer un sistema de organización robusto que evita el ruido visual de las redes convencionales. Aquí, tu colección de libros y videojuegos no es contenido para otros, sino un registro personal de tus experiencias culturales. Gracias por ayudarnos a construir esta herramienta de gestión pura, hecha por y para individuos que valoran su tiempo y su privacidad.
               </p>
             </div>
             <div className="w-full md:w-auto max-w-sm">
