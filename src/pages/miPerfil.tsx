@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom';
-import Navbar from '../componentes/Navbar';
 import Button from '../componentes/Button';
 import Inputs from '../componentes/Inputs/Inputs';
 
 const MiPerfil = () => {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
-            <Navbar usuario="${usuario}" estaLogueado={true} />
 
             <div className="w-full px-4 py-4 md:px-8">
                 <Link to="/" className="inline-flex items-center text-black hover:text-primary-600 transition-colors">
@@ -50,7 +48,7 @@ const MiPerfil = () => {
                     </div>
 
                     {/* Botón  de Modificar */}
-                    <div className="flex justify-center mt-8">
+                    <div className="flex justify-center mt-12">
                         <div className="w-full md:w-1/3">
                             <Button variant="primario" className="w-full py-4 text-xl">
                                 Modificar
