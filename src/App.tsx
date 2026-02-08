@@ -9,7 +9,7 @@ import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
 import Landing from "./pages/landing";
-import MiPerfil from "./pages/miPerfil";
+import MiPerfil from "./pages/MiPerfil";
 
 const router = createBrowserRouter([
   {
