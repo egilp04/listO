@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import Navbar from "../componentes/Navbar";
-import Footer from "../componentes/Footer";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
 
@@ -21,8 +19,6 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-primary-50">
-      <Navbar estaLogueado={false} />
-      <main className="grow flex flex-col items-center w-full px-4 sm:px-6 lg:px-8 py-10 gap-20">
         <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
           <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
             <h1>El espacio para tus historias</h1>
@@ -53,6 +49,7 @@ const Landing = () => {
             </p>
           </div>
         </section>
+      <div className="flex-col gap-1.5 lg:gap-4 w-full">
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -85,6 +82,7 @@ const Landing = () => {
             invertido={true}
           />
         </section>
+      </div>
         <section className="w-full py-16">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
             <div className="flex flex-col items-center text-center gap-6 max-w-md">
@@ -104,8 +102,6 @@ const Landing = () => {
             </div>
           </div>
         </section>
-      </main>
-      <Footer />
     </div>
   );
 };
