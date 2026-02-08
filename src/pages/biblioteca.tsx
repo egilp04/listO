@@ -14,7 +14,7 @@ const itemEjemplo = {
 
 const Biblioteca = () => {
   return (
-    <div className="min-h-screen bg-primary-200 p-6 md:p-10">
+    <div className="min-h-screen  p-6 md:p-10">
       <h1 className="font-bold mb-10">Mi Biblioteca</h1>
 
       <div className="flex justify-center mb-8">

@@ -2,13 +2,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
-import Landing from "./pages/landing";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca";
+import Biblioteca from "./pages/Biblioteca";
 import MiPerfil from "./pages/miPerfil";
 import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
+import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
+import Landing from "./pages/landing";
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,16 @@ const router = createBrowserRouter([
         element: <Biblioteca />,
       },
       {
-        path: "/estadistcias-globales",
+        path: "/estadisticas-globales",
         element: <EstadisticasGlobales />,
       },
       {
         path: "/gestion",
         element: <GestionAdmin />,
+      },
+      {
+        path: "/genero",
+        element: <FormularioGestionGeneros />,
       },
     ],
   },
