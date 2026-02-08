@@ -13,7 +13,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
     const texto = login ? "Login" : "Enviar";
 
     return (
-        <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
+        
 
             <form className="card-login_passwd" {...props}>
                 {login ? (
@@ -45,6 +45,6 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
 
             </form>
-        </div>
+        
     );
 };

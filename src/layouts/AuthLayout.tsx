@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../componentes/Navbar";
+import fondoLogin from "../assets/img/Fondo-logins.webp";
 
 const AuthLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${fondoLogin})` }}>
       {" "}
       <Navbar></Navbar>
-      <main className="flex-1 container mx-auto px-4 py-6">
+      <main className="grow flex items-center justify-center w-full p-4">
         <Outlet></Outlet>
       </main>
     </div>
