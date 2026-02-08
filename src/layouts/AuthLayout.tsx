@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../componentes/Navbar";
-import fondoLogin from "../assets/img/Fondo-logins.webp";
+import fondoLogin from "../assets/img/Fondo-forms.webp";
 
 const AuthLayout = () => {
   return (
