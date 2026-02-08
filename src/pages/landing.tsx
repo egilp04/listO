@@ -18,7 +18,7 @@ const Landing = () => {
   const featureImage5 = card5;
 
   return (
-    <div className="min-h-screen flex flex-col bg-primary-50">
+    <div className="min-h-screen flex flex-col">
         <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
           <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
             <h1>El espacio para tus historias</h1>
@@ -37,7 +37,8 @@ const Landing = () => {
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
           </div>
-          <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
+          
+          <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px] px-4 md:px-10 lg:px-20">
             <h2>Tu bitácora digital de entretenimiento</h2>
             <p>
               Nuestra aplicación es el refugio definitivo para tu curiosidad intelectual, permitiéndote registrar, 
@@ -54,7 +55,8 @@ const Landing = () => {
             </p>
           </div>
         </section>
-      <div className="flex flex-col gap-[50px] lg:gap-4 w-full gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
+
+      <div className="flex flex-col w-full gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px] px-4 md:px-8 lg:px-16">
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -88,6 +90,7 @@ const Landing = () => {
           />
         </section>
       </div>
+
         <section className="w-full py-16">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
             <div className="flex flex-col items-center text-center gap-6">
