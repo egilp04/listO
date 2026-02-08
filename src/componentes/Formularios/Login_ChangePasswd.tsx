@@ -1,7 +1,7 @@
-import type { FormHTMLAttributes } from "react";
+import type { FormHTMLAttributes} from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
     error?: string;
@@ -10,7 +10,21 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 
 export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) => {
 
+    const navigate = useNavigate();
+
     const texto = login ? "Login" : "Enviar";
+
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault(); 
+
+        if (login) {
+            console.log("Navegando a Biblioteca...");
+            navigate('/biblioteca');
+        } else {
+            console.log("Volviendo al Login...");
+            navigate('/login');
+        }
+    };
 
     return (
 
@@ -46,7 +60,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
             }
 
-            <Button>{texto}</Button>
+            <Button onClick={handleClick}>{texto}</Button>
 
             {error && <p className="span-error mt-1 h-4">{error}</p>}
 

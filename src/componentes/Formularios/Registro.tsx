@@ -1,13 +1,23 @@
-import type { FormHTMLAttributes } from "react";
+import type { FormHTMLAttributes, MouseEvent } from "react";
 import Inputs from "../Inputs/Inputs";
 import Checkbox from "../Inputs/Checkbox";
 import Button from "../Button";
+import { useNavigate } from 'react-router-dom';
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
 }
 
 export const Registro = ({ error, ...props }: RegistroProps) => {
+
+  const navigate = useNavigate();
+
+const handleClick = (e: MouseEvent) => {
+      e.preventDefault();
+      console.log("Registro completado, yendo a inicio...");
+      navigate('/'); 
+  };
+
   return (
     
 
@@ -24,7 +34,7 @@ export const Registro = ({ error, ...props }: RegistroProps) => {
         </div>
 
         <Checkbox label="Aceptar políticas" name="politicas" />
-        <Button>Registrar</Button>
+        <Button onClick = {handleClick}>Registrar</Button>
 
       </form>
     
