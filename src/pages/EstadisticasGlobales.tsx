@@ -39,9 +39,9 @@ const EstadisticasGlobales = () => {
         <span className="material-symbols-outlined">arrow_back</span>
       </div>
       <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center">
-        <label className="w-full text-primary-700">
-          Usuarios registrados por mes {conteo}
-        </label>
+        <h3 className="w-full text-primary-700">
+          Usuarios registrados por mes: {conteo}
+        </h3>
         <Select variant="primario" options={meses}></Select>
       </div>
       <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
@@ -51,12 +51,12 @@ const EstadisticasGlobales = () => {
       </div>
       <div className="w-full flex flex-col items-center justify-center pr-10 pl-10 md:pr-28 md:pl-28 mb-10">
         <div className="flex flex-col bg-primary-500 p-6 w-full rounded-sm">
-          <div className="flex flex-row gap-6 items-center">
-            <div className=" w-20 flex flex-row gap-2 h-full">
+          <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
+            <div className=" w-28 flex flex-row gap-2 h-full">
               {" "}
               <img src="src/assets/img/logo/logo.webp"></img>
             </div>
-            <label className="text-primary-50">Generos Favoritos</label>
+            <h3 className="text-primary-50">Generos Favoritos</h3>
           </div>
           <div className="flex flex-col gap-2">
             {infoEstadisticasTop.map(({ value }, index) =>
