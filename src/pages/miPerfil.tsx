@@ -13,7 +13,7 @@ const MiPerfil = () => {
                     <span className="material-symbols-outlined text-4xl">
                         arrow_back
                     </span>
-                </Link>
+                </Link> 
             </div>
 
             <div className="flex-grow w-full max-w-4xl mx-auto px-4 pb-8">
