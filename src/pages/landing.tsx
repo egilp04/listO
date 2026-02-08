@@ -37,19 +37,24 @@ const Landing = () => {
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
           </div>
-          <div className="space-y-6 mt-8">
+          <div className="flex flex-col mt-8 sm:gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
             <h2>Tu bitácora digital de entretenimiento</h2>
             <p>
-              Nuestra aplicación te permite registrar y valorar todos los
-              libros, juegos y contenidos multimedia que has terminado. Podrás
-              documentar cada título con su fecha, reseña e imagen, y visualizar
-              tu historial mediante estadísticas de progreso anual y puntuación
-              media, siendo el espacio ideal para preservar y organizar tus
-              experiencias culturales.
+              Nuestra aplicación es el refugio definitivo para tu curiosidad intelectual, permitiéndote registrar, 
+              organizar y valorar con precisión quirúrgica cada libro, videojuego y contenido multimedia que ha pasado
+              por tus manos. No se trata solo de una lista, sino de una biblioteca personal donde podrás documentar cada 
+              título con fechas exactas de finalización, reseñas críticas profundamente personales e imágenes de alta 
+              resolución que den vida a tu catálogo.
+              Más allá del simple registro, nuestra plataforma transforma tu consumo cultural en conocimiento analítico.
+              A través de un motor de visualización avanzada, podrás explorar tu historial mediante estadísticas detalladas 
+              de progreso anual, gráficos de rendimiento temático y el cálculo automático de tu puntuación media. Es el 
+              ecosistema digital diseñado específicamente para aquellos que buscan preservar la memoria de sus experiencias, 
+              analizando su evolución cultural y organizando su legado de entretenimiento en un espacio elegante, intuitivo y
+              funcional.
             </p>
           </div>
         </section>
-      <div className="flex-col gap-1.5 lg:gap-4 w-full">
+      <div className="flex flex-col gap-1.5 lg:gap-4 w-full sm:gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -85,12 +90,16 @@ const Landing = () => {
       </div>
         <section className="w-full py-16">
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
-            <div className="flex flex-col items-center text-center gap-6 max-w-md">
+            <div className="flex flex-col items-center text-center gap-6">
               <h2>
-                Miles de listas<br />completadas con éxito
+                Miles de listas <br />completadas con éxito
               </h2>
               <p>
-                ListO no es solo una App, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias.
+                ListO no es solo una aplicación, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias, cada función ha sido diseñada para resolver las necesidades reales de quienes buscan un control total sobre su biblioteca de libros y su catálogo de videojuegos.
+
+                A diferencia de otras plataformas, ListO no es una red social. Entendemos que cada usuario es un individuo diferente con sus propios ritmos de lectura y juego; por eso, aquí no hay muros de noticias ni comparaciones constantes. Es un espacio privado y técnico donde el protagonista es tu progreso. Desde el registro de ediciones específicas y horas de juego, hasta la gestión de pendientes y la valoración crítica de cada título terminado, la app se adapta a tu perfil único.
+
+                Este proyecto nace de la escucha activa, evolucionando para ofrecer un sistema de organización robusto que evita el ruido visual de las redes convencionales. Aquí, tu colección de libros y videojuegos no es contenido para otros, sino un registro personal de tus experiencias culturales. Gracias por ayudarnos a construir esta herramienta de gestión pura, hecha por y para individuos que valoran su tiempo y su privacidad.
               </p>
             </div>
             <div className="w-full md:w-auto max-w-sm">
