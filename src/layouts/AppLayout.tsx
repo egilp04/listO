@@ -10,7 +10,7 @@ const AppLayout = () => {
       <Navbar esAdmin={true} estaLogueado={true} usuario={"Usuario"}></Navbar>
       <div className="w-full px-4 py-4 md:px-8">
         <span
-          className="material-symbols-outlined text-4xl"
+          className="material-symbols-outlined text-4xl cursor-pointer"
           onClick={() => navigate(-1)}
         >
           arrow_back
