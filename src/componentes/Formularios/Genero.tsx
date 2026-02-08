@@ -1,9 +1,9 @@
-import type { FormHTMLAttributes, MouseEvent } from "react"; 
+import type { FormHTMLAttributes, MouseEvent } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
     error?: string;
@@ -13,31 +13,20 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 export const Genero = ({ error, crear, ...props }: RegistroProps) => {
 
     const navigate = useNavigate();
-
     const titulo = crear ? "Crear Género" : "Modificar Género";
 
     const handleNavigation = (e: MouseEvent) => {
-        e.preventDefault(); 
+        e.preventDefault();
         navigate('/gestion');
     };
 
     return (
-        <div className="flex justify-center items-center w-full min-h-screen p-4">
+
+        <div className="flex justify-center w-full p-4">
 
             <form className="card-genero" {...props}>
-
-                <div className="header-genero">
-                    <div className="w-full">
-                        <span 
-                            className="material-symbols-outlined cursor-pointer hover:text-gray-500" 
-                            onClick={handleNavigation}
-                        >
-                            arrow_back
-                        </span>
-                    </div>
-
-                    <h3 className="titulo-genero">{titulo}</h3>
-                </div>
+                
+                <h3 className="titulo-genero">{titulo}</h3>
 
                 <div className="form-body">
                     <Inputs label="Nombre" type="text" name="nombre_item" placeholder="Ej: Suspense" />
