@@ -165,30 +165,34 @@
   }
 
   .card-genero {
-    @apply bg-white shadow-xl rounded-xl p-6 w-full max-w-95 mx-auto flex flex-col gap-3 h-fit;
+    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8;
   }
 
   .header-genero {
-    @apply flex flex-col w-full gap-1 mb-1;
+    @apply flex flex-col w-full gap-2 mb-2 md:mb-4 relative items-center justify-center;
   }
 
-  .btn-atras-genero {
-    @apply self-start text-gray-600 hover:bg-gray-100 p-1 rounded-full transition-colors flex items-center justify-center -ml-1;
+  .btn-atras-container {
+    @apply absolute left-0 top-1/2 -translate-y-1/2;
   }
 
   .titulo-genero {
-    @apply w-full text-center;
+    @apply w-full text-center font-bold text-primary-700 text-xl md:text-2xl lg:text-3xl;
   }
 
   .form-body {
-    @apply flex flex-col gap-3;
-  }
-
-  .footer-boton {
-    @apply flex justify-center w-full mt-2;
+    @apply flex flex-col gap-4 md:gap-6 lg:gap-8;
   }
 
   .seccion-tipo {
-    @apply flex flex-col gap-1;
+    @apply flex flex-col gap-2;
+  }
+
+  .label-tipo {
+    @apply font-normal font-Otros text-black text-sm md:text-base lg:text-lg;
+  }
+
+  .footer-boton {
+    @apply flex justify-center w-full mt-4 md:mt-6;
   }
 }
