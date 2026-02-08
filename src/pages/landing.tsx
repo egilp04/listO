@@ -100,7 +100,7 @@ const Landing = () => {
                 src={featureImage5}
                 alt="Listas completadas"
                 className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
-              />
+              /> 
             </div>
           </div>
         </section>
