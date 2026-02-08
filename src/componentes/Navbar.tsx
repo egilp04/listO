@@ -41,9 +41,8 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </span>
       </div>
       <div
-        className={`${
-          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-        }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
+        className={`${close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
+          }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
       >
         <div className="botones-navbar">
           {estaLogueado && (

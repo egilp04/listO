@@ -13,6 +13,10 @@ const MiPerfil = () => {
                     </span>
                 </Link>
             </div>
+            <div className="w-full md:w-2/3">
+              <Inputs label="" placeholder="Maria" name="nombre" />
+            </div>
+          </div>
 
             <div className="flex-grow w-full max-w-4xl mx-auto px-4 pb-8">
 
@@ -57,8 +61,11 @@ const MiPerfil = () => {
                     </div>
                 </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default MiPerfil;

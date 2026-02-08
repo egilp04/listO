@@ -1,23 +1,62 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
+import Estadisticas from "./pages/Estadisticas";
+import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
+import { Registro } from "./componentes/Formularios/Registro";
+import Biblioteca from "./pages/biblioteca"
+import EstadisticasGlobales from "./pages/EstadisticasGlobales";
+import GestionAdmin from "./pages/GestionAdmin";
+import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
+import Landing from "./pages/landing";
+import MiPerfil from "./pages/miPerfil";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
-    // children: [{ path: "/", element: <Landing /> }],
-    // children: [{ path: "/biblioteca", element: <biblioteca /> }],
-    // children: [{ path: "/estadisticas", element: <estadisticas /> }],
-    // children: [{ path: "/estadisticasglobales", element: <estadisticasglobales /> }],
-    // children: [{ path: "/gestion", element: <gestion /> }],
-    // // children: [{ path: "/perfil", element: <perfil /> }],
+    children: [
+      { path: "/", element: <Landing /> },
+      {
+        path: "/estadisticas",
+        element: <Estadisticas />,
+      },
+      {
+        path: "/miperfil",
+        element: <MiPerfil />,
+      },
+      {
+        path: "/biblioteca",
+        element: <Biblioteca />,
+      },
+      {
+        path: "/estadisticas-globales",
+        element: <EstadisticasGlobales />,
+      },
+      {
+        path: "/gestion",
+        element: <GestionAdmin />,
+      },
+      {
+        path: "/genero",
+        element: <FormularioGestionGeneros />,
+      },
+    ],
   },
   {
     element: <AuthLayout />,
     children: [
-      // { path: "/signIn", element: <SignInPage /> },
-      // { path: "/signUp", element: <SignUpPage /> },
-      // { path: "/recuperar-pass", element: <recuperar-pass /> },
+      {
+        path: "/login",
+        element: <Login_ChangePasswd login={true} />,
+      },
+      {
+        path: "/registro",
+        element: <Registro />,
+      },
+      {
+        path: "/recuperar",
+        element: <Login_ChangePasswd login={false} />,
+      },
     ],
   },
 ]);
@@ -27,5 +66,3 @@ function App() {
 }
 
 export default App;
-
-//botones de usuarios, gestion -> lleva useNavigate

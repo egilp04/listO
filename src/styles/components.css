@@ -1,6 +1,6 @@
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:h-[40px] lg:min-w-[90px] lg:px-4 lg:text-lg md:h-[36px] md:min-w-lg md:px-3 md:text-base sm:h-[24px] sm:min-w-[90px] sm:px-2 sm:text-sm;
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:px-4 lg:py-3 lg:text-lg md:px-3 md:py-2 md:text-base sm:px-2 sm:py-1 sm:text-sm;
   }
 
   .btn-primario {
@@ -36,7 +36,7 @@
   }
 
   .card-landing {
-    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full xl:max-w-200 hover:shadow-elevation-3;
+    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3;
   }
 
   .card-estadistica-g {
@@ -157,38 +157,43 @@
   }
 
   .card-login_passwd {
-    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-125 lg:p-10 lg:gap-6;
+    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10;
   }
+
 
   .flex-login-passwd {
     @apply flex flex-col w-full gap-4 md:gap-6;
   }
 
   .card-genero {
-    @apply bg-white shadow-xl rounded-xl p-6 w-full max-w-95 mx-auto flex flex-col gap-3 h-fit;
+    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8;
   }
 
   .header-genero {
-    @apply flex flex-col w-full gap-1 mb-1;
+    @apply flex flex-col w-full gap-2 mb-2 md:mb-4 relative items-center justify-center;
   }
 
-  .btn-atras-genero {
-    @apply self-start text-gray-600 hover:bg-gray-100 p-1 rounded-full transition-colors flex items-center justify-center -ml-1;
+  .btn-atras-container {
+    @apply absolute left-0 top-1/2 -translate-y-1/2;
   }
 
   .titulo-genero {
-    @apply w-full text-center;
+    @apply w-full text-center font-bold text-primary-700 text-xl md:text-2xl lg:text-3xl;
   }
 
   .form-body {
-    @apply flex flex-col gap-3;
-  }
-
-  .footer-boton {
-    @apply flex justify-center w-full mt-2;
+    @apply flex flex-col gap-4 md:gap-6 lg:gap-8;
   }
 
   .seccion-tipo {
-    @apply flex flex-col gap-1;
+    @apply flex flex-col gap-2;
+  }
+
+  .label-tipo {
+    @apply font-normal font-Otros text-black text-sm md:text-base lg:text-lg;
+  }
+
+  .footer-boton {
+    @apply flex justify-center w-full mt-4 md:mt-6;
   }
 }
