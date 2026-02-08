@@ -16,7 +16,7 @@
   }
 
   .card-biblioteca {
-    @apply flex flex-col bg-white rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-62.5;
+    @apply flex flex-col bg-white rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-75 hover:scale-105 transition-transform duration-300;
   }
 
   .card-landing.invertido {

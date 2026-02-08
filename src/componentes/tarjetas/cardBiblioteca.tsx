@@ -15,7 +15,11 @@ interface CardBibliotecaProps {
     item: Item;
 }
 
+import { useNavigate } from "react-router-dom";
+
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
+    const navigate = useNavigate();
+
     const renderizarEstrellas = (valoracion: number) => {
         const estrellas = [];
         for (let i = 1; i <= 5; i++) {
@@ -52,9 +56,13 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 w-full mt-auto">
+                    <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-2 w-full mt-auto">
 
-                        <Button variant="primario" className="w-full sm:w-auto flex-1 text-sm px-2">
+                        <Button
+                            variant="primario"
+                            className="w-full sm:w-auto flex-1 text-sm px-2"
+                            onClick={() => navigate("/admin/items")}
+                        >
                             Modificar
                         </Button>
 
