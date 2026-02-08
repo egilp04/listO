@@ -1,8 +1,9 @@
-import type { FormHTMLAttributes } from "react";
+import type { FormHTMLAttributes, MouseEvent } from "react"; 
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
+import { useNavigate } from "react-router-dom"; 
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
     error?: string;
@@ -11,7 +12,14 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 
 export const Genero = ({ error, crear, ...props }: RegistroProps) => {
 
+    const navigate = useNavigate();
+
     const titulo = crear ? "Crear Género" : "Modificar Género";
+
+    const handleNavigation = (e: MouseEvent) => {
+        e.preventDefault(); 
+        navigate('/gestion');
+    };
 
     return (
         <div className="flex justify-center items-center w-full min-h-screen p-4">
@@ -20,7 +28,12 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
 
                 <div className="header-genero">
                     <div className="w-full">
-                        <span className="material-symbols-outlined">arrow_back</span>
+                        <span 
+                            className="material-symbols-outlined cursor-pointer hover:text-gray-500" 
+                            onClick={handleNavigation}
+                        >
+                            arrow_back
+                        </span>
                     </div>
 
                     <h3 className="titulo-genero">{titulo}</h3>
@@ -43,7 +56,9 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
                 </div>
 
                 <div className="footer-boton">
-                    <Button>Guardar</Button>
+                    <Button type="button" onClick={handleNavigation}>
+                        Guardar
+                    </Button>
                 </div>
 
                 {error && <p className="span-error mt-1 h-4">{error}</p>}
