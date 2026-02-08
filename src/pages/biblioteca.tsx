@@ -18,8 +18,8 @@ const Biblioteca = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-primary-200 p-6 md:p-10">
-      <h1 className="font-bold mb-10 text-center">Mi Biblioteca</h1>
+    <div className=" bg-primary-200 p-5 md:p-10">
+      <h2 className="font-bold mb-10 text-center">Mi Biblioteca</h2>
 
       <div className="flex justify-center mb-8">
         <Button onClick={() => navigate("/admin/items")}>Añadir</Button>

@@ -9,7 +9,8 @@ const GestionAdmin = () => {
     navigate("/genero");
   };
   return (
-    <div className="flex flex-col min-h-screen gap-20 p-4 md:p-6">
+    <div className="flex flex-col gap-20 p-4 md:p-6">
+      <h2 className="flex justify-center">Gestión</h2>
       <div className="flex flex-row gap-10 w-full justify-center items-center">
         <Button variant="secundario">
           <span>Usuario</span>

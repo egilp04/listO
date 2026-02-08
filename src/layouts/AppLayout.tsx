@@ -16,7 +16,7 @@ const AppLayout = () => {
           arrow_back
         </span>
       </div>
-      <main className="flex-1 px-4 py-6 mt-4 md:mt-10">
+      <main className="flex-1 px-4 py-6">
         <Outlet></Outlet>
       </main>
       <Footer></Footer>

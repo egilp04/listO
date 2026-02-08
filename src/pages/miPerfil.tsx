@@ -3,9 +3,10 @@ import Inputs from "../componentes/Inputs/Inputs";
 
 const MiPerfil = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col">
       <div className="grow w-full max-w-4xl mx-auto px-4 pb-8">
-        <div className="flex flex-col gap-12 md:gap-14 lg:gap-20">
+        <div className="flex flex-col gap-12 md:gap-14 lg:gap-14">
+                      <h2 className="flex justify-center">Mi Perfil</h2>
           <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
             <div className="w-full md:w-1/3">
               <label className="font-bold">Nombre de usuario</label>
