@@ -19,7 +19,7 @@ const MiPerfil = () => {
             <div className="flex-grow w-full max-w-4xl mx-auto px-4 pb-8">
 
                 <div className="space-y-6">
-                    {/* Tarjeta Nombre */}
+                    {/* Tarjeta  del Nombre */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
                             <label>Nombre</label>
@@ -29,7 +29,7 @@ const MiPerfil = () => {
                         </div>
                     </div>
 
-                    {/* Tarjeta Email */}
+                    {/* Tarjeta del Email */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
                             <label>Email</label>
@@ -49,7 +49,7 @@ const MiPerfil = () => {
                         </div>
                     </div>
 
-                    {/* Botón Modificar */}
+                    {/* Botón  de Modificar */}
                     <div className="flex justify-center mt-8">
                         <div className="w-full md:w-1/3">
                             <Button variant="primario" className="w-full py-4 text-xl">
