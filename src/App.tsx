@@ -4,12 +4,12 @@ import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/Biblioteca";
-import MiPerfil from "./pages/miPerfil";
+import Biblioteca from "./pages/biblioteca"
 import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
 import Landing from "./pages/landing";
+import MiPerfil from "./pages/miPerfil";
 
 const router = createBrowserRouter([
   {
