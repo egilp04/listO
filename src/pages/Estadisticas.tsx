@@ -1,13 +1,11 @@
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import Navbar from '../componentes/Navbar';
 import CardEstadistica from '../componentes/tarjetas/cardEstadistica';
 import CardEstadisticaG from '../componentes/tarjetas/cardEstadisticaG';
 import CardEstadisticaT from '../componentes/tarjetas/cardEstadisticaT';
 
 interface CardData {
   id: number;
-  title: string;
+  label: string;
   value: number;
   icon: string;
   color?: string;
@@ -19,11 +17,12 @@ const Estadisticas = () => {
   useEffect(() => {
     const getDataEstadistica = async () => {
       try {
-        const res = await fetch("/mock/cardsAdminStats.json");
+        const res = await fetch("src/mock/cardsAdminStats.json");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
+        console.log(data);
         setInfoTarjetaEstadistica(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -34,13 +33,10 @@ const Estadisticas = () => {
 
   return (
     <>
-      <Navbar usuario="Usuario" estaLogueado={true} />
       <div className="w-full px-4 py-4 md:px-8">
-        <Link to="/" className="inline-flex items-center text-black hover:text-primary-600 transition-colors">
           <span className="material-symbols-outlined text-4xl">
             arrow_back
           </span>
-        </Link>
       </div>
 
       <div className="flex-grow w-full max-w-7xl mx-auto px-4 pb-8 space-y-8">
@@ -52,10 +48,9 @@ const Estadisticas = () => {
             infoTarjetaEstadistica.map((card) => (
               <CardEstadistica
                 key={card.id}
-                icon={card.icon}
+                imagen={card.icon}
                 numero={card.value}
-                texto={card.title}
-                color={card.color}
+                texto={card.label}
               />
             ))
           ) : (
