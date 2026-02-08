@@ -11,7 +11,7 @@ const MiPerfil = () => {
               <label className="font-bold">Nombre de usuario</label>
             </div>
             <div className="w-full md:w-2/3">
-              <Inputs label="" placeholder={"nombre"} name="nombre" />
+              <Inputs label="" placeholder={"Nombre"} name="nombre" />
             </div>
           </div>
           <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
@@ -27,6 +27,7 @@ const MiPerfil = () => {
               />
             </div>
           </div>
+
           <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
             <div className="w-full md:w-1/3">
               <label className="font-bold">Fecha Nacimiento</label>
@@ -41,9 +42,11 @@ const MiPerfil = () => {
                 Modificar Datos
               </Button>
             </div>
-            
-        </div>
-    );
+          </div>
+        </div>{" "}
+      </div>{" "}
+    </div>
+  );
 };
 
 export default MiPerfil;
