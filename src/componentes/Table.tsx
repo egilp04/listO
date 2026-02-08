@@ -1,0 +1,47 @@
+import { useEffect, useState } from "react";
+import Button from "./Button";
+
+interface infoInterface {
+  nombre: string;
+}
+
+const Table = () => {
+  const [info, setInfo] = useState<infoInterface[]>([]);
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await fetch("src/mock/usuarios.json");
+        const datos = await res.json();
+        setInfo(datos);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+  return (
+    <div className="table-admin">
+      <div className="flex flex-row w-full">
+        <label>Nombre</label>
+      </div>
+      <div className="flex flex-col">
+        {info.map((inf, index) => (
+          <div
+            className={`rows-table ${index % 2 == 0 ? "bg-primary-100" : "bg-neutral-100"}`}
+          >
+            <label className="w-full font-bold">{inf.nombre}</label>
+            <div className="gap-4 flex flex-row justify-end pr-2">
+              <Button>
+                <span>Editar</span>
+              </Button>
+              <Button className="bg-danger-300">
+                <span className="text-black">Eliminar</span>
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+export default Table;

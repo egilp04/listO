@@ -1,0 +1,6 @@
+[
+  { "id": 1, "label": "Libros subidos este año", "value": 4 , "icon": "src/mock/cardsAdminStats.json"},
+  { "id": 2, "label": "Libros subidos este año", "value": 3 , "icon": "src/mock/cardsAdminStats.json"},
+  { "id": 3, "label": "Videojuegos subidos este mes", "value": 4 , "icon": "src/mock/cardsAdminStats.json"},
+  { "id": 4, "label": "Videojuegos subidos este mes", "value": 6 , "icon": "src/mock/cardsAdminStats.json"}
+]

@@ -70,18 +70,17 @@
   --spacing-btn-w-lg: 90px;
   --spacing-btn-w-md: 86px;
   --spacing-btn-w-sm: 54px;
-  --spacing-peronalzazo-6: 6px;
-  --spacing-peronalzazo-14: 14px;
-  --spacing-peronalzazo-47: 47px;
-  --spacing-peronalzazo-50: 50px;
-  --spacing-peronalzazo-70: 70px;
-  --spacing-peronalzazo-150: 150px;
+  --spacing-personalizado-6: 6px;
+  --spacing-personalizado-14: 14px;
+  --spacing-personalizado-30: 30px;
+  --spacing-personalizado-47: 47px;
+  --spacing-personalizado-50: 50px;
+  --spacing-personalizado-70: 70px;
+  --spacing-personalizado-150: 150px;
 }
 
 /* TAMAÑO TEXTOS */
-
 /*Titulos (Medium) font-medium*/
-
 /* --text-h1-lg: 7xl */
 /* --text-h1-md: text-5xl; */
 /* --text-h1-sm: text-4xl; */
@@ -90,9 +89,9 @@
 /* --text-h2-md: text-4xl;
 --text-h2-sm: text-3xl; */
 
-/* --text-h4-lg: text-4xl; */
-/* --text-h4-md: text-3xl;
---text-h3-sm: text-2-xl; */
+/* --text-h3-lg: text-4xl; */
+/* --text-h3-md: text-3xl;
+----text-h3-sm: text-2xl; */
 
 /* --text-h4-lg: text-3xl;
 --text-h4-md: text-2xl;
@@ -192,11 +191,6 @@ hover, focus: primary-700
 disabled: neutral-300
  */
 
-/* paginacion:
-gap-2
-div con los elementos -> h-7
- */
-
 /* checkbox:
 gap-2
 lg :text-xl
@@ -206,7 +200,7 @@ sm: text-sm
 
 /* menu:
  gap-1
- imgaen:
+ imagen:
     h-10
     w-10 
     size-10
