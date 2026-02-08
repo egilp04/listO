@@ -1,5 +1,4 @@
 import type { FormHTMLAttributes } from "react";
-import { ArrowLeft } from "lucide-react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
@@ -15,7 +14,7 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
     const titulo = crear ? "Crear Género" : "Modificar Género";
 
     return (
-        <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
+        <div className="flex justify-center items-center w-full min-h-screen p-4">
 
             <form className="card-genero" {...props}>
 
