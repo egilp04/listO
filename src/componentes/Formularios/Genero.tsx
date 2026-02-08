@@ -18,25 +18,18 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
         <div className="flex justify-center items-center w-full min-h-screen bg-gray-50 p-4">
 
             <form className="card-genero" {...props}>
-                
-                {/* 1. CABECERA */}
+
                 <div className="header-genero">
-                    <button 
-                        type="button" 
-                        className="btn-atras-genero" 
-                        onClick={() => window.history.back()}
-                    >
-                        <ArrowLeft size={24} /> {/* Icono un poco más pequeño para h3 */}
-                    </button>
-                    
-                    {/* Usamos h3 y la clase titulo-genero solo lo centra */}
+                    <div className="w-full">
+                        <span className="material-symbols-outlined">arrow_back</span>
+                    </div>
+
                     <h3 className="titulo-genero">{titulo}</h3>
                 </div>
 
-                {/* 2. CUERPO DEL FORMULARIO (Inputs) */}
                 <div className="form-body">
                     <Inputs label="Nombre" type="text" name="nombre_item" placeholder="Ej: Suspense" />
-                    
+
                     <div className="seccion-tipo">
                         <label className="font-normal font-Otros text-sm md:text-base text-black">
                             Tipo:
@@ -46,12 +39,10 @@ export const Genero = ({ error, crear, ...props }: RegistroProps) => {
                             <Checkbox label="Libro" />
                         </div>
                     </div>
-                    
+
                     <TextArea label="Descripción" placeholder="Añada su descripción" />
                 </div>
 
-                {/* 3. FOOTER DEL BOTÓN */}
-                {/* Al poner flex justify-center, el botón no se estira, usa su tamaño por defecto */}
                 <div className="footer-boton">
                     <Button>Guardar</Button>
                 </div>
