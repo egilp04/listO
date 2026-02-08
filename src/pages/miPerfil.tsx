@@ -13,59 +13,50 @@ const MiPerfil = () => {
                     </span>
                 </Link>
             </div>
-            <div className="w-full md:w-2/3">
-              <Inputs label="" placeholder="Maria" name="nombre" />
-            </div>
-          </div>
 
             <div className="flex-grow w-full max-w-4xl mx-auto px-4 pb-8">
 
                 <div className="space-y-6">
-                    {/* Tarjeta  del Nombre */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
-                            <label>Nombre</label>
+                            <label className="font-medium text-gray-700">Nombre</label>
                         </div>
                         <div className="w-full md:w-2/3">
                             <Inputs label="" placeholder="Maria" name="nombre" />
                         </div>
                     </div>
 
-                    {/* Tarjeta del Email */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
-                            <label>Email</label>
+                            <label className="font-medium text-gray-700">Email</label>
                         </div>
                         <div className="w-full md:w-2/3">
                             <Inputs label="" placeholder="listOdaw@gmail.com" name="email" type="email" />
                         </div>
                     </div>
 
-                    {/* Tarjeta Fecha Nacimiento */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
-                            <label>Fecha Nacimiento</label>
+                            <label className="font-medium text-gray-700">Fecha Nacimiento</label>
                         </div>
                         <div className="w-full md:w-2/3">
                             <Inputs label="" placeholder="00/00/0000" name="fechaNacimiento" type="date" />
                         </div>
                     </div>
 
-                    {/* Botón  de Modificar */}
                     <div className="flex justify-center mt-12">
                         <div className="w-full md:w-1/3">
-                            <Button variant="primario" className="w-full py-4 text-xl">
+
+                            <Button className="w-full py-3 text-lg">
                                 Modificar
                             </Button>
                         </div>
                     </div>
                 </div>
             </div>
-          </div>
+            
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default MiPerfil;
