@@ -1,13 +1,13 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import Footer from "../componentes/Footer";
 import Navbar from "../componentes/Navbar";
+import Footer from "../componentes/Footer";
 
-const AppLayout = () => {
+const LandingLayout = () => {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen bg-primary-200">
-      <Navbar esAdmin={true} estaLogueado={true} usuario={"Usuario"}></Navbar>
+      <Navbar></Navbar>
       <div className="w-full px-4 py-4 md:px-8">
         <span
           className="material-symbols-outlined text-4xl"
@@ -24,4 +24,4 @@ const AppLayout = () => {
   );
 };
 
-export default AppLayout;
+export default LandingLayout;

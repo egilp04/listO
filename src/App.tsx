@@ -4,18 +4,18 @@ import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca"
+import Biblioteca from "./pages/biblioteca";
 import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
 import Landing from "./pages/landing";
 import MiPerfil from "./pages/MiPerfil";
+import LandingLayout from "./layouts/LandingLayout";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      { path: "/", element: <Landing /> },
       {
         path: "/estadisticas",
         element: <Estadisticas />,
@@ -41,6 +41,10 @@ const router = createBrowserRouter([
         element: <FormularioGestionGeneros />,
       },
     ],
+  },
+  {
+    element: <LandingLayout />,
+    children: [{ path: "/", element: <Landing /> }],
   },
   {
     element: <AuthLayout />,
