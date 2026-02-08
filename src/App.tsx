@@ -2,32 +2,63 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
-import Landing from "./pages/landing";
-import MiPerfil from "./pages/miPerfil";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
+import { Registro } from "./componentes/Formularios/Registro";
+import Biblioteca from "./pages/Biblioteca";
+import MiPerfil from "./pages/miPerfil";
+import EstadisticasGlobales from "./pages/EstadisticasGlobales";
+import GestionAdmin from "./pages/GestionAdmin";
+import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
+import Landing from "./pages/landing";
 
 const router = createBrowserRouter([
-  /*{
+  {
     element: <AppLayout />,
     children: [
       { path: "/", element: <Landing /> },
+      {
+        path: "/estadisticas",
+        element: <Estadisticas />,
+      },
+      {
+        path: "/miperfil",
+        element: <MiPerfil />,
+      },
+      {
+        path: "/biblioteca",
+        element: <Biblioteca />,
+      },
+      {
+        path: "/estadisticas-globales",
+        element: <EstadisticasGlobales />,
+      },
+      {
+        path: "/gestion",
+        element: <GestionAdmin />,
+      },
+      {
+        path: "/genero",
+        element: <FormularioGestionGeneros />,
+      },
     ],
-  },*/
-  {
-    path: "/",
-    element: <Estadisticas />,
-  },
-  /*{
-    path: "/miperfil",
-    element: <MiPerfil />,
   },
   {
     element: <AuthLayout />,
     children: [
-      { path: "/login", element: <Login_ChangePasswd login={true} /> },
-      { path: "/registro", element: <Login_ChangePasswd login={false} /> },
+      {
+        path: "/login",
+        element: <Login_ChangePasswd login={true} />,
+      },
+      {
+        path: "/registro",
+        element: <Registro />,
+      },
+      {
+        path: "/recuperar",
+        element: <Login_ChangePasswd login={false} />,
+      },
     ],
-  },*/
+  },
 ]);
 
 function App() {
@@ -35,5 +66,3 @@ function App() {
 }
 
 export default App;
-
-
