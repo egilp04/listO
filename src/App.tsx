@@ -2,41 +2,87 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
-import Landing from "./pages/landing";
-import MiPerfil from "./pages/miPerfil";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
+import { Registro } from "./componentes/Formularios/Registro";
+import Biblioteca from "./pages/biblioteca";
+import EstadisticasGlobales from "./pages/EstadisticasGlobales";
+import GestionAdmin from "./pages/GestionAdmin";
+import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
+import Landing from "./pages/landing";
+import MiPerfil from "./pages/MiPerfil";
+import LandingLayout from "./layouts/LandingLayout";
 
 const router = createBrowserRouter([
-  /*{
+  {
     element: <AppLayout />,
     children: [
-      { path: "/", element: <Landing /> },
+      {
+        path: "/estadisticas",
+        element: <Estadisticas />,
+      },
+      {
+        path: "/miperfil",
+        element: <MiPerfil />,
+      },
+      {
+        path: "/biblioteca",
+        element: <Biblioteca />,
+      },
+      {
+        path: "/estadisticas-globales",
+        element: <EstadisticasGlobales />,
+      },
+      {
+        path: "/gestion",
+        element: <GestionAdmin />,
+      },
+      {
+        path: "/genero",
+        element: <FormularioGestionGeneros />,
+      },
     ],
-  },*/
+  },
   {
-    path: "/",
+    element: <LandingLayout />,
+    children: [{ path: "/", element: <Landing /> }],
+      { path: "/", element: <Landing /> },
+],
+  },*/
+{
+  path: "/",
     element: <Estadisticas />,
 
 
   },
-  /*{
-    path: "/miperfil",
-    element: <MiPerfil />,
-  },
-  {
-    element: <AuthLayout />,
-    children: [
-      { path: "/login", element: <Login_ChangePasswd login={true} /> },
-      { path: "/registro", element: <Login_ChangePasswd login={false} /> },
-    ],
-  },*/
+/*{
+  path: "/miperfil",
+  element: <MiPerfil />,
+},
+{
+  element: <AuthLayout />,
+  children: [
+    {
+      path: "/login",
+      element: <Login_ChangePasswd login={true} />,
+    },
+    {
+      path: "/registro",
+      element: <Registro />,
+    },
+    {
+      path: "/recuperar",
+      element: <Login_ChangePasswd login={false} />,
+    },
+  ],
+},
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+return <RouterProvider router={router} />;
 }
 
 export default App;
+
 
 
 // { path: "/admin/items", element: <GestionItem /> },

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "./Button";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   usuario?: string;
@@ -8,13 +8,19 @@ interface NavbarProps {
   esAdmin?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  usuario,
+  estaLogueado = false,
+  esAdmin = false,
+}) => {
   const location = useLocation();
   const [close, setClose] = useState(true);
 
   const handleClick = () => {
     setClose(!close);
   };
+
+  const navigate = useNavigate();
 
   return (
     <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
@@ -41,19 +47,65 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
         </span>
       </div>
       <div
-        className={`${close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-          }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
+        className={`${
+          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
+        }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
       >
         <div className="botones-navbar">
           {estaLogueado && (
             <>
-              <Button variant="secundario">Mi Biblioteca</Button>
-              <Button variant="secundario">Estadísticas</Button>
-              <Button variant="secundario">Mi Perfil</Button>
+              <Button
+                variant="secundario"
+                onClick={() => {
+                  {
+                    navigate("/biblioteca");
+                  }
+                }}
+              >
+                Mi Biblioteca
+              </Button>
+              <Button
+                variant="secundario"
+                onClick={() => {
+                  {
+                    navigate("/estadisticas");
+                  }
+                }}
+              >
+                Estadísticas
+              </Button>
+              <Button
+                variant="secundario"
+                onClick={() => {
+                  {
+                    navigate("/miperfil");
+                  }
+                }}
+              >
+                Mi Perfil
+              </Button>
               {esAdmin && (
                 <>
-                  <Button variant="secundario">Estadísticas Globales</Button>
-                  <Button variant="secundario">Gestión</Button>
+                  <Button
+                    variant="secundario"
+                    onClick={() => {
+                      {
+                        navigate("/estadisticas-globales");
+                      }
+                    }}
+                  >
+                    Estadísticas Globales
+                  </Button>
+                  <Button
+                    variant="secundario"
+                    onClick={() => {
+                      {
+                        navigate("/gestion");
+                      }
+                    }}
+                  >
+                    Gestión
+                  </Button>
                 </>
               )}
             </>
@@ -76,7 +128,16 @@ const Navbar: React.FC<NavbarProps> = ({ usuario, estaLogueado, esAdmin }) => {
               </>
             )
           ) : (
-            <Button variant="fantasma">Salir</Button>
+            <Button
+              variant="fantasma"
+              onClick={() => {
+                {
+                  navigate("/");
+                }
+              }}
+            >
+              Salir
+            </Button>
           )}
         </div>
       </div>

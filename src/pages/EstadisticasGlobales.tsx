@@ -34,10 +34,7 @@ const EstadisticasGlobales = () => {
   }, []);
   const conteo = 10;
   return (
-    <div className="bg-primary-200 min-h-screen flex flex-col gap-20 md:gap-18 p-4">
-      <div className="w-full">
-        <span className="material-symbols-outlined">arrow_back</span>
-      </div>
+    <div className=" min-h-screen flex flex-col gap-20 md:gap-18 p-4">
       <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center">
         <h3 className="w-full text-primary-700">
           Usuarios registrados por mes: {conteo}
