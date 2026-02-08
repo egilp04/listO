@@ -37,7 +37,7 @@ const Landing = () => {
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
             />
           </div>
-          <div className="flex flex-col mt-8 mb-[40px] sm:gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
+          <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px]">
             <h2>Tu bitácora digital de entretenimiento</h2>
             <p>
               Nuestra aplicación es el refugio definitivo para tu curiosidad intelectual, permitiéndote registrar, 
@@ -54,7 +54,7 @@ const Landing = () => {
             </p>
           </div>
         </section>
-      <div className="flex flex-col gap-[50px] lg:gap-4 w-full sm:gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
+      <div className="flex flex-col gap-[50px] lg:gap-4 w-full gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px]">
         <section className="w-full">
           <CardLanding
             titulo="Tu catálogo personal"
@@ -92,7 +92,7 @@ const Landing = () => {
           <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
             <div className="flex flex-col items-center text-center gap-6">
               <h2>
-                Miles de listas <br />completadas con éxito
+                Miles de listas completadas con éxito
               </h2>
               <p>
                 ListO no es solo una aplicación, es la suma de vuestras ideas. Creada desde cero gracias a vuestras sugerencias, cada función ha sido diseñada para resolver las necesidades reales de quienes buscan un control total sobre su biblioteca de libros y su catálogo de videojuegos.
