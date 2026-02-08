@@ -9,13 +9,19 @@ import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
 import Landing from "./pages/landing";
-import MiPerfil from "./pages/MiPerfil";
+import MiPerfil from "./pages/miPerfil";
 import LandingLayout from "./layouts/LandingLayout";
+import GestionItem from "./pages/GestionItem";
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
+
+      {
+        path: "/admin/items", // Ruta añadida para gestión de items
+        element: <GestionItem />,
+      },
       {
         path: "/estadisticas",
         element: <Estadisticas />,
@@ -28,6 +34,11 @@ const router = createBrowserRouter([
         path: "/biblioteca",
         element: <Biblioteca />,
       },
+      {
+        path: "/estadisticas/globales",
+        element: <EstadisticasGlobales />,
+      },
+      // Duplicate route kept for compatibility if needed, otherwise could be removed
       {
         path: "/estadisticas-globales",
         element: <EstadisticasGlobales />,
@@ -45,46 +56,28 @@ const router = createBrowserRouter([
   {
     element: <LandingLayout />,
     children: [{ path: "/", element: <Landing /> }],
-      { path: "/", element: <Landing /> },
-],
-  },*/
-{
-  path: "/",
-    element: <Estadisticas />,
-
-
   },
-/*{
-  path: "/miperfil",
-  element: <MiPerfil />,
-},
-{
-  element: <AuthLayout />,
-  children: [
-    {
-      path: "/login",
-      element: <Login_ChangePasswd login={true} />,
-    },
-    {
-      path: "/registro",
-      element: <Registro />,
-    },
-    {
-      path: "/recuperar",
-      element: <Login_ChangePasswd login={false} />,
-    },
-  ],
-},
+  {
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login_ChangePasswd login={true} />,
+      },
+      {
+        path: "/registro",
+        element: <Registro />,
+      },
+      {
+        path: "/recuperar",
+        element: <Login_ChangePasswd login={false} />,
+      },
+    ],
+  },
 ]);
 
 function App() {
-return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
-
-
-
-// { path: "/admin/items", element: <GestionItem /> },
-//       { path: "/estadisticas", element: <Estadisticas /> },
-//       { path: "/estadisticas/globales", element: <EstadisticasGlobales /> },
