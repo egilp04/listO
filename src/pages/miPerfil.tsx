@@ -4,10 +4,8 @@ import Inputs from '../componentes/Inputs/Inputs';
 
 const MiPerfil = () => {
     return (
-        // 1. APERTURA DEL CONTENEDOR PRINCIPAL
         <div className="min-h-screen bg-gray-50 flex flex-col">
 
-            {/* Cabecera con botón atrás */}
             <div className="w-full px-4 py-4 md:px-8">
                 <Link to="/" className="inline-flex items-center text-black hover:text-primary-600 transition-colors">
                     <span className="material-symbols-outlined text-4xl">
@@ -16,11 +14,9 @@ const MiPerfil = () => {
                 </Link>
             </div>
 
-            {/* Contenedor del formulario (centrado) */}
             <div className="flex-grow w-full max-w-4xl mx-auto px-4 pb-8">
 
                 <div className="space-y-6">
-                    {/* Tarjeta del Nombre */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
                             <label className="font-medium text-gray-700">Nombre</label>
@@ -30,7 +26,6 @@ const MiPerfil = () => {
                         </div>
                     </div>
 
-                    {/* Tarjeta del Email */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
                             <label className="font-medium text-gray-700">Email</label>
@@ -40,7 +35,6 @@ const MiPerfil = () => {
                         </div>
                     </div>
 
-                    {/* Tarjeta Fecha Nacimiento */}
                     <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
                         <div className="w-full md:w-1/3">
                             <label className="font-medium text-gray-700">Fecha Nacimiento</label>
@@ -50,10 +44,9 @@ const MiPerfil = () => {
                         </div>
                     </div>
 
-                    {/* Botón de Modificar */}
                     <div className="flex justify-center mt-12">
                         <div className="w-full md:w-1/3">
-                            {/* He añadido onClick como ejemplo, adáptalo a tu componente Button */}
+
                             <Button className="w-full py-3 text-lg">
                                 Modificar
                             </Button>
