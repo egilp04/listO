@@ -9,7 +9,7 @@ const itemEjemplo = {
   generos: ["RPG", "Aventura"],
   informacion: "CD Projekt Red - 2015",
   descripcion: "Un juego de rol de acción en mundo abierto...",
-  valoracion: 5
+  valoracion: 5,
 };
 
 import { useNavigate } from "react-router-dom";
@@ -19,18 +19,18 @@ const Biblioteca = () => {
 
   return (
     <div className=" bg-primary-200 p-5 md:p-10">
-      <h2 className="font-bold mb-10 text-center">Mi Biblioteca</h2>
+      <h2 className="mb-10 text-center">Mi Biblioteca</h2>
 
       <div className="flex justify-center mb-8">
         <Button onClick={() => navigate("/admin/items")}>Añadir</Button>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto">
-        <Input type="text" placeholder='Buscar nombre' />
+        <Input type="text" placeholder="Buscar nombre" />
         <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4">
           <Button>Todos</Button>
-          <Button variant='secundario'>Libros</Button>
-          <Button variant='secundario'>Juegos</Button>
+          <Button variant="secundario">Libros</Button>
+          <Button variant="secundario">Juegos</Button>
         </div>
       </div>
 

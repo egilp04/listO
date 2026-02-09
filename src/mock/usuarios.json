@@ -1,32 +1,39 @@
 [
+  { "id": 1, "nombre": "Juan Pérez García" },
   {
-    "nombre": "Juan Pérez García"
-  },
-  {
+    "id": 2,
     "nombre": "María Rodríguez López"
   },
   {
+    "id": 3,
     "nombre": "Carlos Sánchez Fernández"
   },
   {
+    "id": 4,
     "nombre": "Laura Martínez Gómez"
   },
   {
+    "id": 5,
     "nombre": "Pedro Ruiz Díaz"
   },
   {
+    "id": 6,
     "nombre": "Ana Hernández Ruiz"
   },
   {
+    "id": 7,
     "nombre": "Miguel Ángel Torres"
   },
   {
+    "id": 8,
     "nombre": "Lucía Jiménez Gil"
   },
   {
+    "id": 9,
     "nombre": "Alejandro Vega Soto"
   },
   {
+    "id": 10,
     "nombre": "Carmen Flores Castillo"
   }
 ]
