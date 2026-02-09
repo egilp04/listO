@@ -4,6 +4,7 @@ import Dialog from "./Dialog";
 
 interface infoInterface {
   nombre: string;
+  id: number;
 }
 
 const Table = () => {
@@ -36,6 +37,7 @@ const Table = () => {
           {info.map((inf, index) => (
             <div
               className={`rows-table ${index % 2 == 0 ? "bg-primary-100" : "bg-neutral-100"}`}
+              key={inf.id}
             >
               <label className="w-full font-bold">{inf.nombre}</label>
               <div className="gap-4 flex flex-row justify-end pr-2">
