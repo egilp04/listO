@@ -17,9 +17,8 @@ const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-
       {
-        path: "/admin/items", // Ruta añadida para gestión de items
+        path: "/admin/items",
         element: <GestionItem />,
       },
       {
@@ -36,11 +35,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/estadisticas/globales",
-        element: <EstadisticasGlobales />,
-      },
-      // Duplicate route kept for compatibility if needed, otherwise could be removed
-      {
-        path: "/estadisticas-globales",
         element: <EstadisticasGlobales />,
       },
       {
