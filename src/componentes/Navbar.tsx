@@ -38,7 +38,7 @@ const Navbar: React.FC<NavbarProps> = ({
           </span>
         )}
       </div>
-      <div className="md:hidden block">
+      <div className="lg:hidden block">
         <span
           className="material-symbols-outlined cursor-pointer text-7xl"
           onClick={handleClick}
@@ -49,7 +49,7 @@ const Navbar: React.FC<NavbarProps> = ({
       <div
         className={`${
           close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-        }  flex-col items-center gap-4 md:mt-0 md:flex md:w-auto md:flex-row `}
+        }  flex-col items-center gap-4 lg:mt-0 lg:flex lg:w-auto lg:flex-row`}
       >
         <div className="botones-navbar">
           {estaLogueado && (

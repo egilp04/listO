@@ -35,7 +35,7 @@ const Estadisticas = () => {
 
   return (
     <>
-      <div className="flex-grow w-full max-w-7xl mx-auto px-4 pb-8 space-y-8">
+      <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
         <h2 className="flex justify-center">Estadísticas</h2>
 
         {/* Grid de Tarjetas Superiores */}

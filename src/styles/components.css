@@ -1,6 +1,6 @@
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:px-4 lg:py-3 lg:text-lg md:px-3 md:py-2 md:text-base sm:px-2 sm:py-1 sm:text-sm;
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:px-4 lg:py-3 lg:text-lg md:px-3 md:py-2 md:text-base px-2 py-1 text-sm;
   }
 
   .btn-primario {
@@ -44,11 +44,11 @@
   }
 
   .botones-navbar {
-    @apply flex flex-col md:flex-row gap-2 w-full md:w-auto justify-center;
+    @apply flex flex-col lg:flex-row gap-2 w-full lg:w-auto justify-center;
   }
 
   .table-admin {
-    @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2;
+    @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2 max-h-100;
   }
 
   .rows-table {
@@ -162,7 +162,6 @@
   .card-login_passwd {
     @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10;
   }
-
 
   .flex-login-passwd {
     @apply flex flex-col w-full gap-4 md:gap-6;
