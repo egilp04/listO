@@ -19,7 +19,7 @@ const Estadisticas = () => {
   useEffect(() => {
     const getDataEstadistica = async () => {
       try {
-        const res = await fetch("src/mock/cardsAdminStats.json");
+        const res = await fetch("/src/mock/cardsAdminStats.json");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }

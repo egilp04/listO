@@ -90,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     variant="secundario"
                     onClick={() => {
                       {
-                        navigate("/estadisticas-globales");
+                        navigate("/estadisticas/globales");
                       }
                     }}
                   >

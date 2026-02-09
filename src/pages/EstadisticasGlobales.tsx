@@ -16,16 +16,26 @@ const EstadisticasGlobales = () => {
 
   useEffect(() => {
     const getDataEstadistica = async () => {
-      const res = await fetch("src/mock/cardsAdminStats.json");
-      const data = await res.json();
-      setInfoTarjetaEstadistica(data);
+      try {
+        const res = await fetch("/src/mock/cardsAdminStats.json");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        console.log("RESPUESTA", res);
+        const data = await res.json();
+        console.log(data);
+        setInfoTarjetaEstadistica(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
     getDataEstadistica();
   }, []);
 
+  const [mesSeleccionado, setMesSeleccionado] = useState("");
   useEffect(() => {
     const getDataTop = async () => {
-      const res = await fetch("src/mock/cardTopStatsAdmin.json");
+      const res = await fetch("/src/mock/cardTopStatsAdmin.json");
       const data = await res.json();
       console.log(data);
       setInfoEstadisticasTop(data);
@@ -34,13 +44,18 @@ const EstadisticasGlobales = () => {
   }, []);
   const conteo = 10;
   return (
-    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18">
+    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
       <h2 className="flex justify-center">Estadísticas Globales</h2>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center">
+      <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h3 className="w-full text-primary-700">
           Usuarios registrados por mes: {conteo}
         </h3>
-        <Select variant="primario" options={meses}></Select>
+        <Select
+          variant="primario"
+          options={meses}
+          value={mesSeleccionado}
+          onChange={(e) => setMesSeleccionado(e.target.value)}
+        />{" "}
       </div>
       <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
         {infoTarjetaEstadistica.map(({ label, value }) => (
@@ -51,8 +66,7 @@ const EstadisticasGlobales = () => {
         <div className="flex flex-col bg-primary-500 p-6 w-full rounded-sm">
           <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
             <div className=" w-28 flex flex-row gap-2 h-full">
-              {" "}
-              <img src="src/assets/img/logo/logo.webp"></img>
+              <img src="/src/assets/img/logo/logo.webp" alt="logo" />
             </div>
             <h3 className="text-primary-50">Generos Favoritos</h3>
           </div>
