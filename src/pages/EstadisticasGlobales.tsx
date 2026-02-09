@@ -34,7 +34,8 @@ const EstadisticasGlobales = () => {
   }, []);
   const conteo = 10;
   return (
-    <div className=" min-h-screen flex flex-col gap-20 md:gap-18 p-4">
+    <div className=" flex flex-col gap-20 md:gap-18 p-4">
+      <h2 className="flex justify-center">Estadísticas Globales</h2>
       <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center">
         <h3 className="w-full text-primary-700">
           Usuarios registrados por mes: {conteo}
