@@ -57,12 +57,12 @@ const EstadisticasGlobales = () => {
           onChange={(e) => setMesSeleccionado(e.target.value)}
         />{" "}
       </div>
-      <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
         {infoTarjetaEstadistica.map(({ label, value }) => (
           <CardEstadisticaG texto={label} numero={value}></CardEstadisticaG>
         ))}
       </div>
-      <div className="w-full flex flex-col items-center justify-center pr-10 pl-10 md:pr-28 md:pl-28 mb-10">
+      <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28 mb-10">
         <div className="flex flex-col bg-primary-500 p-6 w-full rounded-sm">
           <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
             <div className=" w-28 flex flex-row gap-2 h-full">
