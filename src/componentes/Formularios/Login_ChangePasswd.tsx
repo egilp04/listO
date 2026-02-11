@@ -75,7 +75,11 @@ export const Login_ChangePasswd = ({
               placeholder="********"
               name="nueva_passwd"
             />
-            <Inputs label="Apellidos" type="password" placeholder="********" />
+            <Inputs
+              label="Confirmar la contraseña"
+              type="password"
+              placeholder="********"
+            />
           </div>
         </>
       )}

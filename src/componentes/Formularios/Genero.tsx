@@ -1,4 +1,4 @@
-import { useState, type FormHTMLAttributes, type MouseEvent } from "react";
+import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
@@ -25,11 +25,6 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     descripcionItem: true,
   });
 
-  const handleNavigation = (e: MouseEvent) => {
-    e.preventDefault();
-    navigate("/gestion");
-  };
-
   const manejarCambios = (e) => {
     setDatos((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -48,7 +43,10 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     if (tieneErrores) {
       alert("Algunos de los campos tienen errores, reviselos");
     } else {
-      alert("Formulario enviado correctamente");
+      alert(
+        `Formulario enviado correctamente. Datos: ${datos.nombreItem}, ${datos.tipoItem}, ${datos.descripcionItem}`,
+      );
+      navigate("/gestion");
     }
   };
   return (
@@ -81,9 +79,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
         </div>
 
         <div className="footer-boton">
-          <Button type="submit" onClick={handleNavigation}>
-            Guardar
-          </Button>
+          <Button type="submit">Guardar</Button>
         </div>
       </form>
     </div>

@@ -1,42 +1,100 @@
-import type { FormHTMLAttributes, MouseEvent } from "react";
+import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Checkbox from "../Inputs/Checkbox";
 import Button from "../Button";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
-  error?: string;
-}
-
-export const Registro = ({ error, ...props }: RegistroProps) => {
-
+export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
 
-const handleClick = (e: MouseEvent) => {
-      e.preventDefault();
-      console.log("Registro completado, yendo a inicio...");
-      navigate('/'); 
+  const [datos, setDatos] = useState({
+    nombre: undefined,
+    apellidos: undefined,
+    email: undefined,
+    fecha_nac: undefined,
+    passwd: undefined,
+    rep_passwd: undefined,
+  });
+
+  const [errores, setErrores] = useState({
+    nombre: true,
+    apellidos: true,
+    email: true,
+    fecha_nac: true,
+    passwd: true,
+    rep_passwd: true,
+  });
+
+  const manejarCambios = (e) => {
+    setDatos((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const manejarErrores = (nombre: string, error: boolean) => {
+    setErrores((prev) => {
+      return { ...prev, [nombre]: error };
+    });
+  };
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const tieneErrores = Object.values(errores).some((error) => error == true);
+    if (tieneErrores) {
+      alert("Algunos de los campos tienen errores, reviselos");
+    } else {
+      alert(
+        `Formulario enviado correctamente. Datos: ${datos.nombre}, ${datos.apellidos}, ${datos.email}, ${datos.fecha_nac}`,
+      );
+      navigate("/");
+    }
   };
 
   return (
-    
+    <form className="card-registro" {...props} onSubmit={handleSubmit}>
+      <h2>Registro</h2>
 
-      <form className="card-registro" {...props}>
-        <h2>Registro</h2>
+      <div className="grid-registro">
+        <Inputs
+          label="Nombre"
+          type="text"
+          placeholder="Ej: Eve"
+          name="nombre"
+        />
+        <Inputs
+          label="Apellidos"
+          type="text"
+          placeholder="Ej: Ceballos Mateos"
+          name="apellidos"
+        />
+        <Inputs
+          label="Fecha Nacimiento"
+          type="text"
+          placeholder="Ej: 12/12/2000"
+          name="fecha_nac"
+        />
+        <Inputs
+          label="Email"
+          type="email"
+          placeholder="Ej: eve@gmail.com"
+          name="email"
+        />
+        <Inputs
+          label="Contraseña"
+          type="password"
+          placeholder="********"
+          name="passwd"
+        />
+        <Inputs
+          label="Confirmar Contraseña"
+          type="password"
+          placeholder="********"
+          name="rep_passwd"
+        />
+      </div>
 
-        <div className="grid-registro">
-          <Inputs label="Nombre" type="text" placeholder="Ej: Eve" name="nombre" />
-          <Inputs label="Apellidos" type="text" placeholder="Ej: Ceballos Mateos" name="apellidos" />
-          <Inputs label="Fecha Nacimiento" type="text" placeholder="Ej: 12/12/2000" name="fecha_nac" />
-          <Inputs label="Email" type="email" placeholder="Ej: eve@gmail.com" name="email" />
-          <Inputs label="Contraseña" type="password" placeholder="********" name="passwd" />
-          <Inputs label="Confirmar Contraseña" type="password" placeholder="********" name="repit_passwd" />
-        </div>
-
-        <Checkbox label="Aceptar políticas" name="politicas" />
-        <Button onClick = {handleClick}>Registrar</Button>
-
-      </form>
-    
+      <Checkbox label="Aceptar políticas" name="politicas" />
+      <Button type="submit">Registrar</Button>
+    </form>
   );
 };
