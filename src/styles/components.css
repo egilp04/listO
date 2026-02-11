@@ -47,6 +47,10 @@
     @apply flex flex-col lg:flex-row gap-2 w-full lg:w-auto justify-center;
   }
 
+  .nav-link {
+    @apply no-underline text-inherit;
+  }
+
   .table-admin {
     @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2 max-h-100;
   }
