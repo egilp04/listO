@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import Dialog from "./Dialog";
+import { useNavigate } from "react-router-dom";
 
 interface infoInterface {
   nombre: string;
   id: number;
 }
 
-const Table = () => {
+interface TableInterface {
+  tipoItem: string;
+}
+
+const Table = ({ tipoItem }: TableInterface) => {
   const [info, setInfo] = useState<infoInterface[]>([]);
   useEffect(() => {
     const getData = async () => {
+      const ruta =
+        tipoItem == "usuario"
+          ? "src/mock/usuarios.json"
+          : "src/mock/generos.json";
+      console.log(ruta);
       try {
-        const res = await fetch("src/mock/usuarios.json");
+        const res = await fetch(ruta);
+        if (!res.ok) throw new Error(res.statusText);
         const datos = await res.json();
         setInfo(datos);
       } catch (error) {
@@ -20,13 +31,20 @@ const Table = () => {
       }
     };
     getData();
-  }, []);
+  }, [tipoItem]);
 
   const [show, setShow] = useState(false);
-
   const deleteDialog = () => {
     setShow(!show);
   };
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (tipoItem == "usuario") navigate("/miperfil");
+    else navigate("/genero", { state: { crear: false } });
+  };
+
   return (
     <div>
       <div className="table-admin">
@@ -41,7 +59,7 @@ const Table = () => {
             >
               <label className="w-full font-bold">{inf.nombre}</label>
               <div className="gap-4 flex flex-row justify-end pr-2">
-                <Button>
+                <Button onClick={handleClick}>
                   <span>Editar</span>
                 </Button>
                 <Button className="bg-danger-300" onClick={deleteDialog}>
@@ -57,6 +75,7 @@ const Table = () => {
         titulo="Eliminar"
         descripcion="Vas a proceder a eliminar el género selccionado, estás seguro?"
         show={show}
+        tipoItem={tipoItem}
       ></Dialog>
     </div>
   );

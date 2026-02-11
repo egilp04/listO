@@ -5,15 +5,26 @@ interface DialogInterface {
   descripcion: string;
   show: boolean;
   onClose: () => void;
+  tipoItem: string;
 }
 
 const Dialog = ({
   titulo,
   descripcion,
   show = false,
+  tipoItem,
   onClose,
 }: DialogInterface) => {
   if (!show) return null;
+
+  const deleteItem = () => {
+    if (tipoItem == "usuario") {
+      console.log("borrar usuario");
+    } else {
+      console.log("borrar genero");
+    }
+    onClose();
+  };
   return (
     <>
       <div className="dialog-overlay" onClick={onClose}></div>
@@ -36,7 +47,7 @@ const Dialog = ({
           <Button variant="fantasma" onClick={onClose}>
             <span>No, cancelar</span>
           </Button>
-          <Button className="bg-danger-500 text-white">
+          <Button className="bg-danger-500 text-white" onClick={deleteItem}>
             <span>Sí, confirmar</span>
           </Button>
         </div>
