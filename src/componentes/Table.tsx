@@ -10,9 +10,10 @@ interface infoInterface {
 
 interface TableInterface {
   tipoItem: string;
+  valorFiltro: string;
 }
 
-const Table = ({ tipoItem }: TableInterface) => {
+const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const [info, setInfo] = useState<infoInterface[]>([]);
   useEffect(() => {
     const getData = async () => {
@@ -33,6 +34,10 @@ const Table = ({ tipoItem }: TableInterface) => {
     getData();
   }, [tipoItem]);
 
+  const datosAMostrar = info.filter((item) =>
+    item.nombre.toLowerCase().includes(valorFiltro.toLowerCase()),
+  );
+
   const [show, setShow] = useState(false);
   const deleteDialog = () => {
     setShow(!show);
@@ -52,7 +57,7 @@ const Table = ({ tipoItem }: TableInterface) => {
           <label>Nombre</label>
         </div>
         <div className="flex flex-col">
-          {info.map((inf, index) => (
+          {datosAMostrar.map((inf, index) => (
             <div
               className={`rows-table ${index % 2 == 0 ? "bg-primary-100" : "bg-neutral-100"}`}
               key={inf.id}

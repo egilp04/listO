@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const GestionAdmin = () => {
   const [selected, setSelected] = useState("usuario");
+  const [valorFiltro, setValorFiltro] = useState("");
   const navigate = useNavigate();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelected(e.currentTarget.name);
@@ -19,7 +20,9 @@ const GestionAdmin = () => {
     }
   };
 
-  const handleFiltrar = () => {};
+  const handleFiltrar = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValorFiltro(e.currentTarget.value);
+  };
 
   return (
     <div className="flex flex-col gap-8 md:p-6 mg:gap-14 mb-12 2xl:gap-18">
@@ -58,7 +61,10 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-        <Table tipoItem={selected == "usuario" ? "usuario" : "genero"}></Table>
+        <Table
+          tipoItem={selected == "usuario" ? "usuario" : "genero"}
+          valorFiltro={valorFiltro}
+        ></Table>
       </div>
     </div>
   );
