@@ -49,7 +49,7 @@ function File({ label, name, disabled, onChange, mensajeError, ...props }: FileP
         <div className="file-container max-w-full">
 
             <div onClick={handleValidClick} className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-lg p-2 hover:bg-gray-50 transition-colors cursor-pointer">
-                <span className={`material-symbols-outlined text-[16px] ${disabled ? 'label-disabled' : ''}`}>
+                <span className={`material-symbols-outlined ${disabled ? 'label-disabled' : ''}`}>
                     upload
                 </span>
                 <span>{label}</span>
