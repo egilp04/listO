@@ -14,9 +14,9 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
   const [datos, setDatos] = useState({
-    nombreItem: undefined,
+    nombreItem: "",
     tipoItem: [],
-    descripcionItem: undefined,
+    descripcionItem: "",
   });
 
   const [errores, setErrores] = useState({

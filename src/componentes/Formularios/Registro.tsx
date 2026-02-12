@@ -8,12 +8,12 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
 
   const [datos, setDatos] = useState({
-    nombre: undefined,
-    apellidos: undefined,
-    email: undefined,
-    fecha_nac: undefined,
-    passwd: undefined,
-    rep_passwd: undefined,
+    nombre: "",
+    apellidos: "",
+    email: "",
+    fecha_nac: "",
+    passwd: "",
+    rep_passwd: "",
   });
 
   const [errores, setErrores] = useState({
