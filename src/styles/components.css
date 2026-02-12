@@ -116,7 +116,7 @@
   }
 
   .input-error {
-    @apply border border-danger-500;
+    @apply border-danger-500;
   }
 
   .span-error {
