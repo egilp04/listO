@@ -47,6 +47,10 @@
     @apply flex flex-col lg:flex-row gap-2 w-full lg:w-auto justify-center;
   }
 
+  .nav-link {
+    @apply no-underline text-inherit;
+  }
+
   .table-admin {
     @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2 max-h-100;
   }
@@ -116,9 +120,13 @@
   }
 
   .input-error {
-    @apply border-danger-500;
+    @apply border border-danger-500;
   }
 
+  .input-valido {
+    @apply border border-danger-500;
+  }
+  
   .span-error {
     @apply text-danger-500 text-xs font-Otros;
   }

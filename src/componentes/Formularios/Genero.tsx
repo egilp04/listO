@@ -3,7 +3,7 @@ import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -85,3 +85,4 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     </div>
   );
 };
+

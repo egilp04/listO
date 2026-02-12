@@ -1,35 +1,16 @@
 [
   {
-    "nombre": "Juan Pérez García",
-    "genero": "Masculino"
+    "id": 1,
+    "nombre": "Miedo"
   },
   {
-    "nombre": "María Rodríguez López",
-    "genero": "Femenino"
+    "id": 2,
+    "nombre": "Misterio"
   },
   {
-    "nombre": "Carlos Sánchez Fernández",
-    "genero": "Masculino"
+    "id": 3,
+    "nombre": "Drama"
   },
-  {
-    "genero": "Femenino"
-  },
-  {
-    "genero": "Masculino"
-  },
-  {
-    "genero": "Femenino"
-  },
-  {
-    "genero": "Masculino"
-  },
-  {
-    "genero": "Femenino"
-  },
-  {
-    "genero": "Masculino"
-  },
-  {
-    "genero": "Femenino"
-  }
+  { "id": 4, "nombre": "Romance" },
+  { "id": 5, "nombre": "Generación Z" }
 ]
