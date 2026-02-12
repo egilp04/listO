@@ -1,4 +1,4 @@
-import type { FormHTMLAttributes, MouseEvent } from "react";
+import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
@@ -6,31 +6,63 @@ import TextArea from "../Inputs/TextArea";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
-  error?: string;
+  crear?: boolean;
 }
 
-export const Genero = ({ error, ...props }: RegistroProps) => {
+export const Genero = ({ crear, ...props }: RegistroProps) => {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const crear = state.crear;
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
-  const handleNavigation = (e: MouseEvent) => {
-    e.preventDefault();
-    navigate("/gestion");
+  const [datos, setDatos] = useState({
+    nombreItem: "",
+    tipoItem: [],
+    descripcionItem: "",
+  });
+
+  const [errores, setErrores] = useState({
+    nombreItem: true,
+    tipoItem: true,
+    descripcionItem: true,
+  });
+
+  const manejarCambios = (e: React.ChangeEvent<HTMLInputElement, Element>) => {
+    setDatos((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
   };
 
+  const manejarErrores = (nombre: string, error: boolean) => {
+    setErrores((prev) => {
+      return { ...prev, [nombre]: error };
+    });
+  };
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const tieneErrores = Object.values(errores).some((error) => error == true);
+    if (tieneErrores) {
+      alert("Algunos de los campos tienen errores, reviselos");
+    } else {
+      alert(
+        `Formulario enviado correctamente. Datos: ${datos.nombreItem}, ${datos.tipoItem}, ${datos.descripcionItem}`,
+      );
+      navigate("/gestion");
+    }
+  };
   return (
     <div className="flex justify-center w-full p-4">
-      <form className="card-genero" {...props}>
+      <form className="card-genero" {...props} onSubmit={handleSubmit}>
         <h3 className="titulo-genero">{titulo}</h3>
-
         <div className="form-body">
           <Inputs
             label="Nombre"
             type="text"
-            name="nombre_item"
+            name="nombreItem"
             placeholder="Ej: Suspense"
+            manejarCambio={manejarCambios}
+            manejarError={manejarErrores}
+            error="Nombre del género incorrecto"
+            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
           />
 
           <div className="seccion-tipo">
@@ -38,21 +70,21 @@ export const Genero = ({ error, ...props }: RegistroProps) => {
               Tipo:
             </label>
             <div className="flex flex-col gap-1 ml-1">
-              <Checkbox label="Juego" />
-              <Checkbox label="Libro" />
+              <Checkbox label="Juego" name="tipoItem" />
+              <Checkbox label="Libro" name="tipoItem" />
             </div>
           </div>
 
-          <TextArea label="Descripción" placeholder="Añada su descripción" />
+          <TextArea
+            label="Descripción"
+            placeholder="Añada su descripción"
+            name="descripcionItem"
+          />
         </div>
 
         <div className="footer-boton">
-          <Button type="button" onClick={handleNavigation}>
-            Guardar
-          </Button>
+          <Button type="submit">Guardar</Button>
         </div>
-
-        {error && <p className="span-error mt-1 h-4">{error}</p>}
       </form>
     </div>
   );
