@@ -1,4 +1,4 @@
-import type { SelectHTMLAttributes } from "react";
+import { useState, type SelectHTMLAttributes } from "react";
 
 export interface Option {
   value: string | number;
@@ -8,6 +8,9 @@ export interface Option {
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: Option[];
   variant?: "primario" | "info";
+  mensajeError: string;
+  manejarambio: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  manejarError: (nombre: string, error: boolean) => void;
 }
 
 export default function Select({
@@ -15,26 +18,48 @@ export default function Select({
   value = "",
   variant = "primario",
   disabled,
+  mensajeError,
+  manejarambio,
+  manejarError,
   ...props
 }: SelectProps) {
   const colorClass = `input-border-${variant}`;
 
-  return (
-    <select
-      value={value}
-      disabled={disabled}
-      className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
-      {...props}
-    >
-      <option value="" disabled hidden>
-        Seleccionar
-      </option>
+  const [error, setError] = useState(false);
 
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    manejarambio(e);
+    const valor = e.currentTarget.value;
+    const nombre = e.currentTarget.name;
+    if (valor == "") {
+      setError(true);
+      manejarError(nombre, true);
+    } else {
+      setError(false);
+      manejarError(nombre, false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-0.5">
+      <select
+        value={value}
+        disabled={disabled}
+        className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
+        {...props}
+        onChange={handleChange}
+      >
+        <option value="" disabled hidden>
+          Seleccionar
         </option>
-      ))}
-    </select>
+
+        {options.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+      {error && <span className="text-red-500">{mensajeError}</span>}
+    </div>
   );
 }
