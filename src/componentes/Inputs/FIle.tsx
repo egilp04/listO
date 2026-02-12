@@ -47,7 +47,7 @@ function File({ label, name, disabled, onChange, mensajeError, ...props }: FileP
 
     return (
         <div className="file-container max-w-full">
-
+            {/*TODO Aplicar estilo de disabled */}
             <div onClick={handleValidClick} className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-lg p-2 hover:bg-gray-50 transition-colors cursor-pointer">
                 <span className={`material-symbols-outlined ${disabled ? 'label-disabled' : ''}`}>
                     upload
