@@ -25,7 +25,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     descripcionItem: true,
   });
 
-  const manejarCambios = (e) => {
+  const manejarCambios = (e: React.ChangeEvent<HTMLInputElement, Element>) => {
     setDatos((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
@@ -59,6 +59,10 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             type="text"
             name="nombreItem"
             placeholder="Ej: Suspense"
+            manejarCambio={manejarCambios}
+            manejarError={manejarErrores}
+            error="Nombre del género incorrecto"
+            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
           />
 
           <div className="seccion-tipo">
@@ -85,4 +89,3 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     </div>
   );
 };
-
