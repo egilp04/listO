@@ -123,6 +123,10 @@
     @apply border border-danger-500;
   }
 
+  .input-valido {
+    @apply border border-danger-500;
+  }
+  
   .span-error {
     @apply text-danger-500 text-xs font-Otros;
   }
