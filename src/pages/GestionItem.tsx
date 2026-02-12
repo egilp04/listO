@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import Inputs from "../componentes/Inputs/Inputs";
 import Button from "../componentes/Button";
 import Checkbox from "../componentes/Inputs/Checkbox";
+import File from "../componentes/Inputs/FIle";
 
 interface GestionItemProps {
   item?: unknown;
@@ -10,6 +11,23 @@ interface GestionItemProps {
 const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
   const mEdicion = !!item;
 
+  const [form, setForm] = useState({
+    nombre: "",
+    descripcion: "",
+    imagen: "",
+    genero: "",
+    tipo: "",
+    valoracion: 0,
+  });
+
+  const manejarCambio = (e: any) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+    console.log(e.target.value);
+  };
+
   const cabeceraGestion =
     "bg-primary-600 p-3 flex justify-center items-center relative cursor-pointer text-white hover:bg-primary-700 transition-colors";
 
@@ -17,14 +35,14 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
     <div className="min-h-screen bg-primary-200 p-4 flex flex-col gap-6">
       <h2 className="font-bold mb-10 text-center">Añadir una nueva ficha</h2>
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="bg-white rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
-          <span>IMAGEN</span>
-          <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-lg p-2 hover:bg-gray-50 transition-colors cursor-pointer">
-            <span className="material-symbols-outlined text-[16px]">
-              upload
-            </span>{" "}
-            <span>Subir</span>
-          </div>
+        <div className="bg-white rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between w-full md:w-1/2 shadow-sm min-h-16 gap-3">
+          <span>IMAGEN: </span>
+          <File
+            label="Subir"
+            name="imagen"
+            onChange={manejarCambio}
+            disabled={false}
+            mensajeError="No es un formato valido(.png, .jpg, .webp)" />
         </div>
 
         <div className="bg-white rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
