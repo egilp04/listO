@@ -21,7 +21,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
 
   const [errores, setErrores] = useState({
     nombreItem: true,
-    tipoItem: true,
+    tipoItem: false,
     descripcionItem: true,
   });
 
