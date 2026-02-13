@@ -22,7 +22,9 @@ function Inputs({
   ...props
 }: InputFieldProps) {
   const [smError, setsmError] = useState(false);
+
   const colorClass = smError ? "input-error" : `input-border-${variant}`;
+
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nombre = e.currentTarget.name;
     const valor = e.currentTarget.value;

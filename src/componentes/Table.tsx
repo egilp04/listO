@@ -2,11 +2,8 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
-
-interface infoInterface {
-  nombre: string;
-  id: number;
-}
+import { supabase } from "../utils/supabaseClient";
+import type { infoInterface } from "../interfaces/infoInterface";
 
 interface TableInterface {
   tipoItem: string;
@@ -15,21 +12,37 @@ interface TableInterface {
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const [info, setInfo] = useState<infoInterface[]>([]);
+  const obtenerUsuarios = async () => {
+    try {
+      const { data, error } = await supabase.from("usuario").select("*");
+      if (error) throw error;
+      setInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const obtenerGeneros = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("genero")
+        .select("*, tipo(nombre, id_tipo)");
+
+      if (error) throw error;
+      setInfo(data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error en la csonsulta:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
-      const ruta =
-        tipoItem == "usuario"
-          ? "src/mock/usuarios.json"
-          : "src/mock/generos.json";
-      console.log(ruta);
-      try {
-        const res = await fetch(ruta);
-        if (!res.ok) throw new Error(res.statusText);
-        const datos = await res.json();
-        setInfo(datos);
-      } catch (error) {
-        console.log(error);
-      }
+      if (tipoItem == "usuario") await obtenerUsuarios();
+      else await obtenerGeneros();
     };
     getData();
   }, [tipoItem]);
@@ -45,9 +58,12 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
-    if (tipoItem == "usuario") navigate("/miperfil");
-    else navigate("/genero", { state: { crear: false } });
+  const handleClick = (item: infoInterface) => {
+    if (tipoItem == "usuario") navigate("/miperfil", { state: { item: item } });
+    else
+      navigate("/genero", {
+        state: { crear: false, item: item },
+      });
   };
 
   return (
@@ -63,8 +79,17 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               key={inf.id}
             >
               <label className="w-full font-bold">{inf.nombre}</label>
+              {tipoItem == "genero" && (
+                <label className="w-full font-bold">
+                  {inf.tipo?.nombre || "Sin tipo"}
+                </label>
+              )}
               <div className="gap-4 flex flex-row justify-end pr-2">
-                <Button onClick={handleClick}>
+                <Button
+                  onClick={() => {
+                    handleClick(inf);
+                  }}
+                >
                   <span>Editar</span>
                 </Button>
                 <Button className="bg-danger-300" onClick={deleteDialog}>

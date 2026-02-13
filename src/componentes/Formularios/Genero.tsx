@@ -3,19 +3,24 @@ import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../utils/supabaseClient";
+import type { infoInterface } from "../../interfaces/infoInterface";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
+  item: infoInterface;
 }
 
-export const Genero = ({ crear, ...props }: RegistroProps) => {
+export const Genero = ({ crear, item, ...props }: RegistroProps) => {
+  console.log("item", item);
+
   const navigate = useNavigate();
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
   const [datos, setDatos] = useState({
     nombreItem: "",
-    tipoItem: [],
+    tipoItem: [] as string[],
     descripcionItem: "",
   });
 
@@ -25,10 +30,26 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     descripcionItem: true,
   });
 
-  const manejarCambios = (e: React.ChangeEvent<HTMLInputElement, Element>) => {
-    setDatos((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+  const manejarCambio = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const nombre = e.target.name;
+    const valor = e.target.value;
+    if (e.target.type === "checkbox") {
+      const { checked } = e.target as HTMLInputElement;
+      const idVal = e.target.value;
+      setDatos((prev) => {
+        const valoresTipoItem = checked
+          ? [...prev.tipoItem, idVal]
+          : prev.tipoItem.filter((id) => id !== idVal);
+        const datosNuevos = { ...prev, [nombre]: valoresTipoItem };
+        if (valoresTipoItem.length === 0) manejarErrores(nombre, true);
+        else manejarErrores(nombre, false);
+        return datosNuevos;
+      });
+    } else {
+      setDatos((prev) => ({ ...prev, [nombre]: valor }));
+    }
   };
 
   const manejarErrores = (nombre: string, error: boolean) => {
@@ -43,12 +64,102 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     if (tieneErrores) {
       alert("Algunos de los campos tienen errores, reviselos");
     } else {
-      alert(
-        `Formulario enviado correctamente. Datos: ${datos.nombreItem}, ${datos.tipoItem}, ${datos.descripcionItem}`,
-      );
-      navigate("/gestion");
+      if (crear) crearGenero();
+      else modificarGenero();
     }
   };
+
+  const crearGenero = async () => {
+    try {
+      const { data: existente, error: queryError } = await supabase
+        .from("genero")
+        .select("nombre")
+        .eq("nombre", datos.nombreItem);
+
+      if (queryError) throw queryError;
+
+      if (existente && existente.length > 0) {
+        alert("Ya existe un género con este nombre");
+        return;
+      }
+      const { data: tiposItemBd, error: tipoError } = await supabase
+        .from("tipo")
+        .select("*");
+      if (tipoError) throw tipoError;
+
+      const nuevasFilas = datos.tipoItem.map((nombreTipoSeleccionado) => {
+        const tipoItemEncontrar = tiposItemBd.find(
+          (t) =>
+            t.nombre.toLowerCase() === nombreTipoSeleccionado.toLowerCase(),
+        );
+        if (!tipoItemEncontrar) {
+          throw new Error(`Tipo no encontrado: ${nombreTipoSeleccionado}`);
+        }
+        return {
+          nombre: datos.nombreItem,
+          descripcion: datos.descripcionItem,
+          id_tipo: tipoItemEncontrar.id_tipo,
+        };
+      });
+
+      const { error: insertError } = await supabase
+        .from("genero")
+        .insert(nuevasFilas);
+
+      if (insertError) throw insertError;
+
+      alert("Género creado correctamente");
+      navigate("/gestion");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error al crear el género:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+      alert("No se pudo guardar el género.");
+    }
+  };
+
+  const modificarGenero = async () => {
+    if (item == null) {
+      alert("Acción no permitida, no hay elemento");
+      return;
+    }
+    console.log("item", item);
+    try {
+      const { error: deleteError } = await supabase
+        .from("genero")
+        .delete()
+        .eq("nombre", item.nombre);
+
+      if (deleteError) throw deleteError;
+
+      const datosModificados = {
+        nombre: item.nombre,
+        descripcion: item.descripcion,
+        id_tipo: item.tipo?.id_tipo,
+      };
+
+      console.log("datos a modificar", datosModificados);
+
+      const { error: insertError } = await supabase
+        .from("genero")
+        .insert(datosModificados);
+
+      if (insertError) throw insertError;
+
+      alert("Género modificado correctamente");
+      navigate("/gestion");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error al crear el género:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+      alert("El nuevo género no se pudo guardar.");
+    }
+  };
+
   return (
     <div className="flex justify-center w-full p-4">
       <form className="card-genero" {...props} onSubmit={handleSubmit}>
@@ -59,10 +170,11 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             type="text"
             name="nombreItem"
             placeholder="Ej: Suspense"
-            manejarCambio={manejarCambios}
+            manejarCambio={manejarCambio}
             manejarError={manejarErrores}
-            error="Nombre del género incorrecto"
-            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
+            error="Nombre del género incorrecto, debe comenzar con mayúsculas"
+            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
+            defaultValue={item != null ? item.nombre : ""}
           />
 
           <div className="seccion-tipo">
@@ -70,15 +182,36 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
               Tipo:
             </label>
             <div className="flex flex-col gap-1 ml-1">
-              <Checkbox label="Juego" name="tipoItem" />
-              <Checkbox label="Libro" name="tipoItem" />
+              <Checkbox
+                manejarCambio={manejarCambio}
+                label="Juego"
+                name="tipoItem"
+                value={"videojuego"}
+                defaultChecked={item.tipo?.nombre.includes("videojuego")}
+              />
+              <Checkbox
+                manejarCambio={manejarCambio}
+                label="Libro"
+                name="tipoItem"
+                value={"libro"}
+                defaultChecked={item.tipo?.nombre.includes("libro")}
+              />
             </div>
+            {errores.tipoItem == true && (
+              <span className="text-red-500">
+                Debe seleccionar al menos un tipo
+              </span>
+            )}
           </div>
 
           <TextArea
+            manejarError={manejarErrores}
+            manejarCambio={manejarCambio}
+            mensajeError="Debes escribir una descripción"
             label="Descripción"
             placeholder="Añada su descripción"
             name="descripcionItem"
+            defaultValue={item != null ? item.descripcion : ""}
           />
         </div>
 
