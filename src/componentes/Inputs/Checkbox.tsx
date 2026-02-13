@@ -3,9 +3,8 @@ import { type InputHTMLAttributes } from "react";
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  manejarError: (nombre: string, error: boolean) => void;
-  mensajeError: string;
-  colorTexto: string;
+  mensajeError?: string;
+  colorTexto?: string;
 }
 
 function Checkbox({
@@ -31,7 +30,7 @@ function Checkbox({
         {...props}
         onChange={handleChange}
       />
-      {error && <span className="text-red-500">{mensajeError}</span>}
+
       <label htmlFor={name} className={`cursor-pointer ${colorTexto}`}>
         {label}
       </label>
