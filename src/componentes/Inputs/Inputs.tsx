@@ -5,7 +5,6 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error: string;
   variant?: "primario" | "info";
   regex: RegExp;
-  value: string;
   name: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
