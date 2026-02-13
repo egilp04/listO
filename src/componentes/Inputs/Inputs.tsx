@@ -17,7 +17,6 @@ function Inputs({
   name,
   disabled,
   regex,
-  value,
   label,
   variant = "primario",
   ...props
