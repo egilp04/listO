@@ -15,7 +15,7 @@ const GestionAdmin = () => {
     if (nombre == "usuario") {
       navigate("/registro", { state: { atras: true } });
     } else {
-      navigate("/Genero", { state: { crear: true } });
+      navigate("/genero", { state: { crear: true } });
     }
   };
 
