@@ -15,7 +15,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
 
   const [datos, setDatos] = useState({
     nombreItem: "",
-    tipoItem: [],
+    tipoItem: [] as number[],
     descripcionItem: "",
   });
 
@@ -28,9 +28,23 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
   const manejarCambio = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setDatos((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    const nombre = e.currentTarget.name;
+    const valor = e.currentTarget.value;
+    if (e.currentTarget.type === "checkbox") {
+      const { checked } = e.currentTarget as HTMLInputElement;
+      const idVal = parseInt(e.currentTarget.value);
+      setDatos((prev) => {
+        const valoresTipoItem = checked
+          ? [...prev.tipoItem, idVal]
+          : prev.tipoItem.filter((id) => id !== idVal);
+
+        const datosNuevos = { ...prev, [nombre]: valoresTipoItem };
+        if (valoresTipoItem.length <= 0) manejarErrores(nombre, true);
+        return datosNuevos;
+      });
+    } else {
+      setDatos((prev) => ({ ...prev, [nombre]: valor }));
+    }
   };
 
   const manejarErrores = (nombre: string, error: boolean) => {
@@ -63,7 +77,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             placeholder="Ej: Suspense"
             manejarCambio={manejarCambio}
             manejarError={manejarErrores}
-            error="Nombre del género incorrecto"
+            error="Nombre del género incorrecto, debe comenzar con mayúsculas"
             regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
           />
 
@@ -77,14 +91,21 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
                 manejarError={manejarErrores}
                 label="Juego"
                 name="tipoItem"
+                value={1}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
                 manejarError={manejarErrores}
                 label="Libro"
                 name="tipoItem"
+                value={2}
               />
             </div>
+            {errores.tipoItem == true && (
+              <span className="text-red-500">
+                Debe seleccionar al menos un tipo
+              </span>
+            )}
           </div>
 
           <TextArea
