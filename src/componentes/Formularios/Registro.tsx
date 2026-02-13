@@ -3,6 +3,7 @@ import Inputs from "../Inputs/Inputs";
 import Checkbox from "../Inputs/Checkbox";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../utils/supabaseClient";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
       datos.passwd !== "" &&
       datos.rep_passwd != "" &&
       datos.passwd === datos.rep_passwd;
-    console.log(passwordsCoinciden);
+
     const tieneErroresVisuales = Object.values(errores).some(
       (err) => err === true,
     );
@@ -68,8 +69,31 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
         "Algunos de los campos tienen errores o las contraseñas no coinciden.",
       );
     } else {
-      alert("Formulario enviado correctamente.");
-      navigate("/");
+      enviarDatosBD();
+    }
+  };
+
+  const enviarDatosBD = async () => {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: datos.email,
+        password: datos.passwd,
+        options: {
+          data: {
+            nombre: datos.nombre,
+            apellidos: datos.apellidos,
+            fechanacimiento: datos.fecha_nac,
+          },
+        },
+      });
+      if (error) throw error;
+      else {
+        alert("Usuario registrado. Ya puedes iniciar sesión 😁.");
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Intente registrarse más tarde");
     }
   };
 
