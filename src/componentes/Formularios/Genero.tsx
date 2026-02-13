@@ -4,6 +4,7 @@ import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../utils/supabaseClient";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -15,7 +16,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
 
   const [datos, setDatos] = useState({
     nombreItem: "",
-    tipoItem: [] as number[],
+    tipoItem: [] as string[],
     descripcionItem: "",
   });
 
@@ -32,7 +33,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     const valor = e.target.value;
     if (e.target.type === "checkbox") {
       const { checked } = e.target as HTMLInputElement;
-      const idVal = parseInt(e.target.value);
+      const idVal = e.target.value;
       setDatos((prev) => {
         const valoresTipoItem = checked
           ? [...prev.tipoItem, idVal]
@@ -47,8 +48,6 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     }
   };
 
-  console.log("eerrores", errores);
-
   const manejarErrores = (nombre: string, error: boolean) => {
     setErrores((prev) => {
       return { ...prev, [nombre]: error };
@@ -61,10 +60,64 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     if (tieneErrores) {
       alert("Algunos de los campos tienen errores, reviselos");
     } else {
-      alert(
-        `Formulario enviado correctamente. Datos: ${datos.nombreItem}, ${datos.tipoItem}, ${datos.descripcionItem}`,
-      );
+      if (crear) crearGenero();
+      else modificarGenero();
+    }
+  };
+
+  const crearGenero = async () => {
+    try {
+      console.log("Tipos seleccionados:", datos.tipoItem);
+      const { data: existente, error: queryError } = await supabase
+        .from("genero")
+        .select("nombre")
+        .eq("nombre", datos.nombreItem);
+
+      if (queryError) throw queryError;
+
+      if (existente && existente.length > 0) {
+        alert("Ya existe un género con este nombre");
+        return;
+      }
+      const nuevasFilas = datos.tipoItem.map((idTipo) => ({
+        nombre: datos.nombreItem,
+        descripcion: datos.descripcionItem,
+        id_tipo: idTipo,
+      }));
+      const { error: insertError } = await supabase
+        .from("genero")
+        .insert(nuevasFilas);
+      if (insertError) throw insertError;
+      alert("Género creado con éxito🥳");
       navigate("/gestion");
+    } catch (error) {
+      console.error("Error al crear el género:", error.message);
+      alert("No se pudo guardar la configuración.");
+    }
+  };
+
+  const modificarGenero = async () => {
+    try {
+      const { error: deleteError } = await supabase
+        .from("genero")
+        .delete()
+        .eq("nombre", datos.nombreItem);
+      if (deleteError) throw deleteError;
+      const nuevasFilas = datos.tipoItem.map((idTipo) => ({
+        nombre: datos.nombreItem,
+        descripcion: datos.descripcionItem,
+        id_tipo: idTipo,
+      }));
+      const { error: insertError } = await supabase
+        .from("genero")
+        .insert(nuevasFilas);
+
+      if (insertError) throw insertError;
+
+      navigate("/gestion");
+    } catch (error) {
+      console.error("Error al modificar el género:", error.message);
+      alert("No se pudo guardar la configuración.");
     }
   };
   return (
@@ -92,13 +145,13 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
                 manejarCambio={manejarCambio}
                 label="Juego"
                 name="tipoItem"
-                value={1}
+                value={"ddf7d532-a1fa-4ec9-b6af-c2ac7777f2f1"}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
                 label="Libro"
                 name="tipoItem"
-                value={2}
+                value={"d7b6b963-14b2-4523-b094-bde2685af381"}
               />
             </div>
             {errores.tipoItem == true && (

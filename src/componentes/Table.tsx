@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../utils/supabaseClient";
 
 interface infoInterface {
   nombre: string;
@@ -15,21 +16,31 @@ interface TableInterface {
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const [info, setInfo] = useState<infoInterface[]>([]);
+  const obtenerUsuarios = async () => {
+    try {
+      const { data, error } = await supabase.from("usuario").select("*");
+      if (error) throw error;
+      console.log(data);
+      setInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const obtenerGeneros = async () => {
+    try {
+      const { data, error } = await supabase.from("genero").select("*");
+      if (error) throw error;
+      console.log(data);
+      setInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getData = async () => {
-      const ruta =
-        tipoItem == "usuario"
-          ? "src/mock/usuarios.json"
-          : "src/mock/generos.json";
-      console.log(ruta);
-      try {
-        const res = await fetch(ruta);
-        if (!res.ok) throw new Error(res.statusText);
-        const datos = await res.json();
-        setInfo(datos);
-      } catch (error) {
-        console.log(error);
-      }
+      if (tipoItem == "usuario") await obtenerUsuarios();
+      else await obtenerGeneros();
     };
     getData();
   }, [tipoItem]);
