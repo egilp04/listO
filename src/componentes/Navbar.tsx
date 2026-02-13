@@ -1,19 +1,15 @@
 import { useState } from "react";
 import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
-interface NavbarProps {
-  usuario?: string;
-  estaLogueado?: boolean;
-  esAdmin?: boolean;
-}
-
-const Navbar: React.FC<NavbarProps> = ({
-  usuario,
-  estaLogueado = false,
-  esAdmin = false,
-}) => {
+const Navbar = () => {
   const [close, setClose] = useState(true);
+  const { user, role, logout } = useAuthStore();
+
+  const usuario = user?.email;
+  const estaLogueado = !!user;
+  const esAdmin = role === 'administrador';
 
   const handleClick = () => {
     setClose(!close);
@@ -116,6 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <Button
               variant="fantasma"
               onClick={() => {
+                logout();
                 navigate("/");
               }}
             >
