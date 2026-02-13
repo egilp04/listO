@@ -3,7 +3,7 @@ import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import Checkbox from "../Inputs/Checkbox";
 import TextArea from "../Inputs/TextArea";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -25,7 +25,9 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
     descripcionItem: true,
   });
 
-  const manejarCambios = (e: React.ChangeEvent<HTMLInputElement, Element>) => {
+  const manejarCambio = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setDatos((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
@@ -59,7 +61,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             type="text"
             name="nombreItem"
             placeholder="Ej: Suspense"
-            manejarCambio={manejarCambios}
+            manejarCambio={manejarCambio}
             manejarError={manejarErrores}
             error="Nombre del género incorrecto"
             regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
@@ -70,12 +72,25 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
               Tipo:
             </label>
             <div className="flex flex-col gap-1 ml-1">
-              <Checkbox label="Juego" name="tipoItem" />
-              <Checkbox label="Libro" name="tipoItem" />
+              <Checkbox
+                manejarCambio={manejarCambio}
+                manejarError={manejarErrores}
+                label="Juego"
+                name="tipoItem"
+              />
+              <Checkbox
+                manejarCambio={manejarCambio}
+                manejarError={manejarErrores}
+                label="Libro"
+                name="tipoItem"
+              />
             </div>
           </div>
 
           <TextArea
+            manejarError={manejarErrores}
+            manejarCambio={manejarCambio}
+            mensajeError="Debes escribir una descripción"
             label="Descripción"
             placeholder="Añada su descripción"
             name="descripcionItem"

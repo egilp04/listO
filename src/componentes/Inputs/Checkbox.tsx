@@ -4,7 +4,7 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
-  mensajeError: string;
+  mensajeError?: string;
 }
 
 function Checkbox({
