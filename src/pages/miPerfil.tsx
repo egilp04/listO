@@ -3,6 +3,16 @@ import Button from "../componentes/Button";
 import Inputs from "../componentes/Inputs/Inputs";
 import { supabase } from "../utils/supabaseClient";
 
+interface DatosActualizarUsuario {
+  email?: string;
+  options?: {
+    data: {
+      nombre?: string;
+      fechanacimiento?: string;
+    };
+  };
+}
+
 const MiPerfil = () => {
 
   const [valores, setValores] = useState({
@@ -36,7 +46,7 @@ const MiPerfil = () => {
       return;
     }
 
-    const { data, error } = await supabase.auth.updateUser({
+    const datosActualizar: DatosActualizarUsuario = {
       email: valores.email,
       options: {
         data: {
@@ -44,7 +54,9 @@ const MiPerfil = () => {
           fechanacimiento: valores.fechaNacimiento,
         },
       },
-    });
+    };
+
+    const { data, error } = await supabase.auth.updateUser(datosActualizar);
 
     if (error) {
       console.error("Error al actualizar:", error.message);
