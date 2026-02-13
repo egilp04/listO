@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
       <div className="flex items-center gap-3">
-        <NavLink to="/" end className="navbar-logo">
+        <NavLink to={estaLogueado ? "/biblioteca" : "/"} end className="navbar-logo">
           <img
             src="/src/assets/img/logo/logo.webp"
             alt="logo"
