@@ -5,7 +5,6 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error: string;
   variant?: "primario" | "info";
   regex: RegExp;
-  value?: string;
   name: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
@@ -25,13 +24,10 @@ function Inputs({
 }: InputFieldProps) {
   const [smError, setsmError] = useState(false);
   const colorClass = smError ? "input-error" : `input-border-${variant}`;
-
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nombre = e.currentTarget.name;
     const valor = e.currentTarget.value;
-    console.log(!regex.test(valor));
     if ((regex && !regex.test(valor)) || valor == "") {
-      console.log("tiene error");
       manejarError(nombre, true);
       setsmError(true);
     } else {
