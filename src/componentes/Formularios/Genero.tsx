@@ -21,7 +21,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
 
   const [errores, setErrores] = useState({
     nombreItem: true,
-    tipoItem: false,
+    tipoItem: true,
     descripcionItem: true,
   });
 
@@ -37,15 +37,17 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
         const valoresTipoItem = checked
           ? [...prev.tipoItem, idVal]
           : prev.tipoItem.filter((id) => id !== idVal);
-
         const datosNuevos = { ...prev, [nombre]: valoresTipoItem };
-        if (valoresTipoItem.length <= 0) manejarErrores(nombre, true);
+        if (valoresTipoItem.length === 0) manejarErrores(nombre, true);
+        else manejarErrores(nombre, false);
         return datosNuevos;
       });
     } else {
       setDatos((prev) => ({ ...prev, [nombre]: valor }));
     }
   };
+
+  console.log("eerrores", errores);
 
   const manejarErrores = (nombre: string, error: boolean) => {
     setErrores((prev) => {
@@ -78,7 +80,7 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             manejarCambio={manejarCambio}
             manejarError={manejarErrores}
             error="Nombre del género incorrecto, debe comenzar con mayúsculas"
-            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)+$/}
+            regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
           />
 
           <div className="seccion-tipo">

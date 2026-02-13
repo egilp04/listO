@@ -17,13 +17,14 @@ function Inputs({
   name,
   disabled,
   regex,
-  value,
   label,
   variant = "primario",
   ...props
 }: InputFieldProps) {
   const [smError, setsmError] = useState(false);
+
   const colorClass = smError ? "input-error" : `input-border-${variant}`;
+
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nombre = e.currentTarget.name;
     const valor = e.currentTarget.value;
@@ -35,7 +36,6 @@ function Inputs({
       setsmError(false);
     }
   };
-  console.log(smError);
 
   const handleChangeInternal = (e: React.ChangeEvent<HTMLInputElement>) => {
     manejarCambio(e);
@@ -53,7 +53,6 @@ function Inputs({
         id={name}
         type={props.type}
         name={name}
-        value={value}
         disabled={disabled}
         onChange={handleChangeInternal}
         onBlur={handleBlur}
