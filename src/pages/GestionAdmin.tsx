@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
-import Inputs from "../componentes/Inputs/Inputs";
 import Table from "../componentes/Table";
 import { useState } from "react";
 
@@ -16,7 +15,7 @@ const GestionAdmin = () => {
     if (nombre == "usuario") {
       navigate("/registro", { state: { atras: true } });
     } else {
-      navigate("/Genero", { state: { crear: true } });
+      navigate("/genero", { state: { crear: true } });
     }
   };
 
@@ -43,15 +42,14 @@ const GestionAdmin = () => {
           <span>Género</span>
         </Button>
       </div>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-col gap-6 max-h-150 overflow-hidden p-4 rounded-sm">
-        <div className="flex flex-col justify-around md:flex-row w-full">
+      <div className="shadow-elevation-3 bg-primary-50 flex flex-col gap-6 max-h-150 overflow-hidden p-10 rounded-sm">
+        <div className="flex flex-col gap-4  justify-center items-center md:justify-around md:flex-row w-full">
           <div className="w-1/2">
-            <Inputs
-              variant="primario"
-              label=""
+            <input
+              className="input-style-comun input-valido input-responsive"
               placeholder="Busca por nombre o autor"
               onChange={handleFiltrar}
-            ></Inputs>
+            ></input>
           </div>
           <div>
             <Button variant="primario" onClick={crearItem} name={selected}>

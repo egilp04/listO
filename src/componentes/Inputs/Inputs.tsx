@@ -5,67 +5,54 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   error: string;
   variant?: "primario" | "info";
   regex: RegExp;
-  value: string;
-  name: string,
+  name: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
-
 }
 
-function Inputs({ manejarCambio, manejarError, error, name, disabled, regex, value, label, variant = "primario", ...props }: InputFieldProps) {
+function Inputs({
+  manejarCambio,
+  manejarError,
+  error,
+  name,
+  disabled,
+  regex,
+  label,
+  variant = "primario",
+  ...props
+}: InputFieldProps) {
+  const [smError, setsmError] = useState(false);
 
-  let colorClass = `input-border-${variant}`;
-  const [smError, setsmError] = useState(false)
-  const [esValido, setEsValido] = useState(false);
+  const colorClass = smError ? "input-error" : `input-border-${variant}`;
 
-  const handleBlur = () => {
-    if (regex) {
-      if (!regex.test(value)) {
-        manejarError(name, true);
-        setsmError(true);
-        setEsValido(false);
-      } else {
-        manejarError(name, false);
-        setsmError(false);
-        setEsValido(true);
-      }
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nombre = e.currentTarget.name;
+    const valor = e.currentTarget.value;
+    if ((regex && !regex.test(valor)) || valor == "") {
+      manejarError(nombre, true);
+      setsmError(true);
+    } else {
+      manejarError(nombre, false);
+      setsmError(false);
     }
   };
 
   const handleChangeInternal = (e: React.ChangeEvent<HTMLInputElement>) => {
     manejarCambio(e);
-
-    const valor = e.target.value;
-    const nombre = e.target.name;
-
-    if (valor == "") {
-      setsmError(true)
-      setEsValido(false);
-      manejarError(nombre, true);
-    } else {
-      setsmError(false)
-      setEsValido(true);
-      manejarError(nombre, false);
-    }
-
   };
-
-  if (smError) {
-    colorClass = "input-error";
-  } else if (esValido && value) {
-    colorClass = "input-valido";
-  }
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={name} className={disabled ? "label-disabled" : "text-black"}>
+      <label
+        htmlFor={name}
+        className={disabled ? "label-disabled" : "text-black"}
+      >
         {label}
       </label>
       <input
         id={name}
         type={props.type}
         name={name}
-        value={value}
         disabled={disabled}
         onChange={handleChangeInternal}
         onBlur={handleBlur}
