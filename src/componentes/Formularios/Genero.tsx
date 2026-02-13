@@ -28,11 +28,11 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
   const manejarCambio = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    const nombre = e.currentTarget.name;
-    const valor = e.currentTarget.value;
-    if (e.currentTarget.type === "checkbox") {
-      const { checked } = e.currentTarget as HTMLInputElement;
-      const idVal = parseInt(e.currentTarget.value);
+    const nombre = e.target.name;
+    const valor = e.target.value;
+    if (e.target.type === "checkbox") {
+      const { checked } = e.target as HTMLInputElement;
+      const idVal = parseInt(e.target.value);
       setDatos((prev) => {
         const valoresTipoItem = checked
           ? [...prev.tipoItem, idVal]
@@ -90,14 +90,12 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
             <div className="flex flex-col gap-1 ml-1">
               <Checkbox
                 manejarCambio={manejarCambio}
-                manejarError={manejarErrores}
                 label="Juego"
                 name="tipoItem"
                 value={1}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
-                manejarError={manejarErrores}
                 label="Libro"
                 name="tipoItem"
                 value={2}

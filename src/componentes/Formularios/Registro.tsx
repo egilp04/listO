@@ -23,29 +23,52 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
     fecha_nac: true,
     passwd: true,
     rep_passwd: true,
+    politicas: true,
   });
 
-  const manejarCambios = (e) => {
+  const manejarCambios = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nombre = e.target.name;
     setDatos((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
+      const nuevosDatos = { ...prev, [nombre]: e.target.value };
+      if (nombre === "passwd" || nombre === "rep_passwd") {
+        const otraPassword =
+          nombre === "passwd" ? nuevosDatos.rep_passwd : nuevosDatos.passwd;
+        const coinciden = nuevosDatos[nombre] === otraPassword;
+        manejarErrores("rep_passwd", !coinciden);
+      }
+      return nuevosDatos;
     });
+    if (e.target.type == "checkbox") {
+      const { checked } = e.target as HTMLInputElement;
+      if (checked) {
+        manejarErrores(nombre, false);
+      } else {
+        manejarErrores(nombre, true);
+      }
+    }
   };
-
   const manejarErrores = (nombre: string, error: boolean) => {
     setErrores((prev) => {
       return { ...prev, [nombre]: error };
     });
   };
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const tieneErrores = Object.values(errores).some((error) => error == true);
-    if (tieneErrores) {
-      alert("Algunos de los campos tienen errores, reviselos");
-    } else {
+    const passwordsCoinciden =
+      datos.passwd !== "" &&
+      datos.rep_passwd != "" &&
+      datos.passwd === datos.rep_passwd;
+    console.log(passwordsCoinciden);
+    const tieneErroresVisuales = Object.values(errores).some(
+      (err) => err === true,
+    );
+    if (tieneErroresVisuales || !passwordsCoinciden) {
       alert(
-        `Formulario enviado correctamente. Datos: ${datos.nombre}, ${datos.apellidos}, ${datos.email}, ${datos.fecha_nac}`,
+        "Algunos de los campos tienen errores o las contraseñas no coinciden.",
       );
+    } else {
+      alert("Formulario enviado correctamente.");
       navigate("/");
     }
   };
@@ -60,40 +83,68 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           type="text"
           placeholder="Ej: Eve"
           name="nombre"
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
+          error="El nombre debe comenzar con mayúsculas, por favor"
         />
         <Inputs
           label="Apellidos"
           type="text"
           placeholder="Ej: Ceballos Mateos"
           name="apellidos"
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
+          error="El/los apellido/s debe/n comenzar con mayúsculas"
         />
         <Inputs
           label="Fecha Nacimiento"
           type="text"
-          placeholder="Ej: 12/12/2000"
+          placeholder="Ej: 30/12/2000"
           name="fecha_nac"
+          regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          error="Introduzca una fecha válida: dd/mm/aaaa"
         />
         <Inputs
           label="Email"
           type="email"
           placeholder="Ej: eve@gmail.com"
           name="email"
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+          error="Revise el email"
         />
         <Inputs
           label="Contraseña"
           type="password"
           placeholder="********"
           name="passwd"
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          regex={/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
+          error="La contraseña debe tener una mayúscula mínimo y carácteres especiales"
         />
         <Inputs
           label="Confirmar Contraseña"
           type="password"
           placeholder="********"
           name="rep_passwd"
+          manejarError={manejarErrores}
+          manejarCambio={manejarCambios}
+          regex={/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
+          error="Revise la contraseña, debe coincidir con el campo anterior"
         />
       </div>
 
-      <Checkbox label="Aceptar políticas" name="politicas" />
+      <Checkbox
+        label="Aceptar políticas"
+        name="politicas"
+        manejarCambio={manejarCambios}
+      />
       <Button type="submit">Registrar</Button>
     </form>
   );

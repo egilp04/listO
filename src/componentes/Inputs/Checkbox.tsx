@@ -3,7 +3,6 @@ import { type InputHTMLAttributes } from "react";
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  manejarError?: (nombre: string, error: boolean) => void;
   mensajeError?: string;
 }
 
@@ -14,7 +13,6 @@ function Checkbox({
   manejarCambio,
   ...props
 }: CheckboxProps) {
-  // const [error, setError] = useState(false);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     manejarCambio(e);
   };
