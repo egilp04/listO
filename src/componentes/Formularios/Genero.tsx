@@ -79,16 +79,33 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
         alert("Ya existe un género con este nombre");
         return;
       }
-      const nuevasFilas = datos.tipoItem.map((idTipo) => ({
-        nombre: datos.nombreItem,
-        descripcion: datos.descripcionItem,
-        id_tipo: idTipo,
-      }));
+      const { data: tiposItemBd, error: tipoError } = await supabase
+        .from("tipo")
+        .select("*");
+      if (tipoError) throw tipoError;
+
+      const nuevasFilas = datos.tipoItem.map((nombreTipoSeleccionado) => {
+        const tipoItemEncontrar = tiposItemBd.find(
+          (t) =>
+            t.nombre.toLowerCase() === nombreTipoSeleccionado.toLowerCase(),
+        );
+        if (!tipoItemEncontrar) {
+          throw new Error(`Tipo no encontrado: ${nombreTipoSeleccionado}`);
+        }
+        return {
+          nombre: datos.nombreItem,
+          descripcion: datos.descripcionItem,
+          id_tipo: tipoItemEncontrar.id_tipo,
+        };
+      });
+
       const { error: insertError } = await supabase
         .from("genero")
         .insert(nuevasFilas);
+
       if (insertError) throw insertError;
-      alert("Género creado con éxito🥳");
+
+      alert("Género creado correctamente");
       navigate("/gestion");
     } catch (error) {
       console.error("Error al crear el género:", error.message);
@@ -102,24 +119,46 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
         .from("genero")
         .delete()
         .eq("nombre", datos.nombreItem);
+
       if (deleteError) throw deleteError;
-      const nuevasFilas = datos.tipoItem.map((idTipo) => ({
-        nombre: datos.nombreItem,
-        descripcion: datos.descripcionItem,
-        id_tipo: idTipo,
-      }));
+
+      const { data: tiposItemBd, error: tipoError } = await supabase
+        .from("tipo")
+        .select("*");
+      console.log("tipos base datos", tiposItemBd);
+      if (tipoError) throw tipoError;
+
+      const nuevasFilas = datos.tipoItem.map((nombreTipoSeleccionado) => {
+        const tipoItemEncontrar = tiposItemBd.find(
+          (t) =>
+            t.nombre.toLowerCase() === nombreTipoSeleccionado.toLowerCase(),
+        );
+        console.log("tipo encontrado", tipoItemEncontrar);
+
+        if (!tipoItemEncontrar) {
+          throw new Error(`Tipo no encontrado: ${nombreTipoSeleccionado}`);
+        }
+        return {
+          nombre: datos.nombreItem,
+          descripcion: datos.descripcionItem,
+          id_tipo: tipoItemEncontrar.id_tipo,
+        };
+      });
+
       const { error: insertError } = await supabase
         .from("genero")
         .insert(nuevasFilas);
 
       if (insertError) throw insertError;
 
+      alert("Género modificado correctamente");
       navigate("/gestion");
     } catch (error) {
       console.error("Error al modificar el género:", error.message);
-      alert("No se pudo guardar la configuración.");
+      alert("El nuevo género no se pudo guardar.");
     }
   };
+
   return (
     <div className="flex justify-center w-full p-4">
       <form className="card-genero" {...props} onSubmit={handleSubmit}>
@@ -145,13 +184,13 @@ export const Genero = ({ crear, ...props }: RegistroProps) => {
                 manejarCambio={manejarCambio}
                 label="Juego"
                 name="tipoItem"
-                value={"ddf7d532-a1fa-4ec9-b6af-c2ac7777f2f1"}
+                value={"videojuego"}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
                 label="Libro"
                 name="tipoItem"
-                value={"d7b6b963-14b2-4523-b094-bde2685af381"}
+                value={"libro"}
               />
             </div>
             {errores.tipoItem == true && (

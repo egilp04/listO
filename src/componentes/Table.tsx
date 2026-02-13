@@ -74,6 +74,9 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               key={inf.id}
             >
               <label className="w-full font-bold">{inf.nombre}</label>
+              <label className="w-full font-bold">
+                {tipoItem == "usuario" ? inf.apellidos : inf.descripcion}
+              </label>
               <div className="gap-4 flex flex-row justify-end pr-2">
                 <Button onClick={handleClick}>
                   <span>Editar</span>
