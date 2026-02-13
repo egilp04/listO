@@ -4,7 +4,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error: string;
   variant?: "primario" | "info";
-  regex?: RegExp;
+  regex: RegExp;
   name: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
@@ -17,43 +17,28 @@ function Inputs({
   name,
   disabled,
   regex,
+  value,
   label,
   variant = "primario",
   ...props
 }: InputFieldProps) {
-  let colorClass = `input-border-${variant}`;
   const [smError, setsmError] = useState(false);
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    const valor = e.target.value;
-    const nombre = e.target.name;
-    if (valor == "") {
-      setsmError(true);
+  const colorClass = smError ? "input-error" : `input-border-${variant}`;
+  const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nombre = e.currentTarget.name;
+    const valor = e.currentTarget.value;
+    if ((regex && !regex.test(valor)) || valor == "") {
       manejarError(nombre, true);
+      setsmError(true);
     } else {
-      setsmError(false);
       manejarError(nombre, false);
-    }
-    if (regex) {
-      if (!regex.test(valor)) {
-        manejarError(name, true);
-        setsmError(true);
-      } else {
-        manejarError(name, false);
-        setsmError(false);
-      }
+      setsmError(false);
     }
   };
 
   const handleChangeInternal = (e: React.ChangeEvent<HTMLInputElement>) => {
     manejarCambio(e);
   };
-
-  if (smError) {
-    colorClass = "input-error";
-  } else if (!smError) {
-    colorClass = "input-valido";
-  }
 
   return (
     <div className="flex flex-col gap-2 w-full">
