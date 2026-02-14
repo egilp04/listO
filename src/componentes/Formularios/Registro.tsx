@@ -4,9 +4,11 @@ import Checkbox from "../Inputs/Checkbox";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
+import { useAuthStore } from "../../store/useAuthStore";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
+  const { logout } = useAuthStore();
 
   const [datos, setDatos] = useState({
     nombre: "",
@@ -88,7 +90,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
       });
       if (error) throw error;
       else {
-        alert("Usuario registrado. Ya puedes iniciar sesión 😁.");
+        logout();
         navigate("/");
       }
     } catch (error) {

@@ -43,6 +43,14 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       }
     }
   };
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     setInfo([]);
+  //     await obtenerUsuarios();
+  //   };
+
+  //   getData();
+  // }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -131,8 +139,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
 
   const handleClick = (item: infoInterface) => {
     console.log(item);
-    if (tipoItem == "usuario")
-      navigate("/miperfil", { state: { crear: false, item: item } });
+    if (tipoItem == "usuario") navigate("/miperfil", { state: { item: item } });
     else
       navigate("/genero", {
         state: { crear: false, item: item },

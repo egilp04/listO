@@ -8,36 +8,40 @@ import { supabase } from "../utils/supabaseClient";
 const MiPerfil = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { user: userLogueado } = useAuthStore();
-  const { crear = true, item = null } = state || {};
-  const usuario = item || userLogueado;
+  const { user: usuarioLogueado } = useAuthStore();
+  const { item = null } = state || {};
+
+  const usuario =
+    item ||
+    (usuarioLogueado
+      ? {
+          id_usuario: usuarioLogueado.id,
+          ...usuarioLogueado.user_metadata,
+          email: usuarioLogueado.email,
+        }
+      : null);
 
   const [datos, setDatos] = useState({
-    nombre: usuario?.nombre || "",
-    apellidos: usuario?.apellidos || "",
-    email: usuario?.email || "",
-    fech_nac: usuario?.fechanacimiento || "",
+    nombre: "",
+    apellidos: "",
+    email: "",
+    fech_nac: "",
   });
 
   const [errores, setErrores] = useState({
-    nombre: crear ? true : false,
-    apellidos: crear ? true : false,
-    email: crear ? true : false,
-    fech_nac: crear ? true : false,
+    nombre: false,
+    apellidos: false,
+    email: false,
+    fech_nac: false,
   });
 
   const manejarCambios = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nombre = e.target.name;
-    setDatos((prev) => {
-      const nuevosDatos = { ...prev, [nombre]: e.target.value };
-      return nuevosDatos;
-    });
+    const { name, value } = e.target;
+    setDatos((prev) => ({ ...prev, [name]: value }));
   };
 
   const manejarErrores = (nombre: string, error: boolean) => {
-    setErrores((prev) => {
-      return { ...prev, [nombre]: error };
-    });
+    setErrores((prev) => ({ ...prev, [nombre]: error }));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,7 +49,7 @@ const MiPerfil = () => {
     const tieneErroresVisuales = Object.values(errores).some(
       (err) => err === true,
     );
-    console.log(errores);
+
     if (tieneErroresVisuales) {
       alert("Algunos de los campos tienen errores, revíselos.");
     } else {
@@ -54,28 +58,48 @@ const MiPerfil = () => {
   };
 
   const enviarDatosBD = async () => {
+    const idActualizar = usuario?.id_usuario;
+    if (!idActualizar) {
+      alert("Error: No se encontró el ID del usuario.");
+      return;
+    }
     try {
-      const idActualizar = usuario?.id_usuario;
-      if (!idActualizar) throw new Error("No se encontró el ID del usuario");
-      const { error } = await supabase
+      const datosActualizados = {
+        nombre: datos.nombre || usuario.nombre,
+        apellidos: datos.apellidos || usuario.apellidos,
+        email: datos.email || usuario.email,
+        fechanacimiento: datos.fech_nac || usuario.fechanacimiento,
+      };
+      const { data, error } = await supabase
         .from("usuario")
-        .update({
-          nombre: datos.nombre,
-          apellidos: datos.apellidos,
-          email: datos.email,
-          fechanacimiento: datos.fech_nac,
-        })
-        .eq("id_usuario", idActualizar);
+        .update(datosActualizados)
+        .eq("id_usuario", idActualizar)
+        .select();
+
       if (error) throw error;
-      alert("Datos modificados correctamente");
-      navigate("/biblioteca");
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al crear el género:", error.message);
-      } else {
-        console.error("Ocurrió un error inesperado:", error);
+      if (data && data.length > 0) {
+        const usuarioActualizadoDB = data[0];
+        const usuarioActual = useAuthStore.getState().user;
+        console.log(usuarioActual);
+        if (usuarioActual) {
+          const nuevoUsuarioSesion = {
+            ...usuarioActual,
+            user_metadata: {
+              ...usuarioActual.user_metadata,
+              nombre: usuarioActualizadoDB.nombre,
+              apellidos: usuarioActualizadoDB.apellidos,
+              fechanacimiento: usuarioActualizadoDB.fechanacimiento,
+            },
+            email: usuarioActualizadoDB.email,
+          };
+          useAuthStore.getState().setUser(nuevoUsuarioSesion);
+        }
+        alert("Datos modificados correctamente 😁");
+        navigate("/biblioteca");
       }
-      alert("Intente registrarse más tarde");
+    } catch (error: any) {
+      console.error("Error en la actualización:", error.message || error);
+      alert("No se pudieron guardar los cambios. Inténtelo de nuevo.");
     }
   };
 
@@ -85,6 +109,7 @@ const MiPerfil = () => {
         <div className="flex flex-col gap-6 md:gap-14 lg:gap-14">
           <h2 className="flex justify-center text-2xl font-bold">Mi Perfil</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+            {/* Nombre */}
             <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
               <div className="w-full md:w-1/3">
                 <label className="font-bold">Nombre de usuario</label>
@@ -100,7 +125,7 @@ const MiPerfil = () => {
                   regex={
                     /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/
                   }
-                  error="El nombre debe comenzar con mayúsculas, por favor"
+                  error="El nombre debe comenzar con mayúscula"
                 />
               </div>
             </div>
@@ -111,15 +136,15 @@ const MiPerfil = () => {
               <div className="w-full md:w-2/3">
                 <Inputs
                   label=""
-                  placeholder="Mesías Ambrona"
+                  placeholder="Apellidos"
                   name="apellidos"
                   defaultValue={usuario?.apellidos || ""}
-                  manejarError={manejarErrores}
                   manejarCambio={manejarCambios}
+                  manejarError={manejarErrores}
                   regex={
                     /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/
                   }
-                  error="El/los apellido/s debe/n comenzar con mayúsculas"
+                  error="Los apellidos deben comenzar con mayúscula"
                 />
               </div>
             </div>
@@ -130,14 +155,13 @@ const MiPerfil = () => {
               <div className="w-full md:w-2/3">
                 <Inputs
                   label=""
-                  placeholder="correo@ejemplo.com"
                   name="email"
                   type="email"
                   defaultValue={usuario?.email || ""}
-                  manejarError={manejarErrores}
                   manejarCambio={manejarCambios}
+                  manejarError={manejarErrores}
                   regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-                  error="Revise el email"
+                  error="Email no válido"
                 />
               </div>
             </div>
@@ -152,13 +176,14 @@ const MiPerfil = () => {
                   type="text"
                   placeholder="dd/mm/aaaa"
                   defaultValue={usuario?.fechanacimiento || ""}
-                  regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
-                  manejarError={manejarErrores}
                   manejarCambio={manejarCambios}
-                  error="Formato válido: dd/mm/aaaa"
+                  manejarError={manejarErrores}
+                  regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
+                  error="Formato: dd/mm/aaaa"
                 />
               </div>
             </div>
+
             <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
               <div className="w-full md:w-1/3">
                 <Button
