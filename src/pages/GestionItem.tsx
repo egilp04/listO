@@ -79,7 +79,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
               key={tipo}
               className="bg-primary-600 rounded-lg p-2 w-full md:w-5/12 flex justify-center"
             >
-              <Checkbox label={tipo} className="text-white" />
+              <Checkbox label={tipo} colorTexto="text-white" />
             </div>
           ))}
         </div>
