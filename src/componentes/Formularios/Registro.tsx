@@ -120,7 +120,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-          error="El/los apellido/s debe/n comenzar con mayúsculas"
+          error="El/los apellido/s debe/n comenzar con mayúsculas seguido de minúsculas"
         />
         <Inputs
           label="Fecha Nacimiento"

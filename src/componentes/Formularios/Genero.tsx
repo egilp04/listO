@@ -123,12 +123,10 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   };
 
   const modificarGenero = async () => {
-    console.log("estoy en la funcion de modificacion");
     if (item == null) {
       alert("Acción no permitida, no hay elemento");
       return;
     }
-    console.log("item en modificar ", item);
     try {
       const { error: deleteError } = await supabase
         .from("genero")
