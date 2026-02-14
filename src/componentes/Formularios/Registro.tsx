@@ -2,12 +2,19 @@ import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Checkbox from "../Inputs/Checkbox";
 import Button from "../Button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import { useAuthStore } from "../../store/useAuthStore";
+import { useNotificationStore } from "../../store/useNotificationStore";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
+  const { setNotificacion } = useNotificationStore();
+
+  const location = useLocation();
+  const state = location.state || {};
+  const vieneDeGestion = state.atras || false;
+
   const { logout } = useAuthStore();
 
   const [datos, setDatos] = useState({
@@ -56,7 +63,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const passwordsCoinciden =
       datos.passwd !== "" &&
@@ -67,11 +74,12 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
       (err) => err === true,
     );
     if (tieneErroresVisuales || !passwordsCoinciden) {
-      alert(
-        "Algunos de los campos tienen errores o las contraseñas no coinciden.",
+      setNotificacion(
+        "Algunos de los campos tienen errores o las contraseñas no coinciden",
+        "error",
       );
     } else {
-      enviarDatosBD();
+      await enviarDatosBD();
     }
   };
 
@@ -88,14 +96,27 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           },
         },
       });
+      console.log("Error antes de lanzarse", error);
+
       if (error) throw error;
       else {
-        logout();
-        navigate("/");
+        console.log("se hace bien el registro");
+        setNotificacion(
+          "¡Usuario registrado con éxito! Ya puedes iniciar sesión.",
+          "exito",
+        );
+        if (vieneDeGestion) {
+          console.log("viene de gestion");
+          navigate(-1);
+        } else {
+          console.log("se sale jejejej");
+          logout();
+          navigate("/");
+        }
       }
     } catch (error) {
-      console.log(error);
-      alert("Intente registrarse más tarde");
+      console.log("catch error", error);
+      setNotificacion("Intente registrarse más tarde", "error");
     }
   };
 
@@ -112,7 +133,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-          error="El nombre debe comenzar con mayúsculas, por favor"
+          error="El nombre debe comenzar con mayúsculas sin números, por favor"
         />
         <Inputs
           label="Apellidos"
@@ -122,7 +143,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-          error="El/los apellido/s debe/n comenzar con mayúsculas seguido de minúsculas"
+          error="El/los apellido/s debe/n comenzar con mayúsculas seguido de minúsculas sin números"
         />
         <Inputs
           label="Fecha Nacimiento"

@@ -6,6 +6,7 @@ import TextArea from "../Inputs/TextArea";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import type { infoInterface } from "../../interfaces/infoInterface";
+import { useNotificationStore } from "../../store/useNotificationStore";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -13,8 +14,7 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Genero = ({ crear, item, ...props }: RegistroProps) => {
-  console.log("item", item);
-
+  const { setNotificacion } = useNotificationStore();
   const navigate = useNavigate();
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
@@ -60,14 +60,17 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
     });
   };
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tieneErrores = Object.values(errores).some((error) => error == true);
     if (tieneErrores) {
-      alert("Algunos de los campos tienen errores, reviselos");
+      setNotificacion(
+        "Algunos de los capos tienen errores, revíselos",
+        "error",
+      );
     } else {
-      if (crear) crearGenero();
-      else modificarGenero();
+      if (crear) await crearGenero();
+      else await modificarGenero();
     }
   };
 
@@ -81,7 +84,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       if (queryError) throw queryError;
 
       if (existente && existente.length > 0) {
-        alert("Ya existe un género con este nombre");
+        setNotificacion("Ya existe un género con este nombre", "error");
         return;
       }
       const { data: tiposItemBd, error: tipoError } = await supabase
@@ -109,8 +112,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
         .insert(nuevasFilas);
 
       if (insertError) throw insertError;
-
-      alert("Género creado correctamente");
+      setNotificacion("Género creado correctamente", "exito");
       navigate("/gestion");
     } catch (error) {
       if (error instanceof Error) {
@@ -118,13 +120,13 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      alert("No se pudo guardar el género.");
+      setNotificacion("No se pudo guardar el género", "error");
     }
   };
 
   const modificarGenero = async () => {
     if (item == null) {
-      alert("Acción no permitida, no hay elemento");
+      setNotificacion("Acción no permitida, no hay elemento", "error");
       return;
     }
     try {
@@ -149,7 +151,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
 
       if (insertError) throw insertError;
 
-      alert("Género modificado correctamente");
+      setNotificacion("Género modificado correctamente", "exito");
       navigate("/gestion");
     } catch (error) {
       if (error instanceof Error) {
@@ -157,7 +159,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      alert("El nuevo género no se pudo guardar.");
+      setNotificacion("El nuevo género no se pudo guardar", "error");
     }
   };
 

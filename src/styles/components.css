@@ -206,4 +206,14 @@
   .footer-boton {
     @apply flex justify-center w-full mt-4 md:mt-6;
   }
+  .mensaje-alerta {
+    @apply fixed top-5 right-5 z-[100] p-4 rounded-xl shadow-2xl flex items-center gap-4 border-l-8 transition-all;
+  }
+
+  .mensaje-alerta-exito {
+    @apply bg-green-100 border-green-600 text-green-800;
+  }
+  .mensaje-alerta-error {
+    @apply bg-red-100 border-red-600 text-red-800;
+  }
 }

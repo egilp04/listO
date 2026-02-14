@@ -1,12 +1,14 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Button from "../componentes/Button";
 import Inputs from "../componentes/Inputs/Inputs";
 import { useAuthStore } from "../store/useAuthStore";
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
+import { useNotificationStore } from "../store/useNotificationStore";
 
 const MiPerfil = () => {
-  const navigate = useNavigate();
+  const { setNotificacion } = useNotificationStore();
+
   const { state } = useLocation();
   const { user: usuarioLogueado } = useAuthStore();
   const { item = null } = state || {};
@@ -44,23 +46,26 @@ const MiPerfil = () => {
     setErrores((prev) => ({ ...prev, [nombre]: error }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tieneErroresVisuales = Object.values(errores).some(
       (err) => err === true,
     );
 
     if (tieneErroresVisuales) {
-      alert("Algunos de los campos tienen errores, revíselos.");
+      setNotificacion(
+        "Algunos de los campos tienen errores, revíselos",
+        "error",
+      );
     } else {
-      enviarDatosBD();
+      await enviarDatosBD();
     }
   };
 
   const enviarDatosBD = async () => {
     const idActualizar = usuario?.id_usuario;
     if (!idActualizar) {
-      alert("Error: No se encontró el ID del usuario.");
+      setNotificacion("No se encontró el ID del usuario", "error");
       return;
     }
     try {
@@ -94,12 +99,18 @@ const MiPerfil = () => {
           };
           useAuthStore.getState().setUser(nuevoUsuarioSesion);
         }
-        alert("Datos modificados correctamente 😁");
-        navigate("/biblioteca");
+        setNotificacion("Datos modificados correctamente 😁", "exito");
       }
-    } catch (error: any) {
-      console.error("Error en la actualización:", error.message || error);
-      alert("No se pudieron guardar los cambios. Inténtelo de nuevo.");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error al crear el género:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+      setNotificacion(
+        "No se pudieron guardar los cambios. Inténtelo de nuevo",
+        "error",
+      );
     }
   };
 

@@ -1,9 +1,11 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../componentes/Footer";
 import Navbar from "../componentes/Navbar";
+import { useNotificationStore } from "../store/useNotificationStore";
 
 const AppLayout = () => {
   const navigate = useNavigate();
+  const { mensaje, tipo, mostrar } = useNotificationStore();
 
   return (
     <div className="flex flex-col min-h-screen bg-primary-200">
@@ -17,6 +19,14 @@ const AppLayout = () => {
         </span>
       </div>
       <main className="flex-1 px-4">
+        {mostrar && (
+          <div
+            className={`mensaje-alerta
+          ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"}`}
+          >
+            <span>{mensaje}</span>
+          </div>
+        )}
         <Outlet></Outlet>
       </main>
       <Footer></Footer>

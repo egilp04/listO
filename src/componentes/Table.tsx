@@ -4,6 +4,7 @@ import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
+import { useNotificationStore } from "../store/useNotificationStore";
 
 interface TableInterface {
   tipoItem: string;
@@ -11,6 +12,7 @@ interface TableInterface {
 }
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
+  const { setNotificacion } = useNotificationStore();
   const [info, setInfo] = useState<infoInterface[]>([]);
   const [itemEliminar, setItemEliminar] = useState<infoInterface>();
   const obtenerUsuarios = async () => {
@@ -43,14 +45,6 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       }
     }
   };
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     setInfo([]);
-  //     await obtenerUsuarios();
-  //   };
-
-  //   getData();
-  // }, []);
 
   useEffect(() => {
     const getData = async () => {
@@ -74,11 +68,11 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
     console.log(borrar);
     setShow(false);
     if (!borrar) {
-      alert("Acción cancelada");
+      setNotificacion("Acción cancelada", "exito");
       return;
     }
     if (!itemEliminar) {
-      alert("Error: No se ha seleccionado ningún elemento.");
+      setNotificacion("Error: No se ha seleccionado ningún elemento", "error");
       return;
     }
     if (tipoItem === "usuario") {
@@ -98,14 +92,14 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .delete()
         .eq("id_genero", itemEliminar?.id_genero);
       if (error) throw error;
-      alert("Género eliminado correctamente.");
+      setNotificacion("Género eliminado correctamente", "exito");
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error al borrar el génro:", error.message);
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      alert("No se pudo eliminar el género.");
+      setNotificacion("No se pudo eliminar el género", "error");
     }
   };
 
@@ -118,7 +112,8 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .eq("id_usuario", itemEliminar?.id_usuario);
 
       if (error) throw error;
-      alert("Usuario desactivado correctamente.");
+      setNotificacion("Usuario desactivado correctamente", "exito");
+
       await obtenerUsuarios();
     } catch (error) {
       if (error instanceof Error) {
@@ -126,7 +121,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      alert("No se pudo eliminar al usuario.");
+      setNotificacion("No se pudo eliminar al usuario", "error");
     }
   };
 
