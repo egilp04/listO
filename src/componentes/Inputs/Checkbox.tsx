@@ -30,6 +30,7 @@ function Checkbox({
         {...props}
         onChange={handleChange}
       />
+
       <label htmlFor={name} className={`cursor-pointer ${colorTexto}`}>
         {label}
       </label>

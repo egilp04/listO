@@ -22,10 +22,20 @@ function Inputs({
   ...props
 }: InputFieldProps) {
   const [smError, setsmError] = useState(false);
+  const [touched, setTouched] = useState(false);
 
-  const colorClass = smError ? "input-error" : `input-border-${variant}`;
+  let colorClass = `input-border-${variant}`;
+
+  if (touched) {
+    if (smError) {
+      colorClass = "input-error";
+    } else {
+      colorClass = "input-valido";
+    }
+  }
 
   const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTouched(true);
     const nombre = e.currentTarget.name;
     const valor = e.currentTarget.value;
     if ((regex && !regex.test(valor)) || valor == "") {
