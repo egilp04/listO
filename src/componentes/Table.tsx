@@ -53,6 +53,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         await obtenerGeneros();
       }
     };
+
     getData();
   }, [tipoItem]);
 

@@ -16,14 +16,14 @@ const MiPerfil = () => {
     nombre: usuario?.nombre || "",
     apellidos: usuario?.apellidos || "",
     email: usuario?.email || "",
-    fecha_nac: usuario?.fechanacimiento || "",
+    fech_nac: usuario?.fechanacimiento || "",
   });
 
   const [errores, setErrores] = useState({
-    nombre: crear ? false : true,
-    apellidos: crear ? false : true,
-    email: crear ? false : true,
-    fecha_nac: crear ? false : true,
+    nombre: crear ? true : false,
+    apellidos: crear ? true : false,
+    email: crear ? true : false,
+    fech_nac: crear ? true : false,
   });
 
   const manejarCambios = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +45,9 @@ const MiPerfil = () => {
     const tieneErroresVisuales = Object.values(errores).some(
       (err) => err === true,
     );
+    console.log(errores);
     if (tieneErroresVisuales) {
-      alert(
-        "Algunos de los campos tienen errores o las contraseñas no coinciden.",
-      );
+      alert("Algunos de los campos tienen errores, revíselos.");
     } else {
       enviarDatosBD();
     }
@@ -64,7 +63,7 @@ const MiPerfil = () => {
           nombre: datos.nombre,
           apellidos: datos.apellidos,
           email: datos.email,
-          fechanacimiento: datos.fecha_nac,
+          fechanacimiento: datos.fech_nac,
         })
         .eq("id_usuario", idActualizar);
       if (error) throw error;
@@ -149,7 +148,7 @@ const MiPerfil = () => {
               <div className="w-full md:w-2/3">
                 <Inputs
                   label=""
-                  name="fechaNacimiento"
+                  name="fech_nac"
                   type="text"
                   placeholder="dd/mm/aaaa"
                   defaultValue={usuario?.fechanacimiento || ""}
