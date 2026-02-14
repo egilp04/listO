@@ -17,8 +17,9 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
     try {
       const { data, error } = await supabase
         .from("usuario")
-        .select("*")
-        .eq("estado", "activo");
+        .select("*, rol!inner(nombre)")
+        .eq("estado", "activo")
+        .neq("rol.nombre", "administrador");
       if (error) throw error;
       setInfo(data);
     } catch (error) {
@@ -45,8 +46,12 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
 
   useEffect(() => {
     const getData = async () => {
-      if (tipoItem == "usuario") await obtenerUsuarios();
-      else await obtenerGeneros();
+      setInfo([]);
+      if (tipoItem === "usuario") {
+        await obtenerUsuarios();
+      } else {
+        await obtenerGeneros();
+      }
     };
     getData();
   }, [tipoItem]);
@@ -124,6 +129,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const navigate = useNavigate();
 
   const handleClick = (item: infoInterface) => {
+    console.log(item);
     if (tipoItem == "usuario") navigate("/miperfil", { state: { item: item } });
     else
       navigate("/genero", {
