@@ -124,7 +124,7 @@
   }
 
   .input-valido {
-    @apply border border-primary-700;
+    @apply border border-success-500;
   }
 
   .span-error {

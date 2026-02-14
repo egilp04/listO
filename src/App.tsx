@@ -70,7 +70,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+import { useEffect } from "react";
+import { useAuthStore } from "./store/useAuthStore";
+
 function App() {
+  const { initialize } = useAuthStore();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return <RouterProvider router={router} />;
 }
 

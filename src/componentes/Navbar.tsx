@@ -1,19 +1,15 @@
 import { useState } from "react";
 import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
 
-interface NavbarProps {
-  usuario?: string;
-  estaLogueado?: boolean;
-  esAdmin?: boolean;
-}
-
-const Navbar: React.FC<NavbarProps> = ({
-  usuario,
-  estaLogueado = false,
-  esAdmin = false,
-}) => {
+const Navbar = () => {
   const [close, setClose] = useState(true);
+  const { user, role, logout } = useAuthStore();
+
+  const usuario = user?.email;
+  const estaLogueado = !!user;
+  const esAdmin = role === 'administrador';
 
   const handleClick = () => {
     setClose(!close);
@@ -24,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
       <div className="flex items-center gap-3">
-        <NavLink to="/" end className="navbar-logo">
+        <NavLink to={estaLogueado ? "/biblioteca" : "/"} end className="navbar-logo">
           <img
             src="/src/assets/img/logo/logo.webp"
             alt="logo"
@@ -116,6 +112,7 @@ const Navbar: React.FC<NavbarProps> = ({
             <Button
               variant="fantasma"
               onClick={() => {
+                logout();
                 navigate("/");
               }}
             >

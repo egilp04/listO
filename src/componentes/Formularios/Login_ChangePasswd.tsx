@@ -3,14 +3,17 @@ import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useAuthStore } from "../../store/useAuthStore";
+
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
-  error: string;
+  error?: string;
   login: boolean;
 }
 
 export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) => {
 
   const navigate = useNavigate();
+  const { login: loginAction, error: authError } = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -22,7 +25,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
   const texto = login ? "Login" : "Enviar";
 
   const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>({});
-  
+
   const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -35,13 +38,12 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
     e.preventDefault();
 
     if (login) {
-      console.log("Navegando a Biblioteca...");
-      navigate("/biblioteca", {
-        state: {
-          isLogged: false,
-          esAdmin: true,
-        },
-      });
+      try {
+        await loginAction(formData.email, formData.passwd);
+        navigate("/biblioteca");
+      } catch (err) {
+        console.error("Login failed", err);
+      }
     } else {
       console.log("Volviendo al Login...");
       navigate("/login");
@@ -59,12 +61,12 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
               label="Usuario"
               type="text"
               placeholder="Ej: enrique@gmail.com"
-              name="email" error={"Formato de email incorrecto"} regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/} value={formData.email} manejarCambio={manejarCambio} manejarError={manejarError}            />
+              name="email" error={"Formato de email incorrecto"} regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/} value={formData.email} manejarCambio={manejarCambio} manejarError={manejarError} />
             <Inputs
               label="Contraseña"
               type="password"
               placeholder="********"
-              name="passwd" error={"Debe coincidir con la contraseña"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.passwd} manejarCambio={manejarCambio} manejarError={manejarError}            />
+              name="passwd" error={"Debe coincidir con la contraseña"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
           </div>
           <span className="text-sm mt-4 block text-center">
             ¿Has olvidado la contraseña? Pulse{" "}
@@ -82,10 +84,10 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
           <div className="flex-login-passwd">
             <Inputs
-                label="Nueva Contraseña"
-                type="password"
-                placeholder="********"
-                name="nueva_passwd" error={"La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.nueva_passwd} manejarCambio={manejarCambio} manejarError={manejarError}            />
+              label="Nueva Contraseña"
+              type="password"
+              placeholder="********"
+              name="nueva_passwd" error={"La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.nueva_passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
             <Inputs label="Confirmar Contraseña" type="password" placeholder="********" name="confirm_passwd" error={"Las contraseñas no coinciden"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.confirm_passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
           </div>
         </>
@@ -93,7 +95,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
       <Button onClick={handleClick}>{texto}</Button>
 
-      {error && <p className="span-error mt-1 h-4">{error}</p>}
+      {(error || authError) && <p className="span-error mt-1 h-4">{error || authError}</p>}
     </form>
   );
 };
