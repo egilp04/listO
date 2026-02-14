@@ -12,9 +12,13 @@ interface TableInterface {
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const [info, setInfo] = useState<infoInterface[]>([]);
+  const [itemEliminar, setItemEliminar] = useState<infoInterface>();
   const obtenerUsuarios = async () => {
     try {
-      const { data, error } = await supabase.from("usuario").select("*");
+      const { data, error } = await supabase
+        .from("usuario")
+        .select("*")
+        .eq("estado", "activo");
       if (error) throw error;
       setInfo(data);
     } catch (error) {
@@ -52,7 +56,68 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   );
 
   const [show, setShow] = useState(false);
-  const deleteDialog = () => {
+  const deleteItem = async (borrar: boolean) => {
+    console.log(borrar);
+    setShow(false);
+    if (!borrar) {
+      alert("Acción cancelada");
+      return;
+    }
+    if (!itemEliminar) {
+      alert("Error: No se ha seleccionado ningún elemento.");
+      return;
+    }
+    if (tipoItem === "usuario") {
+      await desactivarUsuario();
+      await obtenerUsuarios();
+    } else {
+      await borrarGenero();
+      await obtenerGeneros();
+    }
+  };
+
+  const borrarGenero = async () => {
+    console.log("item eliminar", itemEliminar);
+    try {
+      const { error } = await supabase
+        .from("genero")
+        .delete()
+        .eq("id_genero", itemEliminar?.id_genero);
+      if (error) throw error;
+      alert("Género eliminado correctamente.");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error al borrar el génro:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+      alert("No se pudo eliminar el género.");
+    }
+  };
+
+  const desactivarUsuario = async () => {
+    console.log("item eliminar", itemEliminar);
+    try {
+      const { error } = await supabase
+        .from("usuario")
+        .update({ estado: "inactivo" })
+        .eq("id_usuario", itemEliminar?.id_usuario);
+
+      if (error) throw error;
+      alert("Usuario desactivado correctamente.");
+      await obtenerUsuarios();
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error("Error al borrar el usuario:", error.message);
+      } else {
+        console.error("Ocurrió un error inesperado:", error);
+      }
+      alert("No se pudo eliminar al usuario.");
+    }
+  };
+
+  const openDialog = (inf: infoInterface) => {
+    setItemEliminar(inf);
     setShow(!show);
   };
 
@@ -73,9 +138,9 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
           <label>Nombre</label>
         </div>
         <div className="flex flex-col">
-          {datosAMostrar.map((inf, index) => (
+          {datosAMostrar.map((inf) => (
             <div
-              className={`rows-table ${index % 2 == 0 ? "bg-primary-100" : "bg-neutral-100"}`}
+              className="rows-table odd:bg-primary-100 even:bg-neutral-100"
               key={inf.id}
             >
               <label className="w-full font-bold">{inf.nombre}</label>
@@ -92,7 +157,12 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                 >
                   <span>Editar</span>
                 </Button>
-                <Button className="bg-danger-300" onClick={deleteDialog}>
+                <Button
+                  className="bg-danger-300"
+                  onClick={() => {
+                    openDialog(inf);
+                  }}
+                >
                   <span className="text-black">Eliminar</span>
                 </Button>
               </div>
@@ -101,11 +171,10 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         </div>
       </div>
       <Dialog
-        onClose={deleteDialog}
+        onClose={deleteItem}
         titulo="Eliminar"
         descripcion="Vas a proceder a eliminar el género selccionado, estás seguro?"
         show={show}
-        tipoItem={tipoItem}
       ></Dialog>
     </div>
   );

@@ -4,35 +4,31 @@ interface DialogInterface {
   titulo: string;
   descripcion: string;
   show: boolean;
-  onClose: () => void;
-  tipoItem: string;
+  onClose: (confirmar: boolean) => void;
 }
 
 const Dialog = ({
   titulo,
   descripcion,
   show = false,
-  tipoItem,
   onClose,
 }: DialogInterface) => {
   if (!show) return null;
-
-  const deleteItem = () => {
-    if (tipoItem == "usuario") {
-      console.log("borrar usuario");
-    } else {
-      console.log("borrar genero");
-    }
-    onClose();
-  };
   return (
     <>
-      <div className="dialog-overlay" onClick={onClose}></div>
+      <div
+        className="dialog-overlay"
+        onClick={() => {
+          onClose(false);
+        }}
+      ></div>
       <div className="dialog">
         <div className="flex justify-end">
           <span
             className="material-symbols-outlined cursor-pointer hover:text-gray-500"
-            onClick={onClose}
+            onClick={() => {
+              onClose(false);
+            }}
           >
             close
           </span>
@@ -44,10 +40,20 @@ const Dialog = ({
         </div>
 
         <div className="flex flex-row gap-2 justify-end mt-6">
-          <Button variant="fantasma" onClick={onClose}>
+          <Button
+            variant="fantasma"
+            onClick={() => {
+              onClose(false);
+            }}
+          >
             <span>No, cancelar</span>
           </Button>
-          <Button className="bg-danger-500 text-white" onClick={deleteItem}>
+          <Button
+            className="bg-danger-500 text-white"
+            onClick={() => {
+              onClose(true);
+            }}
+          >
             <span>Sí, confirmar</span>
           </Button>
         </div>

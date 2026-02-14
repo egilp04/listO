@@ -1,7 +1,11 @@
+import { useLocation } from "react-router-dom";
 import Button from "../componentes/Button";
 import Inputs from "../componentes/Inputs/Inputs";
 
 const MiPerfil = () => {
+  const { state } = useLocation();
+  const { item = null } = state || {};
+
   return (
     <div className="flex flex-col">
       <div className="grow w-full max-w-4xl mx-auto px-4 pb-8">

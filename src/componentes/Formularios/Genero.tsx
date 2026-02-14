@@ -19,15 +19,17 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   const titulo = crear ? "Crear Género" : "Modificar Género";
 
   const [datos, setDatos] = useState({
-    nombreItem: "",
-    tipoItem: [] as string[],
-    descripcionItem: "",
+    nombreItem: item?.nombre || "",
+    tipoItem: item?.tipo?.nombre
+      ? [item.tipo.nombre.toLowerCase()]
+      : ([] as string[]),
+    descripcionItem: item?.descripcion || "",
   });
 
   const [errores, setErrores] = useState({
-    nombreItem: true,
-    tipoItem: true,
-    descripcionItem: true,
+    nombreItem: crear ? true : false,
+    tipoItem: crear ? true : false,
+    descripcionItem: crear ? true : false,
   });
 
   const manejarCambio = (
@@ -121,22 +123,23 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   };
 
   const modificarGenero = async () => {
+    console.log("estoy en la funcion de modificacion");
     if (item == null) {
       alert("Acción no permitida, no hay elemento");
       return;
     }
-    console.log("item", item);
+    console.log("item en modificar ", item);
     try {
       const { error: deleteError } = await supabase
         .from("genero")
         .delete()
-        .eq("nombre", item.nombre);
+        .eq("id_genero", item.id_genero);
 
       if (deleteError) throw deleteError;
 
       const datosModificados = {
-        nombre: item.nombre,
-        descripcion: item.descripcion,
+        nombre: datos.nombreItem,
+        descripcion: datos.descripcionItem,
         id_tipo: item.tipo?.id_tipo,
       };
 
@@ -174,7 +177,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             manejarError={manejarErrores}
             error="Nombre del género incorrecto, debe comenzar con mayúsculas"
             regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-            defaultValue={item != null ? item.nombre : ""}
+            defaultValue={item != null ? item?.nombre : ""}
           />
 
           <div className="seccion-tipo">
@@ -187,14 +190,14 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
                 label="Juego"
                 name="tipoItem"
                 value={"videojuego"}
-                defaultChecked={item.tipo?.nombre.includes("videojuego")}
+                checked={item?.tipo?.nombre.includes("videojuego")}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
                 label="Libro"
                 name="tipoItem"
                 value={"libro"}
-                defaultChecked={item.tipo?.nombre.includes("libro")}
+                checked={item?.tipo?.nombre.includes("libro")}
               />
             </div>
             {errores.tipoItem == true && (
