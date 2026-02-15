@@ -5,9 +5,9 @@ import { useAuthStore } from "../store/useAuthStore";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
-  const { user, role, logout } = useAuthStore();
+  const { user, role, profile, logout } = useAuthStore();
 
-  const usuario = user?.email;
+  const usuario = profile?.nombre || user?.email;
   const estaLogueado = !!user;
   const esAdmin = role === 'administrador';
 
