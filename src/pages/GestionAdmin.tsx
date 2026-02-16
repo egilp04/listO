@@ -68,7 +68,6 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-
         <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
       </div>
     </div>

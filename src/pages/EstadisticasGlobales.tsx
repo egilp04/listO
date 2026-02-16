@@ -8,6 +8,8 @@ import type {
   TarjetaEstadisticas,
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
+import RegistroUsuarios from "../componentes/Charts/RegistroUsuarios";
+import DistribucionGeneros from "../componentes/Charts/DistribucionGenero";
 
 const EstadisticasGlobales = () => {
   const {
@@ -54,7 +56,7 @@ const EstadisticasGlobales = () => {
   }, [mesSeleccionado, fetchUsuariosPorMes]);
 
   return (
-    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
+    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch mb-10">
       <h2 className="flex justify-center">Estadísticas Globales</h2>
       <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h3 className="w-full text-primary-700">
@@ -97,6 +99,8 @@ const EstadisticasGlobales = () => {
           </div>
         </div>
       </div>
+      <RegistroUsuarios></RegistroUsuarios>
+      <DistribucionGeneros></DistribucionGeneros>
     </div>
   );
 };
