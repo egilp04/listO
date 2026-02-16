@@ -64,7 +64,9 @@ const EstadisticasGlobales = () => {
           variant="primario"
           options={meses}
           value={mesSeleccionado}
-          onChange={(e) => setMesSeleccionado(e.target.value)}
+          manejarambio={(e) => setMesSeleccionado(e.target.value)}
+          manejarError={() => {}}
+          mensajeError=""
         />{" "}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
