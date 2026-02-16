@@ -3,52 +3,62 @@ import Select from "../componentes/Inputs/Select";
 import { meses } from "../utils/constants/Meses";
 import CardEstadisticaG from "../componentes/tarjetas/cardEstadisticaG";
 import CardEstadisticaT from "../componentes/tarjetas/cardEstadisticaT";
-
-interface EstadisticaTop {
-  value: string[];
-}
+import { useAdminStatsStore } from "../store/useAdminStatsStore";
+import type {
+  TarjetaEstadisticas,
+  TarjetaEstadisticasTop,
+} from "../interfaces/TarjetasEstadisticasGlobales";
 
 const EstadisticasGlobales = () => {
-  const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState([]);
+  const {
+    fetchTarjetasEstadisticas,
+    fetchUsuariosPorMes,
+    fetchTarjetasEstadisticasTop,
+  } = useAdminStatsStore();
+
+  const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
+    TarjetaEstadisticas[]
+  >([]);
   const [infoEstadisticasTop, setInfoEstadisticasTop] = useState<
-    EstadisticaTop[]
+    TarjetaEstadisticasTop[]
   >([]);
 
-  useEffect(() => {
-    const getDataEstadistica = async () => {
-      try {
-        const res = await fetch("/src/mock/cardsAdminStats.json");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        console.log("RESPUESTA", res);
-        const data = await res.json();
-        console.log(data);
-        setInfoTarjetaEstadistica(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getDataEstadistica();
-  }, []);
-
+  //Usuarios por mes
   const [mesSeleccionado, setMesSeleccionado] = useState("");
+  const [conteoUsuario, setConteoUsuario] = useState(0);
+
   useEffect(() => {
-    const getDataTop = async () => {
-      const res = await fetch("/src/mock/cardTopStatsAdmin.json");
-      const data = await res.json();
-      console.log(data);
+    const cargarTarjetas = async () => {
+      const data = await fetchTarjetasEstadisticas();
+      setInfoTarjetaEstadistica(data);
+    };
+    cargarTarjetas();
+  }, [fetchTarjetasEstadisticas]);
+
+  useEffect(() => {
+    const cargarTarjetas = async () => {
+      const data = await fetchTarjetasEstadisticasTop();
       setInfoEstadisticasTop(data);
     };
-    getDataTop();
-  }, []);
-  const conteo = 10;
+    cargarTarjetas();
+  }, [fetchTarjetasEstadisticasTop]);
+
+  useEffect(() => {
+    const cargarUsuarios = async () => {
+      if (mesSeleccionado) {
+        const count = await fetchUsuariosPorMes(mesSeleccionado);
+        setConteoUsuario(count);
+      }
+    };
+    cargarUsuarios();
+  }, [mesSeleccionado, fetchUsuariosPorMes]);
+
   return (
     <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
       <h2 className="flex justify-center">Estadísticas Globales</h2>
       <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h3 className="w-full text-primary-700">
-          Usuarios registrados por mes: {conteo}
+          Usuarios registrados por mes: {conteoUsuario}
         </h3>
         <Select
           variant="primario"
@@ -71,9 +81,13 @@ const EstadisticasGlobales = () => {
             <h3 className="text-primary-50">Generos Favoritos</h3>
           </div>
           <div className="flex flex-col gap-2">
-            {infoEstadisticasTop.map(({ value }, index) =>
-              value.map((val) => (
-                <CardEstadisticaT numero={index} texto={val} />
+            {infoEstadisticasTop.map((info) =>
+              info.value.map((nombreGenero, index) => (
+                <CardEstadisticaT
+                  key={`${info.id}-${index}`}
+                  numero={index + 1}
+                  texto={nombreGenero}
+                />
               )),
             )}
           </div>
