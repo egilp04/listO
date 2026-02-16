@@ -55,7 +55,7 @@ const GestionAdmin = () => {
         <div className="flex flex-col gap-4  justify-center items-center md:justify-around md:flex-row w-full">
           <div className="w-1/2">
             <input
-              className="input-style-comun input-valido input-responsive"
+              className="input-style-comun border border-success-500 input-responsive"
               placeholder="Busca por nombre o autor"
               onChange={handleFiltrar}
             ></input>

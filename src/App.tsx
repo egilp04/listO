@@ -74,11 +74,11 @@ import { useEffect } from "react";
 import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
-  const { initialize, loading } = useAuthStore();
+  const { initialize, loading, session } = useAuthStore();
   useEffect(() => {
     initialize();
   }, [initialize]);
-  if (loading) {
+  if (loading && !session) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-primary-200">
         <p className="animate-pulse">

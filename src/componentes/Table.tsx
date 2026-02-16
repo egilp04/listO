@@ -21,7 +21,6 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
-  //Filtro de mostrar
   const datos = tipoItem == "usuario" ? usuarios : generos;
   const datosAMostrar = datos.filter((item) =>
     item.nombre.toLowerCase().includes(valorFiltro.toLowerCase()),
@@ -29,18 +28,15 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
 
   const deleteItem = async (borrar: boolean) => {
     setShow(false);
-    if (!borrar) {
-      setNotificacion("Acción cancelada", "exito");
-      return;
-    }
-    if (!itemEliminar) {
-      setNotificacion("Error: No se ha seleccionado ningún elemento", "error");
-      return;
-    }
-    if (tipoItem === "usuario") {
-      await desactivarUsuario();
-    } else {
-      await borrarGenero();
+    if (!borrar || !itemEliminar) return;
+    try {
+      if (tipoItem === "usuario") {
+        await desactivarUsuario();
+      } else {
+        await borrarGenero();
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 

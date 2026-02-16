@@ -18,24 +18,36 @@ export const useGestionAdminStore = create<DataState>((set) => ({
 
   fetchUsuarios: async () => {
     set({ loading: true });
-    const { data, error } = await supabase
-      .from("usuario")
-      .select("*, rol!inner(nombre)")
-      .eq("estado", "activo")
-      .neq("rol.nombre", "administrador");
+    try {
+      const { data, error } = await supabase
+        .from("usuario")
+        .select("*, rol!inner(nombre)")
+        .eq("estado", "activo")
+        .neq("rol.nombre", "administrador");
 
-    if (!error) set({ usuarios: data || [], loading: false });
-    else set({ loading: false });
+      if (error) throw error;
+      set({ usuarios: data || [] });
+    } catch (error) {
+      console.error("Error en fetchUsuarios:", error);
+    } finally {
+      set({ loading: false });
+    }
   },
 
   fetchGeneros: async () => {
     set({ loading: true });
-    const { data, error } = await supabase
-      .from("genero")
-      .select("*, tipo!inner(nombre, id_tipo)");
+    try {
+      const { data, error } = await supabase
+        .from("genero")
+        .select("*, tipo!inner(nombre, id_tipo)");
 
-    if (!error) set({ generos: data || [], loading: false });
-    else set({ loading: false });
+      if (error) throw error;
+      set({ generos: data || [] });
+    } catch (error) {
+      console.error("Error en fetchGeneros:", error);
+    } finally {
+      set({ loading: false });
+    }
   },
 
   clearData: () => set({ usuarios: [], generos: [] }),
