@@ -8,7 +8,7 @@ export interface Option {
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   options: Option[];
   variant?: "primario" | "info";
-  manejarambio?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  manejarambio: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default function Select({
@@ -16,6 +16,7 @@ export default function Select({
   value = "",
   variant = "primario",
   disabled,
+  manejarambio,
   ...props
 }: SelectProps) {
   const colorClass = `input-border-${variant}`;
@@ -27,6 +28,7 @@ export default function Select({
         disabled={disabled}
         className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
         {...props}
+        onChange={manejarambio}
       >
         <option value="" disabled hidden>
           Seleccionar

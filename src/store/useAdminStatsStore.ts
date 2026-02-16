@@ -96,6 +96,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         .lte("created_at", fechaFin);
 
       if (error) throw error;
+      console.log(count);
       return count || 0;
     } catch (error) {
       console.error("Error en fetchUsuariosPorMes:", error);
@@ -108,9 +109,13 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
   fetchTarjetasEstadisticasTop: async () => {
     set({ loading: true });
     try {
-      const { data, error } = await supabase
-        .from("items")
-        .select("genero(nombre)");
+      const { data, error } = await supabase.from("items").select(`
+        genero_item (
+          genero (
+            nombre
+          )
+        )
+      `);
 
       if (error) throw error;
       const conteo: Record<string, number> = {};

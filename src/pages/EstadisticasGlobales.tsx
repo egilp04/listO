@@ -65,13 +65,15 @@ const EstadisticasGlobales = () => {
           options={meses}
           value={mesSeleccionado}
           manejarambio={(e) => setMesSeleccionado(e.target.value)}
-          manejarError={() => {}}
-          mensajeError=""
         />{" "}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
-        {infoTarjetaEstadistica.map(({ label, value }) => (
-          <CardEstadisticaG texto={label} numero={value}></CardEstadisticaG>
+        {infoTarjetaEstadistica.map(({ label, value }, index) => (
+          <CardEstadisticaG
+            key={`est-num-${index}`}
+            texto={label}
+            numero={value}
+          ></CardEstadisticaG>
         ))}
       </div>
       <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28 mb-10">
