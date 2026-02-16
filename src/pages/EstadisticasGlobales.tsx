@@ -46,15 +46,17 @@ const EstadisticasGlobales = () => {
   return (
     <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
       <h2 className="flex justify-center">Estadísticas Globales</h2>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
-        <h3 className="w-full text-primary-700">
+      <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 lg:gap-8 p-4 lg:p-6 rounded-sm justify-between items-center w-full">
+        <h3 className="text-primary-700">
           Usuarios registrados por mes: {conteo}
         </h3>
         <Select
           variant="primario"
           options={meses}
           value={mesSeleccionado}
-          onChange={(e) => setMesSeleccionado(e.target.value)}
+          manejarambio={(e) => setMesSeleccionado(e.target.value)}
+          manejarError={() => { }}
+          mensajeError=""
         />{" "}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
