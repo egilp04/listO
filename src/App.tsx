@@ -75,14 +75,25 @@ import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
   const { initialize, loading, session } = useAuthStore();
+
   useEffect(() => {
     initialize();
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        console.log("Sincronización global: Reiniciando contexto...");
+        window.location.reload();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, [initialize]);
   if (loading && !session) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-primary-200">
         <p className="animate-pulse">
-          Cargando aplicación...Espere, por favor 😁
+          Cargando aplicación... Espere, por favor 😁
         </p>
       </div>
     );
