@@ -128,9 +128,14 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       if (error) throw error;
       const conteo: Record<string, number> = {};
 
-      data.forEach((item: any) => {
-        const nombre = item.genero?.nombre || "Otros";
-        conteo[nombre] = (conteo[nombre] || 0) + 1;
+      console.log(data);
+
+      data?.forEach((item: any) => {
+        const relaciones = item.genero_item || [];
+        relaciones.forEach((rel: any) => {
+          const nombre = rel.genero?.nombre || "Otros";
+          conteo[nombre] = (conteo[nombre] || 0) + 1;
+        });
       });
 
       const topGeneros = Object.entries(conteo)

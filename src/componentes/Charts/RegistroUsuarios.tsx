@@ -22,7 +22,6 @@ export default function RegistroUsuarios() {
       try {
         const data = await fetchRegistroAnual();
         setDatosRegistroUser(data);
-        console.log(data);
       } catch (e) {
         console.error("Error al cargar datos del gráfico:");
         if (e instanceof Error) console.log(e.stack);
