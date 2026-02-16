@@ -29,6 +29,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         data: { session },
       } = await supabase.auth.getSession();
       let role = null;
+      let datosCompletosUsuario = null;
 
       if (session?.user?.email) {
         const { data: usuario } = await supabase
@@ -38,13 +39,25 @@ export const useAuthStore = create<AuthState>((set) => ({
           .single();
 
         // @ts-ignore
+
         role = usuario?.rol?.nombre ?? null;
+        datosCompletosUsuario = {
+          ...session.user,
+          ...usuario,
+        };
       }
 
-      set({ session, user: session?.user ?? null, role, loading: false });
+      set({
+        session,
+        user: datosCompletosUsuario || session?.user || null,
+        role,
+        loading: false,
+      });
 
       supabase.auth.onAuthStateChange(async (_event, session) => {
         let role = null;
+        let datosCompletosUsuario = null;
+
         if (session?.user?.email) {
           const { data: usuario } = await supabase
             .from("usuario")
@@ -54,8 +67,16 @@ export const useAuthStore = create<AuthState>((set) => ({
 
           // @ts-ignore
           role = usuario?.rol?.nombre ?? null;
+          datosCompletosUsuario = {
+            ...session.user,
+            ...usuario,
+          };
         }
-        set({ session, user: session?.user ?? null, role });
+        set({
+          session,
+          user: datosCompletosUsuario || session?.user || null,
+          role,
+        });
       });
     } catch (error) {
       console.error("Error initializing auth:", error);
@@ -74,6 +95,8 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (error) throw error;
 
       let role = null;
+      let datosCompletosUsuario = null;
+
       if (data.user?.email) {
         const { data: usuario } = await supabase
           .from("usuario")
@@ -83,9 +106,20 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         // @ts-ignore
         role = usuario?.rol?.nombre ?? null;
+        datosCompletosUsuario = {
+          ...data.user,
+          ...usuario,
+        };
       }
 
-      set({ session: data.session, user: data.user, role, loading: false });
+      console.log(datosCompletosUsuario);
+
+      set({
+        session: data.session,
+        user: datosCompletosUsuario || data.user,
+        role,
+        loading: false,
+      });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
       throw error;

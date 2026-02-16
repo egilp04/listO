@@ -1,15 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
 import Table from "../componentes/Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGestionAdminStore } from "../store/useGestionAdminStore";
 
 const GestionAdmin = () => {
+  const { fetchGeneros, fetchUsuarios } = useGestionAdminStore();
   const [selected, setSelected] = useState("usuario");
   const [valorFiltro, setValorFiltro] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUsuarios();
+    fetchGeneros();
+  }, [fetchUsuarios, fetchGeneros]);
+
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelected(e.currentTarget.name);
   };
+
   const crearItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const nombre = e.currentTarget.name;
     if (nombre == "usuario") {
@@ -59,10 +68,8 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-        <Table
-          tipoItem={selected == "usuario" ? "usuario" : "genero"}
-          valorFiltro={valorFiltro}
-        ></Table>
+
+        <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
       </div>
     </div>
   );

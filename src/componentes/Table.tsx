@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "./Button";
 import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useGestionAdminStore } from "../store/useGestionAdminStore";
 
 interface TableInterface {
   tipoItem: string;
@@ -13,59 +14,20 @@ interface TableInterface {
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const { setNotificacion } = useNotificationStore();
-  const [info, setInfo] = useState<infoInterface[]>([]);
+  const { usuarios, generos, fetchGeneros, fetchUsuarios } =
+    useGestionAdminStore();
+
   const [itemEliminar, setItemEliminar] = useState<infoInterface>();
-  const obtenerUsuarios = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("usuario")
-        .select("*, rol!inner(nombre)")
-        .eq("estado", "activo")
-        .neq("rol.nombre", "administrador");
-      if (error) throw error;
-      setInfo(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
-  const obtenerGeneros = async () => {
-    try {
-      const { data, error } = await supabase
-        .from("genero")
-        .select("*, tipo(nombre, id_tipo)");
-
-      if (error) throw error;
-      setInfo(data);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error en la csonsulta:", error.message);
-      } else {
-        console.error("Ocurrió un error inesperado:", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const getData = async () => {
-      setInfo([]);
-      if (tipoItem === "usuario") {
-        await obtenerUsuarios();
-      } else {
-        await obtenerGeneros();
-      }
-    };
-
-    getData();
-  }, [tipoItem]);
-
-  const datosAMostrar = info.filter((item) =>
+  //Filtro de mostrar
+  const datos = tipoItem == "usuario" ? usuarios : generos;
+  const datosAMostrar = datos.filter((item) =>
     item.nombre.toLowerCase().includes(valorFiltro.toLowerCase()),
   );
 
-  const [show, setShow] = useState(false);
   const deleteItem = async (borrar: boolean) => {
-    console.log(borrar);
     setShow(false);
     if (!borrar) {
       setNotificacion("Acción cancelada", "exito");
@@ -77,10 +39,8 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
     }
     if (tipoItem === "usuario") {
       await desactivarUsuario();
-      await obtenerUsuarios();
     } else {
       await borrarGenero();
-      await obtenerGeneros();
     }
   };
 
@@ -93,6 +53,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .eq("id_genero", itemEliminar?.id_genero);
       if (error) throw error;
       setNotificacion("Género eliminado correctamente", "exito");
+      await fetchGeneros();
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error al borrar el génro:", error.message);
@@ -113,8 +74,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
 
       if (error) throw error;
       setNotificacion("Usuario desactivado correctamente", "exito");
-
-      await obtenerUsuarios();
+      await fetchUsuarios();
     } catch (error) {
       if (error instanceof Error) {
         console.error("Error al borrar el usuario:", error.message);
@@ -130,10 +90,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
     setShow(!show);
   };
 
-  const navigate = useNavigate();
-
   const handleClick = (item: infoInterface) => {
-    console.log(item);
     if (tipoItem == "usuario") navigate("/miperfil", { state: { item: item } });
     else
       navigate("/genero", {

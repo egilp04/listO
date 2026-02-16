@@ -17,11 +17,11 @@ const MiPerfil = () => {
     item ||
     (usuarioLogueado
       ? {
-          id_usuario: usuarioLogueado.id,
-          ...usuarioLogueado.user_metadata,
-          email: usuarioLogueado.email,
+          ...usuarioLogueado,
         }
       : null);
+
+  console.log(usuario);
 
   const [datos, setDatos] = useState({
     nombre: "",
@@ -64,20 +64,22 @@ const MiPerfil = () => {
 
   const enviarDatosBD = async () => {
     const idActualizar = usuario?.id_usuario;
+    console.log("id actualzia", idActualizar);
     if (!idActualizar) {
       setNotificacion("No se encontró el ID del usuario", "error");
       return;
     }
     try {
-      const datosActualizados = {
+      const datosActualizar = {
         nombre: datos.nombre || usuario.nombre,
         apellidos: datos.apellidos || usuario.apellidos,
         email: datos.email || usuario.email,
         fechanacimiento: datos.fech_nac || usuario.fechanacimiento,
       };
+      console.log("datos actualizat", datosActualizar);
       const { data, error } = await supabase
         .from("usuario")
-        .update(datosActualizados)
+        .update(datosActualizar)
         .eq("id_usuario", idActualizar)
         .select();
 
