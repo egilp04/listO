@@ -148,7 +148,7 @@
   }
 
   .select-responsive {
-    @apply appearance-none h-8 p-1 text-xs md:h-10 md:p-2 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:text-base;
+    @apply appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 1rem center;
@@ -156,7 +156,7 @@
   }
 
   .select-color-text {
-    @apply text-primary-600;
+    @apply text-transparent md:text-primary-600;
   }
 
   .card-registro {
