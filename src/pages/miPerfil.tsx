@@ -64,7 +64,6 @@ const MiPerfil = () => {
 
   const enviarDatosBD = async () => {
     const idActualizar = usuario?.id_usuario;
-    console.log("id actualzia", idActualizar);
     if (!idActualizar) {
       setNotificacion("No se encontró el ID del usuario", "error");
       return;
@@ -76,7 +75,6 @@ const MiPerfil = () => {
         email: datos.email || usuario.email,
         fechanacimiento: datos.fech_nac || usuario.fechanacimiento,
       };
-      console.log("datos actualizat", datosActualizar);
       const { data, error } = await supabase
         .from("usuario")
         .update(datosActualizar)
@@ -84,19 +82,16 @@ const MiPerfil = () => {
         .select();
 
       if (error) throw error;
+
       if (data && data.length > 0) {
         const usuarioActualizadoDB = data[0];
         const usuarioActual = useAuthStore.getState().user;
-        console.log(usuarioActual);
         if (usuarioActual) {
           const nuevoUsuarioSesion = {
             ...usuarioActual,
-            user_metadata: {
-              ...usuarioActual.user_metadata,
-              nombre: usuarioActualizadoDB.nombre,
-              apellidos: usuarioActualizadoDB.apellidos,
-              fechanacimiento: usuarioActualizadoDB.fechanacimiento,
-            },
+            nombre: usuarioActualizadoDB.nombre,
+            apellidos: usuarioActualizadoDB.apellidos,
+            fechanacimiento: usuarioActualizadoDB.fechanacimiento,
             email: usuarioActualizadoDB.email,
           };
           useAuthStore.getState().setUser(nuevoUsuarioSesion);

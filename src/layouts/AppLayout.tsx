@@ -9,7 +9,7 @@ const AppLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-primary-200">
-      <Navbar esAdmin={true} estaLogueado={true} usuario={"Usuario"}></Navbar>
+      <Navbar></Navbar>
       <div className="w-full px-4 py-4 md:px-8">
         <span
           className="material-symbols-outlined text-4xl cursor-pointer"

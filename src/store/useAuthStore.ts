@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import { supabase } from "../utils/supabaseClient";
 import type { Session, User } from "@supabase/supabase-js";
+import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
 
 interface AuthState {
-  user: User | null;
+  user: UsuarioBDInterface | null;
   session: Session | null;
   role: string | null;
   loading: boolean;
@@ -28,59 +29,45 @@ export const useAuthStore = create<AuthState>((set) => ({
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      let role = null;
-      let datosCompletosUsuario = null;
 
-      if (session?.user?.email) {
+      if (session?.user) {
         const { data: usuario } = await supabase
           .from("usuario")
           .select("*, rol(nombre)")
-          .ilike("email", session.user.email)
+          .ilike("email", session.user.email!)
           .single();
 
-        // @ts-ignore
-
-        role = usuario?.rol?.nombre ?? null;
-        datosCompletosUsuario = {
-          ...session.user,
-          ...usuario,
-        };
+        const role = usuario?.rol?.nombre ?? null;
+        set({
+          session,
+          user: usuario ? { ...session.user, ...usuario } : session.user,
+          role,
+        });
       }
 
-      set({
-        session,
-        user: datosCompletosUsuario || session?.user || null,
-        role,
-        loading: false,
-      });
-
       supabase.auth.onAuthStateChange(async (_event, session) => {
-        let role = null;
-        let datosCompletosUsuario = null;
-
-        if (session?.user?.email) {
+        if (session) {
           const { data: usuario } = await supabase
             .from("usuario")
             .select("*, rol(nombre)")
-            .ilike("email", session.user.email)
+            .ilike("email", session.user.email!)
             .single();
 
-          // @ts-ignore
-          role = usuario?.rol?.nombre ?? null;
-          datosCompletosUsuario = {
-            ...session.user,
-            ...usuario,
-          };
+          set({
+            session,
+            user: usuario ? { ...session.user, ...usuario } : session.user,
+            role: usuario?.rol?.nombre ?? null,
+            loading: false,
+          });
+        } else {
+          set({ session: null, user: null, role: null, loading: false });
         }
-        set({
-          session,
-          user: datosCompletosUsuario || session?.user || null,
-          role,
-        });
       });
     } catch (error) {
       console.error("Error initializing auth:", error);
-      set({ loading: false, error: (error as Error).message });
+      set({ error: (error as Error).message });
+    } finally {
+      set({ loading: false });
     }
   },
 
@@ -91,35 +78,22 @@ export const useAuthStore = create<AuthState>((set) => ({
         email,
         password,
       });
-
       if (error) throw error;
 
-      let role = null;
-      let datosCompletosUsuario = null;
-
-      if (data.user?.email) {
+      if (data.user) {
         const { data: usuario } = await supabase
           .from("usuario")
           .select("*, rol(nombre)")
-          .ilike("email", data.user.email)
+          .ilike("email", data.user.email!)
           .single();
 
-        // @ts-ignore
-        role = usuario?.rol?.nombre ?? null;
-        datosCompletosUsuario = {
-          ...data.user,
-          ...usuario,
-        };
+        set({
+          session: data.session,
+          user: usuario ? { ...data.user, ...usuario } : data.user,
+          role: usuario?.rol?.nombre ?? null,
+          loading: false,
+        });
       }
-
-      console.log(datosCompletosUsuario);
-
-      set({
-        session: data.session,
-        user: datosCompletosUsuario || data.user,
-        role,
-        loading: false,
-      });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });
       throw error;
@@ -129,8 +103,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: async () => {
     set({ loading: true, error: null });
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await supabase.auth.signOut();
       set({ session: null, user: null, role: null, loading: false });
     } catch (error) {
       set({ error: (error as Error).message, loading: false });

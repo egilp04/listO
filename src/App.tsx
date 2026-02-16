@@ -74,11 +74,19 @@ import { useEffect } from "react";
 import { useAuthStore } from "./store/useAuthStore";
 
 function App() {
-  const { initialize } = useAuthStore();
-
+  const { initialize, loading } = useAuthStore();
   useEffect(() => {
     initialize();
   }, [initialize]);
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-primary-200">
+        <p className="animate-pulse">
+          Cargando aplicación...Espere, por favor 😁
+        </p>
+      </div>
+    );
+  }
 
   return <RouterProvider router={router} />;
 }

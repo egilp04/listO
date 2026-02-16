@@ -2,25 +2,42 @@ import { useState } from "react";
 import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
-  const { user, role, logout } = useAuthStore();
+  const navigate = useNavigate();
+  const { user, role, logout } = useAuthStore() as {
+    user: UsuarioBDInterface;
+    role: string | null;
+    logout: () => Promise<void>;
+  };
 
-  const usuario = user?.email;
   const estaLogueado = !!user;
-  const esAdmin = role === 'administrador';
+  const esAdmin = role === "administrador";
+  const nombreUsuario = user?.nombre || "Usuario";
 
   const handleClick = () => {
     setClose(!close);
   };
 
-  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
       <div className="flex items-center gap-3">
-        <NavLink to={estaLogueado ? "/biblioteca" : "/"} end className="navbar-logo">
+        <NavLink
+          to={estaLogueado ? "/biblioteca" : "/"}
+          end
+          className="navbar-logo"
+        >
           <img
             src="/src/assets/img/logo/logo.webp"
             alt="logo"
@@ -29,7 +46,7 @@ const Navbar = () => {
         </NavLink>
         {estaLogueado && (
           <span className="text-base text-black font-medium">
-            Hola, {usuario}
+            Hola, {nombreUsuario}
           </span>
         )}
       </div>
@@ -42,8 +59,9 @@ const Navbar = () => {
         </span>
       </div>
       <div
-        className={`${close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-          }  flex-col items-center gap-4 lg:mt-0 lg:flex lg:w-auto lg:flex-row`}
+        className={`${
+          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
+        }  flex-col items-center gap-4 lg:mt-0 lg:flex lg:w-auto lg:flex-row`}
       >
         <div className="botones-navbar">
           {estaLogueado && (
@@ -109,13 +127,7 @@ const Navbar = () => {
               </NavLink>
             </>
           ) : (
-            <Button
-              variant="fantasma"
-              onClick={() => {
-                logout();
-                navigate("/");
-              }}
-            >
+            <Button variant="fantasma" onClick={handleLogout}>
               Salir
             </Button>
           )}
@@ -125,4 +137,3 @@ const Navbar = () => {
   );
 };
 export default Navbar;
-
