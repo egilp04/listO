@@ -1,72 +1,73 @@
-import { create } from 'zustand';
-import { supabase } from '../utils/supabaseClient';
-import type { Session, User } from '@supabase/supabase-js';
-
-interface UserProfile {
-    id: number;
-    nombre: string;
-    email: string;
-    // Add other fields from 'usuario' table as needed
-}
+import { create } from "zustand";
+import { supabase } from "../utils/supabaseClient";
+import type { Session, User } from "@supabase/supabase-js";
+import type { UsuarioDBInterface } from "../interfaces/UsuarioDBInterface";
 
 interface AuthState {
-    user: User | null;
+    user: UsuarioDBInterface | null;
     session: Session | null;
     role: string | null;
-    profile: UserProfile | null;
     loading: boolean;
     error: string | null;
     initialize: () => Promise<void>;
     login: (email: string, password: string) => Promise<void>;
     logout: () => Promise<void>;
+    setUser: (user: User | null) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
     user: null,
     session: null,
     role: null,
-    profile: null,
     loading: true,
     error: null,
+    setUser: (user) => set({ user }),
 
     initialize: async () => {
         set({ loading: true });
         try {
-            const { data: { session } } = await supabase.auth.getSession();
-            let role = null;
-            let profile = null;
+            const {
+                data: { session },
+            } = await supabase.auth.getSession();
 
-            if (session?.user?.email) {
+            if (session?.user) {
                 const { data: usuario } = await supabase
-                    .from('usuario')
-                    .select('*, rol(nombre)')
-                    .ilike('email', session.user.email)
+                    .from("usuario")
+                    .select("*, rol(nombre)")
+                    .ilike("email", session.user.email!)
                     .single();
 
-                role = usuario?.rol?.nombre ?? null;
-                profile = usuario;
+                const role = usuario?.rol?.nombre ?? null;
+                set({
+                    session,
+                    user: usuario ? { ...session.user, ...usuario } : session.user,
+                    role,
+                });
             }
 
-            set({ session, user: session?.user ?? null, role, profile, loading: false });
-
             supabase.auth.onAuthStateChange(async (_event, session) => {
-                let role = null;
-                let profile = null;
-                if (session?.user?.email) {
+                if (session) {
                     const { data: usuario } = await supabase
-                        .from('usuario')
-                        .select('*, rol(nombre)')
-                        .ilike('email', session.user.email)
+                        .from("usuario")
+                        .select("*, rol(nombre)")
+                        .ilike("email", session.user.email!)
                         .single();
 
-                    role = usuario?.rol?.nombre ?? null;
-                    profile = usuario;
+                    set({
+                        session,
+                        user: usuario ? { ...session.user, ...usuario } : session.user,
+                        role: usuario?.rol?.nombre ?? null,
+                        loading: false,
+                    });
+                } else {
+                    set({ session: null, user: null, role: null, loading: false });
                 }
-                set({ session, user: session?.user ?? null, role, profile });
             });
         } catch (error) {
             console.error("Error initializing auth:", error);
-            set({ loading: false, error: (error as Error).message });
+            set({ error: (error as Error).message });
+        } finally {
+            set({ loading: false });
         }
     },
 
@@ -77,23 +78,22 @@ export const useAuthStore = create<AuthState>((set) => ({
                 email,
                 password,
             });
-
             if (error) throw error;
 
-            let role = null;
-            let profile = null;
-            if (data.user?.email) {
+            if (data.user) {
                 const { data: usuario } = await supabase
-                    .from('usuario')
-                    .select('*, rol(nombre)')
-                    .ilike('email', data.user.email)
+                    .from("usuario")
+                    .select("*, rol(nombre)")
+                    .ilike("email", data.user.email!)
                     .single();
 
-                role = usuario?.rol?.nombre ?? null;
-                profile = usuario;
+                set({
+                    session: data.session,
+                    user: usuario ? { ...data.user, ...usuario } : data.user,
+                    role: usuario?.rol?.nombre ?? null,
+                    loading: false,
+                });
             }
-
-            set({ session: data.session, user: data.user, role, profile, loading: false });
         } catch (error) {
             set({ error: (error as Error).message, loading: false });
             throw error;
@@ -103,9 +103,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     logout: async () => {
         set({ loading: true, error: null });
         try {
-            const { error } = await supabase.auth.signOut();
-            if (error) throw error;
-            set({ session: null, user: null, role: null, profile: null, loading: false });
+            await supabase.auth.signOut();
+            set({ session: null, user: null, role: null, loading: false });
         } catch (error) {
             set({ error: (error as Error).message, loading: false });
         }

@@ -5,9 +5,9 @@ import { useAuthStore } from "../store/useAuthStore";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
-  const { user, role, profile, logout } = useAuthStore();
+  const { user, role, logout } = useAuthStore();
 
-  const usuario = profile?.nombre || user?.email;
+  const usuario = user?.nombre || user?.email;
   const estaLogueado = !!user;
   const esAdmin = role === 'administrador';
 
@@ -111,8 +111,8 @@ const Navbar = () => {
           ) : (
             <Button
               variant="fantasma"
-              onClick={() => {
-                logout();
+              onClick={async () => {
+                await logout();
                 navigate("/");
               }}
             >
