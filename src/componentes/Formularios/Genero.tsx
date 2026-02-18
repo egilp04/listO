@@ -130,39 +130,27 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       return;
     }
     try {
-      const { error: deleteError } = await supabase
+      const { error: updateError } = await supabase
         .from("genero")
-        .delete()
+        .update({
+          nombre: datos.nombreItem,
+          descripcion: datos.descripcionItem,
+        })
         .eq("id_genero", item.id_genero);
-
-      if (deleteError) throw deleteError;
-
-      const datosModificados = {
-        nombre: datos.nombreItem,
-        descripcion: datos.descripcionItem,
-        id_tipo: item.tipo?.id_tipo,
-      };
-
-      console.log("datos a modificar", datosModificados);
-
-      const { error: insertError } = await supabase
-        .from("genero")
-        .insert(datosModificados);
-
-      if (insertError) throw insertError;
-
+      if (updateError) throw updateError;
       setNotificacion("Género modificado correctamente", "exito");
       navigate("/gestion");
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al crear el género:", error.message);
-      } else {
-        console.error("Ocurrió un error inesperado:", error);
+      console.error("Error al modificar el género:");
+      if (error && typeof error === "object" && "message" in error) {
+        console.error("Detalle BD:", error.message);
       }
-      setNotificacion("El nuevo género no se pudo guardar", "error");
+      setNotificacion(
+        "El género no se pudo actualizar por un conflicto de integridad",
+        "error",
+      );
     }
   };
-
   return (
     <div className="flex justify-center w-full p-4">
       <form className="card-genero" {...props} onSubmit={handleSubmit}>
