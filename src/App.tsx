@@ -45,6 +45,10 @@ const router = createBrowserRouter([
         path: "/genero",
         element: <FormularioGestionGeneros />,
       },
+      {
+        path: "*",
+        element: <NoImplementado />,
+      },
     ],
   },
   {
@@ -72,6 +76,7 @@ const router = createBrowserRouter([
 
 import { useEffect } from "react";
 import { useAuthStore } from "./store/useAuthStore";
+import NoImplementado from "./pages/NoImplementado";
 
 function App() {
   const { initialize, loading, session } = useAuthStore();
