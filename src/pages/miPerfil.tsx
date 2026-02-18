@@ -7,7 +7,9 @@ import { supabase } from "../utils/supabaseClient";
 import { useNotificationStore } from "../store/useNotificationStore";
 
 const MiPerfil = () => {
-  const { setNotificacion } = useNotificationStore();
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { state } = useLocation();
   const { user: usuarioLogueado, setUser } = useAuthStore();
   const usuarioReferencia = state?.item || usuarioLogueado;

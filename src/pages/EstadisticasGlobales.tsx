@@ -10,11 +10,15 @@ import type {
 } from "../interfaces/TarjetasEstadisticasGlobales";
 
 const EstadisticasGlobales = () => {
-  const {
-    fetchTarjetasEstadisticas,
-    fetchUsuariosPorMes,
-    fetchTarjetasEstadisticasTop,
-  } = useAdminStatsStore();
+  const fetchTarjetasEstadisticas = useAdminStatsStore(
+    (state) => state.fetchTarjetasEstadisticas,
+  );
+  const fetchUsuariosPorMes = useAdminStatsStore(
+    (state) => state.fetchUsuariosPorMes,
+  );
+  const fetchTarjetasEstadisticasTop = useAdminStatsStore(
+    (state) => state.fetchTarjetasEstadisticasTop,
+  );
 
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
     TarjetaEstadisticas[]
