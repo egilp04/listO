@@ -12,6 +12,7 @@ import Landing from "./pages/landing";
 import MiPerfil from "./pages/miPerfil";
 import LandingLayout from "./layouts/LandingLayout";
 import GestionItem from "./pages/GestionItem";
+import Loading from "./componentes/Loading";
 
 const router = createBrowserRouter([
   {
@@ -74,15 +75,22 @@ const router = createBrowserRouter([
   },
 ]);
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "./store/useAuthStore";
 import NoImplementado from "./pages/NoImplementado";
 
 function App() {
   const { initialize, loading, session } = useAuthStore();
+  const [minLoadingTime, setMinLoadingTime] = useState(true);
 
   useEffect(() => {
     initialize();
+
+    // Forzamos un tiempo mínimo de carga de 3 segundos
+    const timer = setTimeout(() => {
+      setMinLoadingTime(false);
+    }, 3000);
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         console.log("Sincronización global: Reiniciando contexto...");
@@ -92,16 +100,12 @@ function App() {
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearTimeout(timer);
     };
   }, [initialize]);
-  if (loading && !session) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-primary-200">
-        <p className="animate-pulse">
-          Cargando aplicación... Espere, por favor 😁
-        </p>
-      </div>
-    );
+
+  if ((loading || minLoadingTime) && !session) {
+    return <Loading />;
   }
 
   return <RouterProvider router={router} />;
