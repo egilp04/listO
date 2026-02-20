@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="flex flex-col gap-3 bg-primary-700 p-3 text-neutral-50 font-Otros">
       <div className="flex justify-around items-center">

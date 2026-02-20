@@ -3,6 +3,7 @@ import Inputs from "../componentes/Inputs/Inputs";
 import Button from "../componentes/Button";
 import Checkbox from "../componentes/Inputs/Checkbox";
 import File from "../componentes/Inputs/FIle";
+import { useTranslation } from "react-i18next";
 
 interface GestionItemProps {
   item?: unknown;
@@ -10,6 +11,7 @@ interface GestionItemProps {
 
 const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
   const mEdicion = !!item;
+  const { t } = useTranslation();
 
   const [form, setForm] = useState({
     nombre: "",
@@ -23,7 +25,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
   const manejarCambio = (e: any) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
     console.log(e.target.value);
   };
@@ -42,7 +44,8 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
             name="imagen"
             onChange={manejarCambio}
             disabled={false}
-            mensajeError="No es un formato valido(.png, .jpg, .webp)" />
+            mensajeError="No es un formato valido(.png, .jpg, .webp)"
+          />
         </div>
 
         <div className="bg-white rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">

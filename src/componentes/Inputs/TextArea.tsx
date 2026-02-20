@@ -1,4 +1,5 @@
 import { useState, type TextareaHTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
@@ -19,7 +20,7 @@ function TextArea({
   ...props
 }: TextAreaProps) {
   const [error, setError] = useState(false);
-
+  const { t } = useTranslation();
   const colorClass = error ? "input-error" : `input-border-${variant}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

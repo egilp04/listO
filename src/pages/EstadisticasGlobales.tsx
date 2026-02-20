@@ -8,8 +8,11 @@ import type {
   TarjetaEstadisticas,
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
+import { useTranslation } from "react-i18next";
 
 const EstadisticasGlobales = () => {
+  const { t } = useTranslation();
+
   const {
     fetchTarjetasEstadisticas,
     fetchUsuariosPorMes,

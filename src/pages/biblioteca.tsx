@@ -13,9 +13,11 @@ const itemEjemplo = {
 };
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Biblioteca = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className=" bg-primary-200 p-5 md:p-10">

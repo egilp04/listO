@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Button from "./Button";
 
 interface DialogInterface {
@@ -14,6 +15,8 @@ const Dialog = ({
   onClose,
 }: DialogInterface) => {
   if (!show) return null;
+  const { t } = useTranslation();
+
   return (
     <>
       <div

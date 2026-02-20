@@ -1,4 +1,5 @@
 import { type InputHTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -15,6 +16,7 @@ function Checkbox({
   manejarCambio,
   ...props
 }: CheckboxProps) {
+  const { t } = useTranslation();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     manejarCambio(e);
   };

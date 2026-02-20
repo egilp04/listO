@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import Button from "../Button";
 
 interface Item {
@@ -17,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const renderizarEstrellas = (valoracion: number) => {
     const estrellas = [];

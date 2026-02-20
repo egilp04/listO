@@ -6,6 +6,7 @@ import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+import { useTranslation } from "react-i18next";
 
 interface TableInterface {
   tipoItem: string;
@@ -14,6 +15,8 @@ interface TableInterface {
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   const { setNotificacion } = useNotificationStore();
+  const { t } = useTranslation();
+
   const { usuarios, generos, fetchGeneros, fetchUsuarios } =
     useGestionAdminStore();
 

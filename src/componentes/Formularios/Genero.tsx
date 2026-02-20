@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import type { infoInterface } from "../../interfaces/infoInterface";
 import { useNotificationStore } from "../../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -15,6 +16,7 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 
 export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   const { setNotificacion } = useNotificationStore();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const titulo = crear ? "Crear Género" : "Modificar Género";
 

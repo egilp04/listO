@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 const NoImplementado = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="pt-10 flex flex-col justify-center items-center gap-10">

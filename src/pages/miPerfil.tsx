@@ -5,8 +5,10 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 const MiPerfil = () => {
+  const { t } = useTranslation();
   const { setNotificacion } = useNotificationStore();
   const { state } = useLocation();
   const { user: usuarioLogueado, setUser } = useAuthStore();

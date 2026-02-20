@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CardEstadistica from "../componentes/tarjetas/cardEstadistica";
 import CardEstadisticaG from "../componentes/tarjetas/cardEstadisticaG";
 import CardEstadisticaT from "../componentes/tarjetas/cardEstadisticaT";
+import { useTranslation } from "react-i18next";
 
 interface CardData {
   id: number;
@@ -12,6 +13,7 @@ interface CardData {
 }
 
 const Estadisticas = () => {
+  const { t } = useTranslation();
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
     CardData[]
   >([]);

@@ -3,12 +3,14 @@ import Button from "../componentes/Button";
 import Table from "../componentes/Table";
 import { useEffect, useState } from "react";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+import { useTranslation } from "react-i18next";
 
 const GestionAdmin = () => {
   const { fetchGeneros, fetchUsuarios } = useGestionAdminStore();
   const [selected, setSelected] = useState("usuario");
   const [valorFiltro, setValorFiltro] = useState("");
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchUsuarios();

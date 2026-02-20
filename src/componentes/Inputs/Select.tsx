@@ -1,4 +1,5 @@
 import { type SelectHTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface Option {
   value: string | number;
@@ -20,6 +21,7 @@ export default function Select({
   ...props
 }: SelectProps) {
   const colorClass = `input-border-${variant}`;
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col gap-0.5">

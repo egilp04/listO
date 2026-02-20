@@ -3,10 +3,14 @@ import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const { user, role, logout } = useAuthStore() as {
     user: UsuarioBDInterface;
     role: string | null;
@@ -132,6 +136,7 @@ const Navbar = () => {
             </Button>
           )}
         </div>
+        <LanguageSwitcher></LanguageSwitcher>
       </div>
     </nav>
   );

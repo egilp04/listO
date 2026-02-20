@@ -1,4 +1,5 @@
 import { useState, type InputHTMLAttributes } from "react";
+import { useTranslation } from "react-i18next";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -25,6 +26,7 @@ function Inputs({
   const [smError, setsmError] = useState(false);
   const [touched, setTouched] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
 
   let colorClass = `input-border-${variant}`;
 

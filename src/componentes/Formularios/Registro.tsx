@@ -6,11 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNotificationStore } from "../../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
   const { setNotificacion } = useNotificationStore();
   const location = useLocation();
+  const { t } = useTranslation();
   const state = location.state || {};
   const vieneDeGestion = state.atras || false;
 
