@@ -3,6 +3,7 @@ import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
+import { ThemeToggle } from "./BotonClarOscuro";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
@@ -132,6 +133,7 @@ const Navbar = () => {
             </Button>
           )}
         </div>
+        <ThemeToggle></ThemeToggle>
       </div>
     </nav>
   );
