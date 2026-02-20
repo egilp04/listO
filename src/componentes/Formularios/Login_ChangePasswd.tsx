@@ -83,12 +83,31 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
           <h2>Recuperar Contraseña</h2>
 
           <div className="flex-login-passwd">
+
+            <Inputs
+              label="Usuario"
+              type="text"
+              placeholder="Ej: enrique@gmail.com"
+              name="email" error={"Formato de email incorrecto"}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError} />
+              
             <Inputs
               label="Nueva Contraseña"
               type="password"
               placeholder="********"
               name="nueva_passwd" error={"La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.nueva_passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
-            <Inputs label="Confirmar Contraseña" type="password" placeholder="********" name="confirm_passwd" error={"Las contraseñas no coinciden"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.confirm_passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
+
+            <Inputs
+              label="Confirmar Contraseña"
+              type="password" placeholder="********"
+              name="confirm_passwd" error={"Las contraseñas no coinciden"}
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
+              value={formData.confirm_passwd}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError} />
           </div>
         </>
       )}
