@@ -1,5 +1,6 @@
 @theme {
   --color-black: #000000;
+  --color-gray-950: oklch(13% 0.028 261.692);
   --color-white: #ffffff;
 
   --color-primary-700: #7b8ff7;

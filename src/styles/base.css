@@ -7,7 +7,7 @@
 
   /* Configuración base (Estrella vacía por defecto) */
   .material-symbols-outlined {
-    font-family: 'Material Symbols Outlined';
+    font-family: "Material Symbols Outlined";
     font-weight: normal;
     font-style: normal;
     font-size: 24px;
@@ -19,12 +19,20 @@
     word-wrap: normal;
     direction: ltr;
     /* Por defecto FILL es 0 (Vacía) */
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
   }
 
   /* Clase para activar el relleno */
   .icon-filled {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-variation-settings:
+      "FILL" 1,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
   }
 
   html,
@@ -34,19 +42,19 @@
   }
 
   h1 {
-    @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl;
+    @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl dark:text-white;
   }
 
   h2 {
-    @apply text-primary-700 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl;
+    @apply text-primary-700 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl  dark:text-white;
   }
 
   h3 {
-    @apply text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl;
+    @apply text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl  dark:text-white;
   }
 
   h4 {
-    @apply text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl;
+    @apply text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl  dark:text-white;
   }
 
   span {
@@ -74,10 +82,10 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply bg-primary-400 rounded-sm;
+    @apply bg-primary-400 rounded-sm  dark:text-gray-800;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-700;
+    @apply bg-primary-700  dark:text-gray-950;
   }
 }

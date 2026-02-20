@@ -36,13 +36,13 @@ export const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+      className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-950 transition-colors"
       aria-label="Cambiar tema"
     >
       {theme === "dark" ? (
         <span className="text-yellow-400 material-symbols-outlined">sunny</span>
       ) : (
-        <span className="text-gray-700 material-symbols-outlined">
+        <span className="text-gray-950 material-symbols-outlined">
           moon_stars
         </span>
       )}

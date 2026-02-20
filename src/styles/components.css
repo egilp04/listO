@@ -4,7 +4,7 @@
   }
 
   .btn-primario {
-    @apply bg-primary-700 text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700;
+    @apply bg-primary-700  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700;
   }
 
   .btn-secundario {
@@ -80,15 +80,15 @@
   }
 
   .numero-estadisticas-total {
-    @apply bg-primary-50 text-primary-700 h-full w-3 rounded-sm p-2 text-center flex justify-center items-center;
+    @apply bg-primary-50 text-primary-700  dark:text-white h-full w-3 rounded-sm p-2 text-center flex justify-center items-center;
   }
 
   .tarjeta-individual-estadisticas {
-    @apply bg-primary-50 text-primary-700 flex flex-col p-1 md:gap-2 border border-primary-700;
+    @apply bg-primary-50 text-primary-700  dark:text-white flex flex-col p-1 md:gap-2 border border-primary-700;
   }
 
   .numero-estadistica-individual {
-    @apply w-auto bg-primary-300 p-2 rounded-sm text-primary-700 h-full text-center flex justify-center items-center;
+    @apply w-auto bg-primary-300 p-2 rounded-sm text-primary-700  dark:text-white h-full text-center flex justify-center items-center;
   }
 
   .input-responsive {
@@ -188,7 +188,7 @@
   }
 
   .titulo-genero {
-    @apply w-full text-center font-bold text-primary-700 text-xl md:text-2xl lg:text-3xl;
+    @apply w-full text-center font-bold text-primary-700  dark:text-gray-950 text-xl md:text-2xl lg:text-3xl;
   }
 
   .form-body {
