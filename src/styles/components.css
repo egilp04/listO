@@ -39,7 +39,7 @@
 
   .card-landing {
     @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3
-    dark:bg-primary-850 dark:border-primary-1000;
+    dark:bg-primary-900 dark:border-primary-1000;
   }
 
   .card-estadistica-g {
@@ -247,5 +247,18 @@
   .miperfil {
     @apply bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4
     dark:bg-primary-900 dark:text-primary-50;
+  }
+  @keyframes pulse-scale {
+    0%,
+    100% {
+      transform: scale(1) rotate(180deg);
+    }
+    50% {
+      transform: scale(1.5) rotate(180deg);
+    }
+  }
+
+  .animate-pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
   }
 }

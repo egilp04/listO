@@ -105,14 +105,12 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         <div className="flex flex-col">
           {datosAMostrar.map((inf) => (
             <div
-              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-850 even:bg-neutral-100 dark:even:bg-primary-700"
+              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-850 even:bg-neutral-100 dark:even:bg-primary-700 dark:even:text-black dark:text-primary-50"
               key={inf.id}
             >
-              <label className="w-full font-bold dark:text-primary-50">
-                {inf.nombre}
-              </label>
+              <label className="w-full font-bold ">{inf.nombre}</label>
               {tipoItem == "genero" && (
-                <label className="w-full font-bold  dark:text-primary-50">
+                <label className="w-full font-bold ">
                   {inf.tipo?.nombre || "Sin tipo"}
                 </label>
               )}
@@ -126,12 +124,12 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                   <span className="dark:text-primary-50">Editar</span>
                 </Button>
                 <Button
-                  className="bg-danger-700"
+                  className="bg-danger-500"
                   onClick={() => {
                     openDialog(inf);
                   }}
                 >
-                  <span className="text-white">Eliminar</span>
+                  <span className="text-black">Eliminar</span>
                 </Button>
               </div>
             </div>

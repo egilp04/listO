@@ -48,13 +48,13 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
       <div className="flex flex-col gap-2 px-3 pb-3 text-left">
         <div className="flex flex-wrap gap-1.5">
-          <span className="bg-primary-100 text-primary-700 px-2 py-0.5 rounded">
+          <span className="bg-primary-800 text-white dark:bg-primary-50 dark:text-primary-800 px-2 py-0.5 rounded">
             {item.tipo}
           </span>
           {item.generos.map((genero, index) => (
             <span
               key={index}
-              className="bg-primary-100 text-primary-700 px-2 py-0.5 rounded"
+              className="bg-primary-800 text-white dark:bg-primary-50 dark:text-primary-800 px-2 py-0.5 rounded"
             >
               {genero}
             </span>
@@ -84,7 +84,7 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
             <Button
               variant="primario"
-              className="w-full w-auto flex-1 text-sm px-2 !border-transparent !bg-danger-700 hover:!bg-danger-500 dark:!bg-danger-500"
+              className="w-full w-auto flex-1 text-sm px-2 !border-transparent !bg-danger-500 hover:!bg-danger-700 text-black dark:!bg-danger-500"
             >
               Eliminar
             </Button>

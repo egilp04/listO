@@ -1,6 +1,5 @@
 import React from "react";
 import goatFace from "../assets/img/others/meli_cargando.png";
-import "../styles/Loading.css";
 
 const Loading: React.FC = () => {
   return (
@@ -18,7 +17,7 @@ const Loading: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-6 h-6 bg-blue-600 dark:bg-blue-100 rounded-full shadow-lg" />
       </div>
 
-      <p className="mt-8 text-xl font-bold text-gray-700 animate-pulse">
+      <p className="mt-8 text-xl font-bold text-gray-700 animate-pulse dark:text-primary-50">
         Cargando...
       </p>
     </div>

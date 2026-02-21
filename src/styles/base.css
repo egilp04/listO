@@ -37,19 +37,19 @@
   }
 
   h1 {
-    @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl dark:text-primary-50;
+    @apply text-primary-800 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl dark:text-primary-50;
   }
 
   h2 {
-    @apply text-primary-700 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl  dark:text-primary-50;
+    @apply text-primary-800 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl  dark:text-primary-50;
   }
 
   h3 {
-    @apply text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl  dark:text-primary-50;
+    @apply text-primary-800 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl  dark:text-primary-50;
   }
 
   h4 {
-    @apply text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl  dark:text-primary-50;
+    @apply text-primary-800 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl  dark:text-primary-50;
   }
 
   span {
@@ -81,6 +81,6 @@
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-700  dark:text-primary-1000;
+    @apply bg-primary-800  dark:text-primary-1000;
   }
 }

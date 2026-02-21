@@ -57,7 +57,7 @@ const Estadisticas = () => {
         <CardEstadisticaG texto="Total de items completados" numero={4} />
 
         <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
-          <h2 className="text-primary-600 dark:text-primary-50 text-2xl font-bold">
+          <h2 className="text-primary-800 dark:text-primary-50 text-2xl font-bold">
             Completados por mes (2026)
           </h2>
           <span className="material-symbols-outlined text-black text-5xl dark:text-primary-50">
@@ -73,7 +73,7 @@ const Estadisticas = () => {
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
+              <h3 className="text-primary-800 text-2xl font-bold dark:text-primary-50">
                 Top Libros
               </h3>
             </div>
@@ -95,7 +95,7 @@ const Estadisticas = () => {
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
+              <h3 className="text-primary-800 text-2xl font-bold dark:text-primary-50">
                 Top Juego
               </h3>
             </div>
@@ -117,7 +117,7 @@ const Estadisticas = () => {
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
+              <h3 className="text-primary-800 text-2xl font-bold dark:text-primary-50">
                 Top Generos
               </h3>
             </div>
