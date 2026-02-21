@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
 
 const GestionAdmin = () => {
-  const { fetchGeneros, fetchUsuarios } = useGestionAdminStore();
+  const fetchGeneros = useGestionAdminStore((state) => state.fetchGeneros);
+  const fetchUsuarios = useGestionAdminStore((state) => state.fetchUsuarios);
   const [selected, setSelected] = useState("usuario");
   const [valorFiltro, setValorFiltro] = useState("");
   const navigate = useNavigate();
