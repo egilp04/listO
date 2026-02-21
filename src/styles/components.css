@@ -4,8 +4,8 @@
   }
 
   .btn-primario {
-    @apply bg-primary-700  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700
-    dark:hover:bg-primary-800 dark:bg-primary-750;
+    @apply bg-primary-850  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700
+    dark:bg-primary-600 dark:text-black;
   }
 
   .btn-secundario {

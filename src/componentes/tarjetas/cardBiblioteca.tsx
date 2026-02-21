@@ -84,7 +84,7 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
             <Button
               variant="primario"
-              className="w-full w-auto flex-1 text-sm px-2 !bg-danger-400 !border-transparent hover:!bg-danger-500 dark:!bg-danger-500"
+              className="w-full w-auto flex-1 text-sm px-2 !border-transparent !bg-danger-700 hover:!bg-danger-500 dark:!bg-danger-500"
             >
               Eliminar
             </Button>

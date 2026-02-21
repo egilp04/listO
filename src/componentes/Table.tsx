@@ -110,7 +110,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                 {inf.nombre}
               </label>
               {tipoItem == "genero" && (
-                <label className="w-full font-bold">
+                <label className="w-full font-bold  dark:text-primary-50">
                   {inf.tipo?.nombre || "Sin tipo"}
                 </label>
               )}
@@ -121,15 +121,15 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                     handleClick(inf);
                   }}
                 >
-                  <span>Editar</span>
+                  <span className="dark:text-primary-50">Editar</span>
                 </Button>
                 <Button
-                  className="bg-danger-300"
+                  className="bg-danger-700"
                   onClick={() => {
                     openDialog(inf);
                   }}
                 >
-                  <span className="text-black">Eliminar</span>
+                  <span className="text-white">Eliminar</span>
                 </Button>
               </div>
             </div>
