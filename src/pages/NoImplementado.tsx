@@ -10,7 +10,7 @@ const NoImplementado = () => {
         </p>
         <div className="flex flex-col items-center justify-center">
           <img
-            src="src/assets/img/others/teddy.png"
+            src="src/assets/img/others/teddy.webp"
             alt="En construcción"
             className="img-no-implementado "
           />
