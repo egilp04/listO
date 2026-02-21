@@ -37,8 +37,6 @@ const Estadisticas = () => {
     <>
       <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
         <h2 className="flex justify-center">Estadísticas</h2>
-
-        {/* Grid de Tarjetas Superiores */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -50,36 +48,32 @@ const Estadisticas = () => {
               />
             ))
           ) : (
-            <p className="col-span-full text-center text-gray-500">
+            <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
               Cargando estadísticas...
             </p>
           )}
         </div>
 
-        {/* Barra Total Items */}
         <CardEstadisticaG texto="Total de items completados" numero={4} />
 
-        {/* Completados por mes */}
-        <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
-          <h2 className="text-primary-600 text-2xl font-bold">
+        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
+          <h2 className="text-primary-600 dark:text-primary-50 text-2xl font-bold">
             Completados por mes (2026)
           </h2>
-          <span className="material-symbols-outlined text-black text-5xl">
+          <span className="material-symbols-outlined text-black text-5xl dark:text-primary-50">
             expand_more
           </span>
         </div>
 
-        {/* Grid de Top Lists */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Top Libros */}
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
+              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
                 Top Libros
               </h3>
             </div>
@@ -94,15 +88,16 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          {/* Top Juego */}
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">Top Juego</h3>
+              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
+                Top Juego
+              </h3>
             </div>
             <div className="space-y-3">
               {[1, 1, 1].map((item, index) => (
@@ -115,15 +110,14 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          {/* Top Generos */}
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
+              <h3 className="text-primary-600 text-2xl font-bold dark:text-primary-50">
                 Top Generos
               </h3>
             </div>

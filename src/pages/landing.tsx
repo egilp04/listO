@@ -34,7 +34,7 @@ const Landing = () => {
           <img
             src={heroImage}
             alt="Bitácora digital"
-            className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
+            className="w-full h-auto object-cover rounded-xl shadow-elevation-1 dark:brightness-75"
           />
         </div>
 

@@ -15,8 +15,8 @@ const CardEstadisticaG: React.FC<CardEstadisticaGProps> = ({
         {texto}
       </p>
 
-      <div className="bg-primary-50 rounded-[10px] flex items-center justify-center shrink-0 w-6.25 h-personalizado-50 md:w-personalizado-50 md:h-25 lg:w-personalizado-70 lg:h-35">
-        <p className="font-bold text-primary-700 font-Titulos text-2xl md:text-3xl lg:text-4xl">
+      <div className="bg-primary-50 dark:bg-primary-900 rounded-[10px] flex items-center justify-center shrink-0 w-6.25 h-personalizado-50 md:w-personalizado-50 md:h-25 lg:w-personalizado-70 lg:h-35">
+        <p className="font-bold text-primary-800 dark:text-primary-50 font-Titulos text-2xl md:text-3xl lg:text-4xl">
           {numero}
         </p>
       </div>

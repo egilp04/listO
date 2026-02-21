@@ -35,7 +35,11 @@ export default function Select({
         </option>
 
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            className="dark:text-priamry-50 dark:bg-primary-900"
+          >
             {option.label}
           </option>
         ))}
