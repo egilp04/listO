@@ -8,7 +8,7 @@ const AppLayout = () => {
   const { mensaje, tipo, mostrar } = useNotificationStore();
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary-200">
+    <div className="flex flex-col min-h-screen bg-primary-200 dark:bg-primary-900">
       <Navbar></Navbar>
       <div className="w-full px-4 py-4 md:px-8">
         <span

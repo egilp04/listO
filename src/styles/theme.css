@@ -1,8 +1,11 @@
 @theme {
   --color-black: #000000;
-  --color-gray-950: oklch(13% 0.028 261.692);
   --color-white: #ffffff;
 
+  --color-primary-1000: #1a1e4a;
+  --color-primary-950: #262e6e;
+  --color-primary-900: #3f4e9e;
+  --color-primary-800: #5a6edb;
   --color-primary-700: #7b8ff7;
   --color-primary-600: #91a3ff;
   --color-primary-500: #adc8ff;
