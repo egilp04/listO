@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
 
-import card0 from "../assets/img/cards/carta_landing0.webp";
 import card1 from "../assets/img/cards/carta_landing1.webp";
 import card2 from "../assets/img/cards/carta_landing2.webp";
 import card3 from "../assets/img/cards/carta_landing3.webp";
 import card4 from "../assets/img/cards/carta_landing4.webp";
 import card5 from "../assets/img/cards/carta_landing5.webp";
+import heroLight from "../assets/img/cards/landing-hero-light.webp";
+// import heroDark from "../assets/img/cards/landing-hero-dark.webp";
 
 const Landing = () => {
-  const heroImage = card0;
   const featureImage1 = card1;
   const featureImage2 = card2;
   const featureImage3 = card3;
@@ -32,9 +32,9 @@ const Landing = () => {
         </Link>
         <div className="w-full mt-8">
           <img
-            src={heroImage}
+            src={heroLight}
             alt="Bitácora digital"
-            className="w-full h-auto object-cover rounded-xl shadow-elevation-1 dark:brightness-75"
+            className="w-full h-auto object-cover rounded-xl shadow-elevation-1"
           />
         </div>
 

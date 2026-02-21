@@ -56,7 +56,7 @@ export const Login_ChangePasswd = ({
   };
 
   return (
-    <form className="card-login_passwd" {...props}>
+    <form className="form-login_passwd" {...props}>
       {login ? (
         <>
           <h2>Inicio Sesión</h2>

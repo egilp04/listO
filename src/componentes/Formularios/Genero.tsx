@@ -155,7 +155,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   };
   return (
     <div className="flex justify-center w-full p-4">
-      <form className="card-genero" {...props} onSubmit={handleSubmit}>
+      <form className="form-genero" {...props} onSubmit={handleSubmit}>
         <h3 className="titulo-genero">{titulo}</h3>
         <div className="form-body">
           <Inputs
