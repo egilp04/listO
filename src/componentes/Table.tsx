@@ -13,7 +13,9 @@ interface TableInterface {
 }
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
-  const { setNotificacion } = useNotificationStore();
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { usuarios, generos, fetchGeneros, fetchUsuarios } =
     useGestionAdminStore();
 

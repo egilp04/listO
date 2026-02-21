@@ -5,7 +5,9 @@ import { useNotificationStore } from "../store/useNotificationStore";
 
 const AppLayout = () => {
   const navigate = useNavigate();
-  const { mensaje, tipo, mostrar } = useNotificationStore();
+  const mensaje = useNotificationStore((state) => state.mensaje);
+  const tipo = useNotificationStore((state) => state.tipo);
+  const mostrar = useNotificationStore((state) => state.mostrar);
 
   return (
     <div className="flex flex-col min-h-screen bg-primary-200 dark:bg-primary-1000">

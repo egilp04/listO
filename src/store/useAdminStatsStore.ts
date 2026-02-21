@@ -121,7 +121,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       const conteo: Record<string, number> = {};
 
       data.forEach((item: any) => {
-        const nombre = item.genero?.nombre || "Otros";
+        const nombre = item.genero_item[0]?.genero?.nombre || "Otros";
         conteo[nombre] = (conteo[nombre] || 0) + 1;
       });
 

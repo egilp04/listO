@@ -14,7 +14,9 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Genero = ({ crear, item, ...props }: RegistroProps) => {
-  const { setNotificacion } = useNotificationStore();
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const navigate = useNavigate();
   const titulo = crear ? "Crear Género" : "Modificar Género";
 

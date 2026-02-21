@@ -101,6 +101,18 @@ export const Login_ChangePasswd = ({
 
           <div className="flex-login-passwd">
             <Inputs
+              label="Usuario"
+              type="text"
+              placeholder="Ej: enrique@gmail.com"
+              name="email"
+              error={"Formato de email incorrecto"}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
+
+            <Inputs
               label="Nueva Contraseña"
               type="password"
               placeholder="********"
