@@ -116,6 +116,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               )}
               <div className="gap-4 flex flex-row justify-end pr-2">
                 <Button
+                  className="dark:bg-primary-950"
                   onClick={() => {
                     handleClick(inf);
                   }}
