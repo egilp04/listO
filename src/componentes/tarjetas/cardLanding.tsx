@@ -26,7 +26,11 @@ const CardLanding: React.FC<CardLandingProps> = ({
       </div>
 
       <div className="bg-primary-600 flex-1 w-full h-[300px] md:h-full">
-        <img src={imagen} alt={titulo} className="w-full h-full object-cover" />
+        <img
+          src={imagen}
+          alt={titulo}
+          className="w-full h-full object-cover transition-all duration-100 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
+        />
       </div>
     </div>
   );

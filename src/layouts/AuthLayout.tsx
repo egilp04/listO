@@ -7,10 +7,13 @@ const AuthLayout = () => {
   const state = location.state || {};
   const navigate = useNavigate();
   return (
-    <div
-      className="min-h-screen flex flex-col bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${fondoLogin})` }}
-    >
+    <div className="relative min-h-screen flex flex-col overflow-hidden">
+      <div
+        className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-all duration-100 dark:brightness-[0.5] dark:saturate-[0.45] dark:contrast-[1.6]"
+        style={{
+          backgroundImage: `url(${fondoLogin})`,
+        }}
+      />
       {state.atras != true && <Navbar></Navbar>}
       <main className="grow flex-col flex items-center justify-center w-full p-4">
         {state.atras == true && (
