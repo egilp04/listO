@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col gap-3 bg-primary-700 p-3 text-neutral-50 font-Otros">
+    <footer className="flex flex-col gap-3 bg-primary-700 dark:bg-primary-900 p-3 text-neutral-50 font-Otros">
       <div className="flex justify-around items-center">
         <div className="flex flex-col items-center justify-center">
           <img

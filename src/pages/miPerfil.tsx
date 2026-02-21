@@ -100,7 +100,7 @@ const MiPerfil = () => {
           <h2 className="flex justify-center text-2xl font-bold">Mi Perfil</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             {/* Nombre */}
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
+            <div className="miperfil">
               <div className="w-full md:w-1/3">
                 <label className="font-bold">Nombre de usuario</label>
               </div>
@@ -119,7 +119,7 @@ const MiPerfil = () => {
                 />
               </div>
             </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
+            <div className="miperfil">
               <div className="w-full md:w-1/3">
                 <label className="font-bold">Apellidos</label>
               </div>
@@ -138,7 +138,7 @@ const MiPerfil = () => {
                 />
               </div>
             </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
+            <div className="miperfil">
               <div className="w-full md:w-1/3">
                 <label className="font-bold">Email</label>
               </div>
@@ -155,7 +155,7 @@ const MiPerfil = () => {
                 />
               </div>
             </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
+            <div className="miperfil">
               <div className="w-full md:w-1/3">
                 <label className="font-bold">Fecha Nacimiento</label>
               </div>

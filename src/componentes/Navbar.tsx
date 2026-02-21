@@ -32,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
+    <nav className="navbar">
       <div className="flex items-center gap-3">
         <NavLink
           to={estaLogueado ? "/biblioteca" : "/"}

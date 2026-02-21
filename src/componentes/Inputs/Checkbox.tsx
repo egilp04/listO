@@ -31,7 +31,10 @@ function Checkbox({
         onChange={handleChange}
       />
 
-      <label htmlFor={name} className={`cursor-pointer ${colorTexto}`}>
+      <label
+        htmlFor={name}
+        className={`cursor-pointer ${colorTexto} dark:text-primary-50`}
+      >
         {label}
       </label>
     </div>

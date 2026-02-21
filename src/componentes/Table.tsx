@@ -98,15 +98,17 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
     <div>
       <div className="table-admin">
         <div className="flex flex-row w-full">
-          <label>Nombre</label>
+          <label className="dark:text-primary-50">Nombre</label>
         </div>
         <div className="flex flex-col">
           {datosAMostrar.map((inf) => (
             <div
-              className="rows-table odd:bg-primary-100 even:bg-neutral-100"
+              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-850 even:bg-neutral-100 dark:even:bg-primary-700"
               key={inf.id}
             >
-              <label className="w-full font-bold">{inf.nombre}</label>
+              <label className="w-full font-bold dark:text-primary-50">
+                {inf.nombre}
+              </label>
               {tipoItem == "genero" && (
                 <label className="w-full font-bold">
                   {inf.tipo?.nombre || "Sin tipo"}

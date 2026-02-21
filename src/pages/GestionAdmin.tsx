@@ -51,11 +51,11 @@ const GestionAdmin = () => {
           <span>Género</span>
         </Button>
       </div>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-col gap-6 max-h-150 overflow-hidden p-10 rounded-sm">
+      <div className="shadow-elevation-3 bg-primary-50 dark:bg-primary-900 flex flex-col gap-6 max-h-150 overflow-hidden p-10 rounded-sm">
         <div className="flex flex-col gap-4  justify-center items-center md:justify-around md:flex-row w-full">
           <div className="w-1/2">
             <input
-              className="input-style-comun border border-success-500 input-responsive"
+              className="input-style-comun border dark:border-primary-50 input-responsive dark:text-primary-50"
               placeholder="Busca por nombre o autor"
               onChange={handleFiltrar}
             ></input>

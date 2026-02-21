@@ -8,11 +8,11 @@ const AppLayout = () => {
   const { mensaje, tipo, mostrar } = useNotificationStore();
 
   return (
-    <div className="flex flex-col min-h-screen bg-primary-200 dark:bg-primary-900">
+    <div className="flex flex-col min-h-screen bg-primary-200 dark:bg-primary-1000">
       <Navbar></Navbar>
       <div className="w-full px-4 py-4 md:px-8">
         <span
-          className="material-symbols-outlined text-4xl cursor-pointer"
+          className="material-symbols-outlined cursor-pointer  dark:text-primary-50"
           onClick={() => navigate(-1)}
         >
           arrow_back

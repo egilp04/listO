@@ -16,7 +16,7 @@ const AuthLayout = () => {
         {state.atras == true && (
           <div className="w-full mb-6">
             <span
-              className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 rounded-sm px-4 py-4 md:px-8"
+              className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 dark:text-primary-50 rounded-sm px-4 py-4 md:px-8"
               onClick={() => navigate(-1)}
             >
               arrow_back

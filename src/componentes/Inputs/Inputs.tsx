@@ -4,7 +4,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error: string;
   variant?: "primario" | "info";
-  regex: RegExp;
+  regex?: RegExp;
   name: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   manejarError: (nombre: string, error: boolean) => void;
@@ -60,7 +60,9 @@ function Inputs({
     <div className="flex flex-col gap-2 w-full">
       <label
         htmlFor={name}
-        className={disabled ? "label-disabled" : "text-black"}
+        className={
+          disabled ? "label-disabled" : "text-black dark:text-primary-50"
+        }
       >
         {label}
       </label>
@@ -77,7 +79,7 @@ function Inputs({
         />
         {isPassword && (
           <span
-            className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer select-none text-gray-500 hover:text-gray-700"
+            className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer select-none text-gray-500 dark:text-primary-50 hover:text-gray-700"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? "visibility" : "visibility_off"}

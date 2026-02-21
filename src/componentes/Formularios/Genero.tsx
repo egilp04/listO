@@ -169,7 +169,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
           />
 
           <div className="seccion-tipo">
-            <label className="font-normal font-Otros text-sm md:text-base text-black">
+            <label className="font-Otros text-black dark:text-primary-50">
               Tipo:
             </label>
             <div className="flex flex-col gap-1 ml-1">
@@ -189,7 +189,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
               />
             </div>
             {errores.tipoItem == true && (
-              <span className="text-red-500">
+              <span className="text-red-500 dark:text-red-100">
                 Debe seleccionar al menos un tipo
               </span>
             )}
