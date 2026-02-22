@@ -156,7 +156,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   return (
     <div className="flex justify-center w-full p-4">
       <form className="form-genero" {...props} onSubmit={handleSubmit}>
-        <h3 className="titulo-genero">{titulo}</h3>
+        <h2 className="text-center">{titulo}</h2>
         <div className="form-body">
           <Inputs
             label="Nombre"
@@ -171,9 +171,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
           />
 
           <div className="seccion-tipo">
-            <label className="font-Otros text-black dark:text-primary-50">
-              Tipo:
-            </label>
+            <label className="font-Otros  dark:text-primary-50">Tipo:</label>
             <div className="flex flex-col gap-1 ml-1">
               <Checkbox
                 manejarCambio={manejarCambio}

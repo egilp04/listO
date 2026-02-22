@@ -63,7 +63,7 @@ const Navbar = () => {
         className={`${
           close
             ? "hidden"
-            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50"
+            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-1000 p-4 z-50"
         }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
       >
         <div className="botones-navbar">

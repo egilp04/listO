@@ -59,11 +59,11 @@ const EstadisticasGlobales = () => {
 
   return (
     <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
-      <h2 className="flex justify-center">Estadísticas Globales</h2>
+      <h1 className="flex justify-center">Estadísticas Globales</h1>
       <div className="shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
-        <h3 className="w-full text-primary-800 dark:text-primary-50">
+        <h2 className="w-full text-primary-900 dark:text-primary-50">
           Usuarios registrados por mes: {conteoUsuario}
-        </h3>
+        </h2>
         <Select
           variant="primario"
           options={meses}
@@ -81,7 +81,7 @@ const EstadisticasGlobales = () => {
         ))}
       </div>
       <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28 mb-10">
-        <div className="flex flex-col bg-primary-800 p-6 w-full rounded-sm">
+        <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm">
           <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
             <div className=" w-28 flex flex-row gap-2 h-full">
               <img src="/src/assets/img/logo/logo.webp" alt="logo" />

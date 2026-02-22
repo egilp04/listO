@@ -29,12 +29,12 @@
 
   .card-estadistica {
     @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5
-      dark:bg-primary-800 dark:border-primary-900;
+      dark:bg-primary-850 dark:border-primary-900;
   }
 
   .card-estadistica-t {
     @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 
-    dark:bg-primary-900 dark:border-primary-1000;
+    dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .card-landing {
@@ -43,7 +43,7 @@
   }
 
   .card-estadistica-g {
-    @apply bg-primary-800 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5  
+    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5  
     dark:bg-primary-850 dark:border-primary-1000;
   }
 
@@ -111,12 +111,8 @@
     @apply bg-gray-100 border-neutral-300 cursor-not-allowed !text-neutral-400;
   }
 
-  .label-disabled {
-    @apply text-neutral-400 cursor-not-allowed;
-  }
-
   .input-border-primario {
-    @apply border-primary-500 hover:border-primary-600 focus:border-primary-700 dark:border-primary-50 hover:dark:border-primary-500 focus:dark:border-primary-50;
+    @apply border-primary-900 hover:border-primary-1000 focus:border-primary-700 dark:border-primary-50 hover:dark:border-primary-500 focus:dark:border-primary-50;
   }
 
   .input-border-info {
@@ -153,7 +149,7 @@
   }
 
   .select-responsive {
-    @apply appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
+    @apply border border-primary-900 appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
     background-image: var(--select-icon);
     background-repeat: no-repeat;
     background-position: right 1rem center;
@@ -161,7 +157,7 @@
   }
 
   .select-color-text {
-    @apply !text-primary-600 dark:!text-primary-50;
+    @apply !text-primary-900 dark:!text-primary-50;
   }
 
   .form-registro {
@@ -241,7 +237,7 @@
   }
 
   .navbar {
-    @apply relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0 dark:bg-primary-900 dark:border-b-primary-1000;
+    @apply relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0 dark:bg-primary-1000 dark:border-b-primary-1000;
   }
 
   .miperfil {

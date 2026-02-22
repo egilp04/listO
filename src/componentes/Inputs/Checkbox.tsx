@@ -4,14 +4,12 @@ interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
   mensajeError?: string;
-  colorTexto?: string;
 }
 
 function Checkbox({
   label,
   name,
   disabled,
-  colorTexto,
   manejarCambio,
   ...props
 }: CheckboxProps) {
@@ -33,7 +31,7 @@ function Checkbox({
 
       <label
         htmlFor={name}
-        className={`cursor-pointer ${colorTexto} dark:text-primary-50`}
+        className={`cursor-pointer text-primary-1100 dark:text-primary-50`}
       >
         {label}
       </label>

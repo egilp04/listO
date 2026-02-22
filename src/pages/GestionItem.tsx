@@ -33,7 +33,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
 
   return (
     <div className="min-h-screen bg-primary-200 dark:bg-primary-1000 p-4 flex flex-col gap-6">
-      <h2 className="font-bold mb-10 text-center">Añadir una nueva ficha</h2>
+      <h1 className=" mb-10 text-center">Añadir una nueva ficha</h1>
       <div className="flex flex-col md:flex-row gap-6">
         <div className="bg-white dark:bg-primary-900 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between w-full md:w-1/2 shadow-sm min-h-16 gap-3">
           <span className="dark:text-primary-50">IMAGEN: </span>

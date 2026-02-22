@@ -30,7 +30,7 @@ export default function Select({
         {...props}
         onChange={manejarambio}
       >
-        <option value="" disabled hidden>
+        <option value="" className="text-primary-900">
           Seleccionar
         </option>
 
@@ -38,7 +38,7 @@ export default function Select({
           <option
             key={option.value}
             value={option.value}
-            className="dark:text-priamry-50 dark:bg-primary-900"
+            className="dark:text-primary-50 dark:bg-primary-900 text-primary-900"
           >
             {option.label}
           </option>

@@ -105,7 +105,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         <div className="flex flex-col">
           {datosAMostrar.map((inf) => (
             <div
-              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-850 even:bg-neutral-100 dark:even:bg-primary-700 dark:even:text-black dark:text-primary-50"
+              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-1000 even:bg-neutral-100 dark:even:bg-primary-850 dark:even:text-primary-1100 dark:text-primary-50"
               key={inf.id}
             >
               <label className="w-full font-bold ">{inf.nombre}</label>

@@ -36,14 +36,7 @@ function TextArea({
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label
-        htmlFor={name}
-        className={
-          disabled ? "label-disabled" : "text-black dark:text-primary-50"
-        }
-      >
-        {label}
-      </label>
+      <label htmlFor={name}>{label}</label>
       <textarea
         id={name}
         name={name}

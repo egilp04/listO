@@ -58,14 +58,7 @@ function Inputs({
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label
-        htmlFor={name}
-        className={
-          disabled ? "label-disabled" : "text-black dark:text-primary-50"
-        }
-      >
-        {label}
-      </label>
+      <label htmlFor={name}>{label}</label>
       <div className="relative w-full">
         <input
           id={name}
