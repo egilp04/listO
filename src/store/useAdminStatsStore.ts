@@ -118,7 +118,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       `);
 
       if (error) throw error;
-      const conteo: Record<string, number> = {};
+      const conteo: { [key: string]: number } = {};
 
       data.forEach((item: any) => {
         const nombre = item.genero_item[0]?.genero?.nombre || "Otros";

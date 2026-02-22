@@ -94,7 +94,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
     }
   },
 
-
   fetchItemsPorMes: async (mes: string) => {
     const usuarioId = useAuthStore.getState().user?.id;
     if (!mes || !usuarioId) return 0;
@@ -125,7 +124,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
     }
   },
 
-
   fetchItemsTotales: async () => {
     const usuarioId = useAuthStore.getState().user?.id;
     if (!usuarioId) return 0;
@@ -148,7 +146,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
     }
   },
 
-
   fetchTarjetasEstadisticasTop: async () => {
     const usuarioId = useAuthStore.getState().user?.id;
     if (!usuarioId) return [];
@@ -170,7 +167,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
       if (error) throw error;
 
-      const conteo: Record<string, number> = {};
+      const conteo: { [key: string]: number } = {};
 
       data?.forEach((item: any) => {
         const generos = item.genero_item || [];
