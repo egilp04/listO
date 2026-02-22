@@ -9,7 +9,7 @@ import type {
   DistribucionGenero,
   GeneroItemRelation,
   RegistroMensual,
-} from "../interfaces/ChartsAdmin";
+} from "../interfaces/Charts";
 
 interface AdminStatsState {
   loading: boolean;

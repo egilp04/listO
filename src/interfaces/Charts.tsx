@@ -3,6 +3,11 @@ export interface RegistroMensual {
   usuarios: number;
 }
 
+export interface RegistroMensualItemsUsuarios {
+  name: string;
+  items: number;
+}
+
 export interface DistribucionGenero {
   name: string;
   value: number;

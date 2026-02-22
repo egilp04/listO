@@ -7,21 +7,21 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { useAdminStatsStore } from "../../store/useAdminStatsStore";
+import { useUserStatsStore } from "../../store/useUserStatsStore";
 import { useEffect, useState } from "react";
-import type { RegistroMensual } from "../../interfaces/Charts";
+import type { RegistroMensualItemsUsuarios } from "../../interfaces/Charts";
 
-export default function RegistroUsuarios() {
-  const { fetchRegistroAnual } = useAdminStatsStore();
-  const [datosRegistroUser, setDatosRegistroUser] = useState<RegistroMensual[]>(
-    [],
-  );
+const RegistroItems = () => {
+  const { fetchRegistroAnual } = useUserStatsStore();
+  const [datosRegistroItems, setDatosRegistroItems] = useState<
+    RegistroMensualItemsUsuarios[]
+  >([]);
 
   useEffect(() => {
     const cargarDatosAnuales = async () => {
       try {
         const data = await fetchRegistroAnual();
-        setDatosRegistroUser(data);
+        setDatosRegistroItems(data);
       } catch (e) {
         console.error("Error al cargar datos del gráfico:");
         if (e instanceof Error) console.log(e.stack);
@@ -32,9 +32,9 @@ export default function RegistroUsuarios() {
 
   return (
     <div className="p-10 bg-white rounded-sm shadow-elevation-3 flex flex-col gap-10">
-      <h2 className="text-primary-700">Registro anual de Usuarios</h2>
+      <h2 className="text-primary-700">Registro anual de Items</h2>
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={datosRegistroUser}>
+        <LineChart data={datosRegistroItems}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
@@ -49,4 +49,6 @@ export default function RegistroUsuarios() {
       </ResponsiveContainer>
     </div>
   );
-}
+};
+
+export default RegistroItems;

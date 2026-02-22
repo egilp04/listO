@@ -10,6 +10,8 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import { useAuthStore } from "./useAuthStore";
+import type { RegistroMensualItemsUsuarios } from "../interfaces/Charts";
+import { meses } from "../utils/constants/Meses";
 
 interface UserStatsState {
   loading: boolean;
@@ -17,6 +19,7 @@ interface UserStatsState {
   fetchTarjetasEstadisticasTop: () => Promise<TarjetaEstadisticasTop[]>;
   fetchItemsPorMes: (mes: string) => Promise<number>;
   fetchItemsTotales: () => Promise<number>;
+  fetchRegistroAnual: () => Promise<RegistroMensualItemsUsuarios[]>;
 }
 
 export const useUserStatsStore = create<UserStatsState>((set) => ({
@@ -141,6 +144,42 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       console.error("Error al calcular ítems totales:");
       if (error instanceof Error) console.log(error.stack);
       return 0;
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchRegistroAnual: async () => {
+    set({ loading: true });
+    try {
+      const anioActual = new Date().getFullYear();
+
+      const { data, error } = await supabase
+        .from("items")
+        .select("created_at")
+        .gte("created_at", `${anioActual}-01-01`)
+        .lte("created_at", `${anioActual}-12-31`);
+      if (error) throw error;
+
+      const conteoMeses: { [mes: string]: number } = {};
+      meses.forEach((m) => {
+        conteoMeses[m.label] = 0;
+      });
+
+      data?.forEach((item) => {
+        const fecha = new Date(item.created_at);
+        const nombreMes = meses[fecha.getMonth()].label;
+        conteoMeses[nombreMes]++;
+      });
+
+      return meses.map((m) => ({
+        name: m.label,
+        items: conteoMeses[m.label],
+      }));
+    } catch (error) {
+      console.error("Error en fetchRegistroAnual:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
     } finally {
       set({ loading: false });
     }

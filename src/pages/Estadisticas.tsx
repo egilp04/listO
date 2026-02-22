@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import CardEstadistica from "../componentes/tarjetas/cardEstadistica";
 import CardEstadisticaG from "../componentes/tarjetas/cardEstadisticaG";
 import CardEstadisticaT from "../componentes/tarjetas/cardEstadisticaT";
+import RegistroItems from "../componentes/Charts/RegistroItems";
 
 interface CardData {
   id: number;
@@ -57,10 +58,7 @@ const Estadisticas = () => {
         <CardEstadisticaG texto="Total de items completados" numero={4} />
 
         <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
-          <h2 className="text-primary-600 text-2xl font-bold">
-            Completados por mes (2026) - Podemos hacer una chart y qye mire este
-            año este mes
-          </h2>
+          <RegistroItems></RegistroItems>
           <span className="material-symbols-outlined text-black text-5xl">
             expand_more
           </span>
