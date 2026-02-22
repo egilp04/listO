@@ -126,7 +126,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       });
 
       const topGeneros = Object.entries(conteo)
-        .sort(([, a], [, b]) => b - a)
+        .sort((a, b) => b[1] - a[1])
         .slice(0, 3)
         .map(([nombre]) => nombre);
 
