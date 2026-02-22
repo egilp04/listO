@@ -1,29 +1,33 @@
+/**
+ * Store de estadísticas de usuario con integración de Auth y Supabase.
+ * @author Evelia Gil Paredes
+ */
 import { create } from "zustand";
 import { supabase } from "../utils/supabaseClient";
+
 import type {
   TarjetaEstadisticas,
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
-import { meses } from "../utils/constants/Meses";
-import type {
-  DistribucionGenero,
-  GeneroItemRelation,
-  RegistroMensual,
-} from "../interfaces/ChartsAdmin";
+import { useAuthStore } from "./useAuthStore";
 
-interface AdminStatsState {
+interface UserStatsState {
   loading: boolean;
   fetchTarjetasEstadisticas: () => Promise<TarjetaEstadisticas[]>;
   fetchTarjetasEstadisticasTop: () => Promise<TarjetaEstadisticasTop[]>;
-  fetchUsuariosPorMes: (mes: string) => Promise<number>;
-  fetchRegistroAnual: () => Promise<RegistroMensual[]>;
-  fetchDistribucionGeneros: () => Promise<DistribucionGenero[]>;
+  fetchItemsPorMes: (mes: string) => Promise<number>;
+  fetchItemsTotales: () => Promise<number>;
 }
 
-export const useAdminStatsStore = create<AdminStatsState>((set) => ({
+export const useUserStatsStore = create<UserStatsState>((set) => ({
   loading: false,
+
   fetchTarjetasEstadisticas: async () => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
     set({ loading: true });
+
     try {
       const ahora = new Date();
       const inicioMes = new Date(
@@ -32,26 +36,29 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         1,
       ).toISOString();
       const inicioAnio = new Date(ahora.getFullYear(), 0, 1).toISOString();
-
       const [librosAnio, librosMes, juegosAnio, juegosMes] = await Promise.all([
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
+          .eq("usuario_id", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
+          .eq("usuario_id", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioMes),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
+          .eq("usuario_id", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
+          .eq("usuario_id", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioMes),
       ]);
@@ -87,8 +94,10 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
     }
   },
 
-  fetchUsuariosPorMes: async (mes: string) => {
-    if (!mes) return -1;
+  fetchItemsPorMes: async (mes: string) => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!mes || !usuarioId) return 0;
+
     set({ loading: true });
     try {
       const anioActual = new Date().getFullYear();
@@ -98,16 +107,39 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         .split("T")[0];
 
       const { count, error } = await supabase
-        .from("usuario")
+        .from("items")
         .select("*", { count: "exact", head: true })
+        .eq("usuario_id", usuarioId)
         .gte("created_at", fechaInicio)
         .lte("created_at", fechaFin);
 
       if (error) throw error;
-      console.log(count);
       return count || 0;
     } catch (error) {
-      console.error("Error en fetchUsuariosPorMes:", error);
+      console.error("Error en fetchItemsPorMes:");
+      if (error instanceof Error) console.log(error.stack);
+      return 0;
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchItemsTotales: async () => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return 0;
+
+    set({ loading: true });
+    try {
+      const { count, error } = await supabase
+        .from("items")
+        .select("*", { count: "exact", head: true })
+        .eq("usuario_id", usuarioId);
+
+      if (error) throw error;
+      return count || 0;
+    } catch (error) {
+      console.error("Error al calcular ítems totales:");
+      if (error instanceof Error) console.log(error.stack);
       return 0;
     } finally {
       set({ loading: false });
@@ -115,24 +147,40 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
   },
 
   fetchTarjetasEstadisticasTop: async () => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
     set({ loading: true });
     try {
-      const { data, error } = await supabase.from("items").select(`
-        genero_item (
-          genero (
-            nombre
+      const { data, error } = await supabase
+        .from("items")
+        .select(
+          `
+          genero_item (
+            genero (
+              nombre
+            )
           )
+        `,
         )
-      `);
+        .eq("usuario_id", usuarioId);
 
       if (error) throw error;
+
       const conteo: { [key: string]: number } = {};
 
-      data.forEach((item: any) => {
-        const nombre = item.genero_item[0]?.genero?.nombre || "Otros";
-        conteo[nombre] = (conteo[nombre] || 0) + 1;
+      data?.forEach((item: any) => {
+        const generos = item.genero_item || [];
+        generos.forEach((g: any) => {
+          const nombre = g.genero?.nombre || "Otros";
+          conteo[nombre] = (conteo[nombre] || 0) + 1;
+        });
       });
 
+      // const topGeneros = Object.entries(conteo)
+      //   .sort(([, a], [, b]) => b - a)
+      //   .slice(0, 3)
+      //   .map(([nombre]) => nombre);
       const topGeneros = Object.entries(conteo)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 3)
@@ -142,83 +190,11 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         {
           id: 1,
           label: "Géneros más comunes",
-          value: topGeneros,
+          value: topGeneros.length > 0 ? topGeneros : ["Sin datos"],
         },
       ];
     } catch (error) {
       console.error("Error al calcular el Top Géneros:");
-      if (error instanceof Error) console.log(error.stack);
-      return [];
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  fetchRegistroAnual: async () => {
-    set({ loading: true });
-    try {
-      const anioActual = new Date().getFullYear();
-
-      const { data, error } = await supabase
-        .from("usuario")
-        .select("created_at")
-        .gte("created_at", `${anioActual}-01-01`)
-        .lte("created_at", `${anioActual}-12-31`);
-      if (error) throw error;
-
-      const conteoMeses: { [mes: string]: number } = {};
-      meses.forEach((m) => {
-        conteoMeses[m.label] = 0;
-      });
-
-      data?.forEach((user) => {
-        const fecha = new Date(user.created_at);
-        const nombreMes = meses[fecha.getMonth()].label;
-        conteoMeses[nombreMes]++;
-      });
-
-      return meses.map((m) => ({
-        name: m.label,
-        usuarios: conteoMeses[m.label],
-      }));
-    } catch (error) {
-      console.error("Error en fetchRegistroAnual:");
-      if (error instanceof Error) console.log(error.stack);
-      return [];
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  fetchDistribucionGeneros: async () => {
-    set({ loading: true });
-    try {
-      const { data, error } = await supabase.from("items").select(`
-        genero_item (
-          genero (
-            nombre
-          )
-        )
-      `);
-      if (error) throw error;
-      if (!data) return [];
-
-      const conteo: Record<string, number> = {};
-
-      data.forEach((item: any) => {
-        const generos = item.genero_item || [];
-        generos.forEach((gi: GeneroItemRelation) => {
-          const nombre = gi.genero?.nombre || "Sin Género";
-          conteo[nombre] = (conteo[nombre] || 0) + 1;
-        });
-      });
-
-      return Object.entries(conteo).map(([name, value]) => ({
-        name,
-        value,
-      }));
-    } catch (error) {
-      console.error("Error al recuperar distribución de géneros:");
       if (error instanceof Error) console.log(error.stack);
       return [];
     } finally {

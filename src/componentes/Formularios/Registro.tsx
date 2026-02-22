@@ -9,8 +9,9 @@ import { useNotificationStore } from "../../store/useNotificationStore";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   const navigate = useNavigate();
-  const { setNotificacion } = useNotificationStore();
-
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const location = useLocation();
   const state = location.state || {};
   const vieneDeGestion = state.atras || false;

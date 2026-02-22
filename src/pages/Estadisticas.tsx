@@ -37,8 +37,6 @@ const Estadisticas = () => {
     <>
       <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
         <h2 className="flex justify-center">Estadísticas</h2>
-
-        {/* Grid de Tarjetas Superiores */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -56,22 +54,19 @@ const Estadisticas = () => {
           )}
         </div>
 
-        {/* Barra Total Items */}
         <CardEstadisticaG texto="Total de items completados" numero={4} />
 
-        {/* Completados por mes */}
         <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
           <h2 className="text-primary-600 text-2xl font-bold">
-            Completados por mes (2026)
+            Completados por mes (2026) - Podemos hacer una chart y qye mire este
+            año este mes
           </h2>
           <span className="material-symbols-outlined text-black text-5xl">
             expand_more
           </span>
         </div>
 
-        {/* Grid de Top Lists */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Top Libros */}
           <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
@@ -94,7 +89,6 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          {/* Top Juego */}
           <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
@@ -115,7 +109,6 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          {/* Top Generos */}
           <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">

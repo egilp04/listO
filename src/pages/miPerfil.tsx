@@ -2,26 +2,17 @@ import { useLocation } from "react-router-dom";
 import Button from "../componentes/Button";
 import Inputs from "../componentes/Inputs/Inputs";
 import { useAuthStore } from "../store/useAuthStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { useNotificationStore } from "../store/useNotificationStore";
 
 const MiPerfil = () => {
-  const { setNotificacion } = useNotificationStore();
-
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { state } = useLocation();
-  const { user: usuarioLogueado } = useAuthStore();
-  const { item = null } = state || {};
-
-  const usuario =
-    item ||
-    (usuarioLogueado
-      ? {
-          ...usuarioLogueado,
-        }
-      : null);
-
-  console.log(usuario);
+  const { user: usuarioLogueado, setUser } = useAuthStore();
+  const usuarioReferencia = state?.item || usuarioLogueado;
 
   const [datos, setDatos] = useState({
     nombre: "",
@@ -37,6 +28,17 @@ const MiPerfil = () => {
     fech_nac: false,
   });
 
+  useEffect(() => {
+    if (usuarioReferencia) {
+      setDatos({
+        nombre: usuarioReferencia.nombre || "",
+        apellidos: usuarioReferencia.apellidos || "",
+        email: usuarioReferencia.email || "",
+        fech_nac: usuarioReferencia.fechanacimiento || "",
+      });
+    }
+  }, [usuarioReferencia]);
+
   const manejarCambios = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDatos((prev) => ({ ...prev, [name]: value }));
@@ -46,12 +48,11 @@ const MiPerfil = () => {
     setErrores((prev) => ({ ...prev, [nombre]: error }));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tieneErroresVisuales = Object.values(errores).some(
-      (err) => err === true,
+      (error) => error === true,
     );
-
     if (tieneErroresVisuales) {
       setNotificacion(
         "Algunos de los campos tienen errores, revíselos",
@@ -63,51 +64,34 @@ const MiPerfil = () => {
   };
 
   const enviarDatosBD = async () => {
-    const idActualizar = usuario?.id_usuario;
-    if (!idActualizar) {
-      setNotificacion("No se encontró el ID del usuario", "error");
-      return;
-    }
+    const idActualizar = usuarioReferencia?.id_usuario;
+    if (!idActualizar) return;
     try {
-      const datosActualizar = {
-        nombre: datos.nombre || usuario.nombre,
-        apellidos: datos.apellidos || usuario.apellidos,
-        email: datos.email || usuario.email,
-        fechanacimiento: datos.fech_nac || usuario.fechanacimiento,
-      };
       const { data, error } = await supabase
         .from("usuario")
-        .update(datosActualizar)
+        .update({
+          nombre: datos.nombre,
+          apellidos: datos.apellidos,
+          email: datos.email,
+          fechanacimiento: datos.fech_nac,
+        })
         .eq("id_usuario", idActualizar)
-        .select();
+        .select()
+        .single();
 
       if (error) throw error;
 
-      if (data && data.length > 0) {
-        const usuarioActualizadoDB = data[0];
-        const usuarioActual = useAuthStore.getState().user;
-        if (usuarioActual) {
-          const nuevoUsuarioSesion = {
-            ...usuarioActual,
-            nombre: usuarioActualizadoDB.nombre,
-            apellidos: usuarioActualizadoDB.apellidos,
-            fechanacimiento: usuarioActualizadoDB.fechanacimiento,
-            email: usuarioActualizadoDB.email,
-          };
-          useAuthStore.getState().setUser(nuevoUsuarioSesion);
-        }
-        setNotificacion("Datos modificados correctamente 😁", "exito");
+      if (usuarioLogueado && data.id_usuario === usuarioLogueado.id_usuario) {
+        setUser({ ...usuarioLogueado, ...data });
+        console.log(
+          "Sesión de usuario actualizada de forma local, para flejar los datos",
+        );
       }
+
+      setNotificacion("Perfil modificado correctamente", "exito");
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error al crear el género:", error.message);
-      } else {
-        console.error("Ocurrió un error inesperado:", error);
-      }
-      setNotificacion(
-        "No se pudieron guardar los cambios. Inténtelo de nuevo",
-        "error",
-      );
+      console.log(error);
+      setNotificacion("Error al guardar los cambios", "error");
     }
   };
 
@@ -127,7 +111,7 @@ const MiPerfil = () => {
                   label=""
                   placeholder="Nombre"
                   name="nombre"
-                  defaultValue={usuario?.nombre || ""}
+                  value={datos?.nombre || ""}
                   manejarCambio={manejarCambios}
                   manejarError={manejarErrores}
                   regex={
@@ -146,7 +130,7 @@ const MiPerfil = () => {
                   label=""
                   placeholder="Apellidos"
                   name="apellidos"
-                  defaultValue={usuario?.apellidos || ""}
+                  value={datos?.apellidos || ""}
                   manejarCambio={manejarCambios}
                   manejarError={manejarErrores}
                   regex={
@@ -165,7 +149,7 @@ const MiPerfil = () => {
                   label=""
                   name="email"
                   type="email"
-                  defaultValue={usuario?.email || ""}
+                  value={datos?.email || ""}
                   manejarCambio={manejarCambios}
                   manejarError={manejarErrores}
                   regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
@@ -183,7 +167,7 @@ const MiPerfil = () => {
                   name="fech_nac"
                   type="text"
                   placeholder="dd/mm/aaaa"
-                  defaultValue={usuario?.fechanacimiento || ""}
+                  value={datos?.fech_nac || ""}
                   manejarCambio={manejarCambios}
                   manejarError={manejarErrores}
                   regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
