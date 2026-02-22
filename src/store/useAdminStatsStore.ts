@@ -171,7 +171,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         .lte("created_at", `${anioActual}-12-31`);
       if (error) throw error;
 
-      const conteoMeses: Record<string, number> = {};
+      const conteoMeses: { [mes: string]: number } = {};
       meses.forEach((m) => {
         conteoMeses[m.label] = 0;
       });
