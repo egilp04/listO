@@ -17,6 +17,7 @@ interface UserStatsState {
   fetchTarjetasEstadisticasTop: () => Promise<TarjetaEstadisticasTop[]>;
   fetchItemsPorMes: (mes: string) => Promise<number>;
   fetchItemsTotales: () => Promise<number>;
+  fetchTopPorTipo: (tipoNombre: string) => Promise<TarjetaEstadisticasTop[]>;
 }
 
 export const useUserStatsStore = create<UserStatsState>((set) => ({
@@ -195,6 +196,40 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       ];
     } catch (error) {
       console.error("Error al calcular el Top Géneros:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+  fetchTopPorTipo: async (tipoNombre: string) => {
+    set({ loading: true });
+    try {
+      const { data, error } = await supabase
+        .from("items")
+        .select(
+          `
+        id,
+        nombre,
+        valoracion,
+        tipo (nombre)
+      `,
+        )
+        .eq("tipo.nombre", tipoNombre)
+        .order("valoracion", { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+
+      return [
+        {
+          id: 1,
+          label: `Top 3 ${tipoNombre}s mejor valorados`,
+          value: data?.map((item) => item.nombre) || [],
+        },
+      ];
+    } catch (error) {
+      console.error("Error al obtener los mejores valorados:");
       if (error instanceof Error) console.log(error.stack);
       return [];
     } finally {
