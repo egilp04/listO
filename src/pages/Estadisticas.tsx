@@ -22,6 +22,9 @@ const Estadisticas = () => {
   const [topVideojuegos, setTopVideojuegos] = useState<
     TarjetaEstadisticasTop[]
   >([]);
+  const [itemsTotales, setItemsTotales] = useState<number>(0);
+  const [mesSeleccionado, setMesSeleccionado] = useState("");
+  const [conteoItems, setConteoItems] = useState(0);
 
   //Funciones fetch store
   const fetchItemsPorMes = useUserStatsStore((state) => state.fetchItemsPorMes);
@@ -33,6 +36,9 @@ const Estadisticas = () => {
   );
   //Libros y videojuegos
   const fetchTopPorTipo = useUserStatsStore((state) => state.fetchTopPorTipo);
+  const fetchItemsTotales = useUserStatsStore(
+    (state) => state.fetchItemsTotales,
+  );
 
   //Estadisticas normales
   useEffect(() => {
@@ -66,9 +72,6 @@ const Estadisticas = () => {
     cargarVideojuegos();
   }, [fetchTopPorTipo]);
 
-  const [mesSeleccionado, setMesSeleccionado] = useState("");
-  const [conteoItems, setConteoItems] = useState(0);
-
   useEffect(() => {
     const cargarItems = async () => {
       if (mesSeleccionado) {
@@ -78,6 +81,14 @@ const Estadisticas = () => {
     };
     cargarItems();
   }, [mesSeleccionado, fetchItemsPorMes]);
+
+  useEffect(() => {
+    const cargatItems = async () => {
+      const count = await fetchItemsTotales();
+      setItemsTotales(count);
+    };
+    cargatItems();
+  }, [fetchItemsTotales]);
 
   return (
     <>
@@ -99,7 +110,10 @@ const Estadisticas = () => {
           )}
         </div>
 
-        <CardEstadisticaG texto="Total de items completados" numero={4} />
+        <CardEstadisticaG
+          texto="Total de items completados"
+          numero={itemsTotales}
+        />
 
         <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
           <h2 className="text-primary-600 text-2xl font-bold">
