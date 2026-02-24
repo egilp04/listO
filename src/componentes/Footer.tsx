@@ -18,52 +18,33 @@ const Footer: React.FC = () => {
           <NavLink to="/politicas-cookies" className="text-sm hover:underline">
             Políticas cookies
           </NavLink>
-          <NavLink to="/termino-servicio" className="text-sm hover:underline">
+          <NavLink to="*" className="text-sm hover:underline">
             Términos de servicio
           </NavLink>
-          <NavLink
-            to="/politicas-privacidad"
-            className="text-sm hover:underline"
-          >
+          <NavLink to="*" className="text-sm hover:underline">
             Políticas de privacidad
           </NavLink>
-          <NavLink
-            to="/politicas-seguridad"
-            className="text-sm hover:underline"
-          >
+          <NavLink to="*" className="text-sm hover:underline">
             Políticas de seguridad
           </NavLink>
         </div>
 
         <div className="flex flex-col gap-1 items-center text-center">
           <label className="font-Titulos font-medium text-lg">Contacto</label>
-          <NavLink to="/contacto-telefono" className="text-sm hover:underline">
-            614 68 43 55
-          </NavLink>
-          <NavLink to="/contacto-email" className="text-sm hover:underline">
-            listO@gmail.com
-          </NavLink>
-          <NavLink to="/contacto-direccion" className="text-sm hover:underline">
+          <label className="text-sm hover:underline"> 614 68 43 55</label>
+          <label className="text-sm hover:underline"> listODaw@gmail.com</label>
+          <label className="text-sm hover:underline">
             Av/ Avestruz 12 (Badajoz)
-          </NavLink>
+          </label>
         </div>
 
         <div className="flex flex-col gap-1 items-center text-center">
           <label className="font-Titulos font-medium text-lg">
             Tecnologías
           </label>
-          <NavLink to="/contacto-react" className="text-sm hover:underline">
-            React
-          </NavLink>
-          <NavLink
-            to="/tecnologias-tailwind"
-            className="text-sm hover:underline"
-          >
-            Tailwind
-          </NavLink>
-          <NavLink to="/tecnologias-html" className="text-sm hover:underline">
-            Html
-          </NavLink>
+          <label className="text-sm hover:underline">React</label>
+          <label className="text-sm hover:underline">Tailwind</label>
+          <label className="text-sm hover:underline">Html</label>
         </div>
       </div>
 

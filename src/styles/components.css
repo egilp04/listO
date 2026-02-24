@@ -216,4 +216,19 @@
   .mensaje-alerta-error {
     @apply bg-red-100 border-red-600 text-red-800;
   }
+
+  .img-no-implementado {
+    @apply w-87.5 h-87.5 md:w-125 md:h-125 xl:w-150 xl:h-150 object-contain;
+    animation: dogWork 3s ease-in-out infinite;
+  }
+
+  @keyframes dogWork {
+    0%,
+    100% {
+      transform: rotate(-2deg) translateY(0);
+    }
+    50% {
+      transform: rotate(2deg) translateY(-8px);
+    }
+  }
 }
