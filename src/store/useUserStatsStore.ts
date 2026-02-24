@@ -41,25 +41,25 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioMes),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioMes),
       ]);
@@ -110,7 +110,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       const { count, error } = await supabase
         .from("items")
         .select("*", { count: "exact", head: true })
-        .eq("usuario_id", usuarioId)
+        .eq("id_usuario", usuarioId)
         .gte("created_at", fechaInicio)
         .lte("created_at", fechaFin);
 
@@ -127,6 +127,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
   fetchItemsTotales: async () => {
     const usuarioId = useAuthStore.getState().user?.id;
+    console.log(usuarioId);
     if (!usuarioId) return 0;
 
     set({ loading: true });
@@ -134,7 +135,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       const { count, error } = await supabase
         .from("items")
         .select("*", { count: "exact", head: true })
-        .eq("usuario_id", usuarioId);
+        .eq("id_usuario", usuarioId);
 
       if (error) throw error;
       return count || 0;
@@ -164,7 +165,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
           )
         `,
         )
-        .eq("usuario_id", usuarioId);
+        .eq("id_usuario", usuarioId);
 
       if (error) throw error;
 
@@ -203,18 +204,22 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
     }
   },
   fetchTopPorTipo: async (tipoNombre: string) => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
     set({ loading: true });
     try {
       const { data, error } = await supabase
         .from("items")
         .select(
           `
-        id,
+        id_item,
         nombre,
         valoracion,
         tipo (nombre)
       `,
         )
+        .eq("id_usuario", usuarioId)
         .eq("tipo.nombre", tipoNombre)
         .order("valoracion", { ascending: false })
         .limit(3);
