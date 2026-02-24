@@ -12,7 +12,9 @@ import { useEffect, useState } from "react";
 import type { RegistroMensualItemsUsuarios } from "../../interfaces/Charts";
 
 const RegistroItems = () => {
-  const { fetchRegistroAnual } = useUserStatsStore();
+  const fetchRegistroAnual = useUserStatsStore(
+    (state) => state.fetchRegistroAnual,
+  );
   const [datosRegistroItems, setDatosRegistroItems] = useState<
     RegistroMensualItemsUsuarios[]
   >([]);
@@ -30,6 +32,8 @@ const RegistroItems = () => {
     cargarDatosAnuales();
   }, [fetchRegistroAnual]);
 
+  console.log(datosRegistroItems);
+
   return (
     <div className="p-10 bg-white rounded-sm shadow-elevation-3 flex flex-col gap-10">
       <h2 className="text-primary-700">Registro anual de Items</h2>
@@ -41,7 +45,7 @@ const RegistroItems = () => {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="usuarios"
+            dataKey="items subidos"
             stroke="#7b8ff7"
             strokeWidth={2}
           />

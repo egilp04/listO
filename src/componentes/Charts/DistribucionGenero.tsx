@@ -19,7 +19,9 @@ const COLORS = [
 ];
 
 export default function DistribucionGeneros() {
-  const { fetchDistribucionGeneros } = useAdminStatsStore();
+  const fetchDistribucionGeneros = useAdminStatsStore(
+    (state) => state.fetchDistribucionGeneros,
+  );
   const [data, setData] = useState<{ name: string; value: number }[]>([]);
 
   useEffect(() => {

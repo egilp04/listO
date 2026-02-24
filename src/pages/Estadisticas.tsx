@@ -9,6 +9,7 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import Select from "../componentes/Inputs/Select";
+import RegistroItems from "../componentes/Charts/RegistroItems";
 
 const Estadisticas = () => {
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
@@ -198,6 +199,7 @@ const Estadisticas = () => {
             </div>
           </div>
         </div>
+        <RegistroItems></RegistroItems>
       </div>
     </>
   );

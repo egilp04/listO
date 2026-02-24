@@ -12,7 +12,9 @@ import { useEffect, useState } from "react";
 import type { RegistroMensual } from "../../interfaces/Charts";
 
 export default function RegistroUsuarios() {
-  const { fetchRegistroAnual } = useAdminStatsStore();
+  const fetchRegistroAnual = useAdminStatsStore(
+    (state) => state.fetchRegistroAnual,
+  );
   const [datosRegistroUser, setDatosRegistroUser] = useState<RegistroMensual[]>(
     [],
   );
