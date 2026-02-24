@@ -15,6 +15,7 @@ const EstadisticasGlobales = () => {
   const fetchTarjetasEstadisticas = useAdminStatsStore(
     (state) => state.fetchTarjetasEstadisticas,
   );
+
   const fetchUsuariosPorMes = useAdminStatsStore(
     (state) => state.fetchUsuariosPorMes,
   );

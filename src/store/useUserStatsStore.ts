@@ -19,7 +19,7 @@ interface UserStatsState {
   fetchTarjetasEstadisticasTop: () => Promise<TarjetaEstadisticasTop[]>;
   fetchItemsPorMes: (mes: string) => Promise<number>;
   fetchItemsTotales: () => Promise<number>;
-  fetchRegistroAnual: () => Promise<RegistroMensualItemsUsuarios[]>;
+  fetchTopPorTipo: (tipoNombre: string) => Promise<TarjetaEstadisticasTop[]>;
 }
 
 export const useUserStatsStore = create<UserStatsState>((set) => ({
@@ -43,25 +43,25 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "libro")
           .gte("created_at", inicioMes),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioAnio),
         supabase
           .from("items")
           .select("*, tipo!inner(nombre)", { count: "exact", head: true })
-          .eq("usuario_id", usuarioId)
+          .eq("id_usuario", usuarioId)
           .eq("tipo.nombre", "videojuego")
           .gte("created_at", inicioMes),
       ]);
@@ -112,7 +112,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       const { count, error } = await supabase
         .from("items")
         .select("*", { count: "exact", head: true })
-        .eq("usuario_id", usuarioId)
+        .eq("id_usuario", usuarioId)
         .gte("created_at", fechaInicio)
         .lte("created_at", fechaFin);
 
@@ -129,6 +129,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
   fetchItemsTotales: async () => {
     const usuarioId = useAuthStore.getState().user?.id;
+    console.log(usuarioId);
     if (!usuarioId) return 0;
 
     set({ loading: true });
@@ -136,7 +137,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       const { count, error } = await supabase
         .from("items")
         .select("*", { count: "exact", head: true })
-        .eq("usuario_id", usuarioId);
+        .eq("id_usuario", usuarioId);
 
       if (error) throw error;
       return count || 0;
@@ -202,7 +203,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
           )
         `,
         )
-        .eq("usuario_id", usuarioId);
+        .eq("id_usuario", usuarioId);
 
       if (error) throw error;
 
@@ -234,6 +235,45 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       ];
     } catch (error) {
       console.error("Error al calcular el Top Géneros:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+  fetchTopPorTipo: async (tipoNombre: string) => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
+    set({ loading: true });
+    try {
+      const { data, error } = await supabase
+        .from("items")
+        .select(
+          `
+        id_item,
+        titulo,        
+        valoracion,
+        tipo (nombre)
+      `,
+        )
+        .eq("id_usuario", usuarioId)
+        .eq("tipo.nombre", tipoNombre)
+        .order("valoracion", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(3);
+
+      if (error) throw error;
+
+      return [
+        {
+          id: 1,
+          label: `Top 3 ${tipoNombre}s mejor valorados`,
+          value: data?.map((item) => item.titulo) || [],
+        },
+      ];
+    } catch (error) {
+      console.error("Error al obtener los mejores valorados:");
       if (error instanceof Error) console.log(error.stack);
       return [];
     } finally {
