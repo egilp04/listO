@@ -214,7 +214,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         .select(
           `
         id_item,
-        nombre,
+        titulo,        
         valoracion,
         tipo (nombre)
       `,
@@ -222,6 +222,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         .eq("id_usuario", usuarioId)
         .eq("tipo.nombre", tipoNombre)
         .order("valoracion", { ascending: false })
+        .order("created_at", { ascending: false })
         .limit(3);
 
       if (error) throw error;
@@ -230,7 +231,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         {
           id: 1,
           label: `Top 3 ${tipoNombre}s mejor valorados`,
-          value: data?.map((item) => item.nombre) || [],
+          value: data?.map((item) => item.titulo) || [],
         },
       ];
     } catch (error) {
