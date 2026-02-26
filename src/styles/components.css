@@ -5,7 +5,7 @@
 
   .btn-primario {
     @apply bg-primary-850  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700
-    dark:bg-primary-600 dark:text-black;
+      dark:bg-primary-1000 dark:border-primary-800 dark:text-primary-50;
   }
 
   .btn-secundario {
@@ -237,7 +237,7 @@
   }
 
   .navbar {
-    @apply relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0 dark:bg-primary-1000 dark:border-b-primary-1000;
+    @apply relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0 dark:bg-primary-900 dark:border-b-primary-1000;
   }
 
   .miperfil {
