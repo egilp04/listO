@@ -35,8 +35,10 @@ const RegistroItems = () => {
   console.log(datosRegistroItems);
 
   return (
-    <div className="p-10 bg-white rounded-sm shadow-elevation-3 flex flex-col gap-10">
-      <h2 className="text-primary-700">Registro anual de Items</h2>
+    <div className="p-10 bg-white dark:bg-primary-1000 rounded-sm shadow-elevation-3 flex flex-col gap-10 w-full">
+      <h2 className="text-primary-700 dark:text-primary-50">
+        Registro anual de Items
+      </h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={datosRegistroItems}>
           <CartesianGrid strokeDasharray="3 3" />
