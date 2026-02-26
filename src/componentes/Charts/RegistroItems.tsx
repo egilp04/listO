@@ -45,7 +45,7 @@ const RegistroItems = () => {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="items subidos"
+            dataKey="items"
             stroke="#7b8ff7"
             strokeWidth={2}
           />
