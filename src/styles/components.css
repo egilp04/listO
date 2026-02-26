@@ -149,7 +149,7 @@
   }
 
   .select-responsive {
-    @apply border border-primary-900 appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
+    @apply border border-primary-900 border-2 appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
     background-image: var(--select-icon);
     background-repeat: no-repeat;
     background-position: right 1rem center;
