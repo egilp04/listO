@@ -122,7 +122,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
   };
 
   return (
-    <form className="card-registro" {...props} onSubmit={handleSubmit}>
+    <form className="form-registro" {...props} onSubmit={handleSubmit}>
       <h2>Registro</h2>
 
       <div className="grid-registro">

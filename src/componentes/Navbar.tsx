@@ -3,6 +3,7 @@ import Button from "./Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
+import { ThemeToggle } from "./BotonClarOscuro";
 
 const Navbar = () => {
   const [close, setClose] = useState(true);
@@ -31,7 +32,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
+    <nav className="navbar">
       <div className="flex items-center gap-3">
         <NavLink
           to={estaLogueado ? "/biblioteca" : "/"}
@@ -45,14 +46,14 @@ const Navbar = () => {
           />
         </NavLink>
         {estaLogueado && (
-          <span className="text-base text-black font-medium">
+          <span className="text-base text-black font-medium dark:text-primary-50">
             Hola, {nombreUsuario}
           </span>
         )}
       </div>
-      <div className="lg:hidden block">
+      <div className="xl:hidden block">
         <span
-          className="material-symbols-outlined cursor-pointer text-7xl"
+          className="material-symbols-outlined cursor-pointer text-7xl dark:text-primary-50"
           onClick={handleClick}
         >
           menu
@@ -60,29 +61,40 @@ const Navbar = () => {
       </div>
       <div
         className={`${
-          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-        }  flex-col items-center gap-4 lg:mt-0 lg:flex lg:w-auto lg:flex-row`}
+          close
+            ? "hidden"
+            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-1000 p-4 z-50"
+        }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
       >
         <div className="botones-navbar">
           {estaLogueado && (
             <>
               <NavLink to="/biblioteca" className="nav-link">
                 {({ isActive }) => (
-                  <Button variant={isActive ? "primario" : "secundario"}>
+                  <Button
+                    variant={isActive ? "primario" : "secundario"}
+                    className="w-full"
+                  >
                     Mi Biblioteca
                   </Button>
                 )}
               </NavLink>
               <NavLink to="/estadisticas" end className="nav-link">
                 {({ isActive }) => (
-                  <Button variant={isActive ? "primario" : "secundario"}>
+                  <Button
+                    variant={isActive ? "primario" : "secundario"}
+                    className="w-full"
+                  >
                     Estadísticas
                   </Button>
                 )}
               </NavLink>
               <NavLink to="/miperfil" className="nav-link">
                 {({ isActive }) => (
-                  <Button variant={isActive ? "primario" : "secundario"}>
+                  <Button
+                    variant={isActive ? "primario" : "secundario"}
+                    className="w-full"
+                  >
                     Mi Perfil
                   </Button>
                 )}
@@ -91,14 +103,20 @@ const Navbar = () => {
                 <>
                   <NavLink to="/estadisticas/globales" className="nav-link">
                     {({ isActive }) => (
-                      <Button variant={isActive ? "primario" : "secundario"}>
+                      <Button
+                        variant={isActive ? "primario" : "secundario"}
+                        className="w-full"
+                      >
                         Estadísticas Globales
                       </Button>
                     )}
                   </NavLink>
                   <NavLink to="/gestion" className="nav-link">
                     {({ isActive }) => (
-                      <Button variant={isActive ? "primario" : "secundario"}>
+                      <Button
+                        variant={isActive ? "primario" : "secundario"}
+                        className="w-full"
+                      >
                         Gestión
                       </Button>
                     )}
@@ -113,25 +131,37 @@ const Navbar = () => {
             <>
               <NavLink to="/login" className="nav-link">
                 {({ isActive }) => (
-                  <Button variant={isActive ? "primario" : "secundario"}>
+                  <Button
+                    variant={isActive ? "primario" : "secundario"}
+                    className="w-full"
+                  >
                     Log in
                   </Button>
                 )}
               </NavLink>
               <NavLink to="/registro" className="nav-link">
                 {({ isActive }) => (
-                  <Button variant={isActive ? "primario" : "secundario"}>
+                  <Button
+                    variant={isActive ? "primario" : "secundario"}
+                    className="w-full"
+                  >
                     Registro
                   </Button>
                 )}
               </NavLink>
             </>
           ) : (
-            <Button variant="fantasma" onClick={handleLogout}>
+            <Button
+              variant="fantasma"
+              onClick={handleLogout}
+              className="w-full"
+            >
               Salir
             </Button>
           )}
         </div>
+        <ThemeToggle></ThemeToggle>
+        <ThemeToggle></ThemeToggle>
       </div>
     </nav>
   );

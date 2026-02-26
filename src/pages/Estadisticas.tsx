@@ -105,7 +105,7 @@ const Estadisticas = () => {
               />
             ))
           ) : (
-            <p className="col-span-full text-center text-gray-500">
+            <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
               Cargando estadísticas...
             </p>
           )}
@@ -129,16 +129,14 @@ const Estadisticas = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
-                Top Libros
-              </h3>
+              <h3 className=" font-bold ">Top Libros</h3>
             </div>
             <div className="flex flex-col gap-2">
               {topLibros.map((info) =>
@@ -153,14 +151,14 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">Top Juego</h3>
+              <h3 className="font-bold">Top Juego</h3>
             </div>
             <div className="flex flex-col gap-2">
               {topVideojuegos.map((info) =>
@@ -175,16 +173,14 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
-                Top Generos
-              </h3>
+              <h3 className="t font-bold">Top Generos</h3>
             </div>
             <div className="flex flex-col gap-2">
               {infoEstadisticasTopGenero.map((info) =>

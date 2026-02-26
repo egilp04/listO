@@ -1,25 +1,26 @@
 @layer base {
+  :root {
+    --select-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23524bb1' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  .dark {
+    --select-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23f9fbff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  }
+
   * {
     @apply m-0 p-0 box-border;
   }
 
   .material-symbols-outlined {
     font-family: "Material Symbols Outlined";
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
+    @apply font-normal not-italic text-[24px] leading-none tracking-normal inline-block whitespace-nowrap;
     font-variation-settings:
       "FILL" 0,
       "wght" 400,
       "GRAD" 0,
       "opsz" 24;
+    text-transform: none;
+    direction: ltr;
   }
 
   .icon-filled {
@@ -37,19 +38,19 @@
   }
 
   h1 {
-    @apply text-primary-700 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl;
+    @apply text-primary-975 font-Titulos font-medium text-4xl md:text-5xl lg:text-7xl dark:text-primary-50;
   }
 
   h2 {
-    @apply text-primary-700 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl;
+    @apply text-primary-950 font-Titulos font-medium text-3xl md:text-4xl lg:text-5xl  dark:text-primary-50;
   }
 
   h3 {
-    @apply text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl;
+    @apply text-primary-900 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl  dark:text-primary-50;
   }
 
   h4 {
-    @apply text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl;
+    @apply text-primary-900 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl  dark:text-primary-50;
   }
 
   span {
@@ -57,11 +58,12 @@
   }
 
   p {
-    @apply font-normal font-Otros text-sm md:text-lg lg:text-xl;
+    @apply font-normal text-primary-1100 font-Otros text-sm md:text-lg lg:text-xl dark:text-primary-50;
   }
 
   label {
-    @apply font-normal font-Otros text-sm md:text-base lg:text-xl;
+    @apply font-normal text-primary-1100 dark:text-primary-50 font-Otros text-sm md:text-base lg:text-xl
+   disabled:text-neutral-400 disabled:cursor-not-allowed;
   }
 
   *::-webkit-scrollbar {
@@ -77,10 +79,11 @@
   }
 
   *::-webkit-scrollbar-thumb {
-    @apply bg-primary-400 rounded-sm;
+    @apply bg-primary-400 rounded-sm  dark:text-primary-900;
   }
 
   *::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-700;
+    @apply bg-primary-800  dark:text-primary-1000;
   }
 }
+

@@ -18,14 +18,14 @@ const Biblioteca = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" bg-primary-200 p-5 md:p-10">
-      <h2 className="mb-10 text-center">Mi Biblioteca</h2>
+    <div className=" bg-primary-200 dark:bg-primary-1100 p-5 md:p-10">
+      <h1 className="mb-10 text-center">Mi Biblioteca</h1>
 
       <div className="flex justify-center mb-8">
         <Button onClick={() => navigate("/admin/items")}>Añadir</Button>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto">
+      <div className="bg-white  dark:bg-primary-900  rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto">
         <Input type="text" placeholder="Buscar nombre" />
         <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4">
           <Button>Todos</Button>
