@@ -85,7 +85,7 @@ export const Login_ChangePasswd = ({
               manejarError={manejarError}
             />
           </div>
-          <span className="text-sm mt-4 block text-center text-primary-900 dark:text-primary-50">
+          <span className="text-sm font-medium mt-4 block text-center text-black dark:text-primary-50">
             ¿Has olvidado la contraseña? Pulse{" "}
             <Link
               to="/recuperar"
