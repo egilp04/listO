@@ -1,38 +1,35 @@
 import { useState, useEffect } from "react";
+import { useThemeStore } from "../store/useThemeStore";
 
 export const ThemeToggle = () => {
-  // 1. Estado inicial
+  const setTema = useThemeStore((state) => state.setTema);
+
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
       return savedTheme;
     }
-    // ¿El sistema tiene el modo oscuro?
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light"; // Por defecto
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   });
 
-  // 2. Cada vez que 'theme' cambia, actualizamos el DOM y localStorage
   useEffect(() => {
     const root = window.document.documentElement;
-
     if (theme === "dark") {
       root.classList.add("dark");
       localStorage.setItem("theme", "dark");
+      setTema("dark");
     } else {
       root.classList.remove("dark");
       localStorage.setItem("theme", "light");
+      setTema("light");
     }
-  }, [theme]);
+  }, [theme, setTema]);
 
-  // 3. Función para alternar
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
-
   return (
     <button
       onClick={toggleTheme}

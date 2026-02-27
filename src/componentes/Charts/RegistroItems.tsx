@@ -10,8 +10,11 @@ import {
 import { useUserStatsStore } from "../../store/useUserStatsStore";
 import { useEffect, useState } from "react";
 import type { RegistroMensualItemsUsuarios } from "../../interfaces/Charts";
+import { useThemeStore } from "../../store/useThemeStore";
 
 const RegistroItems = () => {
+  const tema = useThemeStore((state) => state.tema);
+
   const fetchRegistroAnual = useUserStatsStore(
     (state) => state.fetchRegistroAnual,
   );
@@ -32,7 +35,8 @@ const RegistroItems = () => {
     cargarDatosAnuales();
   }, [fetchRegistroAnual]);
 
-  console.log(datosRegistroItems);
+  // console.log(datosRegistroItems);
+  const lineStroke = tema == "dark" ? "f9fcff" : "7b8ff7";
 
   return (
     <div className="p-10 bg-white dark:bg-primary-1000 rounded-sm shadow-elevation-3 flex flex-col gap-10 w-full">
@@ -48,7 +52,7 @@ const RegistroItems = () => {
           <Line
             type="monotone"
             dataKey="items"
-            stroke="#7b8ff7"
+            stroke={lineStroke}
             strokeWidth={2}
           />
         </LineChart>
