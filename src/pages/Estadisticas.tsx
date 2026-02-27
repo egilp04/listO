@@ -116,10 +116,8 @@ const Estadisticas = () => {
           numero={itemsTotales}
         />
 
-        <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
-          <h2 className="text-primary-600 text-2xl font-bold">
-            Completados por mes (2026) {conteoItems}
-          </h2>
+        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
+          <h2>Completados por mes este año: {conteoItems}</h2>
           <Select
             variant="primario"
             options={meses}
