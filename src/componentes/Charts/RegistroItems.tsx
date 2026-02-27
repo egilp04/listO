@@ -36,7 +36,7 @@ const RegistroItems = () => {
   }, [fetchRegistroAnual]);
 
   // console.log(datosRegistroItems);
-  const lineStroke = tema == "dark" ? "f9fcff" : "7b8ff7";
+  const lineStroke = tema == "dark" ? "#f9fcff" : "#7b8ff7";
 
   return (
     <div className="p-10 bg-white dark:bg-primary-1000 rounded-sm shadow-elevation-3 flex flex-col gap-10 w-full">

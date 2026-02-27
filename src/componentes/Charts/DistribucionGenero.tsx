@@ -8,21 +8,19 @@ import {
 } from "recharts";
 import { useAdminStatsStore } from "../../store/useAdminStatsStore";
 import { useEffect, useState } from "react";
-
-const COLORS = [
-  "#3b82f6",
-  "#10b981",
-  "#f59e0b",
-  "#ef4444",
-  "#8b5cf6",
-  "#ec4899",
-];
+import { useThemeStore } from "../../store/useThemeStore";
 
 export default function DistribucionGeneros() {
   const fetchDistribucionGeneros = useAdminStatsStore(
     (state) => state.fetchDistribucionGeneros,
   );
   const [data, setData] = useState<{ name: string; value: number }[]>([]);
+  const tema = useThemeStore((state) => state.tema);
+
+  const COLORS =
+    tema === "dark"
+      ? ["#b3c5ff", "#8efad4", "#ffe6a5", "#ffb3b3", "#d1b3ff", "#ffb3e6"]
+      : ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
 
   useEffect(() => {
     const cargar = async () => {
