@@ -37,6 +37,7 @@ const RegistroItems = () => {
 
   // console.log(datosRegistroItems);
   const lineStroke = tema == "dark" ? "#f9fcff" : "#7b8ff7";
+  const GeneralStroke = tema == "dark" ? "#f9fcff" : "#645fd5";
 
   return (
     <div className="p-10 bg-white dark:bg-primary-1000 rounded-sm shadow-elevation-3 flex flex-col gap-10 w-full">
@@ -45,10 +46,19 @@ const RegistroItems = () => {
       </h2>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={datosRegistroItems}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <CartesianGrid strokeDasharray="3 3" stroke={GeneralStroke} />
+          <XAxis dataKey="name" stroke={GeneralStroke} />
+          <YAxis stroke={GeneralStroke} />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: tema === "dark" ? "#302976" : "#f9fcff",
+              borderColor: GeneralStroke,
+              color: tema === "dark" ? "#f9fcff" : "#302976",
+              borderRadius: "4px",
+            }}
+            itemStyle={{ color: tema === "dark" ? "#accbff" : "#302976" }}
+            cursor={{ stroke: GeneralStroke, strokeWidth: 1 }}
+          />
           <Line
             type="monotone"
             dataKey="items"
