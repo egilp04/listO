@@ -9,6 +9,7 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import Select from "../componentes/Inputs/Select";
+import RegistroItems from "../componentes/Charts/RegistroItems";
 
 const Estadisticas = () => {
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
@@ -93,7 +94,7 @@ const Estadisticas = () => {
   return (
     <>
       <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
-        <h2 className="flex justify-center">Estadísticas</h2>
+        <h1 className="flex justify-center">Estadísticas</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -104,7 +105,7 @@ const Estadisticas = () => {
               />
             ))
           ) : (
-            <p className="col-span-full text-center text-gray-500">
+            <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
               Cargando estadísticas...
             </p>
           )}
@@ -115,10 +116,8 @@ const Estadisticas = () => {
           numero={itemsTotales}
         />
 
-        <div className="bg-white rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
-          <h2 className="text-primary-600 text-2xl font-bold">
-            Completados por mes (2026) {conteoItems}
-          </h2>
+        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
+          <h2>Completados por mes este año: {conteoItems}</h2>
           <Select
             variant="primario"
             options={meses}
@@ -128,16 +127,14 @@ const Estadisticas = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
-                Top Libros
-              </h3>
+              <h3 className=" font-bold ">Top Libros</h3>
             </div>
             <div className="flex flex-col gap-2">
               {topLibros.map((info) =>
@@ -152,14 +149,14 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">Top Juego</h3>
+              <h3 className="font-bold">Top Juego</h3>
             </div>
             <div className="flex flex-col gap-2">
               {topVideojuegos.map((info) =>
@@ -174,16 +171,14 @@ const Estadisticas = () => {
             </div>
           </div>
 
-          <div className="bg-primary-50 rounded-xl p-6 shadow-sm space-y-4">
+          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-warning-400 p-1 rounded-md">
                 <span className="material-symbols-outlined icon-filled text-white">
                   star
                 </span>
               </div>
-              <h3 className="text-primary-600 text-2xl font-bold">
-                Top Generos
-              </h3>
+              <h3 className="t font-bold">Top Generos</h3>
             </div>
             <div className="flex flex-col gap-2">
               {infoEstadisticasTopGenero.map((info) =>
@@ -198,6 +193,7 @@ const Estadisticas = () => {
             </div>
           </div>
         </div>
+        <RegistroItems></RegistroItems>
       </div>
     </>
   );

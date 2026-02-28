@@ -155,8 +155,8 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
   };
   return (
     <div className="flex justify-center w-full p-4">
-      <form className="card-genero" {...props} onSubmit={handleSubmit}>
-        <h3 className="titulo-genero">{titulo}</h3>
+      <form className="form-genero" {...props} onSubmit={handleSubmit}>
+        <h2 className="text-center">{titulo}</h2>
         <div className="form-body">
           <Inputs
             label="Nombre"
@@ -171,9 +171,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
           />
 
           <div className="seccion-tipo">
-            <label className="font-normal font-Otros text-sm md:text-base text-black">
-              Tipo:
-            </label>
+            <label className="font-Otros  dark:text-primary-50">Tipo:</label>
             <div className="flex flex-col gap-1 ml-1">
               <Checkbox
                 manejarCambio={manejarCambio}
@@ -191,7 +189,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
               />
             </div>
             {errores.tipoItem == true && (
-              <span className="text-red-500">
+              <span className="text-red-500 dark:text-red-100">
                 Debe seleccionar al menos un tipo
               </span>
             )}

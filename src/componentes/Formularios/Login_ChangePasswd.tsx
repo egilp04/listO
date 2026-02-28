@@ -10,8 +10,11 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   login: boolean;
 }
 
-export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) => {
-
+export const Login_ChangePasswd = ({
+  error,
+  login,
+  ...props
+}: RegistroProps) => {
   const navigate = useNavigate();
   const { login: loginAction, error: authError } = useAuthStore();
 
@@ -24,7 +27,9 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
 
   const texto = login ? "Login" : "Enviar";
 
-  const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>({});
+  const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
+    {},
+  );
 
   const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,7 +56,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
   };
 
   return (
-    <form className="card-login_passwd" {...props}>
+    <form className="form-login_passwd" {...props}>
       {login ? (
         <>
           <h2>Inicio Sesión</h2>
@@ -61,18 +66,30 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
               label="Usuario"
               type="text"
               placeholder="Ej: enrique@gmail.com"
-              name="email" error={"Formato de email incorrecto"} regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/} value={formData.email} manejarCambio={manejarCambio} manejarError={manejarError} />
+              name="email"
+              error={"Formato de email incorrecto"}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
             <Inputs
               label="Contraseña"
               type="password"
               placeholder="********"
-              name="passwd" error={"Debe coincidir con la contraseña"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
+              name="passwd"
+              error={"Debe coincidir con la contraseña"}
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
+              value={formData.passwd}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
           </div>
-          <span className="text-sm mt-4 block text-center">
+          <span className="text-sm font-medium mt-4 block text-center text-black dark:text-primary-50">
             ¿Has olvidado la contraseña? Pulse{" "}
             <Link
               to="/recuperar"
-              className="text-primary-600 font-bold hover:underline cursor-pointer"
+              className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
             >
               AQUÍ
             </Link>
@@ -83,38 +100,51 @@ export const Login_ChangePasswd = ({ error, login, ...props }: RegistroProps) =>
           <h2>Recuperar Contraseña</h2>
 
           <div className="flex-login-passwd">
-
             <Inputs
               label="Usuario"
               type="text"
               placeholder="Ej: enrique@gmail.com"
-              name="email" error={"Formato de email incorrecto"}
+              name="email"
+              error={"Formato de email incorrecto"}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
               value={formData.email}
               manejarCambio={manejarCambio}
-              manejarError={manejarError} />
-              
+              manejarError={manejarError}
+            />
+
             <Inputs
               label="Nueva Contraseña"
               type="password"
               placeholder="********"
-              name="nueva_passwd" error={"La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"} regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/} value={formData.nueva_passwd} manejarCambio={manejarCambio} manejarError={manejarError} />
-
+              name="nueva_passwd"
+              error={
+                "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+              }
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
+              value={formData.nueva_passwd}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
             <Inputs
               label="Confirmar Contraseña"
-              type="password" placeholder="********"
-              name="confirm_passwd" error={"Las contraseñas no coinciden"}
+              type="password"
+              placeholder="********"
+              name="confirm_passwd"
+              error={"Las contraseñas no coinciden"}
               regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
               value={formData.confirm_passwd}
               manejarCambio={manejarCambio}
-              manejarError={manejarError} />
+              manejarError={manejarError}
+            />
           </div>
         </>
       )}
 
       <Button onClick={handleClick}>{texto}</Button>
 
-      {(error || authError) && <p className="span-error mt-1 h-4">{error || authError}</p>}
+      {(error || authError) && (
+        <p className="span-error mt-1 h-4">{error || authError}</p>
+      )}
     </form>
   );
 };

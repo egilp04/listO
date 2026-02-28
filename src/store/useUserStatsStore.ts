@@ -10,6 +10,8 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import { useAuthStore } from "./useAuthStore";
+import { meses } from "../utils/constants/Meses";
+import type { RegistroMensualItemsUsuarios } from "../interfaces/Charts";
 
 interface UserStatsState {
   loading: boolean;
@@ -18,6 +20,7 @@ interface UserStatsState {
   fetchItemsPorMes: (mes: string) => Promise<number>;
   fetchItemsTotales: () => Promise<number>;
   fetchTopPorTipo: (tipoNombre: string) => Promise<TarjetaEstadisticasTop[]>;
+  fetchRegistroAnual: () => Promise<RegistroMensualItemsUsuarios[]>;
 }
 
 export const useUserStatsStore = create<UserStatsState>((set) => ({
@@ -236,6 +239,48 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       ];
     } catch (error) {
       console.error("Error al obtener los mejores valorados:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchRegistroAnual: async () => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
+    set({ loading: true });
+    try {
+      const anioActual = new Date().getFullYear();
+
+      const { data, error } = await supabase
+        .from("items")
+        .select("created_at")
+        .eq("id_usuario", usuarioId)
+        .gte("created_at", `${anioActual}-01-01`)
+        .lte("created_at", `${anioActual}-12-31`);
+      if (error) throw error;
+
+      const conteoMeses: { [mes: string]: number } = {};
+      meses.forEach((m) => {
+        conteoMeses[m.label] = 0;
+      });
+
+      console.log(data);
+
+      data?.forEach((item) => {
+        const fecha = new Date(item.created_at);
+        const nombreMes = meses[fecha.getMonth()].label;
+        conteoMeses[nombreMes]++;
+      });
+
+      return meses.map((m) => ({
+        name: m.label,
+        items: conteoMeses[m.label],
+      }));
+    } catch (error) {
+      console.error("Error en fetchRegistroAnual:");
       if (error instanceof Error) console.log(error.stack);
       return [];
     } finally {

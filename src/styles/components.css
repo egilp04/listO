@@ -4,19 +4,23 @@
   }
 
   .btn-primario {
-    @apply bg-primary-700 text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700;
+    @apply bg-primary-850  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700
+      dark:bg-primary-1000 dark:border-primary-800 dark:text-primary-50;
   }
 
   .btn-secundario {
-    @apply bg-neutral-200 text-black hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-100 focus:ring-neutral-400;
+    @apply bg-neutral-200 text-black hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-100 focus:ring-neutral-400
+    dark:bg-neutral-100;
   }
 
   .btn-fantasma {
-    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700;
+    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700
+    dark:bg-primary-400 dark:text-primary-900;
   }
 
   .card-biblioteca {
-    @apply flex flex-col bg-white rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-75 hover:scale-105 transition-transform duration-300;
+    @apply flex flex-col bg-primary-50 rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-75 hover:scale-105 transition-transform duration-300
+     dark:bg-primary-900;
   }
 
   .card-landing.invertido {
@@ -24,27 +28,27 @@
   }
 
   .card-estadistica {
-    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5;
-  }
-
-  .card-landing.invertido {
-    @apply md:flex-row-reverse;
+    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3
+    cursor-pointer  dark:bg-primary-850 dark:border-primary-900;
   }
 
   .card-estadistica-t {
-    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-700 text-primary-700 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2;
+    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 
+  cursor-pointer hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .card-landing {
-    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3;
+    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3
+    dark:bg-primary-900 dark:border-primary-1000;
   }
 
   .card-estadistica-g {
-    @apply bg-primary-500 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5;
+    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5  
+  cursor-pointer hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .botones-navbar {
-    @apply flex flex-col lg:flex-row gap-2 w-full lg:w-auto justify-center;
+    @apply flex flex-col xl:flex-row gap-2 w-full xl:w-auto justify-center;
   }
 
   .nav-link {
@@ -56,7 +60,7 @@
   }
 
   .rows-table {
-    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row;
+    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-0 pl-6 pr-6;
   }
 
   .dialog {
@@ -80,15 +84,15 @@
   }
 
   .numero-estadisticas-total {
-    @apply bg-primary-50 text-primary-700 h-full w-3 rounded-sm p-2 text-center flex justify-center items-center;
+    @apply bg-primary-50 text-primary-700  dark:text-white h-full w-3 rounded-sm p-2 text-center flex justify-center items-center;
   }
 
   .tarjeta-individual-estadisticas {
-    @apply bg-primary-50 text-primary-700 flex flex-col p-1 md:gap-2 border border-primary-700;
+    @apply bg-primary-50 text-primary-700  dark:text-white flex flex-col p-1 md:gap-2 border border-primary-700;
   }
 
   .numero-estadistica-individual {
-    @apply w-auto bg-primary-300 p-2 rounded-sm text-primary-700 h-full text-center flex justify-center items-center;
+    @apply w-auto bg-primary-300 p-2 rounded-sm text-primary-700  dark:text-white h-full text-center flex justify-center items-center;
   }
 
   .input-responsive {
@@ -107,28 +111,24 @@
     @apply bg-gray-100 border-neutral-300 cursor-not-allowed !text-neutral-400;
   }
 
-  .label-disabled {
-    @apply text-neutral-400 cursor-not-allowed;
-  }
-
   .input-border-primario {
-    @apply border-primary-500 hover:border-primary-600 focus:border-primary-700;
+    @apply border-primary-900 hover:border-primary-1000 focus:border-primary-700 dark:border-primary-50 hover:dark:border-primary-500 focus:dark:border-primary-50;
   }
 
   .input-border-info {
-    @apply border-info-500 hover:border-info-600 focus:border-info-700;
+    @apply border-info-500 hover:border-info-600 focus:border-info-700 dark:border-primary-50 hover:dark:border-primary-500 focus:dark:border-primary-50;
   }
 
   .input-error {
-    @apply border border-danger-500;
+    @apply border border-danger-500 dark:border-danger-300 dark:border-2;
   }
 
   .input-valido {
-    @apply border border-success-500;
+    @apply border border-success-500 dark:border-success-300 dark:border-2;
   }
 
   .span-error {
-    @apply text-danger-500 text-xs font-Otros;
+    @apply text-danger-500 text-xs font-Otros dark:text-danger-300;
   }
 
   .checkbox-container {
@@ -136,7 +136,8 @@
   }
 
   .checkbox-input {
-    @apply rounded border-gray-300 text-primary-600 focus:ring-primary-500 transition-all;
+    @apply rounded border-gray-300 text-primary-600 focus:ring-primary-500 transition-all
+    dark:text-primary-50 dark:focus:ring-primary-200;
   }
 
   .textarea-responsive {
@@ -148,35 +149,38 @@
   }
 
   .select-responsive {
-    @apply appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    @apply border border-primary-900 border-2 appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
+    background-image: var(--select-icon);
     background-repeat: no-repeat;
     background-position: right 1rem center;
     background-size: 1.5em 1.5em;
   }
 
   .select-color-text {
-    @apply text-transparent md:text-primary-600;
+    @apply !text-primary-900 dark:!text-primary-50;
   }
 
-  .card-registro {
-    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full min-h-100 p-6 gap-6 rounded-lg md:w-150 md:min-h-125 md:p-8 md:gap-8 md:rounded-xl lg:w-200 lg:min-h-150 lg:p-12 lg:gap-10;
+  .form-registro {
+    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full min-h-100 p-6 gap-6 rounded-lg md:w-150 md:min-h-125 md:p-8 md:gap-8 md:rounded-xl lg:w-200 lg:min-h-150 lg:p-12 lg:gap-10
+       dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
   }
 
   .grid-registro {
     @apply grid w-full grid-cols-1 gap-4 md:grid-cols-2 md:gap-6;
   }
 
-  .card-login_passwd {
-    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10;
+  .form-login_passwd {
+    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10
+    dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
   }
 
   .flex-login-passwd {
     @apply flex flex-col w-full gap-4 md:gap-6;
   }
 
-  .card-genero {
-    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8;
+  .form-genero {
+    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8
+    dark:bg-primary-900;
   }
 
   .header-genero {
@@ -188,7 +192,7 @@
   }
 
   .titulo-genero {
-    @apply w-full text-center font-bold text-primary-700 text-xl md:text-2xl lg:text-3xl;
+    @apply w-full text-center font-bold text-primary-700  dark:text-primary-50 text-xl md:text-2xl lg:text-3xl;
   }
 
   .form-body {
@@ -230,5 +234,44 @@
     50% {
       transform: rotate(2deg) translateY(-8px);
     }
+  }
+
+  .navbar {
+    @apply relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0 dark:bg-primary-900 dark:border-b-primary-1000;
+  }
+
+  .miperfil {
+    @apply bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4
+    dark:bg-primary-900 dark:text-primary-50;
+  }
+  @keyframes pulse-scale {
+    0%,
+    100% {
+      transform: scale(1) rotate(180deg);
+    }
+    50% {
+      transform: scale(1.5) rotate(180deg);
+    }
+  }
+
+  .animate-pulse-scale {
+    animation: pulse-scale 2s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  .text-shimmer {
+    background: linear-gradient(90deg, #f9fbff 25%, #8993ff 50%, #f9fbff 75%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s infinite linear;
   }
 }

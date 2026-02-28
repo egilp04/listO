@@ -36,17 +36,12 @@ function TextArea({
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <label
-        htmlFor={name}
-        className={disabled ? "label-disabled" : "text-black"}
-      >
-        {label}
-      </label>
+      <label htmlFor={name}>{label}</label>
       <textarea
         id={name}
         name={name}
         disabled={disabled}
-        className={`input-style-comun textarea-style textarea-responsive ${disabled ? "input-disabled cursor-not-allowed" : `cursor-text  ${colorClass}`}`}
+        className={`dark:text-primary-50 input-style-comun textarea-style textarea-responsive ${disabled ? "input-disabled cursor-not-allowed" : `cursor-text  ${colorClass}`}`}
         {...props}
         onChange={handleChange}
       />

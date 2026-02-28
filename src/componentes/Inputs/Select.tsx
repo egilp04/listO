@@ -30,12 +30,16 @@ export default function Select({
         {...props}
         onChange={manejarambio}
       >
-        <option value="" disabled hidden>
+        <option value="" className="text-primary-900">
           Seleccionar
         </option>
 
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            key={option.value}
+            value={option.value}
+            className="dark:text-primary-50 dark:bg-primary-900 text-primary-900"
+          >
             {option.label}
           </option>
         ))}

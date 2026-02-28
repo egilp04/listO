@@ -4,12 +4,20 @@ import type {
   TarjetaEstadisticas,
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
+import { meses } from "../utils/constants/Meses";
+import type {
+  DistribucionGenero,
+  GeneroItemRelation,
+  RegistroMensual,
+} from "../interfaces/Charts";
 
 interface AdminStatsState {
   loading: boolean;
   fetchTarjetasEstadisticas: () => Promise<TarjetaEstadisticas[]>;
   fetchTarjetasEstadisticasTop: () => Promise<TarjetaEstadisticasTop[]>;
   fetchUsuariosPorMes: (mes: string) => Promise<number>;
+  fetchRegistroAnual: () => Promise<RegistroMensual[]>;
+  fetchDistribucionGeneros: () => Promise<DistribucionGenero[]>;
 }
 
 export const useAdminStatsStore = create<AdminStatsState>((set) => ({
@@ -139,6 +147,78 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       ];
     } catch (error) {
       console.error("Error al calcular el Top Géneros:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchRegistroAnual: async () => {
+    set({ loading: true });
+    try {
+      const anioActual = new Date().getFullYear();
+
+      const { data, error } = await supabase
+        .from("usuario")
+        .select("created_at")
+        .gte("created_at", `${anioActual}-01-01`)
+        .lte("created_at", `${anioActual}-12-31`);
+      if (error) throw error;
+
+      const conteoMeses: { [mes: string]: number } = {};
+      meses.forEach((m) => {
+        conteoMeses[m.label] = 0;
+      });
+
+      data?.forEach((user) => {
+        const fecha = new Date(user.created_at);
+        const nombreMes = meses[fecha.getMonth()].label;
+        conteoMeses[nombreMes]++;
+      });
+
+      return meses.map((m) => ({
+        name: m.label,
+        usuarios: conteoMeses[m.label],
+      }));
+    } catch (error) {
+      console.error("Error en fetchRegistroAnual:");
+      if (error instanceof Error) console.log(error.stack);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchDistribucionGeneros: async () => {
+    set({ loading: true });
+    try {
+      const { data, error } = await supabase.from("items").select(`
+        genero_item (
+          genero (
+            nombre
+          )
+        )
+      `);
+      if (error) throw error;
+      if (!data) return [];
+
+      const conteo: Record<string, number> = {};
+
+      data.forEach((item: any) => {
+        const generos = item.genero_item || [];
+        generos.forEach((gi: GeneroItemRelation) => {
+          const nombre = gi.genero?.nombre || "Sin Género";
+          conteo[nombre] = (conteo[nombre] || 0) + 1;
+        });
+      });
+
+      return Object.entries(conteo).map(([name, value]) => ({
+        name,
+        value,
+      }));
+    } catch (error) {
+      console.error("Error al recuperar distribución de géneros:");
       if (error instanceof Error) console.log(error.stack);
       return [];
     } finally {
