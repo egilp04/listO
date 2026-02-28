@@ -66,7 +66,11 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
         <span className="whitespace-nowrap dark:text-primary-50 ">
           INFORMACIÓN GENERAL:
         </span>
-        <Inputs />
+        <Inputs error={""} name={""} manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
+          throw new Error("Function not implemented.");
+        } } manejarError={function (nombre: string, error: boolean): void {
+          throw new Error("Function not implemented.");
+        } } />
       </div>
 
       <div className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
@@ -82,7 +86,9 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
               key={tipo}
               className="bg-primary-600 dark:bg-primary-850 rounded-lg p-2 w-full md:w-5/12 flex justify-center"
             >
-              <Checkbox label={tipo} colorTexto="text-white" />
+              <Checkbox label={tipo} manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
+                throw new Error("Function not implemented.");
+              } } />
             </div>
           ))}
         </div>
@@ -105,7 +111,9 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
               <div className="bg-primary-600 dark:bg-primary-850 text-white px-8 py-1 rounded-md text-lg min-w-150 text-center">
                 {genero}
               </div>
-              <Checkbox label="Descripción" />
+              <Checkbox label="Descripción" manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
+                throw new Error("Function not implemented.");
+              } } />
             </div>
           ))}
         </div>
