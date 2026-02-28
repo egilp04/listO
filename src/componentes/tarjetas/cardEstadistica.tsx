@@ -1,25 +1,29 @@
 import React from "react";
 
 interface CardEstadisticaProps {
-  imagen: string; // URL icon
+  imagen?: string; // URL icon
   numero: number | string;
   texto: string;
 }
 
 const CardEstadistica: React.FC<CardEstadisticaProps> = ({
-  imagen,
+  imagen = "src/assets/img/icons/star.webp",
   numero,
   texto,
 }) => {
   return (
     <div className="card-estadistica">
       <div className="flex justify-between items-start mb-2">
-        <h3>{numero}</h3>
+        <p className="bg-primary-100 rounded-lg px-3 py-1 text-primary-700 font-Titulos font-medium text-2xl md:text-3xl lg:text-4xl">
+          {numero}
+        </p>
         <div className="bg-primary-50 p-2 rounded-lg">
           <img src={imagen} alt="icon" className="w-8 h-8 object-contain" />
         </div>
       </div>
-      <h3>{texto}</h3>
+      <p className="text-primary-700 font-Titulos font-medium text-xl md:text-2xl lg:text-3xl">
+        {texto}
+      </p>
     </div>
   );
 };

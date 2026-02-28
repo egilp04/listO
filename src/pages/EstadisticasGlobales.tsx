@@ -13,6 +13,7 @@ const EstadisticasGlobales = () => {
   const fetchTarjetasEstadisticas = useAdminStatsStore(
     (state) => state.fetchTarjetasEstadisticas,
   );
+
   const fetchUsuariosPorMes = useAdminStatsStore(
     (state) => state.fetchUsuariosPorMes,
   );
@@ -72,9 +73,9 @@ const EstadisticasGlobales = () => {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
-        {infoTarjetaEstadistica.map(({ label, value }, index) => (
+        {infoTarjetaEstadistica.map(({ label, value, id }) => (
           <CardEstadisticaG
-            key={`est-num-${index}`}
+            key={`est-num-${id}`}
             texto={label}
             numero={value}
           ></CardEstadisticaG>
