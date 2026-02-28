@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
-import Table from "../componentes/Table";
 import { useEffect, useState } from "react";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+import { lazy, Suspense } from "react";
 
 const GestionAdmin = () => {
   const fetchGeneros = useGestionAdminStore((state) => state.fetchGeneros);
@@ -32,6 +32,8 @@ const GestionAdmin = () => {
   const handleFiltrar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValorFiltro(e.currentTarget.value);
   };
+
+  const Table = lazy(() => import("../componentes/Table"));
 
   return (
     <div className="flex flex-col gap-8 md:p-6 mg:gap-14 mb-12 2xl:gap-18">
@@ -69,7 +71,9 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-        <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
+        <Suspense fallback={<div>Cargando gráfico...</div>}>
+          <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
+        </Suspense>
       </div>
     </div>
   );

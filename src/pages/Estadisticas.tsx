@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { useState, useEffect } from "react";
 import CardEstadistica from "../componentes/tarjetas/cardEstadistica";
 import CardEstadisticaG from "../componentes/tarjetas/cardEstadisticaG";
@@ -9,7 +10,6 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import Select from "../componentes/Inputs/Select";
-import RegistroItems from "../componentes/Charts/RegistroItems";
 
 const Estadisticas = () => {
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
@@ -90,6 +90,10 @@ const Estadisticas = () => {
     };
     cargatItems();
   }, [fetchItemsTotales]);
+
+  const RegistroItems = lazy(
+    () => import("../componentes/Charts/RegistroItems"),
+  );
 
   return (
     <>
@@ -193,7 +197,9 @@ const Estadisticas = () => {
             </div>
           </div>
         </div>
-        <RegistroItems></RegistroItems>
+        <Suspense fallback={<div>Cargando gráfico...</div>}>
+          <RegistroItems></RegistroItems>
+        </Suspense>
       </div>
     </>
   );

@@ -8,7 +8,6 @@ import card3 from "../assets/img/cards/carta_landing3.webp";
 import card4 from "../assets/img/cards/carta_landing4.webp";
 import card5 from "../assets/img/cards/carta_landing5.webp";
 import heroLight from "../assets/img/cards/landing-hero-light.webp";
-// import heroDark from "../assets/img/cards/landing-hero-dark.webp";
 
 const Landing = () => {
   const featureImage1 = card1;

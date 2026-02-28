@@ -8,8 +8,7 @@ import type {
   TarjetaEstadisticas,
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
-import RegistroUsuarios from "../componentes/Charts/RegistroUsuarios";
-import DistribucionGeneros from "../componentes/Charts/DistribucionGenero";
+import { lazy, Suspense } from "react";
 
 const EstadisticasGlobales = () => {
   const fetchTarjetasEstadisticas = useAdminStatsStore(
@@ -60,6 +59,14 @@ const EstadisticasGlobales = () => {
     cargarUsuarios();
   }, [mesSeleccionado, fetchUsuariosPorMes]);
 
+  const RegistroUsuarios = lazy(
+    () => import("../componentes/Charts/RegistroUsuarios"),
+  );
+
+  const DistribucionGeneros = lazy(
+    () => import("../componentes/Charts/DistribucionGenero"),
+  );
+
   return (
     <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
       <h1 className="flex justify-center">Estadísticas Globales</h1>
@@ -108,8 +115,12 @@ const EstadisticasGlobales = () => {
           </div>
         </div>
       </div>
-      <RegistroUsuarios></RegistroUsuarios>
-      <DistribucionGeneros></DistribucionGeneros>
+      <Suspense fallback={<div>Cargando gráfico...</div>}>
+        <RegistroUsuarios></RegistroUsuarios>
+      </Suspense>
+      <Suspense fallback={<div>Cargando gráfico...</div>}>
+        <DistribucionGeneros></DistribucionGeneros>
+      </Suspense>
     </div>
   );
 };

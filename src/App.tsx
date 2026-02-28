@@ -89,7 +89,7 @@ function App() {
     // Forzamos un tiempo mínimo de carga de 3 segundos
     const timer = setTimeout(() => {
       setMinLoadingTime(false);
-    }, 3000);
+    }, 1000);
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
