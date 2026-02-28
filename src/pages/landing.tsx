@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
@@ -11,6 +14,34 @@ import heroLight from "../assets/img/cards/landing-hero-light.webp";
 // import heroDark from "../assets/img/cards/landing-hero-dark.webp";
 
 const Landing = () => {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+
+      const cards = gsap.utils.toArray<HTMLElement>(".card-landing");
+
+      cards.forEach((card) => {
+
+        const isInvertido = card.getAttribute("data-invertido") === "true";
+
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          x: isInvertido ? 100 : -100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   const featureImage1 = card1;
   const featureImage2 = card2;
   const featureImage3 = card3;
@@ -18,7 +49,7 @@ const Landing = () => {
   const featureImage5 = card5;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
         <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
           <h1>El espacio para tus historias</h1>
