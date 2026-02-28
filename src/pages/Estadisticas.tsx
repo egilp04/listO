@@ -94,7 +94,7 @@ const Estadisticas = () => {
   return (
     <>
       <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
-        <h2 className="flex justify-center">Estadísticas</h2>
+        <h1 className="flex justify-center">Estadísticas</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
