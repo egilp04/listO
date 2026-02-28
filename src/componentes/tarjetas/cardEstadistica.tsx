@@ -14,12 +14,16 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
   return (
     <div className="card-estadistica">
       <div className="flex justify-between items-start mb-2">
-        <h3>{numero}</h3>
+        <h3 className="animate-aparicion">{numero}</h3>
         <div className="bg-primary-50 p-2 rounded-lg">
-          <img src={imagen} alt="icon" className="w-8 h-8 object-contain" />
+          <img
+            src={imagen}
+            alt="icon"
+            className="w-8 h-8 object-contain animate-aparicion-giro"
+          />
         </div>
       </div>
-      <h3>{texto}</h3>
+      <h3 className="animate-aparicion">{texto}</h3>
     </div>
   );
 };
