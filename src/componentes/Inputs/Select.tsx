@@ -22,11 +22,11 @@ export default function Select({
   const colorClass = `input-border-${variant}`;
 
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-0.5 w-fit">
       <select
         value={value}
         disabled={disabled}
-        className={`select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
+        className={`w-fit min-w-[120px] select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
         {...props}
         onChange={manejarambio}
       >
