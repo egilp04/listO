@@ -195,7 +195,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         {
           id: 1,
           label: "Géneros más comunes",
-          value: topGeneros.length > 0 ? topGeneros : ["Sin datos"],
+          value: topGeneros.length > 0 ? topGeneros : [],
         },
       ];
     } catch (error) {
