@@ -11,7 +11,10 @@ import type {
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import { useAuthStore } from "./useAuthStore";
 import { meses } from "../utils/constants/Meses";
-import type { RegistroMensualItemsUsuarios } from "../interfaces/Charts";
+import type {
+  RegistroMensualItemsTipoUsuarios,
+  RegistroMensualItemsUsuarios,
+} from "../interfaces/Charts";
 
 interface UserStatsState {
   loading: boolean;
@@ -21,6 +24,7 @@ interface UserStatsState {
   fetchItemsTotales: () => Promise<number>;
   fetchTopPorTipo: (tipoNombre: string) => Promise<TarjetaEstadisticasTop[]>;
   fetchRegistroAnual: () => Promise<RegistroMensualItemsUsuarios[]>;
+  fetchRegistroTipoAnual: () => Promise<RegistroMensualItemsTipoUsuarios[]>;
 }
 
 export const useUserStatsStore = create<UserStatsState>((set) => ({
@@ -90,8 +94,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         },
       ];
     } catch (error) {
-      console.error("Error al recuperar contadores de ítems:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error al recuperar contadores de ítems:", error);
       return [];
     } finally {
       set({ loading: false });
@@ -120,8 +123,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       if (error) throw error;
       return count || 0;
     } catch (error) {
-      console.error("Error en fetchItemsPorMes:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error en fetchItemsPorMes:", error);
       return 0;
     } finally {
       set({ loading: false });
@@ -130,7 +132,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
   fetchItemsTotales: async () => {
     const usuarioId = useAuthStore.getState().user?.id;
-    console.log(usuarioId);
     if (!usuarioId) return 0;
 
     set({ loading: true });
@@ -143,8 +144,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       if (error) throw error;
       return count || 0;
     } catch (error) {
-      console.error("Error al calcular ítems totales:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error al calcular ítems totales:", error);
       return 0;
     } finally {
       set({ loading: false });
@@ -199,8 +199,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         },
       ];
     } catch (error) {
-      console.error("Error al calcular el Top Géneros:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error al calcular el Top Géneros:", error);
       return [];
     } finally {
       set({ loading: false });
@@ -217,7 +216,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         .select(
           `
         id_item,
-        titulo,        
+        titulo,
         valoracion,
         tipo (nombre)
       `,
@@ -238,8 +237,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         },
       ];
     } catch (error) {
-      console.error("Error al obtener los mejores valorados:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error al obtener los mejores valorados:", error);
       return [];
     } finally {
       set({ loading: false });
@@ -253,7 +251,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
     set({ loading: true });
     try {
       const anioActual = new Date().getFullYear();
-
       const { data, error } = await supabase
         .from("items")
         .select("created_at")
@@ -267,8 +264,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         conteoMeses[m.label] = 0;
       });
 
-      console.log(data);
-
       data?.forEach((item) => {
         const fecha = new Date(item.created_at);
         const nombreMes = meses[fecha.getMonth()].label;
@@ -280,8 +275,53 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         items: conteoMeses[m.label],
       }));
     } catch (error) {
-      console.error("Error en fetchRegistroAnual:");
-      if (error instanceof Error) console.log(error.stack);
+      console.error("Error en fetchRegistroAnual:", error);
+      return [];
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  fetchRegistroTipoAnual: async () => {
+    const usuarioId = useAuthStore.getState().user?.id;
+    if (!usuarioId) return [];
+
+    set({ loading: true });
+    try {
+      const anioActual = new Date().getFullYear();
+
+      const { data, error } = await supabase
+        .from("items")
+        .select("created_at, tipo!inner(nombre)")
+        .eq("id_usuario", usuarioId)
+        .gte("created_at", `${anioActual}-01-01`)
+        .lte("created_at", `${anioActual}-12-31`);
+      if (error) throw error;
+
+      const conteoMeses: {
+        [mes: string]: { libros: number; videojuegos: number };
+      } = {};
+
+      meses.forEach((m) => {
+        conteoMeses[m.label] = { libros: 0, videojuegos: 0 };
+      });
+
+      data?.forEach((item) => {
+        const nombreMes = meses[new Date(item.created_at).getMonth()].label;
+        const nombreTipo = item.tipo?.nombre;
+        if (nombreTipo === "libro") {
+          conteoMeses[nombreMes].libros++;
+        } else if (nombreTipo === "videojuego") {
+          conteoMeses[nombreMes].videojuegos++;
+        }
+      });
+
+      return meses.map((m) => ({
+        name: m.label,
+        ...conteoMeses[m.label],
+      }));
+    } catch (error) {
+      console.error("Error en fetchRegistroAnual:", error);
       return [];
     } finally {
       set({ loading: false });

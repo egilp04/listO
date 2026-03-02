@@ -19,7 +19,7 @@ export default function DistribucionGeneros() {
 
   const COLORS =
     tema === "dark"
-      ? ["#b3c5ff", "#8efad4", "#ffe6a5", "#ffb3b3", "#d1b3ff", "#ffb3e6"]
+      ? ["#f0f7ff", "#8efad4", "#ffe6a5", "#ffb3b3", "#d1b3ff", "#ffb3e6"]
       : ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#ec4899"];
 
   useEffect(() => {
@@ -31,10 +31,8 @@ export default function DistribucionGeneros() {
   }, [fetchDistribucionGeneros]);
 
   return (
-    <div className="p-10 mb-10 bg-white dark:bg-primary-1000 rounded-sm shadow-elevation-3 w-full h-full flex flex-col gap-10">
-      <h2 className="text-primary-700 dark:text-primary-50">
-        Distribución por Género
-      </h2>
+    <div className="charts">
+      <h2>Distribución por Género</h2>
       <div className="h-75">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
