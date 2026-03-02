@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
@@ -10,6 +13,59 @@ import card5 from "../assets/img/cards/carta_landing5.webp";
 import heroLight from "../assets/img/cards/landing-hero-light.webp";
 
 const Landing = () => {
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+
+      const cards = gsap.utils.toArray<HTMLElement>(".card-landing");
+      cards.forEach((card) => {
+        const isInvertido = card.getAttribute("data-invertido") === "true";
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          x: isInvertido ? 100 : -100,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      });
+
+      gsap.from(".hero-element", {
+        scrollTrigger: {
+          trigger: ".hero-element",
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+        },
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+
+      const fadeElements = gsap.utils.toArray<HTMLElement>(".fade-in-up");
+      fadeElements.forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   const featureImage1 = card1;
   const featureImage2 = card2;
   const featureImage3 = card3;
@@ -17,19 +73,19 @@ const Landing = () => {
   const featureImage5 = card5;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
-        <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18">
+        <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18 hero-element">
           <h1>El espacio para tus historias</h1>
           <p>
             Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine y
             música en un catálogo personal único y organizado
           </p>
         </div>
-        <Link to="/login">
+        <Link to="/login" className="hero-element">
           <Button variant="primario">Comenzar</Button>
         </Link>
-        <div className="w-full mt-8">
+        <div className="w-full mt-8 hero-element">
           <img
             src={heroLight}
             alt="Bitácora digital"
@@ -39,7 +95,7 @@ const Landing = () => {
           />
         </div>
 
-        <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px] px-4 md:px-10 lg:px-20">
+        <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px] px-4 md:px-10 lg:px-20 fade-in-up">
           <h2>Tu bitácora digital de entretenimiento</h2>
           <p>
             Nuestra aplicación es el refugio definitivo para tu curiosidad
@@ -98,7 +154,7 @@ const Landing = () => {
       </div>
 
       <section className="w-full py-16">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8 fade-in-up">
           <div className="flex flex-col items-center text-center gap-6">
             <h2>Miles de listas completadas con éxito</h2>
             <p>
