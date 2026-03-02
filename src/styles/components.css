@@ -52,7 +52,7 @@
   }
 
   .rows-table {
-    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-0 pl-6 pr-6;
+    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-primary-1000 pl-6 pr-6;
   }
 
   .dialog {
@@ -128,7 +128,7 @@
   }
 
   .select-color-text {
-    @apply !text-primary-900 dark: !text-primary-50;
+    @apply !text-primary-900 dark:!text-primary-50;
   }
 
   .form-registro {
@@ -191,24 +191,23 @@
     @apply bg-red-100 border-red-600 text-red-800;
   }
 
-  .no-implementado-container>div {
+  .no-implementado-container > div {
     animation: Work 3s ease-in-out infinite;
   }
 
-  .no-implementado-container>div:nth-child(1) {
+  .no-implementado-container > div:nth-child(1) {
     animation-delay: 0s;
   }
 
-  .no-implementado-container>div:nth-child(2) {
+  .no-implementado-container > div:nth-child(2) {
     animation-delay: 0.5s;
   }
 
-  .no-implementado-container>div:nth-child(3) {
+  .no-implementado-container > div:nth-child(3) {
     animation-delay: 1s;
   }
 
   @keyframes Work {
-
     0%,
     100% {
       transform: rotate(0deg) translateY(0);
@@ -232,7 +231,6 @@
   }
 
   @keyframes pulse-scale {
-
     0%,
     100% {
       transform: scale(1) rotate(180deg);
