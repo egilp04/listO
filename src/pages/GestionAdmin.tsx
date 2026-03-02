@@ -71,7 +71,13 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-        <Suspense fallback={<div>Cargando gráfico...</div>}>
+        <Suspense
+          fallback={
+            <div className="text-primary-1100 dark:text-primary-50">
+              Cargando tabla de datos...
+            </div>
+          }
+        >
           <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
         </Suspense>
       </div>
