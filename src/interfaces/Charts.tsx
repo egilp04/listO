@@ -8,6 +8,12 @@ export interface RegistroMensualItemsUsuarios {
   items: number;
 }
 
+export interface RegistroMensualItemsTipoUsuarios {
+  name: string;
+  libros: number;
+  videojuegos: number;
+}
+
 export interface DistribucionGenero {
   name: string;
   value: number;

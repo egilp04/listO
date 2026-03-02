@@ -9,6 +9,12 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import { lazy, Suspense } from "react";
+const RegistroUsuarios = lazy(
+  () => import("../componentes/Charts/RegistroUsuarios"),
+);
+const DistribucionGeneros = lazy(
+  () => import("../componentes/Charts/DistribucionGenero"),
+);
 
 const EstadisticasGlobales = () => {
   const fetchTarjetasEstadisticas = useAdminStatsStore(
@@ -59,18 +65,10 @@ const EstadisticasGlobales = () => {
     cargarUsuarios();
   }, [mesSeleccionado, fetchUsuariosPorMes]);
 
-  const RegistroUsuarios = lazy(
-    () => import("../componentes/Charts/RegistroUsuarios"),
-  );
-
-  const DistribucionGeneros = lazy(
-    () => import("../componentes/Charts/DistribucionGenero"),
-  );
-
   return (
-    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
+    <div className=" flex flex-col items-center mb-6 gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
       <h1 className="flex justify-center">Estadísticas Globales</h1>
-      <div className="cursor-pointer shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
+      <div className="cursor-pointer shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h2 className="w-full text-primary-900 dark:text-primary-50">
           Usuarios registrados por mes: {conteoUsuario}
         </h2>
@@ -90,7 +88,7 @@ const EstadisticasGlobales = () => {
           ></CardEstadisticaG>
         ))}
       </div>
-      <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28 mb-10">
+      <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28">
         <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm">
           <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
             <div className=" w-28 flex flex-row gap-2 h-full">
@@ -115,10 +113,22 @@ const EstadisticasGlobales = () => {
           </div>
         </div>
       </div>
-      <Suspense fallback={<div>Cargando gráfico...</div>}>
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50">
+            Cargando gráfico...
+          </div>
+        }
+      >
         <RegistroUsuarios></RegistroUsuarios>
       </Suspense>
-      <Suspense fallback={<div>Cargando gráfico...</div>}>
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50">
+            Cargando gráfico...
+          </div>
+        }
+      >
         <DistribucionGeneros></DistribucionGeneros>
       </Suspense>
     </div>

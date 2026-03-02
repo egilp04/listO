@@ -10,6 +10,10 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import Select from "../componentes/Inputs/Select";
+const RegistroItems = lazy(() => import("../componentes/Charts/RegistroItems"));
+const ComparacionItems = lazy(
+  () => import("../componentes/Charts/ComparacionItems"),
+);
 
 const Estadisticas = () => {
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
@@ -84,16 +88,12 @@ const Estadisticas = () => {
   }, [mesSeleccionado, fetchItemsPorMes]);
 
   useEffect(() => {
-    const cargatItems = async () => {
+    const cargarItems = async () => {
       const count = await fetchItemsTotales();
       setItemsTotales(count);
     };
-    cargatItems();
+    cargarItems();
   }, [fetchItemsTotales]);
-
-  const RegistroItems = lazy(
-    () => import("../componentes/Charts/RegistroItems"),
-  );
 
   return (
     <>
@@ -120,7 +120,7 @@ const Estadisticas = () => {
           numero={itemsTotales}
         />
 
-        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex justify-between items-center cursor-pointer">
+        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center cursor-pointer">
           <h2>Completados por mes este año: {conteoItems}</h2>
           <Select
             variant="primario"
@@ -212,8 +212,23 @@ const Estadisticas = () => {
             </div>
           </div>
         </div>
-        <Suspense fallback={<div>Cargando gráfico...</div>}>
+        <Suspense
+          fallback={
+            <div className="text-primary-1100 dark:text-primary-50">
+              Cargando gráfico...
+            </div>
+          }
+        >
           <RegistroItems></RegistroItems>
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="text-primary-1100 dark:text-primary-50">
+              Cargando gráfico...
+            </div>
+          }
+        >
+          <ComparacionItems></ComparacionItems>
         </Suspense>
       </div>
     </>
