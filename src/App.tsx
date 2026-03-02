@@ -4,7 +4,7 @@ import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca";
+import Biblioteca from "./pages/iblioteca";
 import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
