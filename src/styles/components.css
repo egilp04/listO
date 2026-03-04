@@ -76,7 +76,7 @@
   }
 
   .input-style-comun {
-    @apply w-full flex items-center border-2 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400;
+    @apply w-full flex items-center border-2 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400 text-black dark:text-primary-50;
   }
 
   .input-disabled {
