@@ -12,7 +12,7 @@
   }
 
   .btn-fantasma {
-    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700 dark:bg-primary-400 dark:text-primary-900;
+    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700 dark:bg-primary-400 dark:text-primary-1100;
   }
 
   .card-biblioteca {
