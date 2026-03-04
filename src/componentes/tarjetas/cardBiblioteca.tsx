@@ -14,9 +14,12 @@ interface CardBibliotecaProps {
 }
 
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import Dialog from "../Dialog";
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   const navigate = useNavigate();
+  const [showDialog, setShowDialog] = useState(false);
 
   const renderizarEstrellas = (valoracion: number) => {
     const estrellas = [];
@@ -85,12 +88,24 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
             <Button
               variant="primario"
               className="w-full w-auto flex-1 text-sm px-2 !border-transparent !bg-danger-500 hover:!bg-danger-700 text-black dark:!bg-danger-500"
+              onClick={() => setShowDialog(true)}
             >
               Eliminar
             </Button>
           </div>
         </div>
       </div>
+      <Dialog
+        titulo={`Eliminar ${item.tipo}`}
+        descripcion={`¿Estás seguro de que quieres eliminar el ítem "${item.informacion.split(" -")[0]}" de tu biblioteca?`}
+        show={showDialog}
+        onClose={(confirmar) => {
+          setShowDialog(false);
+          if (confirmar) {
+            console.log("Ítem borrado");
+          }
+        }}
+      />
     </div>
   );
 };

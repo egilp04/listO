@@ -52,19 +52,20 @@ const Navbar = () => {
         )}
       </div>
       <div className="xl:hidden block">
-        <span
-          className="material-symbols-outlined cursor-pointer text-7xl dark:text-primary-50"
+        <button
+          className="material-symbols-outlined cursor-pointer text-7xl dark:text-primary-50 bg-transparent border-none p-0"
           onClick={handleClick}
+          aria-expanded={!close}
+          aria-label="Abrir menú de navegación"
         >
           menu
-        </span>
+        </button>
       </div>
       <div
-        className={`${
-          close
+        className={`${close
             ? "hidden"
             : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50"
-        }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
+          }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
       >
         <div className="botones-navbar">
           {estaLogueado && (

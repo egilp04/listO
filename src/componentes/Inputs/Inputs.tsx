@@ -71,15 +71,17 @@ function Inputs({
           {...props}
         />
         {isPassword && (
-          <span
-            className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer select-none text-gray-500 dark:text-primary-50 hover:text-gray-700"
+          <button
+            type="button"
+            className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer select-none text-gray-500 dark:text-primary-50 hover:text-gray-700 bg-transparent border-none p-0"
             onClick={() => setShowPassword(!showPassword)}
+            aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
           >
             {showPassword ? "visibility" : "visibility_off"}
-          </span>
+          </button>
         )}
       </div>
-      {smError && <p className="span-error mt-1 h-4">{error}</p>}
+      {smError && <p aria-live="polite" className="span-error mt-1 h-4">{error}</p>}
     </div>
   );
 }
