@@ -85,7 +85,7 @@ function App() {
   useEffect(() => {
     initialize();
 
-    // Forzamos un tiempo mínimo de carga de 3 segundos
+    // Forzamos un tiempo mínimo de carga de 1 segundos
     const timer = setTimeout(() => {
       setMinLoadingTime(false);
     }, 1000);
