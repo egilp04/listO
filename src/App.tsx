@@ -4,15 +4,18 @@ import AppLayout from "./layouts/AppLayout";
 import Estadisticas from "./pages/Estadisticas";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca";
+import Biblioteca from "./pages/Biblioteca";
 import EstadisticasGlobales from "./pages/EstadisticasGlobales";
 import GestionAdmin from "./pages/GestionAdmin";
 import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
-import Landing from "./pages/landing";
-import MiPerfil from "./pages/miPerfil";
+import MiPerfil from "./pages/MiPerfil";
 import LandingLayout from "./layouts/LandingLayout";
 import GestionItem from "./pages/GestionItem";
 import Loading from "./componentes/Loading";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "./store/useAuthStore";
+import NoImplementado from "./pages/NoImplementado";
+import Landing from "./pages/landing";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +57,7 @@ const router = createBrowserRouter([
   },
   {
     element: <LandingLayout />,
-    children: [{ path: "/", element: <Landing /> }],
+    children: [{ path: "/", element: <Landing></Landing> }],
   },
   {
     element: <AuthLayout />,
@@ -74,10 +77,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
-import { useEffect, useState } from "react";
-import { useAuthStore } from "./store/useAuthStore";
-import NoImplementado from "./pages/NoImplementado";
 
 function App() {
   const { initialize, loading, session } = useAuthStore();
