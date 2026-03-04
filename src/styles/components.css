@@ -4,23 +4,19 @@
   }
 
   .btn-primario {
-    @apply bg-primary-850  text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700
-      dark:bg-primary-1000 dark:border-primary-800 dark:text-primary-50;
+    @apply bg-primary-850 text-white hover:bg-primary-600 active:bg-primary-500 disabled:bg-primary-400 focus:ring-primary-700 dark:bg-primary-1000 dark:border-primary-800 dark:text-primary-50;
   }
 
   .btn-secundario {
-    @apply bg-neutral-200 text-black hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-100 focus:ring-neutral-400
-    dark:bg-neutral-100;
+    @apply bg-neutral-200 text-black hover:bg-neutral-300 active:bg-neutral-400 disabled:bg-neutral-100 focus:ring-neutral-400 dark:bg-neutral-100;
   }
 
   .btn-fantasma {
-    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700
-    dark:bg-primary-400 dark:text-primary-900;
+    @apply bg-primary-100 text-black hover:bg-primary-300 active:bg-primary-500 active:text-white disabled:text-primary-500 focus:ring-primary-700 dark:bg-primary-400 dark:text-primary-1100;
   }
 
   .card-biblioteca {
-    @apply flex flex-col bg-primary-50 rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-75 hover:scale-105 transition-transform duration-300
-     dark:bg-primary-900;
+    @apply flex flex-col bg-primary-50 rounded-xl shadow-elevation-1 gap-1.5 overflow-hidden max-w-75 hover:scale-105 transition-transform duration-300 dark:bg-primary-900;
   }
 
   .card-landing.invertido {
@@ -28,23 +24,19 @@
   }
 
   .card-estadistica {
-    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3
-    cursor-pointer  dark:bg-primary-850 dark:border-primary-900;
+    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3 cursor-pointer dark:bg-primary-850 dark:border-primary-900;
   }
 
   .card-estadistica-t {
-    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 
-  cursor-pointer hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
+    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 cursor-pointer hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .card-landing {
-    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3
-    dark:bg-primary-900 dark:border-primary-1000;
+    @apply flex flex-col items-center bg-primary-50 rounded-xl overflow-hidden border border-neutral-200 mx-auto w-full hover:shadow-elevation-3 dark:bg-primary-900 dark:border-primary-1000;
   }
 
   .card-estadistica-g {
-    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5  
-  cursor-pointer hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
+    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5 cursor-pointer hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .botones-navbar {
@@ -60,7 +52,7 @@
   }
 
   .rows-table {
-    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-0 pl-6 pr-6;
+    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-primary-1000 pl-6 pr-6;
   }
 
   .dialog {
@@ -84,7 +76,7 @@
   }
 
   .input-style-comun {
-    @apply w-full flex items-center border-2 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400;
+    @apply w-full flex items-center border-2 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400 text-black dark:text-primary-50;
   }
 
   .input-disabled {
@@ -116,8 +108,7 @@
   }
 
   .checkbox-input {
-    @apply rounded border-gray-300 text-primary-600 focus:ring-primary-500 transition-all
-    dark:text-primary-50 dark:focus:ring-primary-200;
+    @apply rounded border-gray-300 text-primary-600 focus:ring-primary-500 transition-all dark:text-primary-50 dark:focus:ring-primary-200;
   }
 
   .textarea-responsive {
@@ -129,11 +120,11 @@
   }
 
   .select-responsive {
-    @apply border border-primary-900 border-2 appearance-none w-12 h-8 p-1 pr-1 text-xs md:w-auto md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
+    @apply border border-primary-900 border-2 appearance-none h-8 p-1 pr-6 text-xs md:h-10 md:p-2 md:pr-10 md:text-sm lg:h-11 lg:p-2 lg:pl-4 lg:pr-12 lg:text-base;
     background-image: var(--select-icon);
     background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.5em 1.5em;
+    background-position: right 0.5rem center;
+    background-size: 1.25em 1.25em;
   }
 
   .select-color-text {
@@ -141,8 +132,7 @@
   }
 
   .form-registro {
-    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full min-h-100 p-6 gap-6 rounded-lg md:w-150 md:min-h-125 md:p-8 md:gap-8 md:rounded-xl lg:w-200 lg:min-h-150 lg:p-12 lg:gap-10
-       dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
+    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full min-h-100 p-6 gap-6 rounded-lg md:w-150 md:min-h-125 md:p-8 md:gap-8 md:rounded-xl lg:w-200 lg:min-h-150 lg:p-12 lg:gap-10 dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
   }
 
   .grid-registro {
@@ -150,8 +140,7 @@
   }
 
   .form-login_passwd {
-    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10
-    dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
+    @apply flex flex-col items-center justify-center bg-primary-50 border-2 border-primary-500 shadow-elevation-1 w-full h-auto p-6 gap-4 rounded-lg md:w-112.5 md:p-8 md:gap-6 md:rounded-xl lg:w-full lg:max-w-2xl lg:py-24 lg:px-20 lg:gap-10 dark:bg-primary-900 dark:text-primary-50 dark:border-primary-1000;
   }
 
   .flex-login-passwd {
@@ -159,8 +148,7 @@
   }
 
   .form-genero {
-    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8
-    dark:bg-primary-900;
+    @apply bg-white shadow-xl rounded-xl flex flex-col h-fit mx-auto transition-all duration-300 w-full p-6 gap-5 md:max-w-xl md:p-8 md:gap-7 md:rounded-2xl lg:max-w-xl lg:p-10 lg:gap-8 dark:bg-primary-900;
   }
 
   .header-genero {
@@ -172,7 +160,7 @@
   }
 
   .titulo-genero {
-    @apply w-full text-center font-bold text-primary-700  dark:text-primary-50 text-xl md:text-2xl lg:text-3xl;
+    @apply w-full text-center font-bold text-primary-700 dark:text-primary-50 text-xl md:text-2xl lg:text-3xl;
   }
 
   .form-body {
@@ -190,6 +178,7 @@
   .footer-boton {
     @apply flex justify-center w-full mt-4 md:mt-6;
   }
+
   .mensaje-alerta {
     @apply fixed top-5 right-5 z-[100] p-4 rounded-xl shadow-2xl flex items-center gap-4 border-l-8 transition-all;
   }
@@ -197,6 +186,7 @@
   .mensaje-alerta-exito {
     @apply bg-green-100 border-green-600 text-green-800;
   }
+
   .mensaje-alerta-error {
     @apply bg-red-100 border-red-600 text-red-800;
   }
@@ -204,12 +194,15 @@
   .no-implementado-container > div {
     animation: Work 3s ease-in-out infinite;
   }
+
   .no-implementado-container > div:nth-child(1) {
     animation-delay: 0s;
   }
+
   .no-implementado-container > div:nth-child(2) {
     animation-delay: 0.5s;
   }
+
   .no-implementado-container > div:nth-child(3) {
     animation-delay: 1s;
   }
@@ -219,9 +212,11 @@
     100% {
       transform: rotate(0deg) translateY(0);
     }
+
     75% {
       transform: rotate(6deg) translateY(-8px);
     }
+
     25% {
       transform: rotate(-6deg) translateY(0);
     }
@@ -232,14 +227,15 @@
   }
 
   .miperfil {
-    @apply bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4
-    dark:bg-primary-900 dark:text-primary-50;
+    @apply bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4 dark:bg-primary-900 dark:text-primary-50;
   }
+
   @keyframes pulse-scale {
     0%,
     100% {
       transform: scale(1) rotate(180deg);
     }
+
     50% {
       transform: scale(1.5) rotate(180deg);
     }
@@ -253,6 +249,7 @@
     0% {
       background-position: -200% center;
     }
+
     100% {
       background-position: 200% center;
     }
@@ -271,18 +268,22 @@
       transform: translateY(-150%);
       opacity: 0;
     }
+
     60% {
       transform: translateY(10%);
       opacity: 1;
     }
+
     80% {
       transform: translateY(-5%);
     }
+
     100% {
       transform: translateY(0);
       opacity: 1;
     }
   }
+
   .animate-descuelgue {
     animation: caidaRebote 5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
@@ -291,6 +292,7 @@
     0% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
     }
@@ -309,6 +311,7 @@
       opacity: 0;
       transform: translateX(-100px) rotate(-180deg);
     }
+
     100% {
       opacity: 1;
       transform: translateX(0) rotate(0deg);

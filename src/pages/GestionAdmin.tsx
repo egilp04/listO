@@ -60,6 +60,7 @@ const GestionAdmin = () => {
             <input
               className="input-style-comun input-border-primario dark:border-primary-50 input-responsive dark:text-primary-50"
               placeholder="Busca por nombre o autor"
+              aria-label="Buscar item por nombre o autor"
               onChange={handleFiltrar}
             ></input>
           </div>
@@ -71,7 +72,13 @@ const GestionAdmin = () => {
             </Button>
           </div>
         </div>
-        <Suspense fallback={<div>Cargando gráfico...</div>}>
+        <Suspense
+          fallback={
+            <div className="text-primary-1100 dark:text-primary-50">
+              Cargando tabla de datos...
+            </div>
+          }
+        >
           <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
         </Suspense>
       </div>

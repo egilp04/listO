@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
@@ -17,7 +17,6 @@ const Landing = () => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-
       const cards = gsap.utils.toArray<HTMLElement>(".card-landing");
       cards.forEach((card) => {
         const isInvertido = card.getAttribute("data-invertido") === "true";
