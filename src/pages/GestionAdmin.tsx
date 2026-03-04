@@ -58,6 +58,7 @@ const GestionAdmin = () => {
             <input
               className="input-style-comun input-border-primario dark:border-primary-50 input-responsive dark:text-primary-50"
               placeholder="Busca por nombre o autor"
+              aria-label="Buscar item por nombre o autor"
               onChange={handleFiltrar}
             ></input>
           </div>

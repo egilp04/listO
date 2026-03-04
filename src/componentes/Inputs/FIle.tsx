@@ -67,7 +67,7 @@ function File({
         >
           upload
         </span>
-        <span className="dark:text-primary-50">{label}</span>
+        <label htmlFor={name} className="dark:text-primary-50 cursor-pointer">{label}</label>
       </div>
       <input
         ref={fileInputRef}
@@ -80,7 +80,7 @@ function File({
         {...props}
       />
       {error && (
-        <span className="text-red-500 text-sm block mt-1">{mensajeError}</span>
+        <span aria-live="polite" className="text-red-500 text-sm block mt-1">{mensajeError}</span>
       )}
     </div>
   );
