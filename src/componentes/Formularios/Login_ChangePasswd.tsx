@@ -4,6 +4,8 @@ import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "../../store/useAuthStore";
+import { useNotificationStore } from "../../store/useNotificationStore";
+import { supabase } from "../../utils/supabaseClient";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
@@ -17,6 +19,7 @@ export const Login_ChangePasswd = ({
 }: RegistroProps) => {
   const navigate = useNavigate();
   const { login: loginAction, error: authError } = useAuthStore();
+  const { setNotificacion } = useNotificationStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -39,7 +42,7 @@ export const Login_ChangePasswd = ({
     setErroresActivos({ ...erroresActivos, [nombre]: hayError });
   };
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (login) {
@@ -50,13 +53,23 @@ export const Login_ChangePasswd = ({
         console.error("Login failed", err);
       }
     } else {
-      console.log("Volviendo al Login...");
-      navigate("/login");
+      try {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(formData.email, {
+          redirectTo: `${window.location.origin}/actualizar-password`,
+        });
+
+        if (resetError) throw resetError;
+
+        setNotificacion("Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.", "exito");
+        setFormData({ ...formData, email: "" });
+      } catch (err) {
+        console.error("Error al recuperar contraseña", err);
+      }
     }
   };
 
   return (
-    <form className="form-login_passwd" {...props}>
+    <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
       {login ? (
         <>
           <h2>Inicio Sesión</h2>
@@ -79,7 +92,7 @@ export const Login_ChangePasswd = ({
               placeholder="********"
               name="passwd"
               error={"Debe coincidir con la contraseña"}
-              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
               value={formData.passwd}
               manejarCambio={manejarCambio}
               manejarError={manejarError}
@@ -101,7 +114,7 @@ export const Login_ChangePasswd = ({
 
           <div className="flex-login-passwd">
             <Inputs
-              label="Usuario"
+              label="Introduzca su email"
               type="text"
               placeholder="Ej: enrique@gmail.com"
               name="email"
@@ -112,35 +125,12 @@ export const Login_ChangePasswd = ({
               manejarError={manejarError}
             />
 
-            <Inputs
-              label="Nueva Contraseña"
-              type="password"
-              placeholder="********"
-              name="nueva_passwd"
-              error={
-                "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
-              }
-              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
-              value={formData.nueva_passwd}
-              manejarCambio={manejarCambio}
-              manejarError={manejarError}
-            />
-            <Inputs
-              label="Confirmar Contraseña"
-              type="password"
-              placeholder="********"
-              name="confirm_passwd"
-              error={"Las contraseñas no coinciden"}
-              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
-              value={formData.confirm_passwd}
-              manejarCambio={manejarCambio}
-              manejarError={manejarError}
-            />
+
           </div>
         </>
       )}
 
-      <Button onClick={handleClick}>{texto}</Button>
+      <Button type="submit">{texto}</Button>
 
       {(error || authError) && (
         <p className="span-error mt-1 h-4">{error || authError}</p>
