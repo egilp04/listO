@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "./store/useAuthStore";
 import NoImplementado from "./pages/NoImplementado";
 import Landing from "./pages/landing";
+import { Recuperacion_Passwd } from "./componentes/Formularios/Recuperacion_Passwd";
+import { supabase } from "./utils/supabaseClient";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,10 @@ const router = createBrowserRouter([
         path: "/recuperar",
         element: <Login_ChangePasswd login={false} />,
       },
+      {
+        path: "/actualizar-password",
+        element: <Recuperacion_Passwd login={false} />,
+      },
     ],
   },
 ]);
@@ -102,6 +108,23 @@ function App() {
       clearTimeout(timer);
     };
   }, [initialize]);
+
+  useEffect(() => {
+    // Escuchamos los cambios en el estado de autenticación
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, _session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // clic en el enlace del correo
+        // Redirigimos a una página donde pueda escribir su nueva contraseña usando el router
+        router.navigate('/actualizar-password');
+      } else if (event === 'USER_UPDATED') {
+        // Redirigimos a biblioteca al cambiar la contraseña
+        router.navigate('/biblioteca');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
 
   if ((loading || minLoadingTime) && !session) {
     return <Loading />;

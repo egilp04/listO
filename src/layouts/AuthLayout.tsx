@@ -1,11 +1,16 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../componentes/Navbar";
 import fondoLogin from "../assets/img/Fondo-forms.webp";
+import { useNotificationStore } from "../store/useNotificationStore";
 
 const AuthLayout = () => {
   const location = useLocation();
   const state = location.state || {};
   const navigate = useNavigate();
+  const mensaje = useNotificationStore((state) => state.mensaje);
+  const tipo = useNotificationStore((state) => state.tipo);
+  const mostrar = useNotificationStore((state) => state.mostrar);
+
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden">
       <div
@@ -16,6 +21,14 @@ const AuthLayout = () => {
       />
       {state.atras != true && <Navbar></Navbar>}
       <main className="grow flex-col flex items-center justify-center w-full p-4">
+        {mostrar && (
+          <div
+            className={`mensaje-alerta
+          ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"}`}
+          >
+            <span>{mensaje}</span>
+          </div>
+        )}
         {state.atras == true && (
           <div className="w-full mb-6">
             <span
