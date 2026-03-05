@@ -3,6 +3,7 @@ import Button from "../componentes/Button";
 import { useEffect, useState } from "react";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
 import { lazy, Suspense } from "react";
+const Table = lazy(() => import("../componentes/Table"));
 
 const GestionAdmin = () => {
   const fetchGeneros = useGestionAdminStore((state) => state.fetchGeneros);
@@ -32,8 +33,6 @@ const GestionAdmin = () => {
   const handleFiltrar = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValorFiltro(e.currentTarget.value);
   };
-
-  const Table = lazy(() => import("../componentes/Table"));
 
   return (
     <div className="flex flex-col gap-8 md:p-6 mg:gap-14 mb-12 2xl:gap-18">
