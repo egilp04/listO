@@ -67,7 +67,7 @@ const EstadisticasGlobales = () => {
 
   return (
     <section
-      className="flex flex-col items-center mb-6 gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch"
+      className="flex flex-col items-center mb-6 gap-10 2xl:gap-18 2xl:items-stretch"
       aria-labelledby="global-stats-title"
     >
       <header className="flex justify-center">
@@ -138,8 +138,8 @@ const EstadisticasGlobales = () => {
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
-              <div className="text-center py-10 dark:text-primary-50">
-                Cargando gráfico de registros...
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span>Cargando gráfico de registros...</span>
               </div>
             }
           >
@@ -150,8 +150,10 @@ const EstadisticasGlobales = () => {
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
-              <div className="text-center py-10 dark:text-primary-50">
-                Cargando gráfico de distribución...
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span>
+                  Cargando gráfico de distribución de items por géneros...
+                </span>
               </div>
             }
           >

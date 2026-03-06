@@ -14,8 +14,9 @@ interface CardBibliotecaProps {
 }
 
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import Dialog from "../Dialog";
+import { useState, lazy, Suspense } from "react";
+
+const Dialog = lazy(() => import("../Dialog"));
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   const navigate = useNavigate();
@@ -109,15 +110,23 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           </Button>
         </div>
       </footer>
-      <Dialog
-        titulo={`Eliminar ${item.tipo}`}
-        descripcion={`¿Estás seguro de que quieres eliminar "${item.informacion.split(" -")[0]}"?`}
-        show={showDialog}
-        onClose={(confirmar) => {
-          setShowDialog(false);
-          if (confirmar) console.log("Ítem borrado");
-        }}
-      />
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50 text-center">
+            <span>Cargando modal...</span>
+          </div>
+        }
+      >
+        <Dialog
+          titulo={`Eliminar ${item.tipo}`}
+          descripcion={`¿Estás seguro de que quieres eliminar "${item.informacion.split(" -")[0]}"?`}
+          show={showDialog}
+          onClose={(confirmar) => {
+            setShowDialog(false);
+            if (confirmar) console.log("Ítem borrado");
+          }}
+        />
+      </Suspense>
     </article>
   );
 };

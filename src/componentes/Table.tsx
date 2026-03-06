@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 import Button from "./Button";
-import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+const Dialog = lazy(() => import("./Dialog"));
 
 interface TableInterface {
   tipoItem: string;
@@ -147,12 +147,22 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         </tbody>
       </table>
 
-      <Dialog
-        onClose={deleteItem}
-        titulo="Eliminar"
-        descripcion="Vas a proceder a eliminar el género selccionado, estás seguro?"
-        show={show}
-      ></Dialog>
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50 text-center">
+            <span>Cargando modal...</span>
+          </div>
+        }
+      >
+        {show && (
+          <Dialog
+            onClose={deleteItem}
+            titulo="Eliminar"
+            descripcion={`¿Estás seguro de que deseas eliminar este ${tipoItem}?`}
+            show={show}
+          />
+        )}
+      </Suspense>
     </section>
   );
 };

@@ -30,12 +30,9 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
         </figure>
       </header>
       <footer>
-        <h3
-          id={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}
-          className="text-sm font-medium text-primary-700 dark:text-primary-200 animate-aparicion uppercase tracking-wider"
-        >
+        <label id={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}>
           {texto}
-        </h3>
+        </label>
       </footer>
     </article>
   );

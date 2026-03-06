@@ -1,43 +1,44 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/logo.webp" />
+
+    <link
+      rel="preload"
+      href="/fonts/poppins-v20-latin-500.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-v12-latin-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/src/styles/index.css" rel="stylesheet" />
+
+    <link
+      rel="preload"
+      href="/src/styles/index.css"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript><link rel="stylesheet" href="/src/styles/index.css" /></noscript>
+
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block"
     />
-    <title>Listo | Tu Bitácora de Entretenimiento</title>
-    <meta
-      name="description"
-      content="Gestiona, analiza y descubre estadísticas de tu colección personal de libros y videojuegos. Tu biblioteca de entretenimiento en un solo lugar."
-    />
-    <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content="Listo | Tu Bitácora de Entretenimiento"
-    />
-    <meta
-      property="og:description"
-      content="Gestiona, analiza y descubre estadísticas de tu colección personal de libros y videojuegos."
-    />
-    <meta property="og:image" content="/portada-og.webp" />
-    <meta property="og:url" content="https://list-o.vercel.app/" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Listo | Tu Bitácora de Entretenimiento"
-    />
-    <meta
-      name="twitter:description"
-      content="Gestiona, analiza y descubre estadísticas de tu colección personal de libros y videojuegos."
-    />
-    <meta name="twitter:image" content="/portada-og.webp" />
-    <meta name="theme-color" content="#261f60" />
-  </head>
 
+    <title>Listo | Tu Bitácora de Entretenimiento</title>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

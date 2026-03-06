@@ -219,11 +219,11 @@ const Estadisticas = () => {
         className="flex flex-col gap-8"
         aria-label="Gráficos de rendimiento"
       >
-        <figure className="w-full min-h-[300px]">
+        <figure className="w-full min-h-75">
           <Suspense
             fallback={
-              <div className="dark:text-primary-50 text-center">
-                Cargando gráfico de registros...
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span>Cargando gráfico de registros...</span>
               </div>
             }
           >
@@ -233,8 +233,8 @@ const Estadisticas = () => {
         <figure className="w-full min-h-[300px]">
           <Suspense
             fallback={
-              <div className="dark:text-primary-50 text-center">
-                Cargando comparativa de ítems...
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span> Cargando comparativa de ítems...</span>
               </div>
             }
           >

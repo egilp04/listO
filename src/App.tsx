@@ -146,7 +146,6 @@ function App() {
   }, [initialize]);
 
   useEffect(() => {
-    // Escuchamos los cambios en el estado de autenticación
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, _session) => {
