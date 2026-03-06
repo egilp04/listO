@@ -25,6 +25,8 @@ interface ItemState {
         idUsuario: string,
         idItemEditando?: string
     ) => Promise<boolean>;
+    idUltimoItemAñadido: string | null;
+    setIdUltimoItemAñadido: (id: string | null) => void;
 }
 
 export const useItemStore = create<ItemState>((set, get) => ({
@@ -33,6 +35,9 @@ export const useItemStore = create<ItemState>((set, get) => ({
     items: [],
     loading: false,
     guardando: false,
+    idUltimoItemAñadido: null,
+
+    setIdUltimoItemAñadido: (id) => set({ idUltimoItemAñadido: id }),
 
     fetchTipos: async () => {
         set({ loading: true });
@@ -198,6 +203,7 @@ export const useItemStore = create<ItemState>((set, get) => ({
 
                 if (errorItem) throw errorItem;
                 idDelItem = item.id_item;
+                get().setIdUltimoItemAñadido(idDelItem ?? null);
             }
 
             const relaciones = generosSeleccionados.map((id_genero) => ({

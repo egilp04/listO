@@ -17,14 +17,28 @@ interface CardBibliotecaProps {
 }
 
 import { useNavigate } from "react-router-dom";
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 
 const Dialog = lazy(() => import("../Dialog"));
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
-  const { eliminarItem } = useItemStore();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { eliminarItem, idUltimoItemAñadido, setIdUltimoItemAñadido } = useItemStore();
+
+  const esNuevo = item.id_item === idUltimoItemAñadido;
+  const [fueNuevo, setFueNuevo] = useState(esNuevo);
+
+  useEffect(() => {
+    if (esNuevo) {
+      setFueNuevo(true);
+      const timer = setTimeout(() => {
+        setIdUltimoItemAñadido(null);
+      }, 1050);
+      return () => clearTimeout(timer);
+    }
+  }, [esNuevo, setIdUltimoItemAñadido]);
 
   const renderizarEstrellas = (valoracion: number) => {
     const estrellas = [];
@@ -47,7 +61,16 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   };
 
   return (
-    <article className="card-biblioteca">
+    <article
+      className={`card-biblioteca ${isDeleting
+        ? "animate-slide-rotate-out"
+        : esNuevo
+          ? "animate-drop-and-spin"
+          : fueNuevo
+            ? ""
+            : "animate-slide-rotate-in"
+        }`}
+    >
       <header className="relative h-32 md:h-40">
         {item.imagen ? (
           <img
@@ -132,10 +155,13 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           onClose={async (confirmar) => {
             setShowDialog(false);
             if (confirmar) {
-              const exito = await eliminarItem(item.id_item, item.imagen);
-              if (exito) {
-                console.log("Ítem borrado correctamente");
-              }
+              setIsDeleting(true);
+              setTimeout(async () => {
+                const exito = await eliminarItem(item.id_item, item.imagen);
+                if (exito) {
+                  console.log("Ítem borrado correctamente");
+                }
+              }, 450);
             }
           }}
         />
