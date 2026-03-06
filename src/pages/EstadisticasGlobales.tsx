@@ -67,7 +67,7 @@ const EstadisticasGlobales = () => {
 
   return (
     <section
-      className="flex flex-col items-center mb-6 gap-10 2xl:gap-18 2xl:items-stretch"
+      className="flex flex-col items-center mb-10 gap-10 2xl:gap-14 2xl:items-stretch"
       aria-labelledby="global-stats-title"
     >
       <header className="flex justify-center">

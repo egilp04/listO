@@ -97,7 +97,7 @@ const Estadisticas = () => {
 
   return (
     <section
-      className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto"
+      className="flex flex-col gap-6 md:gap-10 2xl:gap-14 mb-10 w-full mx-auto"
       aria-labelledby="stats-user-title"
     >
       <header>
