@@ -1,7 +1,7 @@
 const NoImplementado = () => {
   return (
     <section
-      className="flex flex-col justify-center items-center gap-10"
+      className="flex flex-col justify-center items-center gap-10 mb-10"
       aria-labelledby="titulo-en-desarrollo"
     >
       <header>
@@ -18,12 +18,12 @@ const NoImplementado = () => {
       </article>
 
       <figure
-        className="flex flex-row gap-4 items-center justify-center text-7xl no-implementado-container"
+        className="flex flex-row gap-4 items-center justify-center text-7xl no-implementado-animation"
         aria-hidden="true"
       >
-        <span>🔨</span>
-        <span>⛏️</span>
-        <span>🛠️</span>
+        <span className="text-5xl">🔨</span>
+        <span className="text-5xl">⛏️</span>
+        <span className="text-5xl">🛠️</span>
       </figure>
     </section>
   );

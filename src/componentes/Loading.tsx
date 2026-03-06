@@ -19,7 +19,7 @@ const Loading: React.FC = () => {
       </figure>
       <header className="mt-8">
         <p className="text-xl font-bold text-primary-1000 animate-pulse dark:text-primary-50">
-          Cargando recursos...
+          Cargando...
         </p>
       </header>
     </section>
