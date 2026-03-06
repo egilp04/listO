@@ -111,6 +111,7 @@ const EstadisticasGlobales = () => {
                 className="hover:scale-110 transition-transform duration-700"
                 src="/logo.webp"
                 alt="Logo de ListO"
+                loading="lazy"
               />
             </figure>
             <h3 className="text-primary-50 text-shimmer text-2xl font-semibold">
