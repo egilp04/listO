@@ -54,13 +54,19 @@ export const Login_ChangePasswd = ({
       }
     } else {
       try {
-        const { error: resetError } = await supabase.auth.resetPasswordForEmail(formData.email, {
-          redirectTo: `${window.location.origin}/actualizar-password`,
-        });
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+          formData.email,
+          {
+            redirectTo: `${window.location.origin}/actualizar-password`,
+          },
+        );
 
         if (resetError) throw resetError;
 
-        setNotificacion("Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.", "exito");
+        setNotificacion(
+          "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.",
+          "exito",
+        );
         setFormData({ ...formData, email: "" });
       } catch (err) {
         console.error("Error al recuperar contraseña", err);
@@ -71,10 +77,14 @@ export const Login_ChangePasswd = ({
   return (
     <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
       {login ? (
-        <>
-          <h2>Inicio Sesión</h2>
+        <section>
+          <header className="mb-4">
+            <h2 className="text-center">Inicio Sesión</h2>
+          </header>
 
-          <div className="flex-login-passwd">
+          <fieldset className="flex-login-passwd border-none p-0 m-0">
+            <legend className="sr-only">Datos de acceso del usuario</legend>
+
             <Inputs
               label="Usuario"
               type="text"
@@ -97,22 +107,30 @@ export const Login_ChangePasswd = ({
               manejarCambio={manejarCambio}
               manejarError={manejarError}
             />
-          </div>
-          <span className="text-sm font-medium mt-4 block text-center text-black dark:text-primary-50">
-            ¿Has olvidado la contraseña? Pulse{" "}
-            <Link
-              to="/recuperar"
-              className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
-            >
-              AQUÍ
-            </Link>
-          </span>
-        </>
-      ) : (
-        <>
-          <h2>Recuperar Contraseña</h2>
+          </fieldset>
 
-          <div className="flex-login-passwd">
+          <nav className="mt-4 text-center" aria-label="Recuperación de cuenta">
+            <span className="text-sm font-medium block text-black dark:text-primary-50">
+              ¿Has olvidado la contraseña? Pulse{" "}
+              <Link
+                to="/recuperar"
+                className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
+              >
+                AQUÍ
+              </Link>
+            </span>
+          </nav>
+        </section>
+      ) : (
+        <section>
+          <header className="mb-4">
+            <h2 className="text-center">Recuperar Contraseña</h2>
+          </header>
+
+          <fieldset className="flex-login-passwd border-none p-0 m-0">
+            <legend className="sr-only">
+              Introducción de credenciales para recuperación
+            </legend>
             <Inputs
               label="Introduzca su email"
               type="text"
@@ -124,17 +142,19 @@ export const Login_ChangePasswd = ({
               manejarCambio={manejarCambio}
               manejarError={manejarError}
             />
-
-
-          </div>
-        </>
+          </fieldset>
+        </section>
       )}
-
-      <Button type="submit">{texto}</Button>
-
-      {(error || authError) && (
-        <p className="span-error mt-1 h-4">{error || authError}</p>
-      )}
+      <footer className="mt-6 flex flex-col items-center">
+        <Button type="submit" className="w-full">
+          {texto}
+        </Button>
+        {(error || authError) && (
+          <p role="alert" className="span-error mt-1 h-4 text-red-500">
+            {error || authError}
+          </p>
+        )}
+      </footer>
     </form>
   );
 };

@@ -29,13 +29,17 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
   };
 
   const cabeceraGestion =
-    "bg-primary-600 dark:bg-primary-850 p-3 flex justify-center items-center relative cursor-pointer text-white hover:bg-primary-700 transition-colors";
+    "w-full bg-primary-600 dark:bg-primary-850 p-3 flex justify-center items-center relative cursor-pointer text-white hover:bg-primary-700 transition-colors";
 
   return (
-    <div className="min-h-screen bg-primary-200 dark:bg-primary-1000 p-4 flex flex-col gap-6">
-      <h1 className=" mb-10 text-center">Añadir una nueva ficha</h1>
+    <section className="p-4 flex flex-col gap-6 mb-10">
+      <h1 className="pt-6 pb-6 text-center">
+        {mEdicion ? "Modificar ficha" : "Añadir una nueva ficha"}
+      </h1>
+
       <div className="flex flex-col md:flex-row gap-6">
-        <div className="bg-white dark:bg-primary-900 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between w-full md:w-1/2 shadow-sm min-h-16 gap-3">
+        <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between w-full md:w-1/2 shadow-sm min-h-16 gap-3">
+          <legend className="sr-only">Subida de imagen</legend>
           <span className="dark:text-primary-50">IMAGEN: </span>
           <File
             label="Subir"
@@ -44,14 +48,16 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
             disabled={false}
             mensajeError="No es un formato valido(.png, .jpg, .webp)"
           />
-        </div>
+        </fieldset>
 
-        <div className="bg-white dark:bg-primary-900 rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
+        <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
+          <legend className="sr-only">Valoración</legend>
           <span className="dark:text-primary-50">Valoración:</span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}
+                aria-hidden="true"
                 className="material-symbols-outlined text-yellow-400"
                 style={{ fontVariationSettings: "'FILL' 1" }}
               >
@@ -59,68 +65,88 @@ const GestionItem: React.FC<GestionItemProps> = ({ item }) => {
               </span>
             ))}
           </div>
-        </div>
+        </fieldset>
       </div>
 
-      <div className="bg-white dark:bg-primary-900 rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center gap-4">
+      <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center gap-4">
+        <legend className="sr-only">Información General</legend>
         <span className="whitespace-nowrap dark:text-primary-50 ">
           INFORMACIÓN GENERAL:
         </span>
-        <Inputs error={""} name={""} manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
-          throw new Error("Function not implemented.");
-        } } manejarError={function (nombre: string, error: boolean): void {
-          throw new Error("Function not implemented.");
-        } } />
-      </div>
+        <Inputs
+          error={""}
+          name={""}
+          manejarCambio={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+          manejarError={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+      </fieldset>
 
-      <div className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
-        <div className={cabeceraGestion}>
+      <fieldset className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
+        <legend className="sr-only">Selección de Tipo</legend>
+        <button type="button" className={cabeceraGestion}>
           <span className="dark:text-primary-50">Tipo</span>
-          <span className="material-symbols-outlined absolute right-4">
+          <span
+            className="material-symbols-outlined absolute right-4"
+            aria-hidden="true"
+          >
             expand_more
-          </span>{" "}
-        </div>
+          </span>
+        </button>
         <div className="p-4 flex flex-col md:flex-row gap-4 justify-around">
           {["Libro", "Juego"].map((tipo) => (
             <div
               key={tipo}
               className="bg-primary-600 dark:bg-primary-850 rounded-lg p-2 w-full md:w-5/12 flex justify-center"
             >
-              <Checkbox label={tipo} manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
-                throw new Error("Function not implemented.");
-              } } />
+              <Checkbox
+                label={tipo}
+                manejarCambio={function (): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
             </div>
           ))}
         </div>
-      </div>
+      </fieldset>
 
-      <div className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
-        <div className={cabeceraGestion}>
+      <fieldset className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
+        <legend className="sr-only">Selección de Género</legend>
+        <button type="button" className={cabeceraGestion}>
           <span>Genero</span>
-          <span className="material-symbols-outlined absolute right-4">
+          <span
+            className="material-symbols-outlined absolute right-4"
+            aria-hidden="true"
+          >
             expand_more
-          </span>{" "}
-        </div>
+          </span>
+        </button>
 
         <div className="p-4 flex flex-col gap-4">
           {["Suspense", "Miedo"].map((genero) => (
             <div
               key={genero}
-              className="flex items-center gap-4  p-2 rounded-lg"
+              className="flex items-center gap-4 p-2 rounded-lg"
             >
               <div className="bg-primary-600 dark:bg-primary-850 text-white px-8 py-1 rounded-md text-lg min-w-150 text-center">
                 {genero}
               </div>
-              <Checkbox label="Descripción" manejarCambio={function (e: React.ChangeEvent<HTMLInputElement>): void {
-                throw new Error("Function not implemented.");
-              } } />
+              <Checkbox
+                label="Descripción"
+                manejarCambio={function (): void {
+                  throw new Error("Function not implemented.");
+                }}
+              />
             </div>
           ))}
         </div>
-      </div>
+      </fieldset>
 
       <Button variant="primario">{mEdicion ? "MODIFICAR" : "AÑADIR"}</Button>
-    </div>
+    </section>
   );
 };
 

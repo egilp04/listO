@@ -39,31 +39,51 @@ export default function RegistroUsuarios() {
   const GeneralStroke = tema == "dark" ? "#f9fcff" : "#645fd5";
 
   return (
-    <div className="charts">
-      <h2>Registro anual de Usuarios</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={datosRegistroUser}>
-          <CartesianGrid strokeDasharray="3 3" stroke={GeneralStroke} />
-          <XAxis dataKey="name" stroke={GeneralStroke} />
-          <YAxis stroke={GeneralStroke} />
-          <Tooltip
-            contentStyle={{
-              backgroundColor: tema === "dark" ? "#302976" : "#f9fcff",
-              borderColor: GeneralStroke,
-              color: tema === "dark" ? "#f9fcff" : "#302976",
-              borderRadius: "4px",
-            }}
-            itemStyle={{ color: tema === "dark" ? "#accbff" : "#261f60" }}
-            cursor={{ stroke: GeneralStroke, strokeWidth: 1 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="usuarios"
-            stroke={lineStroke}
-            strokeWidth={2}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <figure
+      className="charts flex flex-col gap-4"
+      aria-labelledby="registro-usuarios-title"
+    >
+      <figcaption>
+        <h2
+          id="registro-usuarios-title"
+          className="text-xl font-bold text-center md:text-left"
+        >
+          Registro anual de Usuarios
+        </h2>
+      </figcaption>
+
+      <div
+        className="w-full h-[300px]"
+        role="img"
+        aria-label="Gráfico de líneas que muestra la evolución mensual de nuevos usuarios registrados durante el año."
+      >
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={datosRegistroUser}>
+            <CartesianGrid strokeDasharray="3 3" stroke={GeneralStroke} />
+            <XAxis dataKey="name" stroke={GeneralStroke} />
+            <YAxis stroke={GeneralStroke} />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: tema === "dark" ? "#302976" : "#f9fcff",
+                borderColor: GeneralStroke,
+                color: tema === "dark" ? "#f9fcff" : "#302976",
+                borderRadius: "4px",
+              }}
+              itemStyle={{ color: tema === "dark" ? "#accbff" : "#261f60" }}
+              cursor={{ stroke: GeneralStroke, strokeWidth: 1 }}
+            />
+            <Line
+              type="monotone"
+              dataKey="usuarios"
+              name="Usuarios Registrados"
+              stroke={lineStroke}
+              strokeWidth={3}
+              dot={{ r: 4, fill: lineStroke }}
+              activeDot={{ r: 6 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
   );
 }

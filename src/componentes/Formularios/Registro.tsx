@@ -123,9 +123,11 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
 
   return (
     <form className="form-registro" {...props} onSubmit={handleSubmit}>
-      <h2>Registro</h2>
-
-      <div className="grid-registro">
+      <header className="mb-6">
+        <h2 className="text-center">Registro</h2>
+      </header>
+      <fieldset className="grid-registro border-none p-0 m-0">
+        <legend className="sr-only">Información personal y de cuenta</legend>
         <Inputs
           label="Nombre"
           type="text"
@@ -186,14 +188,19 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
           regex={/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
           error="Revise la contraseña, debe coincidir con el campo anterior"
         />
-      </div>
-
-      <Checkbox
-        label="Aceptar políticas"
-        name="politicas"
-        manejarCambio={manejarCambios}
-      />
-      <Button type="submit">Registrar</Button>
+      </fieldset>
+      <section className="mt-4">
+        <Checkbox
+          label="Aceptar políticas"
+          name="politicas"
+          manejarCambio={manejarCambios}
+        />
+      </section>
+      <footer className="mt-6 flex flex-col items-center">
+        <Button type="submit" className="w-full">
+          Registrar
+        </Button>
+      </footer>
     </form>
   );
 };

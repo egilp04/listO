@@ -32,125 +32,147 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" aria-label="Navegación principal">
       <div className="flex items-center gap-3">
         <NavLink
           to={estaLogueado ? "/biblioteca" : "/"}
           end
           className="navbar-logo"
+          aria-label="Ir a la página de inicio"
         >
           <img
-            src="/src/assets/img/logo/logo.webp"
-            alt="logo"
+            src="/logo.webp"
+            alt="Logotipo de ListO"
             className="h-20 w-20 object-contain md:h-24"
+            width={96}
+            height={96}
           />
         </NavLink>
+
         {estaLogueado && (
           <span className="text-base text-black font-medium dark:text-primary-50">
-            Hola, {nombreUsuario}
+            Hola, <strong>{nombreUsuario}</strong>
           </span>
         )}
       </div>
+
       <div className="xl:hidden block">
         <button
           className="material-symbols-outlined cursor-pointer text-7xl dark:text-primary-50 bg-transparent border-none p-0"
           onClick={handleClick}
           aria-expanded={!close}
-          aria-label="Abrir menú de navegación"
+          aria-controls="navbar-menu"
+          aria-label={close ? "Abrir menú" : "Cerrar menú"}
         >
-          menu
+          {close ? "menu" : "menu"}
         </button>
       </div>
       <div
-        className={`${close
+        id="navbar-menu"
+        className={`${
+          close
             ? "hidden"
-            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50"
-          }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
+            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
+        } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
       >
-        <div className="botones-navbar">
+        <ul className="flex flex-col xl:flex-row items-center gap-4 list-none p-0 m-0">
           {estaLogueado && (
             <>
-              <NavLink to="/biblioteca" className="nav-link">
-                {({ isActive }) => (
-                  <Button
-                    variant={isActive ? "primario" : "secundario"}
-                    className="w-full"
-                  >
-                    Mi Biblioteca
-                  </Button>
-                )}
-              </NavLink>
-              <NavLink to="/estadisticas" end className="nav-link">
-                {({ isActive }) => (
-                  <Button
-                    variant={isActive ? "primario" : "secundario"}
-                    className="w-full"
-                  >
-                    Estadísticas
-                  </Button>
-                )}
-              </NavLink>
-              <NavLink to="/miperfil" className="nav-link">
-                {({ isActive }) => (
-                  <Button
-                    variant={isActive ? "primario" : "secundario"}
-                    className="w-full"
-                  >
-                    Mi Perfil
-                  </Button>
-                )}
-              </NavLink>
+              <li>
+                <NavLink to="/biblioteca" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                    >
+                      Mi Biblioteca
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/estadisticas" end className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                    >
+                      Estadísticas
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/miperfil" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                    >
+                      Mi Perfil
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
               {esAdmin && (
                 <>
-                  <NavLink to="/estadisticas/globales" className="nav-link">
-                    {({ isActive }) => (
-                      <Button
-                        variant={isActive ? "primario" : "secundario"}
-                        className="w-full"
-                      >
-                        Estadísticas Globales
-                      </Button>
-                    )}
-                  </NavLink>
-                  <NavLink to="/gestion" className="nav-link">
-                    {({ isActive }) => (
-                      <Button
-                        variant={isActive ? "primario" : "secundario"}
-                        className="w-full"
-                      >
-                        Gestión
-                      </Button>
-                    )}
-                  </NavLink>
+                  <li>
+                    <NavLink to="/estadisticas/globales" className="nav-link">
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "primario" : "secundario"}
+                          className="w-full"
+                        >
+                          Estadísticas Globales
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/gestion" className="nav-link">
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "primario" : "secundario"}
+                          className="w-full"
+                        >
+                          Gestión
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
                 </>
               )}
             </>
           )}
-        </div>
-        <div className="botones-navbar">
+        </ul>
+        <div className="flex flex-col xl:flex-row items-center gap-4 border-t xl:border-t-0 pt-4 xl:pt-0 border-gray-200 dark:border-primary-800">
           {!estaLogueado ? (
-            <>
-              <NavLink to="/login" className="nav-link">
-                {({ isActive }) => (
-                  <Button
-                    variant={isActive ? "primario" : "secundario"}
-                    className="w-full"
-                  >
-                    Log in
-                  </Button>
-                )}
-              </NavLink>
-              <NavLink to="/registro" className="nav-link">
-                {({ isActive }) => (
-                  <Button
-                    variant={isActive ? "primario" : "secundario"}
-                    className="w-full"
-                  >
-                    Registro
-                  </Button>
-                )}
-              </NavLink>
-            </>
+            <ul className="flex flex-col xl:flex-row gap-2 list-none p-0 m-0">
+              <li>
+                <NavLink to="/login" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                    >
+                      Log in
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to="/registro" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                    >
+                      Registro
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+            </ul>
           ) : (
             <Button
               variant="fantasma"
@@ -160,9 +182,8 @@ const Navbar = () => {
               Salir
             </Button>
           )}
+          <ThemeToggle />
         </div>
-        <ThemeToggle></ThemeToggle>
-        <ThemeToggle></ThemeToggle>
       </div>
     </nav>
   );

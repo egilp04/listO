@@ -35,18 +35,47 @@ function TextArea({
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <label htmlFor={name}>{label}</label>
+    <section
+      className="flex flex-col gap-2 w-full"
+      aria-labelledby={`${name}-label`}
+    >
+      <header>
+        <label
+          id={`${name}-label`}
+          htmlFor={name}
+          className="font-medium text-primary-900 dark:text-primary-50"
+        >
+          {label}
+        </label>
+      </header>
+
       <textarea
         id={name}
         name={name}
         disabled={disabled}
-        className={`dark:text-primary-50 input-style-comun textarea-style textarea-responsive ${disabled ? "input-disabled cursor-not-allowed" : `cursor-text  ${colorClass}`}`}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={`dark:text-primary-50 input-style-comun textarea-style textarea-responsive ${
+          disabled
+            ? "input-disabled cursor-not-allowed"
+            : `cursor-text ${colorClass}`
+        }`}
         {...props}
         onChange={handleChange}
       />
-      {error && <span className="span-error">{mensajeError}</span>}
-    </div>
+
+      {error && (
+        <footer className="mt-1">
+          <span
+            id={`${name}-error`}
+            className="span-error text-red-500 text-sm"
+            role="alert"
+          >
+            {mensajeError}
+          </span>
+        </footer>
+      )}
+    </section>
   );
 }
 

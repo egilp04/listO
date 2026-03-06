@@ -22,11 +22,27 @@ export default function Select({
   const colorClass = `input-border-${variant}`;
 
   return (
-    <div className="flex flex-col gap-0.5 w-fit">
+    <section
+      className="flex flex-col gap-0.5 w-fit"
+      aria-labelledby={`${props.name}-label`}
+    >
+      <label
+        id={`${props.name}-label`}
+        htmlFor={props.name}
+        className="sr-only"
+      >
+        Seleccionar opción
+      </label>
+
       <select
+        id={props.name}
         value={value}
         disabled={disabled}
-        className={`w-fit min-w-[120px] select-responsive input-style-comun ${disabled ? "input-disabled cursor-not-allowed" : `cursor-pointer ${"select-color-text"} ${colorClass}`}`}
+        className={`w-fit min-w-30 select-responsive input-style-comun ${
+          disabled
+            ? "input-disabled cursor-not-allowed"
+            : `cursor-pointer select-color-text ${colorClass}`
+        }`}
         {...props}
         onChange={manejarambio}
       >
@@ -44,6 +60,6 @@ export default function Select({
           </option>
         ))}
       </select>
-    </div>
+    </section>
   );
 }

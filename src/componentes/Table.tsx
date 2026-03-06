@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 import Button from "./Button";
-import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+const Dialog = lazy(() => import("./Dialog"));
 
 interface TableInterface {
   tipoItem: string;
@@ -97,24 +97,34 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   };
 
   return (
-    <div>
-      <div className="table-admin">
-        <div className="flex flex-row w-full">
-          <label className="dark:text-primary-50">Nombre</label>
-        </div>
-        <div className="flex flex-col">
+    <section>
+      <table className="table-admin">
+        <thead className="flex flex-row w-full">
+          <tr>
+            <th>
+              <label className="dark:text-primary-50">Nombre</label>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody className="flex flex-col">
           {datosAMostrar.map((inf, index) => (
-            <div
-              className="rows-table odd:bg-primary-100 dark:odd:bg-primary-1000 even:bg-neutral-100 dark:even:bg-primary-850 dark:even:text-primary-1100 dark:text-primary-50"
+            <tr
+              className="justify-between rows-table odd:bg-primary-100 dark:odd:bg-primary-1000 even:bg-neutral-100 dark:even:bg-primary-850 dark:even:text-primary-1100 dark:text-primary-50"
               key={`${inf.id}-${index}`}
             >
-              <label className="w-full font-bold ">{inf.nombre}</label>
+              <td>
+                <label className="w-full font-bold ">{inf.nombre}</label>
+              </td>
               {tipoItem == "genero" && (
-                <label className="w-full font-bold ">
-                  {inf.tipo?.nombre || "Sin tipo"}
-                </label>
+                <td>
+                  <label className="w-full font-bold ">
+                    {inf.tipo?.nombre || "Sin tipo"}
+                  </label>
+                </td>
               )}
-              <div className="gap-4 flex flex-row justify-end pr-2">
+
+              <td className="gap-4 flex flex-row justify-end pr-2">
                 <Button
                   className="dark:bg-primary-950"
                   onClick={() => {
@@ -131,18 +141,29 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                 >
                   <span className="text-black">Eliminar</span>
                 </Button>
-              </div>
-            </div>
+              </td>
+            </tr>
           ))}
-        </div>
-      </div>
-      <Dialog
-        onClose={deleteItem}
-        titulo="Eliminar"
-        descripcion="Vas a proceder a eliminar el género selccionado, estás seguro?"
-        show={show}
-      ></Dialog>
-    </div>
+        </tbody>
+      </table>
+
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50 text-center">
+            <span>Cargando modal...</span>
+          </div>
+        }
+      >
+        {show && (
+          <Dialog
+            onClose={deleteItem}
+            titulo="Eliminar"
+            descripcion={`¿Estás seguro de que deseas eliminar este ${tipoItem}?`}
+            show={show}
+          />
+        )}
+      </Suspense>
+    </section>
   );
 };
 export default Table;
