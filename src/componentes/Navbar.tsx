@@ -40,9 +40,11 @@ const Navbar = () => {
           className="navbar-logo"
         >
           <img
-            src="/src/assets/img/logo/logo.webp"
-            alt="logo"
+            src="/logo.webp"
+            alt="Logotipo oficial de la bitácora Listo"
             className="h-20 w-20 object-contain md:h-24"
+            width={96}
+            height={96}
           />
         </NavLink>
         {estaLogueado && (
@@ -62,10 +64,11 @@ const Navbar = () => {
         </button>
       </div>
       <div
-        className={`${close
+        className={`${
+          close
             ? "hidden"
             : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50"
-          }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
+        }  flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row`}
       >
         <div className="botones-navbar">
           {estaLogueado && (

@@ -308,7 +308,8 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
       data?.forEach((item) => {
         const nombreMes = meses[new Date(item.created_at).getMonth()].label;
-        const nombreTipo = item.tipo?.nombre;
+        console.log("item", item);
+        const nombreTipo = (item.tipo as any)?.nombre;
         if (nombreTipo === "libro") {
           conteoMeses[nombreMes].libros++;
         } else if (nombreTipo === "videojuego") {

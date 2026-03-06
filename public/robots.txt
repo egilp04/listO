@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /miperfil
+Disallow: /admin/
+Disallow: /gestion
+
+Sitemap: https://list-o.vercel.app/sitemap.xml

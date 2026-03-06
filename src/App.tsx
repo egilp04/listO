@@ -1,23 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect, useState, lazy, Suspense } from "react";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
-import Estadisticas from "./pages/Estadisticas";
+import LandingLayout from "./layouts/LandingLayout";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca";
-import EstadisticasGlobales from "./pages/EstadisticasGlobales";
-import GestionAdmin from "./pages/GestionAdmin";
-import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
-import MiPerfil from "./pages/miPerfil";
-import LandingLayout from "./layouts/LandingLayout";
-import GestionItem from "./pages/GestionItem";
-import Loading from "./componentes/Loading";
-import { useEffect, useState } from "react";
-import { useAuthStore } from "./store/useAuthStore";
-import NoImplementado from "./pages/NoImplementado";
-import Landing from "./pages/landing";
 import { Recuperacion_Passwd } from "./componentes/Formularios/Recuperacion_Passwd";
+import Loading from "./componentes/Loading";
+import Landing from "./pages/landing";
+import { useAuthStore } from "./store/useAuthStore";
 import { supabase } from "./utils/supabaseClient";
+const Estadisticas = lazy(() => import("./pages/Estadisticas"));
+const EstadisticasGlobales = lazy(() => import("./pages/EstadisticasGlobales"));
+const Biblioteca = lazy(() => import("./pages/biblioteca"));
+const GestionAdmin = lazy(() => import("./pages/GestionAdmin"));
+const FormularioGestionGeneros = lazy(
+  () => import("./pages/FormularioGestionGeneros"),
+);
+const MiPerfil = lazy(() => import("./pages/miPerfil"));
+const GestionItem = lazy(() => import("./pages/GestionItem"));
+const NoImplementado = lazy(() => import("./pages/NoImplementado"));
+
+const CargaPerezosa = ({ children }: { children: React.ReactNode }) => (
+  <Suspense fallback={<Loading />}>{children}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
@@ -25,35 +31,67 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin/items",
-        element: <GestionItem />,
+        element: (
+          <CargaPerezosa>
+            <GestionItem />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/estadisticas",
-        element: <Estadisticas />,
+        element: (
+          <CargaPerezosa>
+            <Estadisticas />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/miperfil",
-        element: <MiPerfil />,
+        element: (
+          <CargaPerezosa>
+            <MiPerfil />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/biblioteca",
-        element: <Biblioteca />,
+        element: (
+          <CargaPerezosa>
+            <Biblioteca />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/estadisticas/globales",
-        element: <EstadisticasGlobales />,
+        element: (
+          <CargaPerezosa>
+            <EstadisticasGlobales />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/gestion",
-        element: <GestionAdmin />,
+        element: (
+          <CargaPerezosa>
+            <GestionAdmin />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/genero",
-        element: <FormularioGestionGeneros />,
+        element: (
+          <CargaPerezosa>
+            <FormularioGestionGeneros />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "*",
-        element: <NoImplementado />,
+        element: (
+          <CargaPerezosa>
+            <NoImplementado />
+          </CargaPerezosa>
+        ),
       },
     ],
   },
@@ -97,7 +135,6 @@ function App() {
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        console.log("Sincronización global: Reiniciando contexto...");
         window.location.reload();
       }
     };
@@ -110,20 +147,18 @@ function App() {
 
   useEffect(() => {
     // Escuchamos los cambios en el estado de autenticación
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, _session) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        // clic en el enlace del correo
-        // Redirigimos a una página donde pueda escribir su nueva contraseña usando el router
-        router.navigate('/actualizar-password');
-      } else if (event === 'USER_UPDATED') {
-        // Redirigimos a biblioteca al cambiar la contraseña
-        router.navigate('/biblioteca');
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, _session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        router.navigate("/actualizar-password");
+      } else if (event === "USER_UPDATED") {
+        router.navigate("/biblioteca");
       }
     });
 
     return () => subscription.unsubscribe();
   }, []);
-
 
   if ((loading || minLoadingTime) && !session) {
     return <Loading />;

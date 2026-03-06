@@ -26,7 +26,14 @@ const Biblioteca = () => {
       </div>
 
       <div className="bg-white  dark:bg-primary-900  rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto">
-        <Input type="text" placeholder="Buscar nombre" />
+        <Input
+          type="text"
+          placeholder="Buscar nombre"
+          name="busqueda"
+          error=""
+          manejarCambio={() => {}}
+          manejarError={() => {}}
+        />{" "}
         <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4">
           <Button>Todos</Button>
           <Button variant="secundario">Libros</Button>
