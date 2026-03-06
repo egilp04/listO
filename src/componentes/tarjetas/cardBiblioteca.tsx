@@ -42,71 +42,83 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   };
 
   return (
-    <div className="card-biblioteca">
-      <img
-        src={item.imagen}
-        alt={item.tipo}
-        className="w-full h-32 md:h-40 object-cover transition-all duration-300"
-      />
-
-      <div className="flex flex-col gap-2 px-3 pb-3 text-left">
-        <div className="flex flex-wrap gap-1.5">
-          <span className="bg-primary-1000 text-white dark:bg-primary-50 dark:text-primary-800 px-2 py-0.5 rounded">
+    <article className="card-biblioteca flex flex-col h-full bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm transition-shadow hover:shadow-md">
+      <header className="relative">
+        <img
+          src={item.imagen}
+          alt={`${item.tipo}: ${item.informacion}`}
+          loading="lazy"
+          className="w-full h-32 md:h-40 object-cover transition-all duration-300 group-hover:scale-105"
+        />
+        <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
+          <span className="bg-primary-1000/80 backdrop-blur-sm text-white dark:bg-primary-50/90 dark:text-primary-800 px-2 py-0.5 rounded text-xs font-bold uppercase">
             {item.tipo}
           </span>
+        </div>
+      </header>
+
+      <section className="flex flex-col flex-1 gap-2 px-3 py-3 text-left">
+        <div className="flex flex-wrap gap-1">
           {item.generos.map((genero, index) => (
             <span
               key={index}
-              className="bg-primary-1000 text-white dark:bg-primary-50 dark:text-primary-800 px-2 py-0.5 rounded"
+              className="text-[10px] uppercase tracking-wider font-bold text-primary-700 dark:text-primary-200"
             >
-              {genero}
+              #{genero}
             </span>
           ))}
         </div>
 
-        <p>{item.informacion}</p>
+        <h3 className="text-lg font-bold leading-tight text-primary-950 dark:text-primary-50">
+          {item.informacion}
+        </h3>
 
-        <p>{item.descripcion}</p>
+        <p className="text-sm line-clamp-3 text-primary-800 dark:text-primary-200">
+          {item.descripcion}
+        </p>
 
-        <div className="flex flex-row md:flex-col items-center md:items-stretch justify-between gap-2 mt-1">
-          <div className="flex flex-row md:flex-col items-center justify-center gap-1 md:gap-0.5">
-            <p>Valoración:</p>
-            <div className="flex items-center">
-              {renderizarEstrellas(item.valoracion)}
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-2 w-full mt-auto">
-            <Button
-              variant="primario"
-              className="w-full sm:w-auto flex-1 text-sm px-2"
-              onClick={() => navigate("/admin/items")}
-            >
-              Modificar
-            </Button>
-
-            <Button
-              variant="primario"
-              className="w-full w-auto flex-1 text-sm px-2 !border-transparent !bg-danger-500 hover:!bg-danger-700 text-black dark:!bg-danger-500"
-              onClick={() => setShowDialog(true)}
-            >
-              Eliminar
-            </Button>
+        <div
+          className="mt-2 flex items-center gap-2"
+          aria-label={`Valoración: ${item.valoracion} de 5 estrellas`}
+        >
+          <span className="text-xs font-medium uppercase text-primary-600 dark:text-primary-400">
+            Rating:
+          </span>
+          <div className="flex items-center text-yellow-500" aria-hidden="true">
+            {renderizarEstrellas(item.valoracion)}
           </div>
         </div>
-      </div>
+      </section>
+
+      <footer className="px-3 pb-3 mt-auto">
+        <div className="flex flex-col sm:flex-row gap-2 w-full">
+          <Button
+            variant="primario"
+            className="flex-1 text-xs py-2"
+            onClick={() => navigate("/admin/items")}
+          >
+            Modificar
+          </Button>
+
+          <Button
+            variant="primario"
+            className="flex-1 text-xs py-2 !bg-danger-500 hover:!bg-danger-700 border-none"
+            onClick={() => setShowDialog(true)}
+          >
+            Eliminar
+          </Button>
+        </div>
+      </footer>
       <Dialog
         titulo={`Eliminar ${item.tipo}`}
-        descripcion={`¿Estás seguro de que quieres eliminar el ítem "${item.informacion.split(" -")[0]}" de tu biblioteca?`}
+        descripcion={`¿Estás seguro de que quieres eliminar "${item.informacion.split(" -")[0]}"?`}
         show={showDialog}
         onClose={(confirmar) => {
           setShowDialog(false);
-          if (confirmar) {
-            console.log("Ítem borrado");
-          }
+          if (confirmar) console.log("Ítem borrado");
         }}
       />
-    </div>
+    </article>
   );
 };
 

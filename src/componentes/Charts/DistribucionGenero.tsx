@@ -31,9 +31,23 @@ export default function DistribucionGeneros() {
   }, [fetchDistribucionGeneros]);
 
   return (
-    <div className="charts">
-      <h2>Distribución por Género</h2>
-      <div className="h-75">
+    <figure
+      className="charts flex flex-col gap-4"
+      aria-labelledby="genero-chart-title"
+    >
+      <figcaption>
+        <h2
+          id="genero-chart-title"
+          className="text-xl font-semibold text-center md:text-left"
+        >
+          Distribución por Género
+        </h2>
+      </figcaption>
+      <div
+        className="h-75 w-full"
+        role="img"
+        aria-label="Gráfico circular tipo donut que muestra la proporción de cada género en la biblioteca del usuario."
+      >
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -44,15 +58,22 @@ export default function DistribucionGeneros() {
               outerRadius={100}
               paddingAngle={5}
               dataKey="value"
+              nameKey="name"
             >
               {data.map((_, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={COLORS[index % COLORS.length]}
+                  tabIndex={-1}
                 />
               ))}
             </Pie>
             <Tooltip
+              contentStyle={{
+                borderRadius: "8px",
+                border: "none",
+                boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+              }}
               formatter={(
                 value: number | undefined,
                 name: string | undefined,
@@ -66,10 +87,10 @@ export default function DistribucionGeneros() {
                 return [`${value} elementos (${percent}%)`, name];
               }}
             />
-            <Legend verticalAlign="bottom" height={36} />
+            <Legend verticalAlign="bottom" height={36} iconType="circle" />
           </PieChart>
         </ResponsiveContainer>
       </div>
-    </div>
+    </figure>
   );
 }

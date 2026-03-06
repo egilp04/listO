@@ -66,74 +66,99 @@ const EstadisticasGlobales = () => {
   }, [mesSeleccionado, fetchUsuariosPorMes]);
 
   return (
-    <div className=" flex flex-col items-center mb-6 gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
-      <h1 className="flex justify-center">Estadísticas Globales</h1>
-      <div className="cursor-pointer shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
-        <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50">
-          Usuarios registrados por mes: {conteoUsuario}
+    <section
+      className="flex flex-col items-center mb-6 gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch"
+      aria-labelledby="global-stats-title"
+    >
+      <header className="flex justify-center">
+        <h1 id="global-stats-title">Estadísticas Globales</h1>
+      </header>
+      <article className="shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
+        <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50 text-xl">
+          Usuarios registrados por mes:{" "}
+          <span className="font-bold">{conteoUsuario}</span>
         </h2>
         <div className="w-full md:w-auto flex justify-center md:justify-end">
+          <label htmlFor="select-mes" className="sr-only">
+            Seleccionar mes para filtrar usuarios
+          </label>
           <Select
+            id="select-mes"
             variant="primario"
             options={meses}
             value={mesSeleccionado}
             manejarambio={(e) => setMesSeleccionado(e.target.value)}
           />
         </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
+      </article>
+      <section
+        className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10"
+        aria-label="Resumen numérico de actividad"
+      >
         {infoTarjetaEstadistica.map(({ label, value, id }) => (
           <CardEstadisticaG
             key={`est-num-${id}`}
             texto={label}
             numero={value}
-          ></CardEstadisticaG>
+          />
         ))}
-      </div>
-      <div className="w-full flex flex-col items-center justify-center pr-6 pl-6 md:pr-28 md:pl-28">
-        <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm">
-          <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
-            <div className=" w-28 flex flex-row gap-2 h-full">
+      </section>
+      <article className="w-full flex flex-col items-center justify-center px-4 md:px-28">
+        <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm shadow-lg">
+          <header className="flex flex-row gap-6 justify-center items-center mb-6 md:mb-0">
+            <figure className="w-28">
               <img
-                className="hover:scale-120 cursor-pointer transition-scale duration-700"
-                src="/src/assets/img/logo/logo.webp"
-                alt="logo"
+                className="hover:scale-110 transition-transform duration-700"
+                src="/logo.webp"
+                alt="Logo de ListO"
               />
-            </div>
-            <h3 className="text-primary-50 text-shimmer">Generos Favoritos</h3>
-          </div>
-          <div className="flex flex-col gap-2">
+            </figure>
+            <h3 className="text-primary-50 text-shimmer text-2xl font-semibold">
+              Géneros Favoritos
+            </h3>
+          </header>
+
+          <ol className="flex flex-col gap-2 mt-4">
             {infoEstadisticasTop.map((info) =>
               info.value.map((nombreGenero, index) => (
-                <CardEstadisticaT
-                  key={`${info.id}-${index}`}
-                  numero={index + 1}
-                  texto={nombreGenero}
-                />
+                <li key={`${info.id}-${index}`}>
+                  <CardEstadisticaT numero={index + 1} texto={nombreGenero} />
+                </li>
               )),
             )}
-          </div>
+          </ol>
         </div>
-      </div>
-      <Suspense
-        fallback={
-          <div className="text-primary-1100 dark:text-primary-50">
-            Cargando gráfico...
-          </div>
-        }
+      </article>
+
+      <section
+        className="w-full flex flex-col gap-10"
+        aria-label="Visualizaciones gráficas de datos"
       >
-        <RegistroUsuarios></RegistroUsuarios>
-      </Suspense>
-      <Suspense
-        fallback={
-          <div className="text-primary-1100 dark:text-primary-50">
-            Cargando gráfico...
-          </div>
-        }
-      >
-        <DistribucionGeneros></DistribucionGeneros>
-      </Suspense>
-    </div>
+        <figure className="w-full min-h-75">
+          <Suspense
+            fallback={
+              <div className="text-center py-10 dark:text-primary-50">
+                Cargando gráfico de registros...
+              </div>
+            }
+          >
+            <RegistroUsuarios />
+          </Suspense>
+        </figure>
+
+        <figure className="w-full min-h-75">
+          <Suspense
+            fallback={
+              <div className="text-center py-10 dark:text-primary-50">
+                Cargando gráfico de distribución...
+              </div>
+            }
+          >
+            <DistribucionGeneros />
+          </Suspense>
+        </figure>
+      </section>
+    </section>
   );
 };
 

@@ -53,7 +53,7 @@ const Dialog = ({
             if (
               document.activeElement === firstElement ||
               document.activeElement ===
-              modalRef.current.querySelector("#dialog-title")
+                modalRef.current.querySelector("#dialog-title")
             ) {
               lastElement.focus();
               e.preventDefault();
@@ -79,52 +79,59 @@ const Dialog = ({
 
   if (!show) return null;
   return createPortal(
-    <>
-      <div className="dialog-overlay" onClick={() => onClose(false)}></div>
-      <div
-        className="dialog"
+    <div
+      className="dialog-overlay"
+      onClick={() => onClose(false)}
+      role="presentation"
+    >
+      <section
+        className="dialog shadow-elevation-4"
         role="dialog"
         aria-modal="true"
         aria-labelledby="dialog-title"
         aria-describedby="dialog-desc"
         ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-end">
+        <header className="flex justify-end p-2">
           <button
-            className="material-symbols-outlined cursor-pointer hover:text-gray-500 bg-transparent border-none p-0"
+            className="material-symbols-outlined cursor-pointer hover:text-danger-500 transition-colors bg-transparent border-none p-0"
             onClick={() => onClose(false)}
-            aria-label="Cerrar modal"
+            aria-label="Cerrar ventana emergente"
           >
             close
           </button>
-        </div>
-
-        <div className="flex flex-col gap-4">
-          <h2 id="dialog-title" tabIndex={-1} className="text-xl font-bold focus:outline-none">{titulo}</h2>
-          <p id="dialog-desc" className="text-gray-600">{descripcion}</p>
-        </div>
-
-        <div className="flex flex-row gap-2 justify-end mt-6">
-          <Button
-            variant="fantasma"
-            onClick={() => {
-              onClose(false);
-            }}
+        </header>
+        <article className="flex flex-col gap-4 px-6">
+          <h2
+            id="dialog-title"
+            tabIndex={-1}
+            className="text-xl font-bold focus:outline-none"
           >
-            <span>No, cancelar</span>
+            {titulo}
+          </h2>
+          <p
+            id="dialog-desc"
+            className="text-gray-600 dark:text-primary-100 text-pretty"
+          >
+            {descripcion}
+          </p>
+        </article>
+
+        <footer className="flex flex-row gap-4 justify-end mt-8 p-6 bg-gray-50 dark:bg-primary-850/50 rounded-b-xl">
+          <Button variant="fantasma" onClick={() => onClose(false)}>
+            No, cancelar
           </Button>
           <Button
-            className="bg-danger-500 text-white"
-            onClick={() => {
-              onClose(true);
-            }}
+            className="bg-danger-500 text-white hover:bg-danger-600"
+            onClick={() => onClose(true)}
           >
-            <span>Sí, confirmar</span>
+            Sí, confirmar
           </Button>
-        </div>
-      </div>
-    </>,
-    document.body
+        </footer>
+      </section>
+    </div>,
+    document.body,
   );
 };
 

@@ -18,36 +18,74 @@ const Biblioteca = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" bg-primary-200 dark:bg-primary-1100 p-5 md:p-10">
-      <h1 className="mb-10 text-center">Mi Biblioteca</h1>
+    <section className="bg-primary-200 dark:bg-primary-1100 p-5 md:p-10 min-h-screen">
+      <header className="mb-10">
+        <h1 className="text-center">Mi Biblioteca</h1>
+      </header>
+      <nav
+        className="flex justify-center mb-8"
+        aria-label="Acciones de biblioteca"
+      >
+        <Button onClick={() => navigate("/admin/items")}>
+          Añadir nuevo ítem
+        </Button>
+      </nav>
+      <aside
+        className="bg-white dark:bg-primary-900 rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto"
+        aria-labelledby="filtro-title"
+      >
+        <h2 id="filtro-title" className="sr-only">
+          Buscador y filtros de contenido
+        </h2>
 
-      <div className="flex justify-center mb-8">
-        <Button onClick={() => navigate("/admin/items")}>Añadir</Button>
-      </div>
-
-      <div className="bg-white  dark:bg-primary-900  rounded-2xl shadow-sm p-4 md:p-6 mb-8 flex flex-col gap-6 max-w-5xl mx-auto">
-        <Input
-          type="text"
-          placeholder="Buscar nombre"
-          name="busqueda"
-          error=""
-          manejarCambio={() => {}}
-          manejarError={() => {}}
-        />{" "}
-        <div className="flex flex-col md:flex-row flex-wrap justify-between gap-4">
-          <Button>Todos</Button>
-          <Button variant="secundario">Libros</Button>
-          <Button variant="secundario">Juegos</Button>
+        <div className="w-full">
+          <label htmlFor="search-biblioteca" className="sr-only">
+            Buscar por nombre en mi biblioteca
+          </label>
+          <Input
+            id="search-biblioteca"
+            type="text"
+            placeholder="Buscar nombre..."
+            name="busqueda"
+            error=""
+            manejarCambio={() => {}}
+            manejarError={() => {}}
+          />
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-7xl mx-auto">
-        <CardBiblioteca item={itemEjemplo} />
-        <CardBiblioteca item={itemEjemplo} />
-        <CardBiblioteca item={itemEjemplo} />
-        <CardBiblioteca item={itemEjemplo} />
+        <div
+          className="flex flex-col md:flex-row flex-wrap justify-between gap-4"
+          role="group"
+          aria-label="Filtrar por tipo de contenido"
+        >
+          <Button aria-pressed="true">Todos</Button>
+          <Button variant="secundario" aria-pressed="false">
+            Libros
+          </Button>
+          <Button variant="secundario" aria-pressed="false">
+            Juegos
+          </Button>
+        </div>
+      </aside>
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-7xl mx-auto"
+        role="region"
+        aria-label="Listado de ítems en biblioteca"
+      >
+        <article className="w-full flex justify-center">
+          <CardBiblioteca item={itemEjemplo} />
+        </article>
+        <article className="w-full flex justify-center">
+          <CardBiblioteca item={itemEjemplo} />
+        </article>
+        <article className="w-full flex justify-center">
+          <CardBiblioteca item={itemEjemplo} />
+        </article>
+        <article className="w-full flex justify-center">
+          <CardBiblioteca item={itemEjemplo} />
+        </article>
       </div>
-    </div>
+    </section>
   );
 };
 

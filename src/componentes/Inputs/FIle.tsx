@@ -57,18 +57,26 @@ function File({
   };
 
   return (
-    <div className="file-container max-w-full">
-      <div
+    <section
+      className="file-container max-w-full"
+      aria-labelledby={`${name}-label`}
+    >
+      <label
         onClick={handleValidClick}
+        htmlFor={name}
         className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-lg p-2 hover:bg-gray-50 transition-colors cursor-pointer"
       >
         <span
           className={`dark:text-primary-50 material-symbols-outlined ${disabled ? "label-disabled" : ""}`}
+          aria-hidden="true"
         >
           upload
         </span>
-        <label htmlFor={name} className="dark:text-primary-50 cursor-pointer">{label}</label>
-      </div>
+        <span id={`${name}-label`} className="dark:text-primary-50">
+          {label}
+        </span>
+      </label>
+
       <input
         ref={fileInputRef}
         type="file"
@@ -79,10 +87,15 @@ function File({
         className={`dark:text-primary-50 ${error ? "input-error" : "input-normal"} w-full max-w-full mt-2`}
         {...props}
       />
+
       {error && (
-        <span aria-live="polite" className="text-red-500 text-sm block mt-1">{mensajeError}</span>
+        <footer className="mt-1">
+          <span aria-live="polite" className="text-red-500 text-sm block">
+            {mensajeError}
+          </span>
+        </footer>
       )}
-    </div>
+    </section>
   );
 }
 

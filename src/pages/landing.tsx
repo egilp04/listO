@@ -73,30 +73,34 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <section className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
+      <header className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
         <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18 hero-element">
-          <h1>El espacio para tus historias</h1>
-          <p>
+          <h1 className="text-balance">El espacio para tus historias</h1>
+          <p className="max-w-2xl mx-auto">
             Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine y
             música en un catálogo personal único y organizado
           </p>
         </div>
-        <Link to="/login" className="hero-element">
-          <Button variant="primario">Comenzar</Button>
-        </Link>
-        <div className="w-full mt-8 hero-element">
+
+        <nav className="hero-element" aria-label="Navegación de acceso rápido">
+          <Link to="/login">
+            <Button variant="primario">Comenzar</Button>
+          </Link>
+        </nav>
+
+        <figure className="w-full mt-8 hero-element">
           <img
             src={heroLight}
-            alt="Bitácora digital"
+            alt="Vista previa de la bitácora digital ListO"
             className="w-full h-auto object-cover rounded-xl shadow-elevation-1 
-               transition-all duration-100
-               dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6] "
+                       transition-all duration-100
+                       dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
           />
-        </div>
+        </figure>
 
-        <div className="flex flex-col mt-8 mb-[40px] gap-[30px] 2xl:mb-[100px] md:gap-10 xl:gap-[50px] px-4 md:px-10 lg:px-20 fade-in-up">
+        <article className="flex flex-col mt-8 mb-[40px] gap-30 2xl:mb-25 md:gap-10 xl:gap-personalizado-50 px-4 md:px-10 lg:px-20 fade-in-up">
           <h2>Tu bitácora digital de entretenimiento</h2>
-          <p>
+          <p className="text-pretty">
             Nuestra aplicación es el refugio definitivo para tu curiosidad
             intelectual, permitiéndote registrar, organizar y valorar con
             precisión quirúrgica cada libro, videojuego y contenido multimedia
@@ -114,48 +118,53 @@ const Landing = () => {
             cultural y organizando su legado de entretenimiento en un espacio
             elegante, intuitivo y funcional.
           </p>
-        </div>
-      </section>
+        </article>
+      </header>
 
-      <div className="flex flex-col w-full gap-[50px] md:gap-[80px] lg:gap-[100px] 2xl:gap-[120px] px-4 md:px-8 lg:px-16">
-        <section className="w-full">
+      <section
+        className="flex flex-col w-full gap-personalizado-50 md:gap-20 lg:gap-25 2xl:gap-30 px-4 md:px-8 lg:px-16"
+        aria-label="Funcionalidades principales"
+      >
+        <article>
           <CardLanding
             titulo="Tu catálogo personal"
             descripcion="Olvida tener listas dispersas en notas o diferentes apps. Centraliza todo en un único catálogo personal. ListO es el hogar digital para todas esas historias que has terminado y que merecen ser recordadas."
             imagen={featureImage1}
             invertido={false}
           />
-        </section>
-        <section className="w-full">
+        </article>
+
+        <article>
           <CardLanding
             titulo="Tu crítica, tus reglas"
             descripcion="No se trata solo de marcar como completado. Documenta tu experiencia: escribe una reseña personal, sube tu propia portada y asigna una valoración de 1 a 5 estrellas. Convierte cada ficha en una memoria imborrable."
             imagen={featureImage2}
             invertido={true}
           />
-        </section>
-        <section className="w-full">
+        </article>
+
+        <article>
           <CardLanding
             titulo="Ordena tu caos digital"
             descripcion="¿Buscas aquel RPG de hace tres años? Encuéntralo al instante. Utiliza nuestros filtros avanzados para matener tu biblioteca perfectamente estructurada sin esfuerzo."
             imagen={featureImage3}
             invertido={false}
           />
-        </section>
-        <section className="w-full">
+        </article>
+
+        <article>
           <CardLanding
             titulo="Visualiza tus logros"
             descripcion="Descubre tus verdaderos hábitos de consumo cultural. Accede a tu panel de estadísticas y deja que los datos cuenten tu historia."
             imagen={featureImage4}
             invertido={true}
           />
-        </section>
-      </div>
-
-      <section className="w-full py-16">
+        </article>
+      </section>
+      <section className="w-full py-16" aria-labelledby="footer-cta-title">
         <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8 fade-in-up">
-          <div className="flex flex-col items-center text-center gap-6">
-            <h2>Miles de listas completadas con éxito</h2>
+          <div className="flex flex-col items-center text-center gap-6 md:w-1/2">
+            <h2 id="footer-cta-title">Miles de listas completadas con éxito</h2>
             <p>
               ListO no es solo una aplicación, es la suma de vuestras ideas.
               Creada desde cero gracias a vuestras sugerencias, cada función ha
@@ -164,13 +173,13 @@ const Landing = () => {
               catálogo de videojuegos.
             </p>
           </div>
-          <div className="w-full md:w-auto max-w-sm">
+          <figure className="w-full md:w-auto max-w-sm">
             <img
               src={featureImage5}
-              alt="Listas completadas"
+              alt="Ilustración de éxito en la gestión de bibliotecas personales"
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1 transition-all duration-100 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
             />
-          </div>
+          </figure>
         </div>
       </section>
     </div>

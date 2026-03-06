@@ -14,33 +14,38 @@ const AuthLayout = () => {
   return (
     <div className="relative min-h-screen flex flex-col overflow-hidden">
       <div
+        role="presentation"
         className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat transition-all duration-100 dark:brightness-[0.5] dark:saturate-[0.45] dark:contrast-[1.6]"
         style={{
           backgroundImage: `url(${fondoLogin})`,
         }}
       />
-      {state.atras != true && <Navbar></Navbar>}
+      {state.atras !== true && <Navbar />}
       <main className="grow flex-col flex items-center justify-center w-full p-4">
         {mostrar && (
           <div
-            className={`mensaje-alerta
-          ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"}`}
+            role="alert"
+            aria-live="assertive"
+            className={`mensaje-alerta ${
+              tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
+            }`}
           >
             <span>{mensaje}</span>
           </div>
         )}
-        {state.atras == true && (
-          <div className="w-full mb-6">
-            <span
-              className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 dark:text-primary-50 rounded-sm px-4 py-4 md:px-8"
+        {state.atras === true && (
+          <nav className="w-full mb-6" aria-label="Navegación de retorno">
+            <button
+              type="button"
+              className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 dark:text-primary-50 rounded-sm px-4 py-4 md:px-8 border-none"
               onClick={() => navigate(-1)}
+              aria-label="Volver a la página anterior"
             >
               arrow_back
-            </span>
-          </div>
+            </button>
+          </nav>
         )}
-
-        <Outlet></Outlet>
+        <Outlet />
       </main>
     </div>
   );

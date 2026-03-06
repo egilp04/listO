@@ -96,9 +96,17 @@ const Estadisticas = () => {
   }, [fetchItemsTotales]);
 
   return (
-    <>
-      <div className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto">
-        <h1 className="flex justify-center">Estadísticas</h1>
+    <section
+      className="flex flex-col gap-6 md:gap-10 lg:gap-12 2xl:gap-20 mb-10 w-full mx-auto"
+      aria-labelledby="stats-user-title"
+    >
+      <header>
+        <h1 id="stats-user-title" className="flex justify-center">
+          Estadísticas
+        </h1>
+      </header>
+
+      <nav aria-label="Resumen de actividad">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -114,124 +122,127 @@ const Estadisticas = () => {
             </p>
           )}
         </div>
+      </nav>
 
+      <article aria-label="Total de ítems completados">
         <CardEstadisticaG
           texto="Total de items completados"
           numero={itemsTotales}
         />
+      </article>
 
-        <div className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center cursor-pointer">
-          <h2>Completados por mes este año: {conteoItems}</h2>
+      <aside className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center">
+        <h2 className="text-xl">
+          Completados por mes este año:{" "}
+          <span className="font-bold">{conteoItems}</span>
+        </h2>
+        <div className="flex flex-col gap-1">
+          <label htmlFor="mes-selector" className="sr-only">
+            Cambiar mes de visualización
+          </label>
           <Select
+            id="mes-selector"
             variant="primario"
             options={meses}
             value={mesSeleccionado}
             manejarambio={(e) => setMesSeleccionado(e.target.value)}
           />
         </div>
+      </aside>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-warning-400 p-1 rounded-md hover:scale-110">
-                <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
-                  star
-                </span>
-              </div>
-              <h3
-                className="font-bold cursor-pointer transition-all duration-100
-              hover:drop-shadow-[0_4px_0px_rgba(137,147,255,0.4)]"
-              >
-                Top Libros
-              </h3>
+      <section
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        aria-label="Rankings personales"
+      >
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+          <header className="flex items-center gap-3 mb-4">
+            <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
+              <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
+                star
+              </span>
             </div>
-            <div className="flex flex-col gap-2">
-              {topLibros.map((info) =>
-                info.value.map((nombreGenero, index) => (
-                  <CardEstadisticaT
-                    key={`${info.id}-${index}`}
-                    numero={index + 1}
-                    texto={nombreGenero}
-                  />
-                )),
-              )}
-            </div>
-          </div>
+            <h3 className="font-bold">Top Libros</h3>
+          </header>
+          <ol className="flex flex-col gap-2">
+            {topLibros.map((info) =>
+              info.value.map((nombreGenero, index) => (
+                <li key={`${info.id}-${index}`}>
+                  <CardEstadisticaT numero={index + 1} texto={nombreGenero} />
+                </li>
+              )),
+            )}
+          </ol>
+        </article>
 
-          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-warning-400 p-1 rounded-md hover:scale-110">
-                <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
-                  star
-                </span>
-              </div>
-              <h3
-                className="font-bold cursor-pointer transition-all duration-100
-              hover:drop-shadow-[0_4px_0px_rgba(137,147,255,0.4)]"
-              >
-                Top Juego
-              </h3>
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+          <header className="flex items-center gap-3 mb-4">
+            <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
+              <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
+                star
+              </span>
             </div>
-            <div className="flex flex-col gap-2">
-              {topVideojuegos.map((info) =>
-                info.value.map((nombreGenero, index) => (
-                  <CardEstadisticaT
-                    key={`${info.id}-${index}`}
-                    numero={index + 1}
-                    texto={nombreGenero}
-                  />
-                )),
-              )}
-            </div>
-          </div>
+            <h3 className="font-bold">Top Juegos</h3>
+          </header>
+          <ol className="flex flex-col gap-2">
+            {topVideojuegos.map((info) =>
+              info.value.map((nombreGenero, index) => (
+                <li key={`${info.id}-${index}`}>
+                  <CardEstadisticaT numero={index + 1} texto={nombreGenero} />
+                </li>
+              )),
+            )}
+          </ol>
+        </article>
 
-          <div className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-warning-400 p-1 rounded-md hover:scale-110">
-                <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
-                  star
-                </span>
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+          <header className="flex items-center gap-3 mb-4">
+            <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
+              <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
+                star
+              </span>
+            </div>
+            <h3 className="font-bold">Top Géneros</h3>
+          </header>
+          <ol className="flex flex-col gap-2">
+            {infoEstadisticasTopGenero.map((info) =>
+              info.value.map((nombreGenero, index) => (
+                <li key={`${info.id}-${index}`}>
+                  <CardEstadisticaT numero={index + 1} texto={nombreGenero} />
+                </li>
+              )),
+            )}
+          </ol>
+        </article>
+      </section>
+
+      <section
+        className="flex flex-col gap-8"
+        aria-label="Gráficos de rendimiento"
+      >
+        <figure className="w-full min-h-[300px]">
+          <Suspense
+            fallback={
+              <div className="dark:text-primary-50 text-center">
+                Cargando gráfico de registros...
               </div>
-              <h3
-                className="font-bold cursor-pointer transition-all duration-100
-              hover:drop-shadow-[0_4px_0px_rgba(137,147,255,0.4)]"
-              >
-                Top Generos
-              </h3>
-            </div>
-            <div className="flex flex-col gap-2">
-              {infoEstadisticasTopGenero.map((info) =>
-                info.value.map((nombreGenero, index) => (
-                  <CardEstadisticaT
-                    key={`${info.id}-${index}`}
-                    numero={index + 1}
-                    texto={nombreGenero}
-                  />
-                )),
-              )}
-            </div>
-          </div>
-        </div>
-        <Suspense
-          fallback={
-            <div className="text-primary-1100 dark:text-primary-50">
-              Cargando gráfico...
-            </div>
-          }
-        >
-          <RegistroItems></RegistroItems>
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="text-primary-1100 dark:text-primary-50">
-              Cargando gráfico...
-            </div>
-          }
-        >
-          <ComparacionItems></ComparacionItems>
-        </Suspense>
-      </div>
-    </>
+            }
+          >
+            <RegistroItems />
+          </Suspense>
+        </figure>
+        <figure className="w-full min-h-[300px]">
+          <Suspense
+            fallback={
+              <div className="dark:text-primary-50 text-center">
+                Cargando comparativa de ítems...
+              </div>
+            }
+          >
+            <ComparacionItems />
+          </Suspense>
+        </figure>
+      </section>
+    </section>
   );
 };
 

@@ -12,19 +12,32 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
   texto,
 }) => {
   return (
-    <div className="card-estadistica">
-      <div className="flex justify-between items-start mb-2">
-        <h3 className="animate-aparicion">{numero}</h3>
-        <div className="bg-primary-50 p-2 rounded-lg">
+    <article
+      className="card-estadistica flex flex-col p-4 bg-white dark:bg-primary-900 rounded-xl shadow-sm"
+      aria-labelledby={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}
+    >
+      <header className="flex justify-between items-start mb-2">
+        <span className="text-2xl font-bold animate-aparicion text-primary-950 dark:text-primary-50">
+          {numero}
+        </span>
+        <figure className="bg-primary-50 dark:bg-primary-800 p-2 rounded-lg">
           <img
             src={imagen}
-            alt="icon"
+            alt=""
+            aria-hidden="true"
             className="w-8 h-8 object-contain animate-aparicion-giro"
           />
-        </div>
-      </div>
-      <h3 className="animate-aparicion">{texto}</h3>
-    </div>
+        </figure>
+      </header>
+      <footer>
+        <h3
+          id={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}
+          className="text-sm font-medium text-primary-700 dark:text-primary-200 animate-aparicion uppercase tracking-wider"
+        >
+          {texto}
+        </h3>
+      </footer>
+    </article>
   );
 };
 

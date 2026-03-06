@@ -3,5 +3,8 @@ Allow: /
 Disallow: /miperfil
 Disallow: /admin/
 Disallow: /gestion
+Disallow: /biblioteca
+Disallow: /estadisticas
+Disallow: /genero
 
 Sitemap: https://list-o.vercel.app/sitemap.xml

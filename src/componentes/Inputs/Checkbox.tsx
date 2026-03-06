@@ -18,24 +18,27 @@ function Checkbox({
   };
 
   return (
-    <div className="checkbox-container">
+    <section className="checkbox-container flex items-center gap-2">
       <input
         type="checkbox"
         id={name}
         name={name}
         disabled={disabled}
-        className={`checkbox-input checkbox-responsive cursor-pointer`}
+        className="checkbox-input checkbox-responsive cursor-pointer"
+        aria-disabled={disabled}
         {...props}
         onChange={handleChange}
       />
 
       <label
         htmlFor={name}
-        className={`cursor-pointer text-primary-1100 dark:text-primary-50`}
+        className={`cursor-pointer text-primary-1100 dark:text-primary-50 ${
+          disabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         {label}
       </label>
-    </div>
+    </section>
   );
 }
 
