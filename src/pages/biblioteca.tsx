@@ -1,21 +1,40 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
 import Input from "../componentes/Inputs/Inputs";
 import CardBiblioteca from "../componentes/tarjetas/cardBiblioteca";
-import carta from "../assets/img/cards/carta_landing3.webp";
-
-const itemEjemplo = {
-  imagen: carta,
-  tipo: "Juego",
-  generos: ["RPG", "Aventura"],
-  informacion: "CD Projekt Red - 2015",
-  descripcion: "Un juego de rol de acción en mundo abierto...",
-  valoracion: 5,
-};
-
-import { useNavigate } from "react-router-dom";
+import { useItemStore } from "../store/useItemStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Biblioteca = () => {
   const navigate = useNavigate();
+  const { items, tipos, fetchItems, fetchTipos, loading } = useItemStore();
+  const { user } = useAuthStore();
+
+  const [busqueda, setBusqueda] = useState("");
+  const [tipoFiltro, setTipoFiltro] = useState("Todos");
+
+  useEffect(() => {
+    if (user?.id_usuario) {
+      fetchItems(user.id_usuario);
+    }
+  }, [user?.id_usuario, fetchItems]);
+
+  useEffect(() => {
+    if (tipos.length === 0) {
+      fetchTipos();
+    }
+  }, [tipos.length, fetchTipos]);
+
+  const itemsFiltrados = items.filter((item) => {
+    const matchBusqueda =
+      item.descripcion.toLowerCase().includes(busqueda.toLowerCase());
+
+    const matchTipo =
+      tipoFiltro === "Todos" || item.tipo === tipoFiltro;
+
+    return matchBusqueda && matchTipo;
+  });
 
   return (
     <section className="bg-primary-200 dark:bg-primary-1100 p-5 md:p-10 min-h-screen">
@@ -45,45 +64,63 @@ const Biblioteca = () => {
           <Input
             id="search-biblioteca"
             type="text"
-            placeholder="Buscar nombre..."
+            placeholder="Buscar por nombre..."
             name="busqueda"
             error=""
-            manejarCambio={() => {}}
-            manejarError={() => {}}
+            value={busqueda}
+            manejarCambio={(e) => setBusqueda(e.target.value)}
+            manejarError={() => { }}
           />
         </div>
 
         <div
-          className="flex flex-col md:flex-row flex-wrap justify-between gap-4"
+          className="flex flex-col md:flex-row flex-wrap justify-center gap-4 mt-4"
           role="group"
           aria-label="Filtrar por tipo de contenido"
         >
-          <Button aria-pressed="true">Todos</Button>
-          <Button variant="secundario" aria-pressed="false">
-            Libros
+          <Button
+            variant={tipoFiltro === "Todos" ? "primario" : "secundario"}
+            onClick={() => setTipoFiltro("Todos")}
+            aria-pressed={tipoFiltro === "Todos"}
+          >
+            Todos
           </Button>
-          <Button variant="secundario" aria-pressed="false">
-            Juegos
-          </Button>
+
+          {tipos.map((tipo) => (
+            <Button
+              key={tipo.id_tipo}
+              variant={tipoFiltro === tipo.nombre ? "primario" : "secundario"}
+              onClick={() => setTipoFiltro(tipo.nombre)}
+              aria-pressed={tipoFiltro === tipo.nombre}
+            >
+              {tipo.nombre}
+            </Button>
+          ))}
         </div>
       </aside>
+
+      {loading && (
+        <p className="text-center text-primary-800 dark:text-primary-200">
+          Cargando...
+        </p>
+      )}
+
+      {!loading && itemsFiltrados.length === 0 && (
+        <p className="text-center text-primary-800 dark:text-primary-200 font-medium mt-12 bg-white/50 w-full max-w-lg mx-auto py-8 rounded-xl backdrop-blur-sm border border-neutral-200">
+          {items.length === 0 ? "No tienes ítems en tu biblioteca." : "No se encontraron ítems para esta búsqueda."}
+        </p>
+      )}
+
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-7xl mx-auto"
         role="region"
         aria-label="Listado de ítems en biblioteca"
       >
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
+        {itemsFiltrados.map((item) => (
+          <article key={item.id_item} className="w-full flex justify-center">
+            <CardBiblioteca item={item} />
+          </article>
+        ))}
       </div>
     </section>
   );
