@@ -7,9 +7,11 @@ const Footer: React.FC = () => {
       <div className="flex justify-around items-center">
         <div className="flex flex-col items-center justify-center">
           <img
-            src="/src/assets/img/logo/logo.webp"
-            alt="logo"
-            className="h-40 w-40 object-contain"
+            src="/logo.webp"
+            alt="Logotipo oficial de la bitácora Listo"
+            className="h-20 w-20 object-contain md:h-24"
+            width={96}
+            height={96}
           />
         </div>
 
