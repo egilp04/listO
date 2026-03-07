@@ -32,7 +32,6 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
   useEffect(() => {
     const finalizeUpdate = async () => {
       if (updateSuccess) {
-        console.log("Contraseña actualizada con éxito");
         navigate("/biblioteca");
         setNotificacion(t('formRecuperacionPasswd.notifExito'), "exito");
       }

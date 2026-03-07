@@ -99,11 +99,11 @@ const Estadisticas = () => {
     >
       <header>
         <h1 id="stats-user-title" className="flex justify-center">
-          {t('estadisticas.titulo')}
+          {t("estadisticas.titulo")}
         </h1>
       </header>
 
-      <nav aria-label={t('estadisticas.resumenLabel')}>
+      <nav aria-label={t("estadisticas.resumenLabel")}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -115,27 +115,26 @@ const Estadisticas = () => {
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
-              {t('estadisticas.cargandoEstadisticas')}
+              {t("estadisticas.cargandoEstadisticas")}
             </p>
           )}
         </div>
       </nav>
 
-      <article aria-label={t('estadisticas.totalCompletados')}>
+      <article aria-label={t("estadisticas.totalCompletados")}>
         <CardEstadisticaG
-          texto={t('estadisticas.totalCompletados')}
+          texto={t("estadisticas.totalCompletados")}
           numero={itemsTotales}
         />
       </article>
 
-      <aside className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center">
+      <aside className="bg-white dark:bg-primary-850 rounded-xl p-6 gap-4 shadow-sm flex flex-col md:flex-row justify-between items-center">
         <h2 className="text-xl">
-          {t('estadisticas.completadosPorMes')}{" "}
-          <span className="font-bold">{conteoItems}</span>
+          {t("estadisticas.completadosPorMes")} {conteoItems}
         </h2>
         <div className="flex flex-col gap-1">
           <label htmlFor="mes-selector" className="sr-only">
-            {t('estadisticas.cambiaMesLabel')}
+            {t("estadisticas.cambiaMesLabel")}
           </label>
           <Select
             id="mes-selector"
@@ -149,7 +148,7 @@ const Estadisticas = () => {
 
       <section
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        aria-label={t('estadisticas.rankingsLabel')}
+        aria-label={t("estadisticas.rankingsLabel")}
       >
         <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
           <header className="flex items-center gap-3 mb-4">
@@ -158,7 +157,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">{t('estadisticas.topLibros')}</h3>
+            <h3 className="font-bold">{t("estadisticas.topLibros")}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {topLibros.map((info) =>
@@ -178,7 +177,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">{t('estadisticas.topJuegos')}</h3>
+            <h3 className="font-bold">{t("estadisticas.topJuegos")}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {topVideojuegos.map((info) =>
@@ -198,7 +197,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">{t('estadisticas.topGeneros')}</h3>
+            <h3 className="font-bold">{t("estadisticas.topGeneros")}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {infoEstadisticasTopGenero.map((info) =>
@@ -214,13 +213,13 @@ const Estadisticas = () => {
 
       <section
         className="flex flex-col gap-8"
-        aria-label={t('estadisticas.graficosLabel')}
+        aria-label={t("estadisticas.graficosLabel")}
       >
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span>{t('estadisticas.cargandoGraficoRegistros')}</span>
+                <span>{t("estadisticas.cargandoGraficoRegistros")}</span>
               </div>
             }
           >
@@ -231,7 +230,7 @@ const Estadisticas = () => {
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span>{t('estadisticas.cargandoGraficoComparativa')}</span>
+                <span>{t("estadisticas.cargandoGraficoComparativa")}</span>
               </div>
             }
           >

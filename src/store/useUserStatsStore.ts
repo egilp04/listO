@@ -75,22 +75,25 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       return [
         {
           id: 1,
-          label: i18n.t('stats.librosAnio', "Libros subidos este año"),
+          label: i18n.t("stats.librosAnio", "Libros subidos este año"),
           value: librosAnio.count || 0,
         },
         {
           id: 2,
-          label: i18n.t('stats.librosMes', "Libros subidos este mes"),
+          label: i18n.t("stats.librosMes", "Libros subidos este mes"),
           value: librosMes.count || 0,
         },
         {
           id: 3,
-          label: i18n.t('stats.videojuegosAnio', "Videojuegos subidos este año"),
+          label: i18n.t(
+            "stats.videojuegosAnio",
+            "Videojuegos subidos este año",
+          ),
           value: juegosAnio.count || 0,
         },
         {
           id: 4,
-          label: i18n.t('stats.videojuegosMes', "Videojuegos subidos este mes"),
+          label: i18n.t("stats.videojuegosMes", "Videojuegos subidos este mes"),
           value: juegosMes.count || 0,
         },
       ];
@@ -178,7 +181,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       data?.forEach((item: any) => {
         const generos = item.genero_item || [];
         generos.forEach((g: any) => {
-          const nombre = g.genero?.nombre || i18n.t('stats.otros', "Otros");
+          const nombre = g.genero?.nombre || i18n.t("stats.otros", "Otros");
           conteo[nombre] = (conteo[nombre] || 0) + 1;
         });
       });
@@ -195,7 +198,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       return [
         {
           id: 1,
-          label: i18n.t('stats.generosComunes', "Géneros más comunes"),
+          label: i18n.t("stats.generosComunes", "Géneros más comunes"),
           value: topGeneros.length > 0 ? topGeneros : [],
         },
       ];
@@ -233,7 +236,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
       return [
         {
           id: 1,
-          label: i18n.t('stats.top3Valorados', { tipo: tipoNombre }),
+          label: i18n.t("stats.top3Valorados", { tipo: tipoNombre }),
           value: data?.map((item) => item.titulo) || [],
         },
       ];
@@ -309,7 +312,6 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
 
       data?.forEach((item) => {
         const nombreMes = meses[new Date(item.created_at).getMonth()].label;
-        console.log("item", item);
         const nombreTipo = (item.tipo as any)?.nombre;
         if (nombreTipo === "libro") {
           conteoMeses[nombreMes].libros++;
