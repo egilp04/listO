@@ -60,28 +60,31 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       return [
         {
           id: 1,
-          label: i18n.t('stats.librosAnio', "Libros subidos este año"),
+          label: i18n.t("stats.librosAnio", "Libros subidos este año"),
           value: librosAnio.count || 0,
         },
         {
           id: 2,
-          label: i18n.t('stats.librosMes', "Libros subidos este mes"),
+          label: i18n.t("stats.librosMes", "Libros subidos este mes"),
           value: librosMes.count || 0,
         },
         {
           id: 3,
-          label: i18n.t('stats.videojuegosAnio', "Videojuegos subidos este año"),
+          label: i18n.t(
+            "stats.videojuegosAnio",
+            "Videojuegos subidos este año",
+          ),
           value: juegosAnio.count || 0,
         },
         {
           id: 4,
-          label: i18n.t('stats.videojuegosMes', "Videojuegos subidos este mes"),
+          label: i18n.t("stats.videojuegosMes", "Videojuegos subidos este mes"),
           value: juegosMes.count || 0,
         },
       ];
     } catch (error) {
       console.error("Error al recuperar contadores de ítems:");
-      if (error instanceof Error) console.log(error.stack);
+      if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
       set({ loading: false });
@@ -105,7 +108,6 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         .lte("created_at", fechaFin);
 
       if (error) throw error;
-      console.log(count);
       return count || 0;
     } catch (error) {
       console.error("Error en fetchUsuariosPorMes:", error);
@@ -130,7 +132,8 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       const conteo: { [key: string]: number } = {};
 
       data.forEach((item: any) => {
-        const nombre = item.genero_item[0]?.genero?.nombre || i18n.t('stats.otros', "Otros");
+        const nombre =
+          item.genero_item[0]?.genero?.nombre || i18n.t("stats.otros", "Otros");
         conteo[nombre] = (conteo[nombre] || 0) + 1;
       });
 
@@ -142,13 +145,13 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       return [
         {
           id: 1,
-          label: i18n.t('stats.generosComunes', "Géneros más comunes"),
+          label: i18n.t("stats.generosComunes", "Géneros más comunes"),
           value: topGeneros,
         },
       ];
     } catch (error) {
       console.error("Error al calcular el Top Géneros:");
-      if (error instanceof Error) console.log(error.stack);
+      if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
       set({ loading: false });
@@ -184,7 +187,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       }));
     } catch (error) {
       console.error("Error en fetchRegistroAnual:");
-      if (error instanceof Error) console.log(error.stack);
+      if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
       set({ loading: false });
@@ -209,7 +212,8 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       data.forEach((item: any) => {
         const generos = item.genero_item || [];
         generos.forEach((gi: GeneroItemRelation) => {
-          const nombre = gi.genero?.nombre || i18n.t('stats.sinGenero', "Sin Género");
+          const nombre =
+            gi.genero?.nombre || i18n.t("stats.sinGenero", "Sin Género");
           conteo[nombre] = (conteo[nombre] || 0) + 1;
         });
       });
@@ -220,7 +224,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       }));
     } catch (error) {
       console.error("Error al recuperar distribución de géneros:");
-      if (error instanceof Error) console.log(error.stack);
+      if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
       set({ loading: false });
