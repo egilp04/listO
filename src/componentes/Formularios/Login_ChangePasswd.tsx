@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNotificationStore } from "../../store/useNotificationStore";
 import { supabase } from "../../utils/supabaseClient";
+import { useTranslation } from "react-i18next";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
@@ -17,6 +18,7 @@ export const Login_ChangePasswd = ({
   login,
   ...props
 }: RegistroProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { login: loginAction, error: authError } = useAuthStore();
   const { setNotificacion } = useNotificationStore();
@@ -28,7 +30,7 @@ export const Login_ChangePasswd = ({
     confirm_passwd: "",
   });
 
-  const texto = login ? "Login" : "Enviar";
+  const texto = login ? t('formLogin.botonLogin') : t('formRecuperacion.botonEnviar');
 
   const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
     {},
@@ -63,10 +65,7 @@ export const Login_ChangePasswd = ({
 
         if (resetError) throw resetError;
 
-        setNotificacion(
-          "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.",
-          "exito",
-        );
+        setNotificacion(t('formLogin.notifRecuperacion'), "exito");
         setFormData({ ...formData, email: "" });
       } catch (err) {
         console.error("Error al recuperar contraseña", err);
@@ -79,29 +78,29 @@ export const Login_ChangePasswd = ({
       {login ? (
         <section>
           <header className="mb-4">
-            <h2 className="text-center">Inicio Sesión</h2>
+            <h2 className="text-center">{t('formLogin.titulo')}</h2>
           </header>
 
           <fieldset className="flex-login-passwd border-none p-0 m-0">
-            <legend className="sr-only">Datos de acceso del usuario</legend>
+            <legend className="sr-only">{t('formLogin.legendAcceso')}</legend>
 
             <Inputs
-              label="Usuario"
+              label={t('formLogin.labelUsuario')}
               type="text"
-              placeholder="Ej: enrique@gmail.com"
+              placeholder={t('formLogin.placeholderUsuario')}
               name="email"
-              error={"Formato de email incorrecto"}
+              error={t('formLogin.errorEmail')}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
               value={formData.email}
               manejarCambio={manejarCambio}
               manejarError={manejarError}
             />
             <Inputs
-              label="Contraseña"
+              label={t('formLogin.labelContrasena')}
               type="password"
-              placeholder="********"
+              placeholder={t('formLogin.placeholderContrasena')}
               name="passwd"
-              error={"Debe coincidir con la contraseña"}
+              error={t('formLogin.errorContrasena')}
               regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
               value={formData.passwd}
               manejarCambio={manejarCambio}
@@ -109,14 +108,14 @@ export const Login_ChangePasswd = ({
             />
           </fieldset>
 
-          <nav className="mt-4 text-center" aria-label="Recuperación de cuenta">
+          <nav className="mt-4 text-center" aria-label={t('formLogin.recuperacionLabel')}>
             <span className="text-sm font-medium block text-black dark:text-primary-50">
-              ¿Has olvidado la contraseña? Pulse{" "}
+              {t('formLogin.olvidoContrasena')}{" "}
               <Link
                 to="/recuperar"
                 className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
               >
-                AQUÍ
+                {t('formLogin.olvidoContrasenaEnlace')}
               </Link>
             </span>
           </nav>
@@ -124,19 +123,19 @@ export const Login_ChangePasswd = ({
       ) : (
         <section>
           <header className="mb-4">
-            <h2 className="text-center">Recuperar Contraseña</h2>
+            <h2 className="text-center">{t('formRecuperacion.titulo')}</h2>
           </header>
 
           <fieldset className="flex-login-passwd border-none p-0 m-0">
             <legend className="sr-only">
-              Introducción de credenciales para recuperación
+              {t('formRecuperacion.legendCredenciales')}
             </legend>
             <Inputs
-              label="Introduzca su email"
+              label={t('formRecuperacion.labelEmail')}
               type="text"
-              placeholder="Ej: enrique@gmail.com"
+              placeholder={t('formRecuperacion.placeholderEmail')}
               name="email"
-              error={"Formato de email incorrecto"}
+              error={t('formRecuperacion.errorEmail')}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
               value={formData.email}
               manejarCambio={manejarCambio}

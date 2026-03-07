@@ -4,8 +4,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
 import { ThemeToggle } from "./BotonClarOscuro";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [close, setClose] = useState(true);
   const navigate = useNavigate();
   const { user, role, logout } = useAuthStore() as {
@@ -32,17 +35,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar" aria-label="Navegación principal">
+    <nav className="navbar" aria-label={t('navbar.navPrincipalLabel')}>
       <div className="flex items-center gap-3">
         <NavLink
           to={estaLogueado ? "/biblioteca" : "/"}
           end
           className="navbar-logo"
-          aria-label="Ir a la página de inicio"
+          aria-label={t('navbar.irInicio')}
         >
           <img
             src="/logo.webp"
-            alt="Logotipo de ListO"
+            alt={t('navbar.logoAlt')}
             className="h-20 w-20 object-contain md:h-24"
             width={96}
             height={96}
@@ -51,7 +54,7 @@ const Navbar = () => {
 
         {estaLogueado && (
           <span className="text-base text-black font-medium dark:text-primary-50">
-            Hola, <strong>{nombreUsuario}</strong>
+            {t('navbar.saludo')} <strong>{nombreUsuario}</strong>
           </span>
         )}
       </div>
@@ -62,18 +65,17 @@ const Navbar = () => {
           onClick={handleClick}
           aria-expanded={!close}
           aria-controls="navbar-menu"
-          aria-label={close ? "Abrir menú" : "Cerrar menú"}
+          aria-label={close ? t('navbar.abrirMenu') : t('navbar.cerrarMenu')}
         >
           {close ? "menu" : "menu"}
         </button>
       </div>
       <div
         id="navbar-menu"
-        className={`${
-          close
-            ? "hidden"
-            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
-        } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
+        className={`${close
+          ? "hidden"
+          : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
+          } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
       >
         <ul className="flex flex-col xl:flex-row items-center gap-4 list-none p-0 m-0">
           {estaLogueado && (
@@ -85,7 +87,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      Mi Biblioteca
+                      {t('navbar.miBiblioteca')}
                     </Button>
                   )}
                 </NavLink>
@@ -97,7 +99,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      Estadísticas
+                      {t('navbar.estadisticas')}
                     </Button>
                   )}
                 </NavLink>
@@ -109,7 +111,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      Mi Perfil
+                      {t('navbar.miPerfil')}
                     </Button>
                   )}
                 </NavLink>
@@ -123,7 +125,7 @@ const Navbar = () => {
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
                         >
-                          Estadísticas Globales
+                          {t('navbar.estadisticasGlobales')}
                         </Button>
                       )}
                     </NavLink>
@@ -135,7 +137,7 @@ const Navbar = () => {
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
                         >
-                          Gestión
+                          {t('navbar.gestion')}
                         </Button>
                       )}
                     </NavLink>
@@ -155,7 +157,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      Log in
+                      {t('navbar.login')}
                     </Button>
                   )}
                 </NavLink>
@@ -167,7 +169,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      Registro
+                      {t('navbar.registro')}
                     </Button>
                   )}
                 </NavLink>
@@ -179,10 +181,11 @@ const Navbar = () => {
               onClick={handleLogout}
               className="w-full"
             >
-              Salir
+              {t('navbar.salir')}
             </Button>
           )}
           <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>

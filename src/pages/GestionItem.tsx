@@ -7,12 +7,14 @@ import File from "../componentes/Inputs/FIle";
 import { useItemStore } from "../store/useItemStore";
 import { useAuthStore } from "../store/useAuthStore";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 interface GestionItemProps {
   item?: any;
 }
 
 const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
+  const { t } = useTranslation();
   const location = useLocation();
   const stateItem = location.state?.item;
   const itemAEditar = propItem || stateItem;
@@ -106,12 +108,12 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
 
   const manejarEnvio = async () => {
     if (!validarFormulario()) {
-      setNotificacion("Rellena todos los campos obligatorios", "error");
+      setNotificacion(t('gestionItem.notifRellena'), "error");
       return;
     }
 
     if (!user?.id_usuario) {
-      setNotificacion("No se pudo identificar al usuario", "error");
+      setNotificacion(t('gestionItem.notifSinUsuario'), "error");
       return;
     }
 
@@ -129,10 +131,10 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
     );
 
     if (exito) {
-      setNotificacion(mEdicion ? "Item modificado correctamente" : "Item añadido correctamente", "exito");
+      setNotificacion(mEdicion ? t('gestionItem.notifModificado') : t('gestionItem.notifAñadido'), "exito");
       navegar("/biblioteca");
     } else {
-      setNotificacion("Error al guardar el item", "error");
+      setNotificacion(t('gestionItem.notifError'), "error");
     }
   };
 
@@ -142,14 +144,14 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
   return (
     <section className="p-4 flex flex-col gap-6 mb-10">
       <h1 className="pt-6 pb-6 text-center">
-        {mEdicion ? "Modificar ficha" : "Añadir una nueva ficha"}
+        {mEdicion ? t('gestionItem.tituloEditar') : t('gestionItem.tituloCrear')}
       </h1>
 
       <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center gap-4">
-        <legend className="sr-only">Título</legend>
-        <span className="whitespace-nowrap dark:text-primary-50">TÍTULO:</span>
+        <legend className="sr-only">{t('gestionItem.legendTitulo')}</legend>
+        <span className="whitespace-nowrap dark:text-primary-50">{t('gestionItem.campoTitulo')}</span>
         <Inputs
-          error={"El título es obligatorio (Máx. 30 caracteres)"}
+          error={t('gestionItem.errorTitulo')}
           name={"titulo"}
           value={titulo}
           maxLength={30}
@@ -160,20 +162,20 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
 
       <div className="flex flex-col md:flex-row gap-6">
         <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-3 flex flex-col sm:flex-row items-center justify-between w-full md:w-1/2 shadow-sm min-h-16 gap-3">
-          <legend className="sr-only">Subida de imagen</legend>
-          <span className="dark:text-primary-50">IMAGEN: </span>
+          <legend className="sr-only">{t('gestionItem.legendImagen')}</legend>
+          <span className="dark:text-primary-50">{t('gestionItem.campoImagen')} </span>
           <File
-            label="Subir"
+            label={t('gestionItem.subirImagen')}
             name="imagen"
             onChange={manejarCambioArchivo}
             disabled={false}
-            mensajeError="No es un formato valido(.png, .jpg, .webp) o supera 2MB"
+            mensajeError={t('gestionItem.errorImagen')}
           />
         </fieldset>
 
         <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
-          <legend className="sr-only">Valoración</legend>
-          <span className="dark:text-primary-50">Valoración:</span>
+          <legend className="sr-only">{t('gestionItem.legendValoracion')}</legend>
+          <span className="dark:text-primary-50">{t('gestionItem.campoValoracion')}</span>
           <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <span
@@ -191,18 +193,18 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
             ))}
           </div>
           {errores.valoracion && (
-            <span className="text-danger-500 text-sm">Obligatorio</span>
+            <span className="text-danger-500 text-sm">{t('gestionItem.errorValoracion')}</span>
           )}
         </fieldset>
       </div>
 
       <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center gap-4">
-        <legend className="sr-only">Información General</legend>
+        <legend className="sr-only">{t('gestionItem.legendInformacion')}</legend>
         <span className="whitespace-nowrap dark:text-primary-50 ">
-          INFORMACIÓN GENERAL:
+          {t('gestionItem.campoInformacion')}
         </span>
         <Inputs
-          error={"La información es obligatoria (Máx. 50 caracteres)"}
+          error={t('gestionItem.errorInformacion')}
           name={"informacion"}
           value={informacion}
           maxLength={50}
@@ -212,13 +214,13 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
       </fieldset>
 
       <fieldset className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
-        <legend className="sr-only">Selección de Tipo</legend>
+        <legend className="sr-only">{t('gestionItem.legendTipo')}</legend>
         <button
           type="button"
           className={cabeceraGestion}
           onClick={() => setTipoAbierto(!tipoAbierto)}
         >
-          <span className="dark:text-primary-50">Tipo</span>
+          <span className="dark:text-primary-50">{t('gestionItem.campoTipo')}</span>
           <span
             className="material-symbols-outlined absolute right-4"
             aria-hidden="true"
@@ -245,19 +247,19 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
         )}
         {errores.tipo && (
           <span className="text-danger-500 text-sm p-4 block">
-            Selecciona un tipo
+            {t('gestionItem.errorTipo')}
           </span>
         )}
       </fieldset>
 
       <fieldset className="bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm">
-        <legend className="sr-only">Selección de Género</legend>
+        <legend className="sr-only">{t('gestionItem.legendGenero')}</legend>
         <button
           type="button"
           className={cabeceraGestion}
           onClick={() => setGeneroAbierto(!generoAbierto)}
         >
-          <span>Genero</span>
+          <span>{t('gestionItem.campoGenero')}</span>
           <span
             className="material-symbols-outlined absolute right-4"
             aria-hidden="true"
@@ -288,7 +290,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
         )}
         {errores.genero && (
           <span className="text-danger-500 text-sm p-4 block">
-            Selecciona al menos un género
+            {t('gestionItem.errorGenero')}
           </span>
         )}
       </fieldset>
@@ -299,7 +301,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
         disabled={guardando}
         className="w-full max-w-sm self-center mb-6"
       >
-        {guardando ? "GUARDANDO..." : mEdicion ? "MODIFICAR" : "AÑADIR"}
+        {guardando ? t('gestionItem.botonGuardando') : mEdicion ? t('gestionItem.botonModificar') : t('gestionItem.botonAñadir')}
       </Button>
     </section>
   );

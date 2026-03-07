@@ -1,4 +1,8 @@
+import { useTranslation } from "react-i18next";
+
 const NoImplementado = () => {
+  const { t } = useTranslation();
+
   return (
     <section
       className="flex flex-col justify-center items-center gap-10 mb-10"
@@ -6,14 +10,12 @@ const NoImplementado = () => {
     >
       <header>
         <h1 id="titulo-en-desarrollo" className="text-center">
-          No Implementado
+          {t('noImplementado.titulo')}
         </h1>
       </header>
       <article className="max-w-prose text-center">
         <p>
-          Esta funcionalidad se encuentra actualmente en desarrollo por nuestro
-          equipo. Vuelve a consultar más tarde para disfrutar de las novedades
-          de <strong>listO</strong>.
+          {t('noImplementado.descripcion')} <strong>listO</strong>.
         </p>
       </article>
 

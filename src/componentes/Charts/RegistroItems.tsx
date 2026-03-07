@@ -11,8 +11,10 @@ import { useUserStatsStore } from "../../store/useUserStatsStore";
 import { useEffect, useState } from "react";
 import type { RegistroMensualItemsUsuarios } from "../../interfaces/Charts";
 import { useThemeStore } from "../../store/useThemeStore";
+import { useTranslation } from "react-i18next";
 
 const RegistroItems = () => {
+  const { t, i18n } = useTranslation();
   const tema = useThemeStore((state) => state.tema);
 
   const fetchRegistroAnual = useUserStatsStore(
@@ -33,7 +35,8 @@ const RegistroItems = () => {
       }
     };
     cargarDatosAnuales();
-  }, [fetchRegistroAnual]);
+  }, [fetchRegistroAnual, i18n.language]);
+
   const lineStroke = tema == "dark" ? "#f9fcff" : "#7b8ff7";
   const GeneralStroke = tema == "dark" ? "#f9fcff" : "#645fd5";
 
@@ -47,13 +50,13 @@ const RegistroItems = () => {
           id="registro-items-title"
           className="text-xl font-semibold text-center md:text-left"
         >
-          Registro anual de Items
+          {t('charts.registroItems.titulo')}
         </h2>
       </figcaption>
       <div
         className="w-full"
         role="img"
-        aria-label="Gráfico de líneas que muestra la progresión mensual de nuevos elementos añadidos a la biblioteca durante el año."
+        aria-label={t('charts.registroItems.ariaLabel')}
       >
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
@@ -80,7 +83,7 @@ const RegistroItems = () => {
             <Line
               type="monotone"
               dataKey="items"
-              name="Nuevos Items"
+              name={t('charts.registroItems.serieNuevosItems')}
               stroke={lineStroke}
               strokeWidth={3}
               dot={{ r: 4, fill: lineStroke }}

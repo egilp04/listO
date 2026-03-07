@@ -9,6 +9,7 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import { lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 const RegistroUsuarios = lazy(
   () => import("../componentes/Charts/RegistroUsuarios"),
 );
@@ -17,6 +18,7 @@ const DistribucionGeneros = lazy(
 );
 
 const EstadisticasGlobales = () => {
+  const { t, i18n } = useTranslation();
   const fetchTarjetasEstadisticas = useAdminStatsStore(
     (state) => state.fetchTarjetasEstadisticas,
   );
@@ -35,7 +37,6 @@ const EstadisticasGlobales = () => {
     TarjetaEstadisticasTop[]
   >([]);
 
-  //Usuarios por mes
   const [mesSeleccionado, setMesSeleccionado] = useState("");
   const [conteoUsuario, setConteoUsuario] = useState(0);
 
@@ -45,7 +46,7 @@ const EstadisticasGlobales = () => {
       setInfoTarjetaEstadistica(data);
     };
     cargarTarjetas();
-  }, [fetchTarjetasEstadisticas]);
+  }, [fetchTarjetasEstadisticas, i18n.language]);
 
   useEffect(() => {
     const cargarTarjetas = async () => {
@@ -53,7 +54,7 @@ const EstadisticasGlobales = () => {
       setInfoEstadisticasTop(data);
     };
     cargarTarjetas();
-  }, [fetchTarjetasEstadisticasTop]);
+  }, [fetchTarjetasEstadisticasTop, i18n.language]);
 
   useEffect(() => {
     const cargarUsuarios = async () => {
@@ -71,16 +72,16 @@ const EstadisticasGlobales = () => {
       aria-labelledby="global-stats-title"
     >
       <header className="flex justify-center">
-        <h1 id="global-stats-title">Estadísticas Globales</h1>
+        <h1 id="global-stats-title">{t('estadisticasGlobales.titulo')}</h1>
       </header>
       <article className="shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50 text-xl">
-          Usuarios registrados por mes:{" "}
+          {t('estadisticasGlobales.usuariosPorMes')}{" "}
           <span className="font-bold">{conteoUsuario}</span>
         </h2>
         <div className="w-full md:w-auto flex justify-center md:justify-end">
           <label htmlFor="select-mes" className="sr-only">
-            Seleccionar mes para filtrar usuarios
+            {t('estadisticasGlobales.seleccionMesLabel')}
           </label>
           <Select
             id="select-mes"
@@ -93,7 +94,7 @@ const EstadisticasGlobales = () => {
       </article>
       <section
         className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10"
-        aria-label="Resumen numérico de actividad"
+        aria-label={t('estadisticasGlobales.resumenLabel')}
       >
         {infoTarjetaEstadistica.map(({ label, value, id }) => (
           <CardEstadisticaG
@@ -110,12 +111,12 @@ const EstadisticasGlobales = () => {
               <img
                 className="hover:scale-110 transition-transform duration-700"
                 src="/logo.webp"
-                alt="Logo de ListO"
+                alt={t('estadisticasGlobales.logoAlt')}
                 loading="lazy"
               />
             </figure>
             <h3 className="text-primary-50 text-shimmer text-2xl font-semibold">
-              Géneros Favoritos
+              {t('estadisticasGlobales.generosFavoritos')}
             </h3>
           </header>
 
@@ -133,13 +134,13 @@ const EstadisticasGlobales = () => {
 
       <section
         className="w-full flex flex-col gap-10"
-        aria-label="Visualizaciones gráficas de datos"
+        aria-label={t('estadisticasGlobales.visualizacionesLabel')}
       >
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span>Cargando gráfico de registros...</span>
+                <span>{t('estadisticasGlobales.cargandoGraficoRegistros')}</span>
               </div>
             }
           >
@@ -152,7 +153,7 @@ const EstadisticasGlobales = () => {
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
                 <span>
-                  Cargando gráfico de distribución de items por géneros...
+                  {t('estadisticasGlobales.cargandoGraficoDistribucion')}
                 </span>
               </div>
             }

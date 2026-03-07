@@ -11,8 +11,10 @@ import { useEffect, useState } from "react";
 import type { RegistroMensualItemsTipoUsuarios } from "../../interfaces/Charts";
 import { useUserStatsStore } from "../../store/useUserStatsStore";
 import { useThemeStore } from "../../store/useThemeStore";
+import { useTranslation } from "react-i18next";
 
 const ComparacionItems = () => {
+  const { t, i18n } = useTranslation();
   const fetchRegistroTipoAnual = useUserStatsStore(
     (state) => state.fetchRegistroTipoAnual,
   );
@@ -23,7 +25,7 @@ const ComparacionItems = () => {
       if (data.length != null && data.length > 0) setDatos(data);
     };
     getData();
-  }, [fetchRegistroTipoAnual]);
+  }, [fetchRegistroTipoAnual, i18n.language]);
 
   const tema = useThemeStore((state) => state.tema);
   const lineStrokeL = tema == "dark" ? "#f9fcff" : "#7b8ff7";
@@ -40,13 +42,13 @@ const ComparacionItems = () => {
           id="chart-title"
           className="text-xl font-semibold text-center md:text-left"
         >
-          Actividad Anual: Libros vs Videojuegos
+          {t('charts.comparacionItems.titulo')}
         </h2>
       </figcaption>
       <div
         className="w-full"
         role="img"
-        aria-label="Gráfico de barras que compara la cantidad de libros y videojuegos completados mes a mes durante el año actual."
+        aria-label={t('charts.comparacionItems.ariaLabel')}
       >
         <ResponsiveContainer width="100%" height={300}>
           <BarChart
@@ -72,13 +74,13 @@ const ComparacionItems = () => {
             />
             <Bar
               dataKey="libros"
-              name="Libros"
+              name={t('charts.comparacionItems.serieLibros')}
               fill={lineStrokeL}
               radius={[4, 4, 0, 0]}
             />
             <Bar
               dataKey="videojuegos"
-              name="Videojuegos"
+              name={t('charts.comparacionItems.serieVideojuegos')}
               fill={lineStrokeV}
               radius={[4, 4, 0, 0]}
             />

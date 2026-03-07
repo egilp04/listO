@@ -18,10 +18,12 @@ interface CardBibliotecaProps {
 
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 
 const Dialog = lazy(() => import("../Dialog"));
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -111,10 +113,10 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
         <div
           className="mt-2 flex items-center gap-2"
-          aria-label={`Valoración: ${item.valoracion} de 5 estrellas`}
+          aria-label={t('cardBiblioteca.valoracionLabel', { valoracion: item.valoracion })}
         >
           <span className="text-xs font-medium uppercase text-primary-600 dark:text-primary-400">
-            Rating:
+            {t('cardBiblioteca.rating')}
           </span>
           <div className="flex items-center text-warning-500" aria-hidden="true">
             {renderizarEstrellas(item.valoracion)}
@@ -129,7 +131,7 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
             className="flex-1 text-xs py-2"
             onClick={() => navigate("/admin/items", { state: { item } })}
           >
-            Modificar
+            {t('cardBiblioteca.botonModificar')}
           </Button>
 
           <Button
@@ -137,20 +139,20 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
             className="flex-1 text-xs py-2 !bg-danger-500 hover:!bg-danger-700 border-none"
             onClick={() => setShowDialog(true)}
           >
-            Eliminar
+            {t('cardBiblioteca.botonEliminar')}
           </Button>
         </div>
       </footer>
       <Suspense
         fallback={
           <div className="text-primary-1100 dark:text-primary-50 text-center">
-            <span>Cargando modal...</span>
+            <span>{t('cardBiblioteca.cargandoModal')}</span>
           </div>
         }
       >
         <Dialog
-          titulo={`Eliminar ${item.tipo}`}
-          descripcion={`¿Estás seguro de que quieres eliminar "${item.informacion.split(" -")[0]}"?`}
+          titulo={t('cardBiblioteca.dialogTitulo', { tipo: item.tipo })}
+          descripcion={t('cardBiblioteca.dialogDescripcion', { titulo: item.informacion.split(" -")[0] })}
           show={showDialog}
           onClose={async (confirmar) => {
             setShowDialog(false);

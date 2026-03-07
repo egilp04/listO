@@ -2,10 +2,10 @@ import { useState, useEffect, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import { useNavigate } from "react-router-dom";
-
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNotificationStore } from "../../store/useNotificationStore";
 import { supabase } from "../../utils/supabaseClient";
+import { useTranslation } from "react-i18next";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
@@ -13,6 +13,7 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { error: authError } = useAuthStore();
   const { setNotificacion } = useNotificationStore();
@@ -21,8 +22,6 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     nueva_passwd: "",
     confirm_passwd: "",
   });
-
-  const texto = "Actualizar Contraseña";
 
   const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
     {},
@@ -35,11 +34,11 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
       if (updateSuccess) {
         console.log("Contraseña actualizada con éxito");
         navigate("/biblioteca");
-        setNotificacion("Contraseña actualizada con éxito.", "exito");
+        setNotificacion(t('formRecuperacionPasswd.notifExito'), "exito");
       }
     };
     finalizeUpdate();
-  }, [updateSuccess, navigate, setNotificacion]);
+  }, [updateSuccess, navigate, setNotificacion, t]);
 
   const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -53,15 +52,12 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     e.preventDefault();
 
     if (Object.values(erroresActivos).some((e) => e)) {
-      setNotificacion(
-        "Por favor, corrige los errores antes de continuar",
-        "error",
-      );
+      setNotificacion(t('formRecuperacionPasswd.notifErroresFormulario'), "error");
       return;
     }
 
     if (formData.nueva_passwd !== formData.confirm_passwd) {
-      setNotificacion("Las contraseñas no coinciden", "error");
+      setNotificacion(t('formRecuperacionPasswd.notifNoCoinciden'), "error");
       return;
     }
 
@@ -71,16 +67,13 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
       });
 
       if (error) {
-        setNotificacion("Error al actualizar: " + error.message, "error");
+        setNotificacion(t('formRecuperacionPasswd.notifErrorActualizar', { mensaje: error.message }), "error");
       } else {
         setUpdateSuccess(true);
       }
     } catch (err) {
       console.error("Error al actualizar contraseña", err);
-      setNotificacion(
-        "Error al actualizar. El enlace podría haber expirado.",
-        "error",
-      );
+      setNotificacion(t('formRecuperacionPasswd.notifErrorEnlace'), "error");
     }
   };
 
@@ -92,21 +85,19 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
       <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
         <header className="mb-6">
           <h2 id="form-pwd-title" className="text-center">
-            {texto}
+            {t('formRecuperacionPasswd.titulo')}
           </h2>
         </header>
 
         <fieldset className="flex-login-passwd border-none p-0 m-0">
-          <legend className="sr-only">Nuevas credenciales de acceso</legend>
+          <legend className="sr-only">{t('formRecuperacionPasswd.legendNuevasCredenciales')}</legend>
 
           <Inputs
-            label="Nueva Contraseña"
+            label={t('formRecuperacionPasswd.labelNuevaContrasena')}
             type="password"
-            placeholder="********"
+            placeholder={t('formRecuperacionPasswd.placeholderContrasena')}
             name="nueva_passwd"
-            error={
-              "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
-            }
+            error={t('formRecuperacionPasswd.errorNuevaContrasena')}
             regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
             value={formData.nueva_passwd}
             manejarCambio={manejarCambio}
@@ -114,11 +105,11 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
             autoComplete="new-password"
           />
           <Inputs
-            label="Confirmar Contraseña"
+            label={t('formRecuperacionPasswd.labelConfirmarContrasena')}
             type="password"
-            placeholder="********"
+            placeholder={t('formRecuperacionPasswd.placeholderContrasena')}
             name="confirm_passwd"
-            error={"Las contraseñas no coinciden"}
+            error={t('formRecuperacionPasswd.errorConfirmarContrasena')}
             regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
             value={formData.confirm_passwd}
             manejarCambio={manejarCambio}
@@ -129,7 +120,7 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
 
         <footer className="mt-8 flex flex-col items-center gap-4">
           <Button type="submit" className="w-full">
-            {texto}
+            {t('formRecuperacionPasswd.botonActualizar')}
           </Button>
 
           {(error || authError) && (

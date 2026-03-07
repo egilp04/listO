@@ -10,12 +10,14 @@ import type {
   TarjetaEstadisticasTop,
 } from "../interfaces/TarjetasEstadisticasGlobales";
 import Select from "../componentes/Inputs/Select";
+import { useTranslation } from "react-i18next";
 const RegistroItems = lazy(() => import("../componentes/Charts/RegistroItems"));
 const ComparacionItems = lazy(
   () => import("../componentes/Charts/ComparacionItems"),
 );
 
 const Estadisticas = () => {
+  const { t, i18n } = useTranslation();
   const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
     TarjetaEstadisticas[]
   >([]);
@@ -31,7 +33,6 @@ const Estadisticas = () => {
   const [mesSeleccionado, setMesSeleccionado] = useState("");
   const [conteoItems, setConteoItems] = useState(0);
 
-  //Funciones fetch store
   const fetchItemsPorMes = useUserStatsStore((state) => state.fetchItemsPorMes);
   const fetchTarjetasEstadisticasTop = useUserStatsStore(
     (state) => state.fetchTarjetasEstadisticasTop,
@@ -39,31 +40,27 @@ const Estadisticas = () => {
   const fetchTarjetasEstadisticas = useUserStatsStore(
     (state) => state.fetchTarjetasEstadisticas,
   );
-  //Libros y videojuegos
   const fetchTopPorTipo = useUserStatsStore((state) => state.fetchTopPorTipo);
   const fetchItemsTotales = useUserStatsStore(
     (state) => state.fetchItemsTotales,
   );
 
-  //Estadisticas normales
   useEffect(() => {
     const cargarTarjetas = async () => {
       const data = await fetchTarjetasEstadisticas();
       setInfoTarjetaEstadistica(data);
     };
     cargarTarjetas();
-  }, [fetchTarjetasEstadisticas]);
+  }, [fetchTarjetasEstadisticas, i18n.language]);
 
-  //top generos
   useEffect(() => {
     const cargarTarjetas = async () => {
       const data = await fetchTarjetasEstadisticasTop();
       setInfoEstadisticasTopGenero(data);
     };
     cargarTarjetas();
-  }, [fetchTarjetasEstadisticasTop]);
+  }, [fetchTarjetasEstadisticasTop, i18n.language]);
 
-  //Top libros y videojueogs
   useEffect(() => {
     const cargarLibros = async () => {
       const data = await fetchTopPorTipo("libro");
@@ -75,7 +72,7 @@ const Estadisticas = () => {
     };
     cargarLibros();
     cargarVideojuegos();
-  }, [fetchTopPorTipo]);
+  }, [fetchTopPorTipo, i18n.language]);
 
   useEffect(() => {
     const cargarItems = async () => {
@@ -102,11 +99,11 @@ const Estadisticas = () => {
     >
       <header>
         <h1 id="stats-user-title" className="flex justify-center">
-          Estadísticas
+          {t('estadisticas.titulo')}
         </h1>
       </header>
 
-      <nav aria-label="Resumen de actividad">
+      <nav aria-label={t('estadisticas.resumenLabel')}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {infoTarjetaEstadistica.length > 0 ? (
             infoTarjetaEstadistica.map((card) => (
@@ -118,27 +115,27 @@ const Estadisticas = () => {
             ))
           ) : (
             <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
-              Cargando estadísticas...
+              {t('estadisticas.cargandoEstadisticas')}
             </p>
           )}
         </div>
       </nav>
 
-      <article aria-label="Total de ítems completados">
+      <article aria-label={t('estadisticas.totalCompletados')}>
         <CardEstadisticaG
-          texto="Total de items completados"
+          texto={t('estadisticas.totalCompletados')}
           numero={itemsTotales}
         />
       </article>
 
       <aside className="bg-white dark:bg-primary-850 rounded-xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center">
         <h2 className="text-xl">
-          Completados por mes este año:{" "}
+          {t('estadisticas.completadosPorMes')}{" "}
           <span className="font-bold">{conteoItems}</span>
         </h2>
         <div className="flex flex-col gap-1">
           <label htmlFor="mes-selector" className="sr-only">
-            Cambiar mes de visualización
+            {t('estadisticas.cambiaMesLabel')}
           </label>
           <Select
             id="mes-selector"
@@ -152,7 +149,7 @@ const Estadisticas = () => {
 
       <section
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        aria-label="Rankings personales"
+        aria-label={t('estadisticas.rankingsLabel')}
       >
         <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
           <header className="flex items-center gap-3 mb-4">
@@ -161,7 +158,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">Top Libros</h3>
+            <h3 className="font-bold">{t('estadisticas.topLibros')}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {topLibros.map((info) =>
@@ -181,7 +178,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">Top Juegos</h3>
+            <h3 className="font-bold">{t('estadisticas.topJuegos')}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {topVideojuegos.map((info) =>
@@ -201,7 +198,7 @@ const Estadisticas = () => {
                 star
               </span>
             </div>
-            <h3 className="font-bold">Top Géneros</h3>
+            <h3 className="font-bold">{t('estadisticas.topGeneros')}</h3>
           </header>
           <ol className="flex flex-col gap-2">
             {infoEstadisticasTopGenero.map((info) =>
@@ -217,13 +214,13 @@ const Estadisticas = () => {
 
       <section
         className="flex flex-col gap-8"
-        aria-label="Gráficos de rendimiento"
+        aria-label={t('estadisticas.graficosLabel')}
       >
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span>Cargando gráfico de registros...</span>
+                <span>{t('estadisticas.cargandoGraficoRegistros')}</span>
               </div>
             }
           >
@@ -234,7 +231,7 @@ const Estadisticas = () => {
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span> Cargando comparativa de ítems...</span>
+                <span>{t('estadisticas.cargandoGraficoComparativa')}</span>
               </div>
             }
           >

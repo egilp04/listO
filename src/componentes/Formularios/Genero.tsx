@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import type { infoInterface } from "../../interfaces/infoInterface";
 import { useNotificationStore } from "../../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
   crear?: boolean;
@@ -14,11 +15,12 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Genero = ({ crear, item, ...props }: RegistroProps) => {
+  const { t } = useTranslation();
   const setNotificacion = useNotificationStore(
     (state) => state.setNotificacion,
   );
   const navigate = useNavigate();
-  const titulo = crear ? "Crear Género" : "Modificar Género";
+  const titulo = crear ? t('formGenero.tituloCrear') : t('formGenero.tituloModificar');
 
   const [datos, setDatos] = useState({
     nombreItem: item?.nombre || "",
@@ -66,10 +68,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
     e.preventDefault();
     const tieneErrores = Object.values(errores).some((error) => error == true);
     if (tieneErrores) {
-      setNotificacion(
-        "Algunos de los capos tienen errores, revíselos",
-        "error",
-      );
+      setNotificacion(t('formGenero.notifErrorCampos'), "error");
     } else {
       if (crear) await crearGenero();
       else await modificarGenero();
@@ -86,7 +85,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       if (queryError) throw queryError;
 
       if (existente && existente.length > 0) {
-        setNotificacion("Ya existe un género con este nombre", "error");
+        setNotificacion(t('formGenero.notifGeneroExiste'), "error");
         return;
       }
       const { data: tiposItemBd, error: tipoError } = await supabase
@@ -114,7 +113,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
         .insert(nuevasFilas);
 
       if (insertError) throw insertError;
-      setNotificacion("Género creado correctamente", "exito");
+      setNotificacion(t('formGenero.notifCreado'), "exito");
       navigate("/gestion");
     } catch (error) {
       if (error instanceof Error) {
@@ -122,13 +121,13 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      setNotificacion("No se pudo guardar el género", "error");
+      setNotificacion(t('formGenero.notifErrorCrear'), "error");
     }
   };
 
   const modificarGenero = async () => {
     if (item == null) {
-      setNotificacion("Acción no permitida, no hay elemento", "error");
+      setNotificacion(t('formGenero.notifSinElemento'), "error");
       return;
     }
     try {
@@ -140,19 +139,17 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
         })
         .eq("id_genero", item.id_genero);
       if (updateError) throw updateError;
-      setNotificacion("Género modificado correctamente", "exito");
+      setNotificacion(t('formGenero.notifModificado'), "exito");
       navigate("/gestion");
     } catch (error) {
       console.error("Error al modificar el género:");
       if (error && typeof error === "object" && "message" in error) {
         console.error("Detalle BD:", error.message);
       }
-      setNotificacion(
-        "El género no se pudo actualizar por un conflicto de integridad",
-        "error",
-      );
+      setNotificacion(t('formGenero.notifErrorModificar'), "error");
     }
   };
+
   return (
     <section
       className="flex justify-center w-full p-4"
@@ -166,20 +163,20 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
         </header>
         <div className="form-body flex flex-col gap-6">
           <Inputs
-            label="Nombre"
+            label={t('formGenero.labelNombre')}
             type="text"
             name="nombreItem"
-            placeholder="Ej: Suspense"
+            placeholder={t('formGenero.placeholderNombre')}
             manejarCambio={manejarCambio}
             manejarError={manejarErrores}
-            error="Nombre del género incorrecto, debe comenzar con mayúsculas"
+            error={t('formGenero.errorNombre')}
             regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
             defaultValue={item != null ? item?.nombre : ""}
           />
 
           <fieldset className="seccion-tipo border-none p-0 m-0">
             <legend className="font-Otros dark:text-primary-50 mb-2 font-bold">
-              Tipo de contenido:
+              {t('formGenero.legendTipo')}
             </legend>
 
             <div
@@ -189,14 +186,14 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             >
               <Checkbox
                 manejarCambio={manejarCambio}
-                label="Juego"
+                label={t('formGenero.checkboxJuego')}
                 name="tipoItem"
                 value={"videojuego"}
                 checked={item?.tipo?.nombre.includes("videojuego")}
               />
               <Checkbox
                 manejarCambio={manejarCambio}
-                label="Libro"
+                label={t('formGenero.checkboxLibro')}
                 name="tipoItem"
                 value={"libro"}
                 checked={item?.tipo?.nombre.includes("libro")}
@@ -209,23 +206,23 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
                 className="text-red-500 dark:text-red-100 text-sm mt-1"
                 role="alert"
               >
-                Debe seleccionar al menos un tipo
+                {t('formGenero.errorTipo')}
               </span>
             )}
           </fieldset>
           <TextArea
             manejarError={manejarErrores}
             manejarCambio={manejarCambio}
-            mensajeError="Debes escribir una descripción"
-            label="Descripción"
-            placeholder="Añada su descripción"
+            mensajeError={t('formGenero.errorDescripcion')}
+            label={t('formGenero.labelDescripcion')}
+            placeholder={t('formGenero.placeholderDescripcion')}
             name="descripcionItem"
             defaultValue={item != null ? item.descripcion : ""}
           />
         </div>
         <footer className="footer-boton mt-8">
           <Button type="submit" className="w-full">
-            Guardar Género
+            {t('formGenero.botonGuardar')}
           </Button>
         </footer>
       </form>
