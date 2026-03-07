@@ -99,7 +99,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   };
 
   return (
-    <section>
+    <section className="w-full">
       <table className="table-admin">
         <thead className="flex flex-row w-full">
           <tr>

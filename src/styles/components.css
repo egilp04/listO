@@ -58,7 +58,7 @@
   }
 
   .rows-table {
-    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-primary-1000 pl-6 pr-6;
+    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-primary-1000 pl-2;
   }
 
   .dialog {

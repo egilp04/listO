@@ -56,7 +56,7 @@ const MiPerfil = () => {
       (error) => error === true,
     );
     if (tieneErroresVisuales) {
-      setNotificacion(t('miPerfil.notifErrorCampos'), "error");
+      setNotificacion(t("miPerfil.notifErrorCampos"), "error");
     } else {
       await enviarDatosBD();
     }
@@ -87,64 +87,62 @@ const MiPerfil = () => {
         );
       }
 
-      setNotificacion(t('miPerfil.notifExito'), "exito");
+      setNotificacion(t("miPerfil.notifExito"), "exito");
     } catch (error) {
       console.log(error);
-      setNotificacion(t('miPerfil.notifError'), "error");
+      setNotificacion(t("miPerfil.notifError"), "error");
     }
   };
 
   return (
     <section
-      className="flex flex-col grow w-full max-w-4xl mx-auto px-4 pb-8 gap-6 md:gap-14 lg:gap-14"
+      className="flex flex-col grow w-full max-w-4xl mx-auto px-4 pb-8 gap-10 md:gap-14 lg:gap-14"
       aria-labelledby="perfil-title"
     >
       <h1 id="perfil-title" className="text-center">
-        {t('miPerfil.titulo')}
+        {t("miPerfil.titulo")}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <fieldset className="flex flex-col gap-6 border-none p-0">
-          <legend className="sr-only">
-            {t('miPerfil.legendInfo')}
-          </legend>
+          <legend className="sr-only">{t("miPerfil.legendInfo")}</legend>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="nombre">
-              {t('miPerfil.labelNombre')}
+              {t("miPerfil.labelNombre")}
             </label>
             <Inputs
               id="nombre"
               label=""
-              placeholder={t('miPerfil.placeholderNombre')}
+              placeholder={t("miPerfil.placeholderNombre")}
               name="nombre"
               value={datos?.nombre || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-              error={t('miPerfil.errorNombre')}
+              error={t("miPerfil.errorNombre")}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="apellidos">
-              {t('miPerfil.labelApellidos')}
+              {t("miPerfil.labelApellidos")}
             </label>
             <Inputs
               id="apellidos"
               label=""
-              placeholder={t('miPerfil.placeholderApellidos')}
+              placeholder={t("miPerfil.placeholderApellidos")}
               name="apellidos"
               value={datos?.apellidos || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-              error={t('miPerfil.errorApellidos')}
+              error={t("miPerfil.errorApellidos")}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="email">
-              {t('miPerfil.labelEmail')}
+              {t("miPerfil.labelEmail")}
             </label>
             <Inputs
               id="email"
@@ -155,25 +153,25 @@ const MiPerfil = () => {
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-              error={t('miPerfil.errorEmail')}
+              error={t("miPerfil.errorEmail")}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="fech_nac">
-              {t('miPerfil.labelFechaNac')}
+              {t("miPerfil.labelFechaNac")}
             </label>
             <Inputs
               id="fech_nac"
               label=""
               name="fech_nac"
               type="text"
-              placeholder={t('miPerfil.placeholderFechaNac')}
+              placeholder={t("miPerfil.placeholderFechaNac")}
               value={datos?.fech_nac || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
-              error={t('miPerfil.errorFechaNac')}
+              error={t("miPerfil.errorFechaNac")}
             />
           </article>
         </fieldset>
@@ -183,7 +181,7 @@ const MiPerfil = () => {
             className="w-full py-4 text-xl"
             type="submit"
           >
-            {t('miPerfil.botonModificar')}
+            {t("miPerfil.botonModificar")}
           </Button>
         </div>
       </form>
