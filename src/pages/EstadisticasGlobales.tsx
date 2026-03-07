@@ -72,16 +72,16 @@ const EstadisticasGlobales = () => {
       aria-labelledby="global-stats-title"
     >
       <header className="flex justify-center">
-        <h1 id="global-stats-title">{t('estadisticasGlobales.titulo')}</h1>
+        <h1 id="global-stats-title">{t("estadisticasGlobales.titulo")}</h1>
       </header>
       <article className="shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50 text-xl">
-          {t('estadisticasGlobales.usuariosPorMes')}{" "}
-          <span className="font-bold">{conteoUsuario}</span>
+          {t("estadisticasGlobales.usuariosPorMes")}
+          {conteoUsuario}
         </h2>
         <div className="w-full md:w-auto flex justify-center md:justify-end">
           <label htmlFor="select-mes" className="sr-only">
-            {t('estadisticasGlobales.seleccionMesLabel')}
+            {t("estadisticasGlobales.seleccionMesLabel")}
           </label>
           <Select
             id="select-mes"
@@ -94,7 +94,7 @@ const EstadisticasGlobales = () => {
       </article>
       <section
         className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10"
-        aria-label={t('estadisticasGlobales.resumenLabel')}
+        aria-label={t("estadisticasGlobales.resumenLabel")}
       >
         {infoTarjetaEstadistica.map(({ label, value, id }) => (
           <CardEstadisticaG
@@ -111,12 +111,12 @@ const EstadisticasGlobales = () => {
               <img
                 className="hover:scale-110 transition-transform duration-700"
                 src="/logo.webp"
-                alt={t('estadisticasGlobales.logoAlt')}
+                alt={t("estadisticasGlobales.logoAlt")}
                 loading="lazy"
               />
             </figure>
             <h3 className="text-primary-50 text-shimmer text-2xl font-semibold">
-              {t('estadisticasGlobales.generosFavoritos')}
+              {t("estadisticasGlobales.generosFavoritos")}
             </h3>
           </header>
 
@@ -134,13 +134,15 @@ const EstadisticasGlobales = () => {
 
       <section
         className="w-full flex flex-col gap-10"
-        aria-label={t('estadisticasGlobales.visualizacionesLabel')}
+        aria-label={t("estadisticasGlobales.visualizacionesLabel")}
       >
         <figure className="w-full min-h-75">
           <Suspense
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
-                <span>{t('estadisticasGlobales.cargandoGraficoRegistros')}</span>
+                <span>
+                  {t("estadisticasGlobales.cargandoGraficoRegistros")}
+                </span>
               </div>
             }
           >
@@ -153,7 +155,7 @@ const EstadisticasGlobales = () => {
             fallback={
               <div className="text-primary-1100 dark:text-primary-50 text-center">
                 <span>
-                  {t('estadisticasGlobales.cargandoGraficoDistribucion')}
+                  {t("estadisticasGlobales.cargandoGraficoDistribucion")}
                 </span>
               </div>
             }
