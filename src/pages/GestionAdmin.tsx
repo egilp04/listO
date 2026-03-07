@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
-import Table from "../componentes/Table";
 import { useEffect, useState } from "react";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+import { lazy, Suspense } from "react";
+const Table = lazy(() => import("../componentes/Table"));
 import { useTranslation } from "react-i18next";
 
 const GestionAdmin = () => {
-  const { fetchGeneros, fetchUsuarios } = useGestionAdminStore();
+  const fetchGeneros = useGestionAdminStore((state) => state.fetchGeneros);
+  const fetchUsuarios = useGestionAdminStore((state) => state.fetchUsuarios);
   const [selected, setSelected] = useState("usuario");
   const [valorFiltro, setValorFiltro] = useState("");
   const navigate = useNavigate();
@@ -35,45 +37,76 @@ const GestionAdmin = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 md:p-6 mg:gap-14 mb-12 2xl:gap-18">
-      <h2 className="flex justify-center">Gestión</h2>
-      <div className="flex flex-row gap-10 w-full justify-center items-center">
+    <section
+      className="flex flex-col gap-8 md:p-6 mg:gap-14 mb-12 2xl:gap-18"
+      aria-labelledby="gestion-admin-title"
+    >
+      <header>
+        <h1 id="gestion-admin-title" className="flex justify-center">
+          Gestión Administrativa
+        </h1>
+      </header>
+      <nav
+        className="flex flex-row gap-10 w-full justify-center items-center"
+        aria-label="Selección de entidad a gestionar"
+      >
         <Button
-          variant={selected == "usuario" ? "primario" : "secundario"}
+          variant={selected === "usuario" ? "primario" : "secundario"}
           name="usuario"
           onClick={handleClick}
+          aria-pressed={selected === "usuario"}
         >
-          <span>Usuario</span>
+          <span>Usuarios</span>
         </Button>
         <Button
-          variant={selected == "genero" ? "primario" : "secundario"}
+          variant={selected === "genero" ? "primario" : "secundario"}
           onClick={handleClick}
           name="genero"
+          aria-pressed={selected === "genero"}
         >
-          <span>Género</span>
+          <span>Géneros</span>
         </Button>
-      </div>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-col gap-6 max-h-150 overflow-hidden p-10 rounded-sm">
-        <div className="flex flex-col gap-4  justify-center items-center md:justify-around md:flex-row w-full">
+      </nav>
+      <article className="shadow-elevation-3 bg-primary-50 dark:bg-primary-975 flex flex-col gap-6 max-h-150 overflow-hidden p-10 rounded-sm">
+        <div className="flex flex-col gap-4 justify-center items-center md:justify-around md:flex-row w-full">
           <div className="w-1/2">
+            <label htmlFor="buscador-admin" className="sr-only">
+              Filtrar {selected === "usuario" ? "usuarios" : "géneros"} por
+              nombre
+            </label>
             <input
-              className="input-style-comun border border-success-500 input-responsive"
-              placeholder="Busca por nombre o autor"
+              id="buscador-admin"
+              className="input-style-comun input-border-primario dark:border-primary-50 input-responsive dark:text-primary-50"
+              placeholder={`Buscar ${selected}...`}
               onChange={handleFiltrar}
-            ></input>
+            />
           </div>
-          <div>
+
+          <div className="flex items-center">
             <Button variant="primario" onClick={crearItem} name={selected}>
               <span>
-                {selected == "usuario" ? "Crear Usuario" : "Crear Género"}
+                {selected === "usuario" ? "Crear Usuario" : "Crear Género"}
               </span>
             </Button>
           </div>
         </div>
-
-        <Table tipoItem={selected} valorFiltro={valorFiltro}></Table>
-      </div>
-    </div>
+        <div className="relative min-h-50" aria-live="polite">
+          <Suspense
+            fallback={
+              <div className="text-primary-1100 dark:text-primary-50 flex justify-center py-10">
+                <span className="sr-only">Cargando datos...</span>
+                <div className="animate-pulse">
+                  Cargando tabla de {selected}...
+                </div>
+              </div>
+            }
+          >
+            {" "}
+            <Table tipoItem={selected} valorFiltro={valorFiltro} />
+          </Suspense>
+        </div>
+      </article>
+    </section>
   );
 };
 

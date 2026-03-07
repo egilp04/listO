@@ -4,23 +4,32 @@ const NoImplementado = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="pt-10 flex flex-col justify-center items-center gap-10">
-        <h1>No Implementado</h1>
+    <section
+      className="flex flex-col justify-center items-center gap-10 mb-10"
+      aria-labelledby="titulo-en-desarrollo"
+    >
+      <header>
+        <h1 id="titulo-en-desarrollo" className="text-center">
+          No Implementado
+        </h1>
+      </header>
+      <article className="max-w-prose text-center">
         <p>
           Esta funcionalidad se encuentra actualmente en desarrollo por nuestro
           equipo. Vuelve a consultar más tarde para disfrutar de las novedades
           de <strong>listO</strong>.
         </p>
-        <div className="flex flex-col items-center justify-center">
-          <img
-            src="src/assets/img/others/teddy.png"
-            alt="En construcción"
-            className="img-no-implementado "
-          />
-        </div>
-      </div>
-    </div>
+      </article>
+
+      <figure
+        className="flex flex-row gap-4 items-center justify-center text-7xl no-implementado-animation"
+        aria-hidden="true"
+      >
+        <span className="text-5xl">🔨</span>
+        <span className="text-5xl">⛏️</span>
+        <span className="text-5xl">🛠️</span>
+      </figure>
+    </section>
   );
 };
 

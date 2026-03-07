@@ -1,18 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useEffect, useState, lazy, Suspense } from "react";
 import AuthLayout from "./layouts/AuthLayout";
 import AppLayout from "./layouts/AppLayout";
-import Estadisticas from "./pages/Estadisticas";
+import LandingLayout from "./layouts/LandingLayout";
 import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd";
 import { Registro } from "./componentes/Formularios/Registro";
-import Biblioteca from "./pages/biblioteca";
-import EstadisticasGlobales from "./pages/EstadisticasGlobales";
-import GestionAdmin from "./pages/GestionAdmin";
-import FormularioGestionGeneros from "./pages/FormularioGestionGeneros";
-import Landing from "./pages/landing";
-import MiPerfil from "./pages/miPerfil";
-import LandingLayout from "./layouts/LandingLayout";
-import GestionItem from "./pages/GestionItem";
+import { Recuperacion_Passwd } from "./componentes/Formularios/Recuperacion_Passwd";
 import Loading from "./componentes/Loading";
+import Landing from "./pages/landing";
+import { useAuthStore } from "./store/useAuthStore";
+import { supabase } from "./utils/supabaseClient";
+const Estadisticas = lazy(() => import("./pages/Estadisticas"));
+const EstadisticasGlobales = lazy(() => import("./pages/EstadisticasGlobales"));
+const Biblioteca = lazy(() => import("./pages/biblioteca"));
+const GestionAdmin = lazy(() => import("./pages/GestionAdmin"));
+const FormularioGestionGeneros = lazy(
+  () => import("./pages/FormularioGestionGeneros"),
+);
+const MiPerfil = lazy(() => import("./pages/miPerfil"));
+const GestionItem = lazy(() => import("./pages/GestionItem"));
+const NoImplementado = lazy(() => import("./pages/NoImplementado"));
+
+const CargaPerezosa = ({ children }: { children: React.ReactNode }) => (
+  <Suspense fallback={<Loading />}>{children}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
@@ -20,41 +31,73 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/admin/items",
-        element: <GestionItem />,
+        element: (
+          <CargaPerezosa>
+            <GestionItem />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/estadisticas",
-        element: <Estadisticas />,
+        element: (
+          <CargaPerezosa>
+            <Estadisticas />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/miperfil",
-        element: <MiPerfil />,
+        element: (
+          <CargaPerezosa>
+            <MiPerfil />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/biblioteca",
-        element: <Biblioteca />,
+        element: (
+          <CargaPerezosa>
+            <Biblioteca />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/estadisticas/globales",
-        element: <EstadisticasGlobales />,
+        element: (
+          <CargaPerezosa>
+            <EstadisticasGlobales />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/gestion",
-        element: <GestionAdmin />,
+        element: (
+          <CargaPerezosa>
+            <GestionAdmin />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "/genero",
-        element: <FormularioGestionGeneros />,
+        element: (
+          <CargaPerezosa>
+            <FormularioGestionGeneros />
+          </CargaPerezosa>
+        ),
       },
       {
         path: "*",
-        element: <NoImplementado />,
+        element: (
+          <CargaPerezosa>
+            <NoImplementado />
+          </CargaPerezosa>
+        ),
       },
     ],
   },
   {
     element: <LandingLayout />,
-    children: [{ path: "/", element: <Landing /> }],
+    children: [{ path: "/", element: <Landing></Landing> }],
   },
   {
     element: <AuthLayout />,
@@ -71,13 +114,13 @@ const router = createBrowserRouter([
         path: "/recuperar",
         element: <Login_ChangePasswd login={false} />,
       },
+      {
+        path: "/actualizar-password",
+        element: <Recuperacion_Passwd login={false} />,
+      },
     ],
   },
 ]);
-
-import { useEffect, useState } from "react";
-import { useAuthStore } from "./store/useAuthStore";
-import NoImplementado from "./pages/NoImplementado";
 
 function App() {
   const { initialize, loading, session } = useAuthStore();
@@ -86,14 +129,12 @@ function App() {
   useEffect(() => {
     initialize();
 
-    // Forzamos un tiempo mínimo de carga de 3 segundos
     const timer = setTimeout(() => {
       setMinLoadingTime(false);
-    }, 3000);
+    }, 500);
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        console.log("Sincronización global: Reiniciando contexto...");
         window.location.reload();
       }
     };
@@ -103,6 +144,20 @@ function App() {
       clearTimeout(timer);
     };
   }, [initialize]);
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, _session) => {
+      if (event === "PASSWORD_RECOVERY") {
+        router.navigate("/actualizar-password");
+      } else if (event === "USER_UPDATED") {
+        router.navigate("/biblioteca");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   if ((loading || minLoadingTime) && !session) {
     return <Loading />;

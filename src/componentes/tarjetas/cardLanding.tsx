@@ -1,3 +1,5 @@
+import React from "react";
+
 interface CardLandingProps {
   titulo: string;
   descripcion: string;
@@ -12,23 +14,33 @@ const CardLanding: React.FC<CardLandingProps> = ({
   invertido = false,
 }) => {
   return (
-    <div
-      className={`card-landing ${invertido ? "md:flex-row-reverse" : "md:flex-row"} w-full h-auto md:h-[250px] lg:h-[500px]`}
+    <article
+      className={`card-landing flex flex-col ${
+        invertido ? "md:flex-row-reverse" : "md:flex-row"
+      } w-full h-auto md:h-62.5 lg:h-125 overflow-hidden rounded-xl shadow-sm`}
+      data-invertido={invertido.toString()}
     >
-      <div className="flex flex-col flex-1 items-center md:items-start h-full text-center md:text-left p-[30px] md:p-6 lg:p-10 overflow-hidden ">
-        <div className="px-4 py-2 bg-primary-300 rounded-lg w-full max-w-[90%] md:max-w-none mb-[30px] md:mb-4 lg:mb-[48px]  text-center ">
-          <h4>{titulo}</h4>
-        </div>
+      <section className="flex flex-col flex-1 items-center md:items-start h-full text-center md:text-left p-personalizado-30 md:p-6 lg:p-10">
+        <header className="px-4 py-2 bg-primary-400 dark:bg-primary-800 rounded-lg w-full max-w-[90%] md:max-w-none mb-personalizado-30 md:mb-4 lg:mb-12 text-center">
+          <h3 className="font-bold text-white dark:text-primary-50">
+            {titulo}
+          </h3>
+        </header>
 
-        <p className="line-clamp-4 md:line-clamp-3 lg:line-clamp-none">
+        <p className="line-clamp-4 md:line-clamp-3 lg:line-clamp-none text-pretty text-primary-900 dark:text-primary-100">
           {descripcion}
         </p>
-      </div>
+      </section>
 
-      <div className="flex-1 w-full h-[300px] md:h-full">
-        <img src={imagen} alt={titulo} className="w-full h-full object-cover" />
-      </div>
-    </div>
+      <figure className="bg-primary-600 flex-1 w-full h-75 md:h-full overflow-hidden">
+        <img
+          src={imagen}
+          alt={`Ilustración de la función: ${titulo}`}
+          loading="lazy"
+          className="w-full h-full object-cover transition-all duration-300 hover:scale-105 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
+        />
+      </figure>
+    </article>
   );
 };
 

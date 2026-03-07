@@ -4,6 +4,8 @@ import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "../../store/useAuthStore";
+import { useNotificationStore } from "../../store/useNotificationStore";
+import { supabase } from "../../utils/supabaseClient";
 import { useTranslation } from "react-i18next";
 
 interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
@@ -16,54 +18,83 @@ export const Login_ChangePasswd = ({
   login,
   ...props
 }: RegistroProps) => {
-  const navigate = useNavigate();
-  const { login: loginAction, error: authError } = useAuthStore();
-  const { t } = useTranslation();
+  export const Login_ChangePasswd = ({
+    error,
+    login,
+    ...props
+  }: RegistroProps) => {
+    const navigate = useNavigate();
+    const { login: loginAction, error: authError } = useAuthStore();
+    const { setNotificacion } = useNotificationStore();
+    const { t } = useTranslation();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    passwd: "",
-    nueva_passwd: "",
-    confirm_passwd: "",
-  });
+    const [formData, setFormData] = useState({
+      email: "",
+      passwd: "",
+      nueva_passwd: "",
+      confirm_passwd: "",
+    });
 
-  const texto = login ? "Login" : "Enviar";
+    const texto = login ? "Login" : "Enviar";
 
-  const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
-    {},
-  );
+    const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
+      {},
+    );
+    const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
+      {},
+    );
 
-  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  const manejarError = (nombre: string, hayError: boolean) => {
-    setErroresActivos({ ...erroresActivos, [nombre]: hayError });
-  };
+    const manejarError = (nombre: string, hayError: boolean) => {
+      setErroresActivos({ ...erroresActivos, [nombre]: hayError });
+    };
 
-  const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
 
-    if (login) {
-      try {
-        await loginAction(formData.email, formData.passwd);
-        navigate("/biblioteca");
-      } catch (err) {
-        console.error("Login failed", err);
+      if (login) {
+        try {
+          await loginAction(formData.email, formData.passwd);
+          navigate("/biblioteca");
+        } catch (err) {
+          console.error("Login failed", err);
+        }
+      } else {
+        try {
+          const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+            formData.email,
+            {
+              redirectTo: `${window.location.origin}/actualizar-password`,
+            },
+          );
+
+          if (resetError) throw resetError;
+
+          setNotificacion(
+            "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.",
+            "exito",
+          );
+          setFormData({ ...formData, email: "" });
+        } catch (err) {
+          console.error("Error al recuperar contraseña", err);
+        }
       }
-    } else {
-      console.log("Volviendo al Login...");
-      navigate("/login");
-    }
-  };
+    };
 
-  return (
-    <form className="card-login_passwd" {...props}>
+    return (
+    <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
       {login ? (
-        <>
-          <h2>Inicio Sesión</h2>
+        <section>
+          <header className="mb-4">
+            <h2 className="text-center">Inicio Sesión</h2>
+          </header>
 
-          <div className="flex-login-passwd">
+          <fieldset className="flex-login-passwd border-none p-0 m-0">
+            <legend className="sr-only">Datos de acceso del usuario</legend>
+
             <Inputs
               label="Usuario"
               type="text"
@@ -75,10 +106,38 @@ export const Login_ChangePasswd = ({
               manejarCambio={manejarCambio}
               manejarError={manejarError}
             />
+              name="email"
+              error={"Formato de email incorrecto"}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
             <Inputs
               label="Contraseña"
               type="password"
               placeholder="********"
+              name="passwd"
+              error={"Debe coincidir con la contraseña"}
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
+              value={formData.passwd}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
+            />
+          </fieldset>
+
+          <nav className="mt-4 text-center" aria-label="Recuperación de cuenta">
+            <span className="text-sm font-medium block text-black dark:text-primary-50">
+              ¿Has olvidado la contraseña? Pulse{" "}
+              <Link
+                to="/recuperar"
+                className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
+              >
+                AQUÍ
+              </Link>
+            </span>
+          </nav>
+        </section>
               name="passwd"
               error={"Debe coincidir con la contraseña"}
               regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
@@ -98,43 +157,73 @@ export const Login_ChangePasswd = ({
           </span>
         </>
       ) : (
-        <>
-          <h2>Recuperar Contraseña</h2>
+  <section>
+    <header className="mb-4">
+      <h2 className="text-center">Recuperar Contraseña</h2>
+    </header>
 
-          <div className="flex-login-passwd">
-            <Inputs
-              label="Nueva Contraseña"
-              type="password"
-              placeholder="********"
-              name="nueva_passwd"
-              error={
-                "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
+    <fieldset className="flex-login-passwd border-none p-0 m-0">
+      <legend className="sr-only">
+        Introducción de credenciales para recuperación
+      </legend>
+      <Inputs
+        label="Introduzca su email"
+        type="text"
+        placeholder="Ej: enrique@gmail.com"
+        name="email"
+        error={"Formato de email incorrecto"}
+        regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+        value={formData.email}
+        manejarCambio={manejarCambio}
+        manejarError={manejarError}
+      />
+    </fieldset>
+  </section>
+)}
+<footer className="mt-6 flex flex-col items-center">
+  <Button type="submit" className="w-full">
+    {texto}
+  </Button>
+  {(error || authError) && (
+    <p role="alert" className="span-error mt-1 h-4 text-red-500">
+      {error || authError}
+    </p>
+  )}
+</footer>
+label = "Nueva Contraseña"
+type = "password"
+placeholder = "********"
+name = "nueva_passwd"
+error = {
+  "La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial"
               }
-              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
-              value={formData.nueva_passwd}
-              manejarCambio={manejarCambio}
-              manejarError={manejarError}
-            />
-            <Inputs
-              label="Confirmar Contraseña"
-              type="password"
-              placeholder="********"
-              name="confirm_passwd"
-              error={"Las contraseñas no coinciden"}
-              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
-              value={formData.confirm_passwd}
-              manejarCambio={manejarCambio}
-              manejarError={manejarError}
-            />
-          </div>
+regex = {/^ (?=.* [a - z])(?=.* [A - Z])(?=.*\d)(?=.* [\W_]).{ 1, 8 } $ /}
+value = { formData.nueva_passwd }
+manejarCambio = { manejarCambio }
+manejarError = { manejarError }
+  />
+  <Inputs
+    label="Confirmar Contraseña"
+    type="password"
+    placeholder="********"
+    name="confirm_passwd"
+    error={"Las contraseñas no coinciden"}
+    regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{1,8}$/}
+    value={formData.confirm_passwd}
+    manejarCambio={manejarCambio}
+    manejarError={manejarError}
+  />
+          </div >
         </>
       )}
 
-      <Button onClick={handleClick}>{texto}</Button>
+<Button onClick={handleClick}>{texto}</Button>
 
-      {(error || authError) && (
-        <p className="span-error mt-1 h-4">{error || authError}</p>
-      )}
-    </form>
+{
+  (error || authError) && (
+    <p className="span-error mt-1 h-4">{error || authError}</p>
+  )
+}
+    </form >
   );
 };

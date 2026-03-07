@@ -6,53 +6,90 @@ const Footer: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="flex flex-col gap-3 bg-primary-700 p-3 text-neutral-50 font-Otros">
-      <div className="flex justify-around items-center">
-        <div className="flex flex-col items-center justify-center">
+    <footer className="flex flex-col gap-6 bg-primary-950 dark:bg-primary-1000 p-6 text-neutral-50 font-Otros">
+      <div className="flex flex-col md:flex-row justify-around items-center gap-8">
+        <figure className="flex flex-col items-center justify-center">
           <img
-            src="/src/assets/img/logo/logo.webp"
-            alt="logo"
-            className="h-40 w-40 object-contain"
+            src="/logo.webp"
+            alt="Logotipo oficial de ListO"
+            className="h-20 w-20 object-contain md:h-24"
+            width={96}
+            height={96}
+            loading="lazy"
           />
-        </div>
-
-        <div className="flex flex-col gap-1 items-center text-center">
-          <label className="font-Titulos font-medium text-lg">Politicas</label>
-          <NavLink to="/politicas-cookies" className="text-sm hover:underline">
-            Políticas cookies
-          </NavLink>
-          <NavLink to="*" className="text-sm hover:underline">
-            Términos de servicio
-          </NavLink>
-          <NavLink to="*" className="text-sm hover:underline">
-            Políticas de privacidad
-          </NavLink>
-          <NavLink to="*" className="text-sm hover:underline">
-            Políticas de seguridad
-          </NavLink>
-        </div>
-
-        <div className="flex flex-col gap-1 items-center text-center">
-          <label className="font-Titulos font-medium text-lg">Contacto</label>
-          <label className="text-sm hover:underline"> 614 68 43 55</label>
-          <label className="text-sm hover:underline"> listODaw@gmail.com</label>
-          <label className="text-sm hover:underline">
-            Av/ Avestruz 12 (Badajoz)
-          </label>
-        </div>
-
-        <div className="flex flex-col gap-1 items-center text-center">
-          <label className="font-Titulos font-medium text-lg">
+        </figure>
+        <nav
+          className="flex flex-col gap-2 items-center md:items-start"
+          aria-label="Enlaces legales"
+        >
+          <h3 className="font-Titulos font-medium text-lg text-primary-50 mb-1">
+            Políticas
+          </h3>
+          <ul className="flex flex-col gap-1 items-center md:items-start list-none p-0 m-0">
+            <li>
+              <NavLink
+                to="/politicas-cookies"
+                className="text-sm hover:underline transition-all"
+              >
+                Políticas de cookies
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/terminos"
+                className="text-sm hover:underline transition-all"
+              >
+                Términos de servicio
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/privacidad"
+                className="text-sm hover:underline transition-all"
+              >
+                Privacidad
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+        <section className="flex flex-col gap-2 items-center md:items-start">
+          <h3 className="text-primary-50 font-Titulos font-medium text-lg mb-1">
+            Contacto
+          </h3>
+          <address className="not-italic flex flex-col gap-1 items-center md:items-start text-sm">
+            <a
+              href="tel:+34614684355"
+              className="hover:underline text-primary-50"
+            >
+              614 68 43 55
+            </a>
+            <a
+              href="mailto:listODaw@gmail.com"
+              className="hover:underline text-primary-50"
+            >
+              listODaw@gmail.com
+            </a>
+            <p className="text-primary-50 text-center md:text-left">
+              Av. Avestruz 12, Badajoz
+            </p>
+          </address>
+        </section>
+        <section className="flex flex-col gap-2 items-center md:items-start">
+          <h3 className="text-primary-50 font-Titulos font-medium text-lg mb-1">
             Tecnologías
-          </label>
-          <label className="text-sm hover:underline">React</label>
-          <label className="text-sm hover:underline">Tailwind</label>
-          <label className="text-sm hover:underline">Html</label>
-        </div>
+          </h3>
+          <ul className="flex flex-col gap-1 items-center md:items-start list-none p-0 m-0 text-sm">
+            <li className="text-primary-50">React</li>
+            <li className="text-primary-50">Tailwind CSS</li>
+            <li className="text-primary-50">HTML5 Semántico</li>
+          </ul>
+        </section>
       </div>
-
+      <hr className="border-primary-900/30 w-full" />
       <div className="flex justify-center items-center">
-        <span className="text-sm">© listO / Todos los derechos reservados</span>
+        <small className="text-primary-50 text-xs">
+          © {new Date().getFullYear()} ListO. Todos los derechos reservados.
+        </small>
       </div>
     </footer>
   );

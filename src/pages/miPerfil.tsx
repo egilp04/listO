@@ -8,6 +8,9 @@ import { useNotificationStore } from "../store/useNotificationStore";
 import { useTranslation } from "react-i18next";
 
 const MiPerfil = () => {
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { t } = useTranslation();
   const { setNotificacion } = useNotificationStore();
   const { state } = useLocation();
@@ -96,101 +99,99 @@ const MiPerfil = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="grow w-full max-w-4xl mx-auto px-4 pb-8">
-        <div className="flex flex-col gap-6 md:gap-14 lg:gap-14">
-          <h2 className="flex justify-center text-2xl font-bold">Mi Perfil</h2>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            {/* Nombre */}
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
-              <div className="w-full md:w-1/3">
-                <label className="font-bold">Nombre de usuario</label>
-              </div>
-              <div className="w-full md:w-2/3">
-                <Inputs
-                  label=""
-                  placeholder="Nombre"
-                  name="nombre"
-                  value={datos?.nombre || ""}
-                  manejarCambio={manejarCambios}
-                  manejarError={manejarErrores}
-                  regex={
-                    /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/
-                  }
-                  error="El nombre debe comenzar con mayúscula"
-                />
-              </div>
-            </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
-              <div className="w-full md:w-1/3">
-                <label className="font-bold">Apellidos</label>
-              </div>
-              <div className="w-full md:w-2/3">
-                <Inputs
-                  label=""
-                  placeholder="Apellidos"
-                  name="apellidos"
-                  value={datos?.apellidos || ""}
-                  manejarCambio={manejarCambios}
-                  manejarError={manejarErrores}
-                  regex={
-                    /^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/
-                  }
-                  error="Los apellidos deben comenzar con mayúscula"
-                />
-              </div>
-            </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
-              <div className="w-full md:w-1/3">
-                <label className="font-bold">Email</label>
-              </div>
-              <div className="w-full md:w-2/3">
-                <Inputs
-                  label=""
-                  name="email"
-                  type="email"
-                  value={datos?.email || ""}
-                  manejarCambio={manejarCambios}
-                  manejarError={manejarErrores}
-                  regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-                  error="Email no válido"
-                />
-              </div>
-            </div>
-            <div className="bg-white p-6 md:p-8 rounded-xl shadow-sm flex flex-col md:flex-row items-center gap-4">
-              <div className="w-full md:w-1/3">
-                <label className="font-bold">Fecha Nacimiento</label>
-              </div>
-              <div className="w-full md:w-2/3">
-                <Inputs
-                  label=""
-                  name="fech_nac"
-                  type="text"
-                  placeholder="dd/mm/aaaa"
-                  value={datos?.fech_nac || ""}
-                  manejarCambio={manejarCambios}
-                  manejarError={manejarErrores}
-                  regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
-                  error="Formato: dd/mm/aaaa"
-                />
-              </div>
-            </div>
+    <section
+      className="flex flex-col grow w-full max-w-4xl mx-auto px-4 pb-8 gap-6 md:gap-14 lg:gap-14"
+      aria-labelledby="perfil-title"
+    >
+      <h1 id="perfil-title" className="text-center">
+        Mi Perfil
+      </h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <fieldset className="flex flex-col gap-6 border-none p-0">
+          <legend className="sr-only">
+            Información de contacto y personal
+          </legend>
 
-            <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
-              <div className="w-full md:w-1/3">
-                <Button
-                  variant="primario"
-                  className="w-full py-4 text-xl"
-                  type="submit"
-                >
-                  Modificar Datos
-                </Button>
-              </div>
-            </div>
-          </form>
+          <article className="miperfil">
+            <label className="font-bold" htmlFor="nombre">
+              Nombre de usuario
+            </label>
+            <Inputs
+              id="nombre"
+              label=""
+              placeholder="Nombre"
+              name="nombre"
+              value={datos?.nombre || ""}
+              manejarCambio={manejarCambios}
+              manejarError={manejarErrores}
+              regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
+              error="El nombre debe comenzar con mayúscula"
+            />
+          </article>
+
+          <article className="miperfil">
+            <label className="font-bold" htmlFor="apellidos">
+              Apellidos
+            </label>
+            <Inputs
+              id="apellidos"
+              label=""
+              placeholder="Apellidos"
+              name="apellidos"
+              value={datos?.apellidos || ""}
+              manejarCambio={manejarCambios}
+              manejarError={manejarErrores}
+              regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
+              error="Los apellidos deben comenzar con mayúscula"
+            />
+          </article>
+
+          <article className="miperfil">
+            <label className="font-bold" htmlFor="email">
+              Email
+            </label>
+            <Inputs
+              id="email"
+              label=""
+              name="email"
+              type="email"
+              value={datos?.email || ""}
+              manejarCambio={manejarCambios}
+              manejarError={manejarErrores}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              error="Email no válido"
+            />
+          </article>
+
+          <article className="miperfil">
+            <label className="font-bold" htmlFor="fech_nac">
+              Fecha Nacimiento
+            </label>
+            <Inputs
+              id="fech_nac"
+              label=""
+              name="fech_nac"
+              type="text"
+              placeholder="dd/mm/aaaa"
+              value={datos?.fech_nac || ""}
+              manejarCambio={manejarCambios}
+              manejarError={manejarErrores}
+              regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
+              error="Formato: dd/mm/aaaa"
+            />
+          </article>
+        </fieldset>
+        <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
+          <Button
+            variant="primario"
+            className="w-full py-4 text-xl"
+            type="submit"
+          >
+            Modificar Datos
+          </Button>
         </div>
-      </div>
-    </div>
+      </form>
+    </section>
   );
 };
 

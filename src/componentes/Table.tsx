@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { lazy, useState, Suspense } from "react";
 import Button from "./Button";
-import Dialog from "./Dialog";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+const Dialog = lazy(() => import("./Dialog"));
 import { useTranslation } from "react-i18next";
 
 interface TableInterface {
@@ -14,6 +14,9 @@ interface TableInterface {
 }
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { setNotificacion } = useNotificationStore();
   const { t } = useTranslation();
 
@@ -98,51 +101,73 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   };
 
   return (
-    <div>
-      <div className="table-admin">
-        <div className="flex flex-row w-full">
-          <label>Nombre</label>
-        </div>
-        <div className="flex flex-col">
-          {datosAMostrar.map((inf) => (
-            <div
-              className="rows-table odd:bg-primary-100 even:bg-neutral-100"
-              key={inf.id}
+    <section>
+      <table className="table-admin">
+        <thead className="flex flex-row w-full">
+          <tr>
+            <th>
+              <label className="dark:text-primary-50">Nombre</label>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody className="flex flex-col">
+          {datosAMostrar.map((inf, index) => (
+            <tr
+              className="justify-between rows-table odd:bg-primary-100 dark:odd:bg-primary-1000 even:bg-neutral-100 dark:even:bg-primary-850 dark:even:text-primary-1100 dark:text-primary-50"
+              key={`${inf.id}-${index}`}
             >
-              <label className="w-full font-bold">{inf.nombre}</label>
+              <td>
+                <label className="w-full font-bold ">{inf.nombre}</label>
+              </td>
               {tipoItem == "genero" && (
-                <label className="w-full font-bold">
-                  {inf.tipo?.nombre || "Sin tipo"}
-                </label>
+                <td>
+                  <label className="w-full font-bold ">
+                    {inf.tipo?.nombre || "Sin tipo"}
+                  </label>
+                </td>
               )}
-              <div className="gap-4 flex flex-row justify-end pr-2">
+
+              <td className="gap-4 flex flex-row justify-end pr-2">
                 <Button
+                  className="dark:bg-primary-950"
                   onClick={() => {
                     handleClick(inf);
                   }}
                 >
-                  <span>Editar</span>
+                  <span className="dark:text-primary-50">Editar</span>
                 </Button>
                 <Button
-                  className="bg-danger-300"
+                  className="bg-danger-500"
                   onClick={() => {
                     openDialog(inf);
                   }}
                 >
                   <span className="text-black">Eliminar</span>
                 </Button>
-              </div>
-            </div>
+              </td>
+            </tr>
           ))}
-        </div>
-      </div>
-      <Dialog
-        onClose={deleteItem}
-        titulo="Eliminar"
-        descripcion="Vas a proceder a eliminar el género selccionado, estás seguro?"
-        show={show}
-      ></Dialog>
-    </div>
+        </tbody>
+      </table>
+
+      <Suspense
+        fallback={
+          <div className="text-primary-1100 dark:text-primary-50 text-center">
+            <span>Cargando modal...</span>
+          </div>
+        }
+      >
+        {show && (
+          <Dialog
+            onClose={deleteItem}
+            titulo="Eliminar"
+            descripcion={`¿Estás seguro de que deseas eliminar este ${tipoItem}?`}
+            show={show}
+          />
+        )}
+      </Suspense>
+    </section>
   );
 };
 export default Table;

@@ -15,6 +15,9 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 export const Genero = ({ crear, item, ...props }: RegistroProps) => {
+  const setNotificacion = useNotificationStore(
+    (state) => state.setNotificacion,
+  );
   const { setNotificacion } = useNotificationStore();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -154,10 +157,17 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
     }
   };
   return (
-    <div className="flex justify-center w-full p-4">
-      <form className="card-genero" {...props} onSubmit={handleSubmit}>
-        <h3 className="titulo-genero">{titulo}</h3>
-        <div className="form-body">
+    <section
+      className="flex justify-center w-full p-4"
+      aria-labelledby="form-genero-title"
+    >
+      <form className="form-genero" {...props} onSubmit={handleSubmit}>
+        <header className="mb-6">
+          <h2 id="form-genero-title" className="text-center">
+            {titulo}
+          </h2>
+        </header>
+        <div className="form-body flex flex-col gap-6">
           <Inputs
             label="Nombre"
             type="text"
@@ -170,11 +180,16 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             defaultValue={item != null ? item?.nombre : ""}
           />
 
-          <div className="seccion-tipo">
-            <label className="font-normal font-Otros text-sm md:text-base text-black">
-              Tipo:
-            </label>
-            <div className="flex flex-col gap-1 ml-1">
+          <fieldset className="seccion-tipo border-none p-0 m-0">
+            <legend className="font-Otros dark:text-primary-50 mb-2 font-bold">
+              Tipo de contenido:
+            </legend>
+
+            <div
+              className="flex flex-col gap-1 ml-1"
+              role="group"
+              aria-describedby="error-tipo"
+            >
               <Checkbox
                 manejarCambio={manejarCambio}
                 label="Juego"
@@ -190,13 +205,17 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
                 checked={item?.tipo?.nombre.includes("libro")}
               />
             </div>
-            {errores.tipoItem == true && (
-              <span className="text-red-500">
+
+            {errores.tipoItem === true && (
+              <span
+                id="error-tipo"
+                className="text-red-500 dark:text-red-100 text-sm mt-1"
+                role="alert"
+              >
                 Debe seleccionar al menos un tipo
               </span>
             )}
-          </div>
-
+          </fieldset>
           <TextArea
             manejarError={manejarErrores}
             manejarCambio={manejarCambio}
@@ -207,11 +226,12 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             defaultValue={item != null ? item.descripcion : ""}
           />
         </div>
-
-        <div className="footer-boton">
-          <Button type="submit">Guardar</Button>
-        </div>
+        <footer className="footer-boton mt-8">
+          <Button type="submit" className="w-full">
+            Guardar Género
+          </Button>
+        </footer>
       </form>
-    </div>
+    </section>
   );
 };
