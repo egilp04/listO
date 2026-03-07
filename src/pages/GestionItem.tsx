@@ -76,6 +76,9 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
   };
 
   const manejarCambioTipo = (idTipo: string) => {
+    if (tipoSeleccionado !== idTipo) {
+      setGenerosSeleccionados([]);
+    }
     setTipoSeleccionado(idTipo);
     setErrores((prev) => ({ ...prev, tipo: false }));
   };
@@ -270,22 +273,24 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
 
         {generoAbierto && (
           <div className="p-4 flex flex-col gap-4">
-            {generos.map((genero) => (
-              <div
-                key={genero.id_genero}
-                className="flex items-center gap-4 p-2 rounded-lg"
-              >
-                <div className="bg-primary-600 dark:bg-primary-850 text-white px-8 py-1 rounded-md text-lg min-w-150 text-center">
-                  {genero.nombre}
+            {generos
+              .filter((genero) => genero.id_tipo === tipoSeleccionado)
+              .map((genero) => (
+                <div
+                  key={genero.id_genero}
+                  className="flex items-center gap-4 p-2 rounded-lg"
+                >
+                  <div className="bg-primary-600 dark:bg-primary-850 text-white px-8 py-1 rounded-md text-lg min-w-150 text-center">
+                    {genero.nombre}
+                  </div>
+                  <Checkbox
+                    label={genero.descripcion}
+                    name={`genero_${genero.id_genero}`}
+                    checked={generosSeleccionados.includes(genero.id_genero)}
+                    manejarCambio={() => manejarCambioGenero(genero.id_genero)}
+                  />
                 </div>
-                <Checkbox
-                  label={genero.descripcion}
-                  name={`genero_${genero.id_genero}`}
-                  checked={generosSeleccionados.includes(genero.id_genero)}
-                  manejarCambio={() => manejarCambioGenero(genero.id_genero)}
-                />
-              </div>
-            ))}
+              ))}
           </div>
         )}
         {errores.genero && (
