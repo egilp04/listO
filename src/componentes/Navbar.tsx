@@ -35,17 +35,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar" aria-label={t('navbar.navPrincipalLabel')}>
+    <nav className="navbar" aria-label={t("navbar.navPrincipalLabel")}>
       <div className="flex items-center gap-3">
         <NavLink
           to={estaLogueado ? "/biblioteca" : "/"}
           end
           className="navbar-logo"
-          aria-label={t('navbar.irInicio')}
+          aria-label={t("navbar.irInicio")}
         >
           <img
             src="/logo.webp"
-            alt={t('navbar.logoAlt')}
+            alt={t("navbar.logoAlt")}
             className="h-20 w-20 object-contain md:h-24"
             width={96}
             height={96}
@@ -54,7 +54,7 @@ const Navbar = () => {
 
         {estaLogueado && (
           <span className="text-base text-black font-medium dark:text-primary-50">
-            {t('navbar.saludo')} <strong>{nombreUsuario}</strong>
+            {t("navbar.saludo")} <strong>{nombreUsuario}</strong>
           </span>
         )}
       </div>
@@ -65,17 +65,18 @@ const Navbar = () => {
           onClick={handleClick}
           aria-expanded={!close}
           aria-controls="navbar-menu"
-          aria-label={close ? t('navbar.abrirMenu') : t('navbar.cerrarMenu')}
+          aria-label={close ? t("navbar.abrirMenu") : t("navbar.cerrarMenu")}
         >
           {close ? "menu" : "menu"}
         </button>
       </div>
       <div
         id="navbar-menu"
-        className={`${close
-          ? "hidden"
-          : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
-          } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
+        className={`${
+          close
+            ? "hidden"
+            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
+        } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
       >
         <ul className="flex flex-col xl:flex-row items-center gap-4 list-none p-0 m-0">
           {estaLogueado && (
@@ -87,7 +88,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      {t('navbar.miBiblioteca')}
+                      {t("navbar.miBiblioteca")}
                     </Button>
                   )}
                 </NavLink>
@@ -99,7 +100,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      {t('navbar.estadisticas')}
+                      {t("navbar.estadisticas")}
                     </Button>
                   )}
                 </NavLink>
@@ -111,7 +112,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      {t('navbar.miPerfil')}
+                      {t("navbar.miPerfil")}
                     </Button>
                   )}
                 </NavLink>
@@ -125,7 +126,7 @@ const Navbar = () => {
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
                         >
-                          {t('navbar.estadisticasGlobales')}
+                          {t("navbar.estadisticasGlobales")}
                         </Button>
                       )}
                     </NavLink>
@@ -137,7 +138,7 @@ const Navbar = () => {
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
                         >
-                          {t('navbar.gestion')}
+                          {t("navbar.gestion")}
                         </Button>
                       )}
                     </NavLink>
@@ -147,7 +148,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-        <div className="flex flex-col xl:flex-row items-center gap-4 border-t xl:border-t-0 pt-4 xl:pt-0 border-gray-200 dark:border-primary-800">
+        <div className="flex flex-col xl:flex-row items-center gap-4 border-t xl:border-t-0 pt-4 xl:pt-0 border-gray-200 dark:border-primary-800 w-full lg:w-auto">
           {!estaLogueado ? (
             <ul className="flex flex-col xl:flex-row gap-2 list-none p-0 m-0">
               <li>
@@ -157,7 +158,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      {t('navbar.login')}
+                      {t("navbar.login")}
                     </Button>
                   )}
                 </NavLink>
@@ -169,7 +170,7 @@ const Navbar = () => {
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
                     >
-                      {t('navbar.registro')}
+                      {t("navbar.registro")}
                     </Button>
                   )}
                 </NavLink>
@@ -181,7 +182,7 @@ const Navbar = () => {
               onClick={handleLogout}
               className="w-full"
             >
-              {t('navbar.salir')}
+              {t("navbar.salir")}
             </Button>
           )}
           <ThemeToggle />
