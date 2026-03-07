@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import Button from "./Button";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DialogInterface {
   titulo: string;
@@ -15,6 +16,7 @@ const Dialog = ({
   show = false,
   onClose,
 }: DialogInterface) => {
+  const { t } = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
   const previouslyFocused = useRef<HTMLElement | null>(null);
 
@@ -53,7 +55,7 @@ const Dialog = ({
             if (
               document.activeElement === firstElement ||
               document.activeElement ===
-                modalRef.current.querySelector("#dialog-title")
+              modalRef.current.querySelector("#dialog-title")
             ) {
               lastElement.focus();
               e.preventDefault();
@@ -97,7 +99,7 @@ const Dialog = ({
           <button
             className="material-symbols-outlined cursor-pointer hover:text-danger-500 transition-colors bg-transparent border-none p-0"
             onClick={() => onClose(false)}
-            aria-label="Cerrar ventana emergente"
+            aria-label={t('dialog.cerrar')}
           >
             close
           </button>
@@ -120,13 +122,13 @@ const Dialog = ({
 
         <footer className="flex flex-row gap-4 justify-end mt-8 p-6 bg-gray-50 dark:bg-primary-850/50 rounded-b-xl">
           <Button variant="fantasma" onClick={() => onClose(false)}>
-            No, cancelar
+            {t('dialog.botonCancelar')}
           </Button>
           <Button
             className="bg-danger-500 text-white hover:bg-danger-600"
             onClick={() => onClose(true)}
           >
-            Sí, confirmar
+            {t('dialog.botonConfirmar')}
           </Button>
         </footer>
       </section>

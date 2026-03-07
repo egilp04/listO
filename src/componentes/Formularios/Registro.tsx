@@ -6,8 +6,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { supabase } from "../../utils/supabaseClient";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNotificationStore } from "../../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const setNotificacion = useNotificationStore(
     (state) => state.setNotificacion,
@@ -75,10 +77,7 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
       (err) => err === true,
     );
     if (tieneErroresVisuales || !passwordsCoinciden) {
-      setNotificacion(
-        "Algunos de los campos tienen errores o las contraseñas no coinciden",
-        "error",
-      );
+      setNotificacion(t('formRegistro.notifErrorCampos'), "error");
     } else {
       await enviarDatosBD();
     }
@@ -101,104 +100,98 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
 
       if (error) throw error;
       else {
-        console.log("se hace bien el registro");
-        setNotificacion(
-          "¡Usuario registrado con éxito! Ya puedes iniciar sesión.",
-          "exito",
-        );
+        setNotificacion(t('formRegistro.notifExito'), "exito");
         if (vieneDeGestion) {
-          console.log("viene de gestion");
           navigate(-1);
         } else {
-          console.log("se sale jejejej");
           logout();
           navigate("/");
         }
       }
     } catch (error) {
       console.log("catch error", error);
-      setNotificacion("Intente registrarse más tarde", "error");
+      setNotificacion(t('formRegistro.notifError'), "error");
     }
   };
 
   return (
     <form className="form-registro" {...props} onSubmit={handleSubmit}>
       <header className="mb-6">
-        <h2 className="text-center">Registro</h2>
+        <h2 className="text-center">{t('formRegistro.titulo')}</h2>
       </header>
       <fieldset className="grid-registro border-none p-0 m-0">
-        <legend className="sr-only">Información personal y de cuenta</legend>
+        <legend className="sr-only">{t('formRegistro.legendInfo')}</legend>
         <Inputs
-          label="Nombre"
+          label={t('formRegistro.labelNombre')}
           type="text"
-          placeholder="Ej: Eve"
+          placeholder={t('formRegistro.placeholderNombre')}
           name="nombre"
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-          error="El nombre debe comenzar con mayúsculas sin números, por favor"
+          error={t('formRegistro.errorNombre')}
         />
         <Inputs
-          label="Apellidos"
+          label={t('formRegistro.labelApellidos')}
           type="text"
-          placeholder="Ej: Ceballos Mateos"
+          placeholder={t('formRegistro.placeholderApellidos')}
           name="apellidos"
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-          error="El/los apellido/s debe/n comenzar con mayúsculas seguido de minúsculas sin números"
+          error={t('formRegistro.errorApellidos')}
         />
         <Inputs
-          label="Fecha Nacimiento"
+          label={t('formRegistro.labelFechaNac')}
           type="text"
-          placeholder="Ej: 30/12/2000"
+          placeholder={t('formRegistro.placeholderFechaNac')}
           name="fecha_nac"
           regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
-          error="Introduzca una fecha válida: dd/mm/aaaa"
+          error={t('formRegistro.errorFechaNac')}
         />
         <Inputs
-          label="Email"
+          label={t('formRegistro.labelEmail')}
           type="email"
-          placeholder="Ej: eve@gmail.com"
+          placeholder={t('formRegistro.placeholderEmail')}
           name="email"
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-          error="Revise el email"
+          error={t('formRegistro.errorEmail')}
         />
         <Inputs
-          label="Contraseña"
+          label={t('formRegistro.labelContrasena')}
           type="password"
-          placeholder="********"
+          placeholder={t('formRegistro.placeholderContrasena')}
           name="passwd"
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
-          error="La contraseña debe tener una mayúscula mínimo y carácteres especiales"
+          error={t('formRegistro.errorContrasena')}
         />
         <Inputs
-          label="Confirmar Contraseña"
+          label={t('formRegistro.labelConfirmarContrasena')}
           type="password"
-          placeholder="********"
+          placeholder={t('formRegistro.placeholderContrasena')}
           name="rep_passwd"
           manejarError={manejarErrores}
           manejarCambio={manejarCambios}
           regex={/^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/}
-          error="Revise la contraseña, debe coincidir con el campo anterior"
+          error={t('formRegistro.errorConfirmarContrasena')}
         />
       </fieldset>
       <section className="mt-4">
         <Checkbox
-          label="Aceptar políticas"
+          label={t('formRegistro.labelPoliticas')}
           name="politicas"
           manejarCambio={manejarCambios}
         />
       </section>
       <footer className="mt-6 flex flex-col items-center">
         <Button type="submit" className="w-full">
-          Registrar
+          {t('formRegistro.botonRegistrar')}
         </Button>
       </footer>
     </form>

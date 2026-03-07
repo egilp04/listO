@@ -2,8 +2,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../componentes/Footer";
 import Navbar from "../componentes/Navbar";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 const AppLayout = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const mensaje = useNotificationStore((state) => state.mensaje);
   const tipo = useNotificationStore((state) => state.tipo);
@@ -14,12 +16,12 @@ const AppLayout = () => {
       <Navbar />
       <nav
         className="w-full px-4 py-4 md:px-8"
-        aria-label="Navegación secundaria"
+        aria-label={t('layout.navSecundariaLabel')}
       >
         <button
           className="material-symbols-outlined cursor-pointer dark:text-primary-50 bg-transparent border-none p-0"
           onClick={() => navigate(-1)}
-          aria-label="Volver a la página anterior"
+          aria-label={t('layout.volverAtras')}
         >
           arrow_back
         </button>
@@ -29,9 +31,8 @@ const AppLayout = () => {
           <div
             role="alert"
             aria-live="assertive"
-            className={`mensaje-alerta ${
-              tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
-            }`}
+            className={`mensaje-alerta ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
+              }`}
           >
             <span>{mensaje}</span>
           </div>

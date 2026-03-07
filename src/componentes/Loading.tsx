@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Loading: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <section
       className="flex flex-col items-center justify-center min-h-screen bg-primary-50 dark:bg-primary-1100"
@@ -19,7 +22,7 @@ const Loading: React.FC = () => {
       </figure>
       <header className="mt-8">
         <p className="text-xl font-bold text-primary-1000 animate-pulse dark:text-primary-50">
-          Cargando recursos...
+          {t('loading.cargando')}
         </p>
       </header>
     </section>

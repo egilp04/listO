@@ -2,8 +2,10 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../componentes/Navbar";
 import fondoLogin from "../assets/img/Fondo-forms.webp";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 const AuthLayout = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const state = location.state || {};
   const navigate = useNavigate();
@@ -26,20 +28,19 @@ const AuthLayout = () => {
           <div
             role="alert"
             aria-live="assertive"
-            className={`mensaje-alerta ${
-              tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
-            }`}
+            className={`mensaje-alerta ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
+              }`}
           >
             <span>{mensaje}</span>
           </div>
         )}
         {state.atras === true && (
-          <nav className="w-full mb-6" aria-label="Navegación de retorno">
+          <nav className="w-full mb-6" aria-label={t('layout.navRetornoLabel')}>
             <button
               type="button"
               className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 dark:text-primary-50 rounded-sm px-4 py-4 md:px-8 border-none"
               onClick={() => navigate(-1)}
-              aria-label="Volver a la página anterior"
+              aria-label={t('layout.volverAtras')}
             >
               arrow_back
             </button>

@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Link } from "react-router-dom";
 import CardLanding from "../componentes/tarjetas/cardLanding";
 import Button from "../componentes/Button";
+import { useTranslation } from "react-i18next";
 
 import card1 from "../assets/img/cards/carta_landing1.webp";
 import card2 from "../assets/img/cards/carta_landing2.webp";
@@ -13,6 +14,8 @@ import card5 from "../assets/img/cards/carta_landing5.webp";
 import heroLight from "../assets/img/cards/landing-hero-light.webp";
 
 const Landing = () => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -65,33 +68,26 @@ const Landing = () => {
     return () => ctx.revert();
   }, []);
 
-  const featureImage1 = card1;
-  const featureImage2 = card2;
-  const featureImage3 = card3;
-  const featureImage4 = card4;
-  const featureImage5 = card5;
-
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <header className="flex flex-col items-center text-center gap-8 w-full lg:gap-12 2xl:gap-16">
         <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 2xl:gap-18 hero-element">
-          <h1 className="text-balance">El espacio para tus historias</h1>
+          <h1 className="text-balance">{t('landing.heroTitulo')}</h1>
           <p className="max-w-2xl mx-auto">
-            Centraliza todo tu entretenimiento. Gestiona libros, juegos, cine y
-            música en un catálogo personal único y organizado
+            {t('landing.heroDescripcion')}
           </p>
         </div>
 
-        <nav className="hero-element" aria-label="Navegación de acceso rápido">
+        <nav className="hero-element" aria-label={t('landing.heroNavLabel')}>
           <Link to="/login">
-            <Button variant="primario">Comenzar</Button>
+            <Button variant="primario">{t('landing.heroCta')}</Button>
           </Link>
         </nav>
 
         <figure className="w-full mt-8 hero-element">
           <img
             src={heroLight}
-            alt="Vista previa de la bitácora digital ListO"
+            alt={t('landing.heroImgAlt')}
             className="w-full h-auto object-cover rounded-xl shadow-elevation-1 
                        transition-all duration-100
                        dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
@@ -99,84 +95,64 @@ const Landing = () => {
         </figure>
 
         <article className="flex flex-col mt-8 mb-[40px] gap-30 2xl:mb-25 md:gap-10 xl:gap-personalizado-50 px-4 md:px-10 lg:px-20 fade-in-up">
-          <h2>Tu bitácora digital de entretenimiento</h2>
+          <h2>{t('landing.bitacorasTitulo')}</h2>
           <p className="text-pretty">
-            Nuestra aplicación es el refugio definitivo para tu curiosidad
-            intelectual, permitiéndote registrar, organizar y valorar con
-            precisión quirúrgica cada libro, videojuego y contenido multimedia
-            que ha pasado por tus manos. No se trata solo de una lista, sino de
-            una biblioteca personal donde podrás documentar cada título con
-            fechas exactas de finalización, reseñas críticas profundamente
-            personales e imágenes de alta resolución que den vida a tu catálogo.
-            Más allá del simple registro, nuestra plataforma transforma tu
-            consumo cultural en conocimiento analítico. A través de un motor de
-            visualización avanzada, podrás explorar tu historial mediante
-            estadísticas detalladas de progreso anual, gráficos de rendimiento
-            temático y el cálculo automático de tu puntuación media. Es el
-            ecosistema digital diseñado específicamente para aquellos que buscan
-            preservar la memoria de sus experiencias, analizando su evolución
-            cultural y organizando su legado de entretenimiento en un espacio
-            elegante, intuitivo y funcional.
+            {t('landing.bitacorasDescripcion')}
           </p>
         </article>
       </header>
 
       <section
         className="flex flex-col w-full gap-personalizado-50 md:gap-20 lg:gap-25 2xl:gap-30 px-4 md:px-8 lg:px-16"
-        aria-label="Funcionalidades principales"
+        aria-label={t('landing.funcionalesLabel')}
       >
         <article>
           <CardLanding
-            titulo="Tu catálogo personal"
-            descripcion="Olvida tener listas dispersas en notas o diferentes apps. Centraliza todo en un único catálogo personal. ListO es el hogar digital para todas esas historias que has terminado y que merecen ser recordadas."
-            imagen={featureImage1}
+            titulo={t('landing.feature1Titulo')}
+            descripcion={t('landing.feature1Descripcion')}
+            imagen={card1}
             invertido={false}
           />
         </article>
 
         <article>
           <CardLanding
-            titulo="Tu crítica, tus reglas"
-            descripcion="No se trata solo de marcar como completado. Documenta tu experiencia: escribe una reseña personal, sube tu propia portada y asigna una valoración de 1 a 5 estrellas. Convierte cada ficha en una memoria imborrable."
-            imagen={featureImage2}
+            titulo={t('landing.feature2Titulo')}
+            descripcion={t('landing.feature2Descripcion')}
+            imagen={card2}
             invertido={true}
           />
         </article>
 
         <article>
           <CardLanding
-            titulo="Ordena tu caos digital"
-            descripcion="¿Buscas aquel RPG de hace tres años? Encuéntralo al instante. Utiliza nuestros filtros avanzados para matener tu biblioteca perfectamente estructurada sin esfuerzo."
-            imagen={featureImage3}
+            titulo={t('landing.feature3Titulo')}
+            descripcion={t('landing.feature3Descripcion')}
+            imagen={card3}
             invertido={false}
           />
         </article>
 
         <article>
           <CardLanding
-            titulo="Visualiza tus logros"
-            descripcion="Descubre tus verdaderos hábitos de consumo cultural. Accede a tu panel de estadísticas y deja que los datos cuenten tu historia."
-            imagen={featureImage4}
+            titulo={t('landing.feature4Titulo')}
+            descripcion={t('landing.feature4Descripcion')}
+            imagen={card4}
             invertido={true}
           />
         </article>
       </section>
+
       <section className="w-full py-16" aria-labelledby="footer-cta-title">
         <div className="flex flex-col md:flex-row items-center justify-center gap-12 px-8 fade-in-up">
           <div className="flex flex-col items-center text-center gap-6 md:w-1/2">
-            <h2 id="footer-cta-title">Miles de listas completadas con éxito</h2>
-            <p>
-              ListO no es solo una aplicación, es la suma de vuestras ideas.
-              Creada desde cero gracias a vuestras sugerencias, cada función ha
-              sido diseñada para resolver las necesidades reales de quienes
-              buscan un control total sobre su biblioteca de libros y su
-              catálogo de videojuegos.
-            </p>
+            <h2 id="footer-cta-title">{t('landing.ctaTitulo')}</h2>
+            <p>{t('landing.ctaDescripcion')}</p>
           </div>
           <figure className="w-full md:w-auto max-w-sm">
             <img
-              src={featureImage5}
-              alt="Ilustración de éxito en la gestión de bibliotecas personales"
+              src={card5}
+              alt={t('landing.ctaImgAlt')}
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1 transition-all duration-100 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
             />
           </figure>

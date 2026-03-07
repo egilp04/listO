@@ -9,8 +9,10 @@ import {
 import { useAdminStatsStore } from "../../store/useAdminStatsStore";
 import { useEffect, useState } from "react";
 import { useThemeStore } from "../../store/useThemeStore";
+import { useTranslation } from "react-i18next";
 
 export default function DistribucionGeneros() {
+  const { t } = useTranslation();
   const fetchDistribucionGeneros = useAdminStatsStore(
     (state) => state.fetchDistribucionGeneros,
   );
@@ -40,13 +42,13 @@ export default function DistribucionGeneros() {
           id="genero-chart-title"
           className="text-xl font-semibold text-center md:text-left"
         >
-          Distribución por Género
+          {t('charts.distribucionGenero.titulo')}
         </h2>
       </figcaption>
       <div
         className="h-75 w-full"
         role="img"
-        aria-label="Gráfico circular tipo donut que muestra la proporción de cada género en la biblioteca del usuario."
+        aria-label={t('charts.distribucionGenero.ariaLabel')}
       >
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -79,12 +81,12 @@ export default function DistribucionGeneros() {
                 name: string | undefined,
               ) => {
                 if (value === undefined || name === undefined) {
-                  return ["0", name ?? "Desconocido"];
+                  return ["0", name ?? t('charts.distribucionGenero.desconocido')];
                 }
                 const total = data.reduce((acc, curr) => acc + curr.value, 0);
                 const percent =
                   total > 0 ? ((value / total) * 100).toFixed(1) : "0";
-                return [`${value} elementos (${percent}%)`, name];
+                return [t('charts.distribucionGenero.elementos', { count: value, percent }), name];
               }}
             />
             <Legend verticalAlign="bottom" height={36} iconType="circle" />

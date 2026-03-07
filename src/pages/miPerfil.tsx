@@ -5,8 +5,10 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { useNotificationStore } from "../store/useNotificationStore";
+import { useTranslation } from "react-i18next";
 
 const MiPerfil = () => {
+  const { t } = useTranslation();
   const setNotificacion = useNotificationStore(
     (state) => state.setNotificacion,
   );
@@ -54,10 +56,7 @@ const MiPerfil = () => {
       (error) => error === true,
     );
     if (tieneErroresVisuales) {
-      setNotificacion(
-        "Algunos de los campos tienen errores, revíselos",
-        "error",
-      );
+      setNotificacion(t('miPerfil.notifErrorCampos'), "error");
     } else {
       await enviarDatosBD();
     }
@@ -88,10 +87,10 @@ const MiPerfil = () => {
         );
       }
 
-      setNotificacion("Perfil modificado correctamente", "exito");
+      setNotificacion(t('miPerfil.notifExito'), "exito");
     } catch (error) {
       console.log(error);
-      setNotificacion("Error al guardar los cambios", "error");
+      setNotificacion(t('miPerfil.notifError'), "error");
     }
   };
 
@@ -101,51 +100,51 @@ const MiPerfil = () => {
       aria-labelledby="perfil-title"
     >
       <h1 id="perfil-title" className="text-center">
-        Mi Perfil
+        {t('miPerfil.titulo')}
       </h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <fieldset className="flex flex-col gap-6 border-none p-0">
           <legend className="sr-only">
-            Información de contacto y personal
+            {t('miPerfil.legendInfo')}
           </legend>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="nombre">
-              Nombre de usuario
+              {t('miPerfil.labelNombre')}
             </label>
             <Inputs
               id="nombre"
               label=""
-              placeholder="Nombre"
+              placeholder={t('miPerfil.placeholderNombre')}
               name="nombre"
               value={datos?.nombre || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-              error="El nombre debe comenzar con mayúscula"
+              error={t('miPerfil.errorNombre')}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="apellidos">
-              Apellidos
+              {t('miPerfil.labelApellidos')}
             </label>
             <Inputs
               id="apellidos"
               label=""
-              placeholder="Apellidos"
+              placeholder={t('miPerfil.placeholderApellidos')}
               name="apellidos"
               value={datos?.apellidos || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(\s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)*$/}
-              error="Los apellidos deben comenzar con mayúscula"
+              error={t('miPerfil.errorApellidos')}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="email">
-              Email
+              {t('miPerfil.labelEmail')}
             </label>
             <Inputs
               id="email"
@@ -156,25 +155,25 @@ const MiPerfil = () => {
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
-              error="Email no válido"
+              error={t('miPerfil.errorEmail')}
             />
           </article>
 
           <article className="miperfil">
             <label className="font-bold" htmlFor="fech_nac">
-              Fecha Nacimiento
+              {t('miPerfil.labelFechaNac')}
             </label>
             <Inputs
               id="fech_nac"
               label=""
               name="fech_nac"
               type="text"
-              placeholder="dd/mm/aaaa"
+              placeholder={t('miPerfil.placeholderFechaNac')}
               value={datos?.fech_nac || ""}
               manejarCambio={manejarCambios}
               manejarError={manejarErrores}
               regex={/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/}
-              error="Formato: dd/mm/aaaa"
+              error={t('miPerfil.errorFechaNac')}
             />
           </article>
         </fieldset>
@@ -184,7 +183,7 @@ const MiPerfil = () => {
             className="w-full py-4 text-xl"
             type="submit"
           >
-            Modificar Datos
+            {t('miPerfil.botonModificar')}
           </Button>
         </div>
       </form>

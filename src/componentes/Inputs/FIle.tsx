@@ -2,7 +2,6 @@ import {
   useState,
   type InputHTMLAttributes,
   type ChangeEvent,
-  useRef,
 } from "react";
 
 interface FileProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -21,11 +20,6 @@ function File({
   ...props
 }: FileProps) {
   const [error, setError] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleValidClick = () => {
-    fileInputRef.current?.click();
-  };
 
   const validaciones = {
     extension: ["jpg", "png", "web"],
@@ -62,7 +56,6 @@ function File({
       aria-labelledby={`${name}-label`}
     >
       <label
-        onClick={handleValidClick}
         htmlFor={name}
         className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-lg p-2 hover:bg-gray-50 transition-colors cursor-pointer"
       >
@@ -78,7 +71,6 @@ function File({
       </label>
 
       <input
-        ref={fileInputRef}
         type="file"
         id={name}
         name={name}

@@ -1,33 +1,54 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../componentes/Button";
 import Input from "../componentes/Inputs/Inputs";
 import CardBiblioteca from "../componentes/tarjetas/cardBiblioteca";
-import carta from "../assets/img/cards/carta_landing3.webp";
-
-const itemEjemplo = {
-  imagen: carta,
-  tipo: "Juego",
-  generos: ["RPG", "Aventura"],
-  informacion: "CD Projekt Red - 2015",
-  descripcion: "Un juego de rol de acción en mundo abierto...",
-  valoracion: 5,
-};
-
-import { useNavigate } from "react-router-dom";
+import { useItemStore } from "../store/useItemStore";
+import { useAuthStore } from "../store/useAuthStore";
+import { useTranslation } from "react-i18next";
 
 const Biblioteca = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { items, tipos, fetchItems, fetchTipos, loading } = useItemStore();
+  const { user } = useAuthStore();
+
+  const [busqueda, setBusqueda] = useState("");
+  const [tipoFiltro, setTipoFiltro] = useState("Todos");
+
+  useEffect(() => {
+    if (user?.id_usuario) {
+      fetchItems(user.id_usuario);
+    }
+  }, [user?.id_usuario, fetchItems]);
+
+  useEffect(() => {
+    if (tipos.length === 0) {
+      fetchTipos();
+    }
+  }, [tipos.length, fetchTipos]);
+
+  const itemsFiltrados = items.filter((item) => {
+    const matchBusqueda =
+      item.descripcion.toLowerCase().includes(busqueda.toLowerCase());
+
+    const matchTipo =
+      tipoFiltro === "Todos" || item.tipo === tipoFiltro;
+
+    return matchBusqueda && matchTipo;
+  });
 
   return (
     <section className="bg-primary-200 dark:bg-primary-1100 p-5 md:p-10 min-h-screen">
       <header className="mb-10">
-        <h1 className="text-center">Mi Biblioteca</h1>
+        <h1 className="text-center">{t('biblioteca.titulo')}</h1>
       </header>
       <nav
         className="flex justify-center mb-8"
-        aria-label="Acciones de biblioteca"
+        aria-label={t('biblioteca.accionesLabel')}
       >
         <Button onClick={() => navigate("/admin/items")}>
-          Añadir nuevo ítem
+          {t('biblioteca.añadirItem')}
         </Button>
       </nav>
       <aside
@@ -35,55 +56,73 @@ const Biblioteca = () => {
         aria-labelledby="filtro-title"
       >
         <h2 id="filtro-title" className="sr-only">
-          Buscador y filtros de contenido
+          {t('biblioteca.buscadorFiltroH2')}
         </h2>
 
         <div className="w-full">
           <label htmlFor="search-biblioteca" className="sr-only">
-            Buscar por nombre en mi biblioteca
+            {t('biblioteca.buscadorLabel')}
           </label>
           <Input
             id="search-biblioteca"
             type="text"
-            placeholder="Buscar nombre..."
+            placeholder={t('biblioteca.buscadorPlaceholder')}
             name="busqueda"
             error=""
-            manejarCambio={() => {}}
-            manejarError={() => {}}
+            value={busqueda}
+            manejarCambio={(e) => setBusqueda(e.target.value)}
+            manejarError={() => { }}
           />
         </div>
 
         <div
-          className="flex flex-col md:flex-row flex-wrap justify-between gap-4"
+          className="flex flex-col md:flex-row flex-wrap justify-center gap-4 mt-4"
           role="group"
-          aria-label="Filtrar por tipo de contenido"
+          aria-label={t('biblioteca.filtroLabel')}
         >
-          <Button aria-pressed="true">Todos</Button>
-          <Button variant="secundario" aria-pressed="false">
-            Libros
+          <Button
+            variant={tipoFiltro === "Todos" ? "primario" : "secundario"}
+            onClick={() => setTipoFiltro("Todos")}
+            aria-pressed={tipoFiltro === "Todos"}
+          >
+            {t('comun.todos')}
           </Button>
-          <Button variant="secundario" aria-pressed="false">
-            Juegos
-          </Button>
+
+          {tipos.map((tipo) => (
+            <Button
+              key={tipo.id_tipo}
+              variant={tipoFiltro === tipo.nombre ? "primario" : "secundario"}
+              onClick={() => setTipoFiltro(tipo.nombre)}
+              aria-pressed={tipoFiltro === tipo.nombre}
+            >
+              {tipo.nombre}
+            </Button>
+          ))}
         </div>
       </aside>
+
+      {loading && (
+        <p className="text-center text-primary-800 dark:text-primary-200">
+          {t('comun.cargando')}
+        </p>
+      )}
+
+      {!loading && itemsFiltrados.length === 0 && (
+        <p className="text-center text-primary-800 dark:text-primary-200 font-medium mt-12 bg-white/50 w-full max-w-lg mx-auto py-8 rounded-xl backdrop-blur-sm border border-neutral-200">
+          {items.length === 0 ? t('biblioteca.sinItems') : t('biblioteca.sinResultados')}
+        </p>
+      )}
+
       <div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center max-w-7xl mx-auto"
         role="region"
-        aria-label="Listado de ítems en biblioteca"
+        aria-label={t('biblioteca.listadoLabel')}
       >
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
-        <article className="w-full flex justify-center">
-          <CardBiblioteca item={itemEjemplo} />
-        </article>
+        {itemsFiltrados.map((item) => (
+          <article key={item.id_item} className="w-full flex justify-center">
+            <CardBiblioteca item={item} />
+          </article>
+        ))}
       </div>
     </section>
   );

@@ -11,8 +11,10 @@ import { useAdminStatsStore } from "../../store/useAdminStatsStore";
 import { useEffect, useState } from "react";
 import type { RegistroMensual } from "../../interfaces/Charts";
 import { useThemeStore } from "../../store/useThemeStore";
+import { useTranslation } from "react-i18next";
 
 export default function RegistroUsuarios() {
+  const { t } = useTranslation();
   const tema = useThemeStore((state) => state.tema);
 
   const fetchRegistroAnual = useAdminStatsStore(
@@ -48,14 +50,14 @@ export default function RegistroUsuarios() {
           id="registro-usuarios-title"
           className="text-xl font-bold text-center md:text-left"
         >
-          Registro anual de Usuarios
+          {t('charts.registroUsuarios.titulo')}
         </h2>
       </figcaption>
 
       <div
         className="w-full h-[300px]"
         role="img"
-        aria-label="Gráfico de líneas que muestra la evolución mensual de nuevos usuarios registrados durante el año."
+        aria-label={t('charts.registroUsuarios.ariaLabel')}
       >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={datosRegistroUser}>
@@ -75,7 +77,7 @@ export default function RegistroUsuarios() {
             <Line
               type="monotone"
               dataKey="usuarios"
-              name="Usuarios Registrados"
+              name={t('charts.registroUsuarios.serieUsuarios')}
               stroke={lineStroke}
               strokeWidth={3}
               dot={{ r: 4, fill: lineStroke }}

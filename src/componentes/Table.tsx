@@ -5,6 +5,7 @@ import { supabase } from "../utils/supabaseClient";
 import type { infoInterface } from "../interfaces/infoInterface";
 import { useNotificationStore } from "../store/useNotificationStore";
 import { useGestionAdminStore } from "../store/useGestionAdminStore";
+import { useTranslation } from "react-i18next";
 const Dialog = lazy(() => import("./Dialog"));
 
 interface TableInterface {
@@ -13,6 +14,7 @@ interface TableInterface {
 }
 
 const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
+  const { t } = useTranslation();
   const setNotificacion = useNotificationStore(
     (state) => state.setNotificacion,
   );
@@ -50,15 +52,15 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .delete()
         .eq("id_genero", itemEliminar?.id_genero);
       if (error) throw error;
-      setNotificacion("Género eliminado correctamente", "exito");
+      setNotificacion(t('gestionAdmin.notifGeneroEliminado'), "exito");
       await fetchGeneros();
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error al borrar el génro:", error.message);
+        console.error("Error al borrar el género:", error.message);
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      setNotificacion("No se pudo eliminar el género", "error");
+      setNotificacion(t('gestionAdmin.notifErrorEliminarGenero'), "error");
     }
   };
 
@@ -71,7 +73,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .eq("id_usuario", itemEliminar?.id_usuario);
 
       if (error) throw error;
-      setNotificacion("Usuario desactivado correctamente", "exito");
+      setNotificacion(t('gestionAdmin.notifUsuarioDesactivado'), "exito");
       await fetchUsuarios();
     } catch (error) {
       if (error instanceof Error) {
@@ -79,7 +81,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      setNotificacion("No se pudo eliminar al usuario", "error");
+      setNotificacion(t('gestionAdmin.notifErrorEliminarUsuario'), "error");
     }
   };
 
@@ -102,7 +104,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         <thead className="flex flex-row w-full">
           <tr>
             <th>
-              <label className="dark:text-primary-50">Nombre</label>
+              <label className="dark:text-primary-50">{t('gestionAdmin.tablaColumna')}</label>
             </th>
           </tr>
         </thead>
@@ -119,7 +121,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               {tipoItem == "genero" && (
                 <td>
                   <label className="w-full font-bold ">
-                    {inf.tipo?.nombre || "Sin tipo"}
+                    {inf.tipo?.nombre || t('gestionAdmin.sinTipo')}
                   </label>
                 </td>
               )}
@@ -131,7 +133,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                     handleClick(inf);
                   }}
                 >
-                  <span className="dark:text-primary-50">Editar</span>
+                  <span className="dark:text-primary-50">{t('gestionAdmin.botonEditar')}</span>
                 </Button>
                 <Button
                   className="bg-danger-500"
@@ -139,7 +141,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                     openDialog(inf);
                   }}
                 >
-                  <span className="text-black">Eliminar</span>
+                  <span className="text-black">{t('gestionAdmin.botonEliminar')}</span>
                 </Button>
               </td>
             </tr>
@@ -150,15 +152,15 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       <Suspense
         fallback={
           <div className="text-primary-1100 dark:text-primary-50 text-center">
-            <span>Cargando modal...</span>
+            <span>{t('gestionAdmin.cargandoModal')}</span>
           </div>
         }
       >
         {show && (
           <Dialog
             onClose={deleteItem}
-            titulo="Eliminar"
-            descripcion={`¿Estás seguro de que deseas eliminar este ${tipoItem}?`}
+            titulo={t('gestionAdmin.dialogTituloEliminar')}
+            descripcion={t('gestionAdmin.dialogDescripcionEliminar', { tipo: tipoItem })}
             show={show}
           />
         )}

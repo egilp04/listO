@@ -1,8 +1,11 @@
 import Button from "../Button";
+import { useItemStore } from "../../store/useItemStore";
 
 interface Item {
+  id_item: string;
   imagen: string;
   tipo: string;
+  generosIds: string[];
   generos: string[];
   informacion: string;
   descripcion: string;
@@ -14,13 +17,30 @@ interface CardBibliotecaProps {
 }
 
 import { useNavigate } from "react-router-dom";
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 
 const Dialog = lazy(() => import("../Dialog"));
 
 const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { eliminarItem, idUltimoItemAñadido, setIdUltimoItemAñadido } = useItemStore();
+
+  const esNuevo = item.id_item === idUltimoItemAñadido;
+  const [fueNuevo, setFueNuevo] = useState(esNuevo);
+
+  useEffect(() => {
+    if (esNuevo) {
+      setFueNuevo(true);
+      const timer = setTimeout(() => {
+        setIdUltimoItemAñadido(null);
+      }, 1050);
+      return () => clearTimeout(timer);
+    }
+  }, [esNuevo, setIdUltimoItemAñadido]);
 
   const renderizarEstrellas = (valoracion: number) => {
     const estrellas = [];
@@ -43,14 +63,27 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   };
 
   return (
-    <article className="card-biblioteca flex flex-col h-full bg-white dark:bg-primary-900 rounded-xl overflow-hidden shadow-sm transition-shadow hover:shadow-md">
-      <header className="relative">
-        <img
-          src={item.imagen}
-          alt={`${item.tipo}: ${item.informacion}`}
-          loading="lazy"
-          className="w-full h-32 md:h-40 object-cover transition-all duration-300 group-hover:scale-105"
-        />
+    <article
+      className={`card-biblioteca ${isDeleting
+        ? "animate-slide-rotate-out"
+        : esNuevo
+          ? "animate-drop-and-spin"
+          : fueNuevo
+            ? ""
+            : "animate-slide-rotate-in"
+        }`}
+    >
+      <header className="relative h-32 md:h-40">
+        {item.imagen ? (
+          <img
+            src={item.imagen}
+            alt={`${item.tipo}: ${item.informacion}`}
+            loading="lazy"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-primary-400 dark:bg-primary-850" />
+        )}
         <div className="absolute top-2 left-2 flex flex-wrap gap-1.5">
           <span className="bg-primary-1000/80 backdrop-blur-sm text-white dark:bg-primary-50/90 dark:text-primary-800 px-2 py-0.5 rounded text-xs font-bold uppercase">
             {item.tipo}
@@ -58,8 +91,8 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
         </div>
       </header>
 
-      <section className="flex flex-col flex-1 gap-2 px-3 py-3 text-left">
-        <div className="flex flex-wrap gap-1">
+      <section className="flex flex-col flex-1 gap-2 px-3 py-3 text-left overflow-hidden min-w-0 w-full">
+        <div className="flex flex-wrap gap-1 overflow-hidden max-h-5">
           {item.generos.map((genero, index) => (
             <span
               key={index}
@@ -70,22 +103,22 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           ))}
         </div>
 
-        <h3 className="text-lg font-bold leading-tight text-primary-950 dark:text-primary-50">
+        <h3 className="text-lg font-bold leading-tight text-primary-950 dark:text-primary-50 truncate">
           {item.informacion}
         </h3>
 
-        <p className="text-sm line-clamp-3 text-primary-800 dark:text-primary-200">
+        <p className="text-sm line-clamp-2 text-primary-800 dark:text-primary-200">
           {item.descripcion}
         </p>
 
         <div
           className="mt-2 flex items-center gap-2"
-          aria-label={`Valoración: ${item.valoracion} de 5 estrellas`}
+          aria-label={t('cardBiblioteca.valoracionLabel', { valoracion: item.valoracion })}
         >
           <span className="text-xs font-medium uppercase text-primary-600 dark:text-primary-400">
-            Rating:
+            {t('cardBiblioteca.rating')}
           </span>
-          <div className="flex items-center text-yellow-500" aria-hidden="true">
+          <div className="flex items-center text-warning-500" aria-hidden="true">
             {renderizarEstrellas(item.valoracion)}
           </div>
         </div>
@@ -96,9 +129,9 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           <Button
             variant="primario"
             className="flex-1 text-xs py-2"
-            onClick={() => navigate("/admin/items")}
+            onClick={() => navigate("/admin/items", { state: { item } })}
           >
-            Modificar
+            {t('cardBiblioteca.botonModificar')}
           </Button>
 
           <Button
@@ -106,24 +139,32 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
             className="flex-1 text-xs py-2 !bg-danger-500 hover:!bg-danger-700 border-none"
             onClick={() => setShowDialog(true)}
           >
-            Eliminar
+            {t('cardBiblioteca.botonEliminar')}
           </Button>
         </div>
       </footer>
       <Suspense
         fallback={
           <div className="text-primary-1100 dark:text-primary-50 text-center">
-            <span>Cargando modal...</span>
+            <span>{t('cardBiblioteca.cargandoModal')}</span>
           </div>
         }
       >
         <Dialog
-          titulo={`Eliminar ${item.tipo}`}
-          descripcion={`¿Estás seguro de que quieres eliminar "${item.informacion.split(" -")[0]}"?`}
+          titulo={t('cardBiblioteca.dialogTitulo', { tipo: item.tipo })}
+          descripcion={t('cardBiblioteca.dialogDescripcion', { titulo: item.informacion.split(" -")[0] })}
           show={showDialog}
-          onClose={(confirmar) => {
+          onClose={async (confirmar) => {
             setShowDialog(false);
-            if (confirmar) console.log("Ítem borrado");
+            if (confirmar) {
+              setIsDeleting(true);
+              setTimeout(async () => {
+                const exito = await eliminarItem(item.id_item, item.imagen);
+                if (exito) {
+                  console.log("Ítem borrado correctamente");
+                }
+              }, 450);
+            }
           }}
         />
       </Suspense>
