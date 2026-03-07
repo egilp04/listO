@@ -22,7 +22,7 @@ const CardLanding: React.FC<CardLandingProps> = ({
     >
       <section className="flex flex-col flex-1 items-center md:items-start h-full text-center md:text-left p-personalizado-30 md:p-6 lg:p-10">
         <header className="px-4 py-2 bg-primary-400 dark:bg-primary-800 rounded-lg w-full max-w-[90%] md:max-w-none mb-personalizado-30 md:mb-4 lg:mb-12 text-center">
-          <h3 className="font-bold text-white dark:text-primary-50">
+          <h3 className="font-bold text-primary-1000 dark:text-primary-50">
             {titulo}
           </h3>
         </header>
