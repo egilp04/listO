@@ -27,7 +27,8 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   const navigate = useNavigate();
   const [showDialog, setShowDialog] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const { eliminarItem, idUltimoItemAñadido, setIdUltimoItemAñadido } = useItemStore();
+  const { eliminarItem, idUltimoItemAñadido, setIdUltimoItemAñadido } =
+    useItemStore();
 
   const esNuevo = item.id_item === idUltimoItemAñadido;
   const [fueNuevo, setFueNuevo] = useState(esNuevo);
@@ -64,14 +65,15 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
   return (
     <article
-      className={`card-biblioteca ${isDeleting
-        ? "animate-slide-rotate-out"
-        : esNuevo
-          ? "animate-drop-and-spin"
-          : fueNuevo
-            ? ""
-            : "animate-slide-rotate-in"
-        }`}
+      className={`card-biblioteca ${
+        isDeleting
+          ? "animate-slide-rotate-out"
+          : esNuevo
+            ? "animate-drop-and-spin"
+            : fueNuevo
+              ? ""
+              : "animate-slide-rotate-in"
+      }`}
     >
       <header className="relative h-32 md:h-40">
         {item.imagen ? (
@@ -113,46 +115,51 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
         <div
           className="mt-2 flex items-center gap-2"
-          aria-label={t('cardBiblioteca.valoracionLabel', { valoracion: item.valoracion })}
+          aria-label={t("cardBiblioteca.valoracionLabel", {
+            valoracion: item.valoracion,
+          })}
         >
           <span className="text-xs font-medium uppercase text-primary-600 dark:text-primary-400">
-            {t('cardBiblioteca.rating')}
+            {t("cardBiblioteca.rating")}
           </span>
-          <div className="flex items-center text-warning-500" aria-hidden="true">
+          <div
+            className="flex items-center text-warning-500"
+            aria-hidden="true"
+          >
             {renderizarEstrellas(item.valoracion)}
           </div>
         </div>
       </section>
 
-      <footer className="px-3 pb-3 mt-auto">
-        <div className="flex flex-col sm:flex-row gap-2 w-full">
-          <Button
-            variant="primario"
-            className="flex-1 text-xs py-2"
-            onClick={() => navigate("/admin/items", { state: { item } })}
-          >
-            {t('cardBiblioteca.botonModificar')}
-          </Button>
+      <footer className="px-3 pb-3 mt-auto flex flex-row justify-around gap-2 lg:gap-4">
+        <Button
+          variant="primario"
+          className="w-full"
+          onClick={() => navigate("/admin/items", { state: { item } })}
+        >
+          {t("cardBiblioteca.botonModificar")}
+        </Button>
 
-          <Button
-            variant="primario"
-            className="flex-1 text-xs py-2 !bg-danger-500 hover:!bg-danger-700 border-none"
-            onClick={() => setShowDialog(true)}
-          >
-            {t('cardBiblioteca.botonEliminar')}
-          </Button>
-        </div>
+        <Button
+          variant="secundario"
+          onClick={() => setShowDialog(true)}
+          className="w-full"
+        >
+          {t("cardBiblioteca.botonEliminar")}
+        </Button>
       </footer>
       <Suspense
         fallback={
           <div className="text-primary-1100 dark:text-primary-50 text-center">
-            <span>{t('cardBiblioteca.cargandoModal')}</span>
+            <span>{t("cardBiblioteca.cargandoModal")}</span>
           </div>
         }
       >
         <Dialog
-          titulo={t('cardBiblioteca.dialogTitulo', { tipo: item.tipo })}
-          descripcion={t('cardBiblioteca.dialogDescripcion', { titulo: item.informacion.split(" -")[0] })}
+          titulo={t("cardBiblioteca.dialogTitulo", { tipo: item.tipo })}
+          descripcion={t("cardBiblioteca.dialogDescripcion", {
+            titulo: item.informacion.split(" -")[0],
+          })}
           show={showDialog}
           onClose={async (confirmar) => {
             setShowDialog(false);

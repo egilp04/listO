@@ -52,7 +52,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .delete()
         .eq("id_genero", itemEliminar?.id_genero);
       if (error) throw error;
-      setNotificacion(t('gestionAdmin.notifGeneroEliminado'), "exito");
+      setNotificacion(t("gestionAdmin.notifGeneroEliminado"), "exito");
       await fetchGeneros();
     } catch (error) {
       if (error instanceof Error) {
@@ -60,7 +60,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      setNotificacion(t('gestionAdmin.notifErrorEliminarGenero'), "error");
+      setNotificacion(t("gestionAdmin.notifErrorEliminarGenero"), "error");
     }
   };
 
@@ -73,7 +73,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         .eq("id_usuario", itemEliminar?.id_usuario);
 
       if (error) throw error;
-      setNotificacion(t('gestionAdmin.notifUsuarioDesactivado'), "exito");
+      setNotificacion(t("gestionAdmin.notifUsuarioDesactivado"), "exito");
       await fetchUsuarios();
     } catch (error) {
       if (error instanceof Error) {
@@ -81,7 +81,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       } else {
         console.error("Ocurrió un error inesperado:", error);
       }
-      setNotificacion(t('gestionAdmin.notifErrorEliminarUsuario'), "error");
+      setNotificacion(t("gestionAdmin.notifErrorEliminarUsuario"), "error");
     }
   };
 
@@ -104,7 +104,9 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
         <thead className="flex flex-row w-full">
           <tr>
             <th>
-              <label className="dark:text-primary-50">{t('gestionAdmin.tablaColumna')}</label>
+              <label className="dark:text-primary-50">
+                {t("gestionAdmin.tablaColumna")}
+              </label>
             </th>
           </tr>
         </thead>
@@ -121,7 +123,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               {tipoItem == "genero" && (
                 <td>
                   <label className="w-full font-bold ">
-                    {inf.tipo?.nombre || t('gestionAdmin.sinTipo')}
+                    {inf.tipo?.nombre || t("gestionAdmin.sinTipo")}
                   </label>
                 </td>
               )}
@@ -133,15 +135,19 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
                     handleClick(inf);
                   }}
                 >
-                  <span className="dark:text-primary-50">{t('gestionAdmin.botonEditar')}</span>
+                  <span className="dark:text-primary-50">
+                    {t("gestionAdmin.botonEditar")}
+                  </span>
                 </Button>
                 <Button
-                  className="bg-danger-500"
+                  variant="secundario"
                   onClick={() => {
                     openDialog(inf);
                   }}
                 >
-                  <span className="text-black">{t('gestionAdmin.botonEliminar')}</span>
+                  <span className="text-black">
+                    {t("gestionAdmin.botonEliminar")}
+                  </span>
                 </Button>
               </td>
             </tr>
@@ -152,15 +158,17 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
       <Suspense
         fallback={
           <div className="text-primary-1100 dark:text-primary-50 text-center">
-            <span>{t('gestionAdmin.cargandoModal')}</span>
+            <span>{t("gestionAdmin.cargandoModal")}</span>
           </div>
         }
       >
         {show && (
           <Dialog
             onClose={deleteItem}
-            titulo={t('gestionAdmin.dialogTituloEliminar')}
-            descripcion={t('gestionAdmin.dialogDescripcionEliminar', { tipo: tipoItem })}
+            titulo={t("gestionAdmin.dialogTituloEliminar")}
+            descripcion={t("gestionAdmin.dialogDescripcionEliminar", {
+              tipo: tipoItem,
+            })}
             show={show}
           />
         )}
