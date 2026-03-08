@@ -74,10 +74,10 @@ const EstadisticasGlobales = () => {
       <header className="flex justify-center">
         <h1 id="global-stats-title">{t("estadisticasGlobales.titulo")}</h1>
       </header>
-      <article className="shadow-elevation-1 transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
+      <article className="shadow-md transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50 text-xl">
           {t("estadisticasGlobales.usuariosPorMes")}
-          {conteoUsuario}
+          <strong> {conteoUsuario}</strong>
         </h2>
         <div className="w-full md:w-auto flex justify-center md:justify-end">
           <label htmlFor="select-mes" className="sr-only">
@@ -96,13 +96,19 @@ const EstadisticasGlobales = () => {
         className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10"
         aria-label={t("estadisticasGlobales.resumenLabel")}
       >
-        {infoTarjetaEstadistica.map(({ label, value, id }) => (
-          <CardEstadisticaG
-            key={`est-num-${id}`}
-            texto={label}
-            numero={value}
-          />
-        ))}
+        {infoTarjetaEstadistica.length > 0 ? (
+          infoTarjetaEstadistica.map(({ label, value, id }) => (
+            <CardEstadisticaG
+              key={`est-num-${id}`}
+              texto={label}
+              numero={value}
+            />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
+            {t("estadisticas.cargandoEstadisticas")}
+          </p>
+        )}
       </section>
       <article className="w-full flex flex-col items-center justify-center px-4 md:px-28">
         <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm shadow-lg">
