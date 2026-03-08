@@ -1,6 +1,6 @@
 @layer components {
   .button {
-    @apply inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-105 active:scale-95 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:px-4 lg:py-3 lg:text-lg md:px-3 md:py-2 md:text-base px-2 py-1 text-sm;
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-105 active:scale-95 border border-transparent focus:outline-none focus:ring-2 focus:ring-offset-2 lg:px-4 lg:py-3 lg:text-lg md:px-3 md:py-2 md:text-base px-2 py-1 text-sm cursor-pointer;
   }
 
   .btn-primario {
@@ -30,11 +30,11 @@
   }
 
   .card-estadistica {
-    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3 cursor-pointer dark:bg-primary-850 dark:border-primary-900 hover:shadow-elevation-3;
+    @apply shadow-sm flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 dark:bg-primary-850 dark:border-primary-900 hover:shadow-elevation-3;
   }
 
   .card-estadistica-t {
-    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 cursor-pointer hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
+    @apply flex flex-row items-center w-full bg-primary-50 border border-primary-100 text-primary-900 rounded-sm gap-1 p-1 md:gap-[6px] md:p-[6px] lg:gap-2 lg:p-2 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
 
   .card-landing {
@@ -42,7 +42,7 @@
   }
 
   .card-estadistica-g {
-    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5 cursor-pointer hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
+    @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5 hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
   }
   .card-estadistica-g > header > label {
     @apply text-primary-50;
@@ -57,11 +57,11 @@
   }
 
   .table-admin {
-    @apply flex flex-col gap-2 md:gap-6 overflow-auto p-2 max-h-100;
+    @apply flex flex-col gap-2 md:gap-6 overflow-auto py-2 px-2 md:px-6 max-h-100;
   }
 
   .rows-table {
-    @apply items-center pt-4 pb-4 border border-neutral-50 flex flex-row dark:border-primary-1000 pl-2;
+    @apply items-center py-4 border border-neutral-50 flex flex-row dark:border-primary-1000 px-2 md:px-6 gap-1;
   }
 
   .dialog {

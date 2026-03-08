@@ -81,36 +81,39 @@ const Navbar = () => {
         <ul className="flex flex-col xl:flex-row items-center gap-4 list-none p-0 m-0">
           {estaLogueado && (
             <>
-              <li>
+              <li className="w-full lg:w-auto">
                 <NavLink to="/biblioteca" className="nav-link">
                   {({ isActive }) => (
                     <Button
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
+                      onClick={handleClick}
                     >
                       {t("navbar.miBiblioteca")}
                     </Button>
                   )}
                 </NavLink>
               </li>
-              <li>
+              <li className="w-full lg:w-auto">
                 <NavLink to="/estadisticas" end className="nav-link">
                   {({ isActive }) => (
                     <Button
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
+                      onClick={handleClick}
                     >
                       {t("navbar.estadisticas")}
                     </Button>
                   )}
                 </NavLink>
               </li>
-              <li>
+              <li className="w-full lg:w-auto">
                 <NavLink to="/miperfil" className="nav-link">
                   {({ isActive }) => (
                     <Button
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
+                      onClick={handleClick}
                     >
                       {t("navbar.miPerfil")}
                     </Button>
@@ -119,24 +122,26 @@ const Navbar = () => {
               </li>
               {esAdmin && (
                 <>
-                  <li>
+                  <li className="w-full lg:w-auto">
                     <NavLink to="/estadisticas/globales" className="nav-link">
                       {({ isActive }) => (
                         <Button
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
+                          onClick={handleClick}
                         >
                           {t("navbar.estadisticasGlobales")}
                         </Button>
                       )}
                     </NavLink>
                   </li>
-                  <li>
+                  <li className="w-full lg:w-auto">
                     <NavLink to="/gestion" className="nav-link">
                       {({ isActive }) => (
                         <Button
                           variant={isActive ? "primario" : "secundario"}
                           className="w-full"
+                          onClick={handleClick}
                         >
                           {t("navbar.gestion")}
                         </Button>
@@ -148,7 +153,7 @@ const Navbar = () => {
             </>
           )}
         </ul>
-        <div className="flex flex-col xl:flex-row items-center gap-4 border-t xl:border-t-0 pt-4 xl:pt-0 border-gray-200 dark:border-primary-800 w-full lg:w-auto">
+        <div className="flex flex-col xl:flex-row items-center gap-4 xl:pt-0 dark:border-primary-800 w-full lg:w-auto">
           {!estaLogueado ? (
             <ul className="flex flex-col xl:flex-row gap-2 list-none p-0 m-0">
               <li>
@@ -157,6 +162,7 @@ const Navbar = () => {
                     <Button
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
+                      onClick={handleClick}
                     >
                       {t("navbar.login")}
                     </Button>
@@ -169,6 +175,7 @@ const Navbar = () => {
                     <Button
                       variant={isActive ? "primario" : "secundario"}
                       className="w-full"
+                      onClick={handleClick}
                     >
                       {t("navbar.registro")}
                     </Button>

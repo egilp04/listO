@@ -111,7 +111,6 @@ const GestionAdmin = () => {
               </div>
             }
           >
-            {" "}
             <Table tipoItem={selected} valorFiltro={valorFiltro} />
           </Suspense>
         </div>

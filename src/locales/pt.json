@@ -169,7 +169,7 @@
         "notifErrorEliminarUsuario": "Não foi possível eliminar o utilizador"
     },
     "miPerfil": {
-        "titulo": "Meu Perfil",
+        "titulo": "Perfil",
         "legendInfo": "Informação de contacto e pessoal",
         "labelNombre": "Nome de utilizador",
         "placeholderNombre": "Nome",

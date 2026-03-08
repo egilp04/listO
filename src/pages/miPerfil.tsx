@@ -36,7 +36,9 @@ const MiPerfil = () => {
         nombre: usuarioReferencia.nombre || "",
         apellidos: usuarioReferencia.apellidos || "",
         email: usuarioReferencia.email || "",
-        fech_nac: usuarioReferencia.fechanacimiento || "",
+        fech_nac:
+          usuarioReferencia.fechanacimiento.split("-").reverse().join("/") ||
+          "",
       });
     }
   }, [usuarioReferencia]);

@@ -42,13 +42,13 @@ export default function DistribucionGeneros() {
           id="genero-chart-title"
           className="text-xl font-semibold text-center md:text-left"
         >
-          {t('charts.distribucionGenero.titulo')}
+          {t("charts.distribucionGenero.titulo")}
         </h2>
       </figcaption>
       <div
         className="h-75 w-full"
         role="img"
-        aria-label={t('charts.distribucionGenero.ariaLabel')}
+        aria-label={t("charts.distribucionGenero.ariaLabel")}
       >
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -81,12 +81,21 @@ export default function DistribucionGeneros() {
                 name: string | undefined,
               ) => {
                 if (value === undefined || name === undefined) {
-                  return ["0", name ?? t('charts.distribucionGenero.desconocido')];
+                  return [
+                    "0",
+                    name ?? t("charts.distribucionGenero.desconocido"),
+                  ];
                 }
                 const total = data.reduce((acc, curr) => acc + curr.value, 0);
                 const percent =
                   total > 0 ? ((value / total) * 100).toFixed(1) : "0";
-                return [t('charts.distribucionGenero.elementos', { count: value, percent }), name];
+                return [
+                  t("charts.distribucionGenero.elementos", {
+                    count: value,
+                    percent,
+                  }),
+                  name,
+                ];
               }}
             />
             <Legend verticalAlign="bottom" height={36} iconType="circle" />
