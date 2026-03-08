@@ -8,6 +8,8 @@ interface DialogInterface {
   descripcion: string;
   show: boolean;
   onClose: (confirmar: boolean) => void;
+  textoConfirmar?: string;
+  textoCancelar?: string;
 }
 
 const Dialog = ({
@@ -15,6 +17,8 @@ const Dialog = ({
   descripcion,
   show = false,
   onClose,
+  textoConfirmar,
+  textoCancelar,
 }: DialogInterface) => {
   const { t } = useTranslation();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -122,13 +126,13 @@ const Dialog = ({
 
         <footer className="flex flex-row gap-4 justify-end mt-8 p-6 bg-gray-50 dark:bg-primary-850/50 rounded-b-xl">
           <Button variant="fantasma" onClick={() => onClose(false)}>
-            {t('dialog.botonCancelar')}
+            {textoCancelar || t('dialog.botonCancelar')}
           </Button>
           <Button
             className="bg-danger-500 text-white hover:bg-danger-600"
             onClick={() => onClose(true)}
           >
-            {t('dialog.botonConfirmar')}
+            {textoConfirmar || t('dialog.botonConfirmar')}
           </Button>
         </footer>
       </section>

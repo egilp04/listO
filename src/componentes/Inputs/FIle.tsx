@@ -77,12 +77,18 @@ function File({
         disabled={disabled}
         onChange={manejarCambio}
         className={`dark:text-primary-50 ${error ? "input-error" : "input-normal"} w-full max-w-full mt-2`}
+        aria-invalid={error}
+        aria-describedby={error ? `${name}-error` : undefined}
         {...props}
       />
 
       {error && (
         <footer className="mt-1">
-          <span aria-live="polite" className="text-red-500 text-sm block">
+          <span
+            id={`${name}-error`}
+            aria-live="polite"
+            className="text-red-500 text-sm block"
+          >
             {mensajeError}
           </span>
         </footer>

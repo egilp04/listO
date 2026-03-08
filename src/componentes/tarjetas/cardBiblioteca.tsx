@@ -65,15 +65,14 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
 
   return (
     <article
-      className={`card-biblioteca ${
-        isDeleting
+      className={`card-biblioteca ${isDeleting
           ? "animate-slide-rotate-out"
           : esNuevo
             ? "animate-drop-and-spin"
             : fueNuevo
               ? ""
               : "animate-slide-rotate-in"
-      }`}
+        }`}
     >
       <header className="relative h-32 md:h-40">
         {item.imagen ? (
@@ -160,6 +159,7 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           descripcion={t("cardBiblioteca.dialogDescripcion", {
             titulo: item.informacion.split(" -")[0],
           })}
+          textoConfirmar={t("dialog.botonEliminar")}
           show={showDialog}
           onClose={async (confirmar) => {
             setShowDialog(false);

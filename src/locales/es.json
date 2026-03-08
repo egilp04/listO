@@ -261,7 +261,8 @@
     "dialog": {
         "cerrar": "Cerrar ventana emergente",
         "botonCancelar": "No, cancelar",
-        "botonConfirmar": "Sí, confirmar"
+        "botonConfirmar": "Sí, confirmar",
+        "botonEliminar": "Sí, eliminar"
     },
     "noImplementado": {
         "titulo": "No Implementado",

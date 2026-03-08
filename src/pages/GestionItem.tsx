@@ -179,24 +179,35 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
         <fieldset className="bg-white dark:bg-primary-900 rounded-xl p-3 flex items-center justify-between w-full md:w-1/2 shadow-sm min-h-16">
           <legend className="sr-only">{t('gestionItem.legendValoracion')}</legend>
           <span className="dark:text-primary-50">{t('gestionItem.campoValoracion')}</span>
-          <div className="flex gap-1">
+          <div
+            className="flex gap-1"
+            role="group"
+            aria-labelledby="valoracion-label"
+            aria-invalid={errores.valoracion}
+            aria-describedby={errores.valoracion ? "valoracion-error" : undefined}
+          >
+            <span id="valoracion-label" className="sr-only">{t('gestionItem.campoValoracion')}</span>
             {[1, 2, 3, 4, 5].map((star) => (
-              <span
+              <button
+                type="button"
                 key={star}
-                aria-hidden="true"
-                className="material-symbols-outlined text-warning-500 cursor-pointer"
+                className="material-symbols-outlined text-warning-500 cursor-pointer bg-transparent border-none p-0 focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-full"
                 style={{
                   fontVariationSettings:
                     star <= valoracion ? "'FILL' 1" : "'FILL' 0",
                 }}
                 onClick={() => manejarValoracion(star)}
+                aria-label={`Valorar con ${star} estrellas`}
+                aria-pressed={star <= valoracion}
               >
                 star
-              </span>
+              </button>
             ))}
           </div>
           {errores.valoracion && (
-            <span className="text-danger-500 text-sm">{t('gestionItem.errorValoracion')}</span>
+            <span id="valoracion-error" aria-live="polite" className="text-danger-500 text-sm mt-2 block">
+              {t('gestionItem.errorValoracion')}
+            </span>
           )}
         </fieldset>
       </div>
@@ -222,6 +233,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
           type="button"
           className={cabeceraGestion}
           onClick={() => setTipoAbierto(!tipoAbierto)}
+          aria-expanded={tipoAbierto}
         >
           <span className="dark:text-primary-50">{t('gestionItem.campoTipo')}</span>
           <span
@@ -261,6 +273,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
           type="button"
           className={cabeceraGestion}
           onClick={() => setGeneroAbierto(!generoAbierto)}
+          aria-expanded={generoAbierto}
         >
           <span>{t('gestionItem.campoGenero')}</span>
           <span
