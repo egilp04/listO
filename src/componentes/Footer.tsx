@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         <figure className="flex flex-col items-center justify-center">
           <img
             src="/logo.webp"
-            alt={t('footer.logoAlt')}
+            alt={t("footer.logoAlt")}
             className="h-20 w-20 object-contain md:h-24"
             width={96}
             height={96}
@@ -20,10 +20,10 @@ const Footer: React.FC = () => {
         </figure>
         <nav
           className="flex flex-col gap-2 items-center md:items-start"
-          aria-label={t('footer.enlacesLegalesLabel')}
+          aria-label={t("footer.enlacesLegalesLabel")}
         >
           <h3 className="font-Titulos font-medium text-lg text-primary-50 mb-1">
-            {t('footer.politicas')}
+            {t("footer.politicas")}
           </h3>
           <ul className="flex flex-col gap-1 items-center md:items-start list-none p-0 m-0">
             <li>
@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
                 to="/politicas-cookies"
                 className="text-sm hover:underline transition-all"
               >
-                {t('footer.politicasCookies')}
+                {t("footer.politicasCookies")}
               </NavLink>
             </li>
             <li>
@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
                 to="/terminos"
                 className="text-sm hover:underline transition-all"
               >
-                {t('footer.terminosServicio')}
+                {t("footer.terminosServicio")}
               </NavLink>
             </li>
             <li>
@@ -47,14 +47,14 @@ const Footer: React.FC = () => {
                 to="/privacidad"
                 className="text-sm hover:underline transition-all"
               >
-                {t('footer.privacidad')}
+                {t("footer.privacidad")}
               </NavLink>
             </li>
           </ul>
         </nav>
         <section className="flex flex-col gap-2 items-center md:items-start">
           <h3 className="text-primary-50 font-Titulos font-medium text-lg mb-1">
-            {t('footer.contacto')}
+            {t("footer.contacto")}
           </h3>
           <address className="not-italic flex flex-col gap-1 items-center md:items-start text-sm">
             <a
@@ -69,14 +69,14 @@ const Footer: React.FC = () => {
             >
               listODaw@gmail.com
             </a>
-            <p className="text-primary-50 text-center md:text-left">
-              {t('footer.direccion')}
+            <p className="text-primary-50 text-center md:text-left text-sm">
+              {t("footer.direccion")}
             </p>
           </address>
         </section>
         <section className="flex flex-col gap-2 items-center md:items-start">
           <h3 className="text-primary-50 font-Titulos font-medium text-lg mb-1">
-            {t('footer.tecnologias')}
+            {t("footer.tecnologias")}
           </h3>
           <ul className="flex flex-col gap-1 items-center md:items-start list-none p-0 m-0 text-sm">
             <li className="text-primary-50">React</li>
@@ -88,7 +88,7 @@ const Footer: React.FC = () => {
       <hr className="border-primary-900/30 w-full" />
       <div className="flex justify-center items-center">
         <small className="text-primary-50 text-xs">
-          {t('footer.derechosReservados', { anio: new Date().getFullYear() })}
+          {t("footer.derechosReservados", { anio: new Date().getFullYear() })}
         </small>
       </div>
     </footer>
