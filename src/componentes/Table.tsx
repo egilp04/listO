@@ -101,7 +101,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
   return (
     <section className="w-full">
       <table className="table-admin">
-        <thead className="flex flex-row w-full">
+        <thead className="flex flex-row w-full pl-2 md:pl-6">
           <tr>
             <th>
               <label className="dark:text-primary-50">
@@ -117,18 +117,29 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
               className="justify-between rows-table odd:bg-primary-100 dark:odd:bg-primary-1000 even:bg-neutral-100 dark:even:bg-primary-850 dark:even:text-primary-1100 dark:text-primary-50"
               key={`${inf.id}-${index}`}
             >
-              <td>
-                <label className="w-full font-bold ">{inf.nombre}</label>
+              <td className="flex-1 min-w-0 pr-4">
+                <label
+                  aria-label={inf.nombre}
+                  className="block w-full font-bold truncate"
+                  title={inf.nombre}
+                >
+                  {inf.nombre}
+                </label>
               </td>
+
               {tipoItem == "genero" && (
-                <td>
-                  <label className="w-full font-bold ">
+                <td className="flex-1 flex justify-center min-w-0 pr-4">
+                  <label
+                    title={inf.tipo?.nombre || t("gestionAdmin.sinTipo")}
+                    aria-label={inf.tipo?.nombre || t("gestionAdmin.sinTipo")}
+                    className="block max-w-full font-bold truncate"
+                  >
                     {inf.tipo?.nombre || t("gestionAdmin.sinTipo")}
                   </label>
                 </td>
               )}
 
-              <td className="gap-4 flex flex-row justify-end pr-2">
+              <td className="gap-4 flex flex-1 flex-col md:flex-row justify-end">
                 <Button
                   className="dark:bg-primary-950"
                   onClick={() => {

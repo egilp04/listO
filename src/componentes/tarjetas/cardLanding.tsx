@@ -27,7 +27,7 @@ const CardLanding: React.FC<CardLandingProps> = ({
           </h3>
         </header>
 
-        <p className="line-clamp-4 md:line-clamp-3 lg:line-clamp-none text-pretty text-primary-900 dark:text-primary-100">
+        <p className="text-pretty text-primary-900 dark:text-primary-100">
           {descripcion}
         </p>
       </section>

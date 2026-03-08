@@ -98,7 +98,7 @@ const Estadisticas = () => {
       aria-labelledby="stats-user-title"
     >
       <header>
-        <h1 id="stats-user-title" className="flex justify-center">
+        <h1 id="stats-user-title" className="flex justify-center text-center">
           {t("estadisticas.titulo")}
         </h1>
       </header>
