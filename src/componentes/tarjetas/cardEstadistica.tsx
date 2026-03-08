@@ -13,7 +13,7 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
 }) => {
   return (
     <article
-      className="card-estadistica flex flex-col p-4 bg-white dark:bg-primary-900 rounded-xl shadow-sm"
+      className="card-estadistica flex flex-col p-4 bg-white dark:bg-primary-900 rounded-sm"
       aria-labelledby={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}
     >
       <header className="flex justify-between items-start mb-2">
@@ -30,7 +30,10 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
         </figure>
       </header>
       <footer>
-        <label id={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}>
+        <label
+          className="animate-aparicion"
+          id={`stat-label-${texto.replace(/\s+/g, "-").toLowerCase()}`}
+        >
           {texto}
         </label>
       </footer>

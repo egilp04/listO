@@ -16,14 +16,14 @@ const CardEstadisticaG: React.FC<CardEstadisticaGProps> = ({
     >
       <header>
         <label
-          className="text-primary-50"
+          className="animate-aparicion"
           id={`global-stat-title-${texto.replace(/\s+/g, "-").toLowerCase()}`}
         >
           {texto}
         </label>
       </header>
       <section className="bg-primary-50 dark:bg-primary-950 flex justify-center h-full p-4 rounded-sm">
-        <span className="text-lg md:text-2xl font-bold animate-aparicion text-primary-950 dark:text-primary-50">
+        <span className="text-lg md:text-2xl font-bold animate-descuelgue text-primary-950 dark:text-primary-50">
           {numero}
         </span>
       </section>

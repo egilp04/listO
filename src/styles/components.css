@@ -30,7 +30,7 @@
   }
 
   .card-estadistica {
-    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3 cursor-pointer dark:bg-primary-850 dark:border-primary-900;
+    @apply flex flex-col justify-between bg-primary-50 border border-primary-200 w-full p-1.25 md:p-2.5 rounded-sm lg:p-5 hover:shadow-elevation-3 cursor-pointer dark:bg-primary-850 dark:border-primary-900 hover:shadow-elevation-3;
   }
 
   .card-estadistica-t {
@@ -43,6 +43,9 @@
 
   .card-estadistica-g {
     @apply bg-primary-900 rounded-sm flex items-center justify-between w-full gap-[14px] md:gap-30 lg:gap-47 p-2.5 md:p-3.75 lg:p-5 cursor-pointer hover:bg-primary-800 hover:shadow-elevation-3 dark:bg-primary-850 dark:border-primary-1000;
+  }
+  .card-estadistica-g > header > label {
+    @apply text-primary-50;
   }
 
   .botones-navbar {
@@ -273,6 +276,10 @@
     animation: shimmer 4s infinite linear;
   }
 
+  .animate-descuelgue {
+    animation: caidaRebote 5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
   @keyframes caidaRebote {
     0% {
       transform: translateY(-150%);
@@ -294,10 +301,6 @@
     }
   }
 
-  .animate-descuelgue {
-    animation: caidaRebote 5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  }
-
   @keyframes aparicion {
     0% {
       opacity: 0;
@@ -316,6 +319,9 @@
     animation: spin 4s linear infinite;
   }
 
+  .animate-aparicion-giro {
+    animation: aparicionGiroLateral 2s ease-out forwards;
+  }
   @keyframes aparicionGiroLateral {
     0% {
       opacity: 0;
@@ -326,10 +332,6 @@
       opacity: 1;
       transform: translateX(0) rotate(0deg);
     }
-  }
-
-  .animate-aparicion-giro {
-    animation: aparicionGiroLateral 2s ease-out forwards;
   }
 
   .charts {

@@ -128,9 +128,9 @@ const Estadisticas = () => {
         />
       </article>
 
-      <aside className="bg-white dark:bg-primary-850 rounded-xl p-6 gap-4 shadow-sm flex flex-col md:flex-row justify-between items-center">
+      <article className="shadow-md transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
         <h2 className="text-xl">
-          {t("estadisticas.completadosPorMes")} {conteoItems}
+          {t("estadisticas.completadosPorMes")} <strong>{conteoItems}</strong>
         </h2>
         <div className="flex flex-col gap-1">
           <label htmlFor="mes-selector" className="sr-only">
@@ -144,13 +144,13 @@ const Estadisticas = () => {
             manejarambio={(e) => setMesSeleccionado(e.target.value)}
           />
         </div>
-      </aside>
+      </article>
 
       <section
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
         aria-label={t("estadisticas.rankingsLabel")}
       >
-        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-sm p-6 shadow-sm space-y-4">
           <header className="flex items-center gap-3 mb-4">
             <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
               <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
@@ -170,7 +170,7 @@ const Estadisticas = () => {
           </ol>
         </article>
 
-        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-sm p-6 shadow-sm space-y-4">
           <header className="flex items-center gap-3 mb-4">
             <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
               <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
@@ -190,9 +190,9 @@ const Estadisticas = () => {
           </ol>
         </article>
 
-        <article className="bg-primary-50 dark:bg-primary-850 rounded-xl p-6 shadow-sm space-y-4">
+        <article className="bg-primary-50 dark:bg-primary-850 rounded-sm p-6 shadow-sm space-y-4">
           <header className="flex items-center gap-3 mb-4">
-            <div className="bg-warning-400 p-1 rounded-md" aria-hidden="true">
+            <div className="bg-warning-400 p-1 rounded-sm" aria-hidden="true">
               <span className="material-symbols-outlined icon-filled text-white animate-spin-lento">
                 star
               </span>
