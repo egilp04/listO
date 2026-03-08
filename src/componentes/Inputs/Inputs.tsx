@@ -76,9 +76,10 @@ function Inputs({
           disabled={disabled}
           onChange={handleChangeInternal}
           onBlur={handleBlur}
-          className={`input-style-comun input-responsive ${
-            disabled ? "input-disabled cursor-not-allowed" : `${colorClass}`
-          } ${isPassword ? "pr-10" : ""}`}
+          className={`input-style-comun input-responsive ${disabled ? "input-disabled cursor-not-allowed" : `${colorClass}`
+            } ${isPassword ? "pr-10" : ""}`}
+          aria-invalid={smError}
+          aria-describedby={smError ? `${name}-error` : undefined}
           {...props}
         />
 
@@ -98,6 +99,7 @@ function Inputs({
       {smError && (
         <footer className="mt-1">
           <p
+            id={`${name}-error`}
             aria-live="polite"
             className="span-error h-4 text-red-500 dark:text-red-200 text-sm"
           >

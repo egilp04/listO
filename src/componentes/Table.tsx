@@ -180,6 +180,7 @@ const Table = ({ tipoItem, valorFiltro }: TableInterface) => {
             descripcion={t("gestionAdmin.dialogDescripcionEliminar", {
               tipo: tipoItem,
             })}
+            textoConfirmar={t("dialog.botonEliminar")}
             show={show}
           />
         )}
