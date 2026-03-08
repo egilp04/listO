@@ -23,7 +23,7 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
         <figure className="bg-primary-50 dark:bg-primary-800 p-2 rounded-lg">
           <img
             src={imagen}
-            alt=""
+            alt="icono representativo"
             aria-hidden="true"
             className="w-8 h-8 object-contain animate-aparicion-giro"
           />
