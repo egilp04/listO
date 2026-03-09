@@ -14,6 +14,7 @@ interface AuthState {
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   setUser: (user: User | null) => void;
+  clearError: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -71,7 +72,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       set({ loading: false });
     }
   },
-
+  clearError: () => set({ error: null }),
   login: async (email, password) => {
     set({ loading: true, error: null });
     try {

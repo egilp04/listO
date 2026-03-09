@@ -16,20 +16,17 @@ interface LoginProps extends FormHTMLAttributes<HTMLFormElement> {
 export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login: loginAction, error: authError } = useAuthStore();
+  const { login: loginAction, error: authError, clearError } = useAuthStore();
   const { setNotificacion } = useNotificationStore();
-
   const [formData, setFormData] = useState({
     email: "",
     passwd: "",
     nueva_passwd: "",
     confirm_passwd: "",
   });
-
   const texto = login
     ? t("formLogin.botonLogin")
     : t("formRecuperacion.botonEnviar");
-
   const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
     {},
   );
@@ -115,6 +112,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
               {t("formLogin.olvidoContrasena")}{" "}
               <Link
                 to="/recuperar"
+                onClick={() => clearError()}
                 className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
               >
                 {t("formLogin.olvidoContrasenaEnlace")}
@@ -150,20 +148,12 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
         <Button type="submit" className="w-full">
           {texto}
         </Button>
-        {error && (
+        {(error || authError) && (
           <p
             role="alert"
             className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
           >
-            {error}
-          </p>
-        )}
-        {authError && (
-          <p
-            role="alert"
-            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
-          >
-            {t("formLogin.authError")}
+            {error || t("formLogin.authError")}
           </p>
         )}
       </footer>
