@@ -28,7 +28,7 @@ export const useGestionAdminStore = create<DataState>((set) => ({
       if (error) throw error;
       set({ usuarios: data || [] });
     } catch (error) {
-      console.error("Error en fetchUsuarios:", error);
+      console.error("Error en fetchUsuarios", error);
     } finally {
       set({ loading: false });
     }
@@ -44,7 +44,7 @@ export const useGestionAdminStore = create<DataState>((set) => ({
       if (error) throw error;
       set({ generos: data || [] });
     } catch (error) {
-      console.error("Error en fetchGeneros:", error);
+      console.error("Error en fetchGeneros", error);
     } finally {
       set({ loading: false });
     }

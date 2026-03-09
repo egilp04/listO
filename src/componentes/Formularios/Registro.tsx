@@ -91,8 +91,10 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
 
       if (ErrorEmail) throw ErrorEmail;
       if (DataEmail && DataEmail.length > 0) {
-        setNotificacion(t("formRegistro.notiEmailExiste"), "error");
-        return;
+        if (DataEmail.some((data) => data.email === datos.email)) {
+          setNotificacion(t("formRegistro.notiEmailExiste"), "error");
+          return;
+        }
       }
 
       const { error } = await supabase.auth.signUp({

@@ -227,7 +227,9 @@
     "olvidoContrasena": "Passwort vergessen? Hier",
     "olvidoContrasenaEnlace": "KLICKEN",
     "botonLogin": "Login",
-    "notifRecuperacion": "Wenn die E-Mail registriert ist, erhalten Sie einen Link zum Zurücksetzen Ihres Passworts."
+    "notifRecuperacion": "Wenn die E-Mail registriert ist, erhalten Sie einen Link zum Zurücksetzen Ihres Passworts.",
+    "authError": "Ungültige E-Mail-Adresse und/oder Passwörter.",
+    "notifRecuperacionError": "Fehler bei der Passwortwiederherstellung"
   },
   "formRecuperacion": {
     "titulo": "Passwort wiederherstellen",

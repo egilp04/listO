@@ -50,14 +50,14 @@ export default function RegistroUsuarios() {
           id="registro-usuarios-title"
           className="text-xl font-bold text-center md:text-left"
         >
-          {t('charts.registroUsuarios.titulo')}
+          {t("charts.registroUsuarios.titulo")}
         </h2>
       </figcaption>
 
       <div
-        className="w-full h-[300px]"
+        className="w-full h-75"
         role="img"
-        aria-label={t('charts.registroUsuarios.ariaLabel')}
+        aria-label={t("charts.registroUsuarios.ariaLabel")}
       >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={datosRegistroUser}>
@@ -77,7 +77,7 @@ export default function RegistroUsuarios() {
             <Line
               type="monotone"
               dataKey="usuarios"
-              name={t('charts.registroUsuarios.serieUsuarios')}
+              name={t("charts.registroUsuarios.serieUsuarios")}
               stroke={lineStroke}
               strokeWidth={3}
               dot={{ r: 4, fill: lineStroke }}

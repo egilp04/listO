@@ -227,7 +227,9 @@
     "olvidoContrasena": "忘记密码了？请点击",
     "olvidoContrasenaEnlace": "此处",
     "botonLogin": "登录",
-    "notifRecuperacion": "如果该邮箱已注册，你将收到一个重置密码的链接。"
+    "notifRecuperacion": "如果该邮箱已注册，你将收到一个重置密码的链接",
+    "authError": "电子邮件和/或密码无效",
+    "notifRecuperacionError": "密码恢复错误"
   },
   "formRecuperacion": {
     "titulo": "找回密码",

@@ -30,7 +30,7 @@ const RegistroItems = () => {
         const data = await fetchRegistroAnual();
         setDatosRegistroItems(data);
       } catch (e) {
-        console.error("Error al cargar datos del gráfico:");
+        console.error("Error al cargar datos del gráfico");
         if (e instanceof Error) console.log(e.stack);
       }
     };
@@ -50,13 +50,13 @@ const RegistroItems = () => {
           id="registro-items-title"
           className="text-xl font-semibold text-center md:text-left"
         >
-          {t('charts.registroItems.titulo')}
+          {t("charts.registroItems.titulo")}
         </h2>
       </figcaption>
       <div
         className="w-full"
         role="img"
-        aria-label={t('charts.registroItems.ariaLabel')}
+        aria-label={t("charts.registroItems.ariaLabel")}
       >
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
@@ -83,7 +83,7 @@ const RegistroItems = () => {
             <Line
               type="monotone"
               dataKey="items"
-              name={t('charts.registroItems.serieNuevosItems')}
+              name={t("charts.registroItems.serieNuevosItems")}
               stroke={lineStroke}
               strokeWidth={3}
               dot={{ r: 4, fill: lineStroke }}

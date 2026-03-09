@@ -83,7 +83,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         },
       ];
     } catch (error) {
-      console.error("Error al recuperar contadores de ítems:");
+      console.error("Error al recuperar contadores de ítems");
       if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
@@ -110,7 +110,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
       if (error) throw error;
       return count || 0;
     } catch (error) {
-      console.error("Error en fetchUsuariosPorMes:", error);
+      console.error("Error en fetchUsuariosPorMes", error);
       return 0;
     } finally {
       set({ loading: false });
@@ -186,7 +186,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         usuarios: conteoMeses[m.label],
       }));
     } catch (error) {
-      console.error("Error en fetchRegistroAnual:");
+      console.error("Error en fetchRegistroAnual");
       if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {
@@ -223,7 +223,7 @@ export const useAdminStatsStore = create<AdminStatsState>((set) => ({
         value,
       }));
     } catch (error) {
-      console.error("Error al recuperar distribución de géneros:");
+      console.error("Error al recuperar distribución de géneros");
       if (error instanceof Error) console.error(error.stack);
       return [];
     } finally {

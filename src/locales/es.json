@@ -227,7 +227,9 @@
     "olvidoContrasena": "¿Has olvidado la contraseña? Pulse",
     "olvidoContrasenaEnlace": "AQUÍ",
     "botonLogin": "Login",
-    "notifRecuperacion": "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña."
+    "notifRecuperacion": "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.",
+    "authError": "Email y/o contraseñas inválidas.",
+    "notifRecuperacionError": "Error al recuperar contraseña"
   },
   "formRecuperacion": {
     "titulo": "Recuperar Contraseña",

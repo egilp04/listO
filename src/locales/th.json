@@ -227,7 +227,9 @@
     "olvidoContrasena": "¿Perdiste el secreto? Ladra",
     "olvidoContrasenaEnlace": "AQUÍ",
     "botonLogin": "¡Dentro!",
-    "notifRecuperacion": "Si te conocemos, te mandaremos un hueso con el rastro."
+    "notifRecuperacion": "Si te conocemos, te mandaremos un hueso con el rastro.",
+    "authError": "Correo y/o secreto incorrectos",
+    "notifRecuperacionError": "Error al recuperar el secreto, escarba más tarde"
   },
   "formRecuperacion": {
     "titulo": "Recuperar Rastro",

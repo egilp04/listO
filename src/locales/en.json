@@ -227,7 +227,9 @@
     "olvidoContrasena": "Forgot password? Click",
     "olvidoContrasenaEnlace": "HERE",
     "botonLogin": "Login",
-    "notifRecuperacion": "If the email is registered, you will receive a link to recover your password."
+    "notifRecuperacion": "If the email is registered, you will receive a link to recover your password.",
+    "authError": "Wrong email and/or password.",
+    "notifRecuperacionError": "Error recovering password, try it later"
   },
   "formRecuperacion": {
     "titulo": "Recover Password",

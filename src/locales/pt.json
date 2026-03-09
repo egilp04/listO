@@ -227,7 +227,9 @@
     "olvidoContrasena": "Esqueceu-se da palavra-passe? Clique",
     "olvidoContrasenaEnlace": "AQUI",
     "botonLogin": "Entrar",
-    "notifRecuperacion": "Se o e-mail estiver registado, receberá um link para recuperar a sua palavra-passe."
+    "notifRecuperacion": "Se o e-mail estiver registado, receberá um link para recuperar a sua palavra-passe.",
+    "authError": "E-mail e/ou palavras-passe inválidos.",
+    "notifRecuperacionError": "Erro ao recuperar a senha"
   },
   "formRecuperacion": {
     "titulo": "Recuperar Palavra-passe",

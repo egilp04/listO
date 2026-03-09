@@ -59,7 +59,7 @@ const Dialog = ({
             if (
               document.activeElement === firstElement ||
               document.activeElement ===
-              modalRef.current.querySelector("#dialog-title")
+                modalRef.current.querySelector("#dialog-title")
             ) {
               lastElement.focus();
               e.preventDefault();
@@ -103,36 +103,29 @@ const Dialog = ({
           <button
             className="material-symbols-outlined cursor-pointer hover:text-danger-500 transition-colors bg-transparent border-none p-0"
             onClick={() => onClose(false)}
-            aria-label={t('dialog.cerrar')}
+            aria-label={t("dialog.cerrar")}
           >
             close
           </button>
         </header>
-        <article className="flex flex-col gap-4 px-6">
-          <h2
-            id="dialog-title"
-            tabIndex={-1}
-            className="text-xl font-bold focus:outline-none"
-          >
+        <article className="flex flex-col gap-4 px-6 ">
+          <h2 id="dialog-title" className="dark:text-primary-900" tabIndex={-1}>
             {titulo}
           </h2>
-          <p
-            id="dialog-desc"
-            className="text-gray-600 dark:text-primary-100 text-pretty"
-          >
+          <p id="dialog-desc" className="dark:text-primary-900">
             {descripcion}
           </p>
         </article>
 
-        <footer className="flex flex-row gap-4 justify-end mt-8 p-6 bg-gray-50 dark:bg-primary-850/50 rounded-b-xl">
+        <footer className="flex flex-row gap-4 justify-center mt-8 p-6 bg-gray-50 dark:bg-primary-850">
           <Button variant="fantasma" onClick={() => onClose(false)}>
-            {textoCancelar || t('dialog.botonCancelar')}
+            {textoCancelar || t("dialog.botonCancelar")}
           </Button>
           <Button
             className="bg-danger-500 text-white hover:bg-danger-600"
             onClick={() => onClose(true)}
           >
-            {textoConfirmar || t('dialog.botonConfirmar')}
+            {textoConfirmar || t("dialog.botonConfirmar")}
           </Button>
         </footer>
       </section>

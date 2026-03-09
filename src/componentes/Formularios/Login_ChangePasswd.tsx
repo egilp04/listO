@@ -8,16 +8,12 @@ import { useNotificationStore } from "../../store/useNotificationStore";
 import { supabase } from "../../utils/supabaseClient";
 import { useTranslation } from "react-i18next";
 
-interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
+interface LoginProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
   login: boolean;
 }
 
-export const Login_ChangePasswd = ({
-  error,
-  login,
-  ...props
-}: RegistroProps) => {
+export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { login: loginAction, error: authError } = useAuthStore();
@@ -30,7 +26,9 @@ export const Login_ChangePasswd = ({
     confirm_passwd: "",
   });
 
-  const texto = login ? t('formLogin.botonLogin') : t('formRecuperacion.botonEnviar');
+  const texto = login
+    ? t("formLogin.botonLogin")
+    : t("formRecuperacion.botonEnviar");
 
   const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
     {},
@@ -65,10 +63,11 @@ export const Login_ChangePasswd = ({
 
         if (resetError) throw resetError;
 
-        setNotificacion(t('formLogin.notifRecuperacion'), "exito");
+        setNotificacion(t("formLogin.notifRecuperacion"), "exito");
         setFormData({ ...formData, email: "" });
       } catch (err) {
         console.error("Error al recuperar contraseña", err);
+        setNotificacion(t("formLogin.notifRecuperacionError"), "error");
       }
     }
   };
@@ -78,29 +77,29 @@ export const Login_ChangePasswd = ({
       {login ? (
         <section>
           <header className="mb-4">
-            <h2 className="text-center">{t('formLogin.titulo')}</h2>
+            <h2 className="text-center">{t("formLogin.titulo")}</h2>
           </header>
 
           <fieldset className="flex-login-passwd border-none p-0 m-0">
-            <legend className="sr-only">{t('formLogin.legendAcceso')}</legend>
+            <legend className="sr-only">{t("formLogin.legendAcceso")}</legend>
 
             <Inputs
-              label={t('formLogin.labelUsuario')}
+              label={t("formLogin.labelUsuario")}
               type="text"
-              placeholder={t('formLogin.placeholderUsuario')}
+              placeholder={t("formLogin.placeholderUsuario")}
               name="email"
-              error={t('formLogin.errorEmail')}
+              error={t("formLogin.errorEmail")}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
               value={formData.email}
               manejarCambio={manejarCambio}
               manejarError={manejarError}
             />
             <Inputs
-              label={t('formLogin.labelContrasena')}
+              label={t("formLogin.labelContrasena")}
               type="password"
-              placeholder={t('formLogin.placeholderContrasena')}
+              placeholder={t("formLogin.placeholderContrasena")}
               name="passwd"
-              error={t('formLogin.errorContrasena')}
+              error={t("formLogin.errorContrasena")}
               regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
               value={formData.passwd}
               manejarCambio={manejarCambio}
@@ -108,14 +107,17 @@ export const Login_ChangePasswd = ({
             />
           </fieldset>
 
-          <nav className="mt-4 text-center" aria-label={t('formLogin.recuperacionLabel')}>
+          <nav
+            className="mt-4 text-center"
+            aria-label={t("formLogin.recuperacionLabel")}
+          >
             <span className="text-sm font-medium block text-black dark:text-primary-50">
-              {t('formLogin.olvidoContrasena')}{" "}
+              {t("formLogin.olvidoContrasena")}{" "}
               <Link
                 to="/recuperar"
                 className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
               >
-                {t('formLogin.olvidoContrasenaEnlace')}
+                {t("formLogin.olvidoContrasenaEnlace")}
               </Link>
             </span>
           </nav>
@@ -123,19 +125,19 @@ export const Login_ChangePasswd = ({
       ) : (
         <section>
           <header className="mb-4">
-            <h2 className="text-center">{t('formRecuperacion.titulo')}</h2>
+            <h2 className="text-center">{t("formRecuperacion.titulo")}</h2>
           </header>
 
           <fieldset className="flex-login-passwd border-none p-0 m-0">
             <legend className="sr-only">
-              {t('formRecuperacion.legendCredenciales')}
+              {t("formRecuperacion.legendCredenciales")}
             </legend>
             <Inputs
-              label={t('formRecuperacion.labelEmail')}
+              label={t("formRecuperacion.labelEmail")}
               type="text"
-              placeholder={t('formRecuperacion.placeholderEmail')}
+              placeholder={t("formRecuperacion.placeholderEmail")}
               name="email"
-              error={t('formRecuperacion.errorEmail')}
+              error={t("formRecuperacion.errorEmail")}
               regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
               value={formData.email}
               manejarCambio={manejarCambio}
@@ -148,9 +150,20 @@ export const Login_ChangePasswd = ({
         <Button type="submit" className="w-full">
           {texto}
         </Button>
-        {(error || authError) && (
-          <p role="alert" className="span-error mt-1 h-4 text-red-500">
-            {error || authError}
+        {error && (
+          <p
+            role="alert"
+            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
+          >
+            {error}
+          </p>
+        )}
+        {authError && (
+          <p
+            role="alert"
+            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
+          >
+            {t("formLogin.authError")}
           </p>
         )}
       </footer>

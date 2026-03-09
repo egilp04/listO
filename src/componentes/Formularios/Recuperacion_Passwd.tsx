@@ -33,7 +33,7 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     const finalizeUpdate = async () => {
       if (updateSuccess) {
         navigate("/biblioteca");
-        setNotificacion(t('formRecuperacionPasswd.notifExito'), "exito");
+        setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
       }
     };
     finalizeUpdate();
@@ -51,12 +51,15 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     e.preventDefault();
 
     if (Object.values(erroresActivos).some((e) => e)) {
-      setNotificacion(t('formRecuperacionPasswd.notifErroresFormulario'), "error");
+      setNotificacion(
+        t("formRecuperacionPasswd.notifErroresFormulario"),
+        "error",
+      );
       return;
     }
 
     if (formData.nueva_passwd !== formData.confirm_passwd) {
-      setNotificacion(t('formRecuperacionPasswd.notifNoCoinciden'), "error");
+      setNotificacion(t("formRecuperacionPasswd.notifNoCoinciden"), "error");
       return;
     }
 
@@ -66,13 +69,18 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
       });
 
       if (error) {
-        setNotificacion(t('formRecuperacionPasswd.notifErrorActualizar', { mensaje: error.message }), "error");
+        setNotificacion(
+          t("formRecuperacionPasswd.notifErrorActualizar", {
+            mensaje: error.message,
+          }),
+          "error",
+        );
       } else {
         setUpdateSuccess(true);
       }
     } catch (err) {
       console.error("Error al actualizar contraseña", err);
-      setNotificacion(t('formRecuperacionPasswd.notifErrorEnlace'), "error");
+      setNotificacion(t("formRecuperacionPasswd.notifErrorEnlace"), "error");
     }
   };
 
@@ -84,19 +92,21 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
       <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
         <header className="mb-6">
           <h2 id="form-pwd-title" className="text-center">
-            {t('formRecuperacionPasswd.titulo')}
+            {t("formRecuperacionPasswd.titulo")}
           </h2>
         </header>
 
         <fieldset className="flex-login-passwd border-none p-0 m-0">
-          <legend className="sr-only">{t('formRecuperacionPasswd.legendNuevasCredenciales')}</legend>
+          <legend className="sr-only">
+            {t("formRecuperacionPasswd.legendNuevasCredenciales")}
+          </legend>
 
           <Inputs
-            label={t('formRecuperacionPasswd.labelNuevaContrasena')}
+            label={t("formRecuperacionPasswd.labelNuevaContrasena")}
             type="password"
-            placeholder={t('formRecuperacionPasswd.placeholderContrasena')}
+            placeholder={t("formRecuperacionPasswd.placeholderContrasena")}
             name="nueva_passwd"
-            error={t('formRecuperacionPasswd.errorNuevaContrasena')}
+            error={t("formRecuperacionPasswd.errorNuevaContrasena")}
             regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
             value={formData.nueva_passwd}
             manejarCambio={manejarCambio}
@@ -104,11 +114,11 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
             autoComplete="new-password"
           />
           <Inputs
-            label={t('formRecuperacionPasswd.labelConfirmarContrasena')}
+            label={t("formRecuperacionPasswd.labelConfirmarContrasena")}
             type="password"
-            placeholder={t('formRecuperacionPasswd.placeholderContrasena')}
+            placeholder={t("formRecuperacionPasswd.placeholderContrasena")}
             name="confirm_passwd"
-            error={t('formRecuperacionPasswd.errorConfirmarContrasena')}
+            error={t("formRecuperacionPasswd.errorConfirmarContrasena")}
             regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
             value={formData.confirm_passwd}
             manejarCambio={manejarCambio}
@@ -119,7 +129,7 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
 
         <footer className="mt-8 flex flex-col items-center gap-4">
           <Button type="submit" className="w-full">
-            {t('formRecuperacionPasswd.botonActualizar')}
+            {t("formRecuperacionPasswd.botonActualizar")}
           </Button>
 
           {(error || authError) && (
