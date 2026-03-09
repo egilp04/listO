@@ -11,6 +11,7 @@ function Checkbox({
   name,
   disabled,
   manejarCambio,
+  mensajeError,
   ...props
 }: CheckboxProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,26 +19,38 @@ function Checkbox({
   };
 
   return (
-    <section className="checkbox-container flex items-center gap-2">
-      <input
-        type="checkbox"
-        id={name}
-        name={name}
-        disabled={disabled}
-        className="checkbox-input checkbox-responsive cursor-pointer"
-        aria-disabled={disabled}
-        {...props}
-        onChange={handleChange}
-      />
+    <section className="checkbox-container flex flex-col gap-1">
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id={name}
+          name={name}
+          disabled={disabled}
+          className="checkbox-input checkbox-responsive cursor-pointer"
+          aria-disabled={disabled}
+          aria-invalid={!!mensajeError}
+          aria-describedby={mensajeError ? `${name}-error` : undefined}
+          {...props}
+          onChange={handleChange}
+        />
 
-      <label
-        htmlFor={name}
-        className={`cursor-pointer text-primary-1100 dark:text-primary-50 ${
-          disabled ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        {label}
-      </label>
+        <label
+          htmlFor={name}
+          className={`cursor-pointer text-primary-1100 dark:text-primary-50 ${disabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+        >
+          {label}
+        </label>
+      </div>
+      {mensajeError && (
+        <span
+          id={`${name}-error`}
+          aria-live="polite"
+          className="span-error text-red-500 text-sm"
+        >
+          {mensajeError}
+        </span>
+      )}
     </section>
   );
 }
