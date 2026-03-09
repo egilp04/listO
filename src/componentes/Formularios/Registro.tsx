@@ -85,6 +85,16 @@ export const Registro = ({ ...props }: FormHTMLAttributes<HTMLFormElement>) => {
 
   const enviarDatosBD = async () => {
     try {
+      const { data: DataEmail, error: ErrorEmail } = await supabase
+        .from("usuario")
+        .select("email");
+
+      if (ErrorEmail) throw ErrorEmail;
+      if (DataEmail && DataEmail.length > 0) {
+        setNotificacion(t("formRegistro.notiEmailExiste"), "error");
+        return;
+      }
+
       const { error } = await supabase.auth.signUp({
         email: datos.email,
         password: datos.passwd,
