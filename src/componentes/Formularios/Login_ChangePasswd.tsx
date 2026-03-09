@@ -150,20 +150,9 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
         <Button type="submit" className="w-full">
           {texto}
         </Button>
-        {error && (
-          <p
-            role="alert"
-            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
-          >
-            {error}
-          </p>
-        )}
-        {authError && (
-          <p
-            role="alert"
-            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
-          >
-            {t("formLogin.authError")}
+        {(error || authError) && (
+          <p role="alert" className="span-error mt-1 h-4 text-red-500">
+            {error || t("formLogin.authError")}
           </p>
         )}
       </footer>
