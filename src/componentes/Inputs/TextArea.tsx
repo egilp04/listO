@@ -1,10 +1,12 @@
-import { useState, type TextareaHTMLAttributes } from "react";
+import { useState, type ChangeEvent, type TextareaHTMLAttributes } from "react";
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   mensajeError?: string;
   variant?: "primario" | "info";
-  manejarCambio: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  manejarCambio: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
   manejarError: (nombre: string, error: boolean) => void;
 }
 
