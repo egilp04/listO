@@ -2,7 +2,7 @@ import { useState, type ChangeEvent, type TextareaHTMLAttributes } from "react";
 
 interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
-  error?: string;
+  mensajeError?: string;
   variant?: "primario" | "info";
   manejarCambio: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -12,14 +12,29 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 function TextArea({
   label,
-  error,
+  mensajeError,
   name,
   disabled,
-  mensajeError,
   variant = "primario",
+  manejarCambio,
+  manejarError,
   ...props
 }: TextAreaProps) {
+  const [error, setError] = useState(false);
+
   const colorClass = error ? "input-error" : `input-border-${variant}`;
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const nombre = e.currentTarget.name;
+    if (e.target.value.trim() == "") {
+      setError(true);
+      manejarError(nombre, true);
+    } else {
+      setError(false);
+      manejarError(nombre, false);
+    }
+    manejarCambio(e);
+  };
 
   return (
     <section
@@ -48,6 +63,7 @@ function TextArea({
             : `cursor-text ${colorClass}`
         }`}
         {...props}
+        onChange={handleChange}
       />
 
       {error && (
