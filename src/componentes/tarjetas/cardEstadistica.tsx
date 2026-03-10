@@ -1,16 +1,13 @@
 import React from "react";
+import starIcon from "../assets/img/icons/star.webp";
 
 interface CardEstadisticaProps {
-  imagen?: string; // URL icon
+  imagen?: string;
   numero: number | string;
   texto: string;
 }
 
-const CardEstadistica: React.FC<CardEstadisticaProps> = ({
-  imagen = "src/assets/img/icons/star.webp",
-  numero,
-  texto,
-}) => {
+const CardEstadistica: React.FC<CardEstadisticaProps> = ({ numero, texto }) => {
   return (
     <article
       className="card-estadistica flex flex-col p-4 bg-white dark:bg-primary-900 rounded-sm"
@@ -22,7 +19,7 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
         </span>
         <figure className="bg-primary-50 dark:bg-primary-800 p-2 rounded-lg">
           <img
-            src={imagen}
+            src={starIcon}
             alt="icono representativo"
             aria-hidden="true"
             width={32}
