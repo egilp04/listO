@@ -1,27 +1,58 @@
-import type { InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes } from "react";
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-    label: string;
+  label: string;
+  manejarCambio: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  mensajeError?: string;
 }
 
-function Checkbox({ label, name, disabled, ...props }: CheckboxProps) {
-    const cursorClass = disabled ? "cursor-not-allowed" : "cursor-pointer";
+function Checkbox({
+  label,
+  name,
+  disabled,
+  manejarCambio,
+  mensajeError,
+  ...props
+}: CheckboxProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    manejarCambio(e);
+  };
 
-    return (
-        <div className="checkbox-container">
-            <input
-                type="checkbox"
-                id={name}
-                name={name}
-                disabled={disabled}
-                className={`checkbox-input checkbox-responsive ${disabled ? "input-disabled" : cursorClass}`}
-                {...props}
-            />
-            <label htmlFor={name} className={`${cursorClass} ${disabled ? "label-disabled" : "text-black"}`}>
-                {label}
-            </label>
-        </div>
-    );
+  return (
+    <section className="checkbox-container flex flex-col gap-1">
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id={name}
+          name={name}
+          disabled={disabled}
+          className="checkbox-input checkbox-responsive cursor-pointer"
+          aria-disabled={disabled}
+          aria-invalid={!!mensajeError}
+          aria-describedby={mensajeError ? `${name}-error` : undefined}
+          {...props}
+          onChange={handleChange}
+        />
+
+        <label
+          htmlFor={name}
+          className={`cursor-pointer text-primary-1100 dark:text-primary-50 ${disabled ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+        >
+          {label}
+        </label>
+      </div>
+      {mensajeError && (
+        <span
+          id={`${name}-error`}
+          aria-live="polite"
+          className="span-error text-red-500 text-sm"
+        >
+          {mensajeError}
+        </span>
+      )}
+    </section>
+  );
 }
 
 export default Checkbox;

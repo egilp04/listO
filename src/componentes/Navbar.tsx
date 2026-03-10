@@ -1,148 +1,202 @@
 import { useState } from "react";
 import Button from "./Button";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import type { UsuarioBDInterface } from "../interfaces/UsuarioBDInterface";
+import { ThemeToggle } from "./BotonClarOscuro";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
-interface NavbarProps {
-  usuario?: string;
-  estaLogueado?: boolean;
-  esAdmin?: boolean;
-}
-
-const Navbar: React.FC<NavbarProps> = ({
-  usuario,
-  estaLogueado = false,
-  esAdmin = false,
-}) => {
-  const location = useLocation();
+const Navbar = () => {
+  const { t } = useTranslation();
   const [close, setClose] = useState(true);
+  const navigate = useNavigate();
+  const { user, role, logout } = useAuthStore() as {
+    user: UsuarioBDInterface;
+    role: string | null;
+    logout: () => Promise<void>;
+  };
+
+  const estaLogueado = !!user;
+  const esAdmin = role === "administrador";
+  const nombreUsuario = user?.nombre || "Usuario";
 
   const handleClick = () => {
     setClose(!close);
   };
 
-  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <nav className="relative flex justify-between items-center p-3 bg-primary-50 flex-wrap border border-b-neutral-200 border-t-0 border-l-0 border-r-0">
+    <nav className="navbar" aria-label={t("navbar.navPrincipalLabel")}>
       <div className="flex items-center gap-3">
-        <NavLink to="/" className="navbar-logo">
+        <NavLink
+          to={estaLogueado ? "/biblioteca" : "/"}
+          end
+          className="navbar-logo"
+          aria-label={t("navbar.irInicio")}
+        >
           <img
-            src="/src/assets/img/logo/logo.webp"
-            alt="logo"
+            src="/logo.webp"
+            alt={t("navbar.logoAlt")}
             className="h-20 w-20 object-contain md:h-24"
+            width={96}
+            height={96}
           />
         </NavLink>
+
         {estaLogueado && (
-          <span className="text-base text-black font-medium">
-            Hola, {usuario}
+          <span className="text-base text-black font-medium dark:text-primary-50">
+            {t("navbar.saludo")} <strong>{nombreUsuario}</strong>
           </span>
         )}
       </div>
-      <div className="lg:hidden block">
-        <span
-          className="material-symbols-outlined cursor-pointer text-7xl"
+
+      <div className="xl:hidden block">
+        <button
+          className="material-symbols-outlined cursor-pointer text-7xl dark:text-primary-50 bg-transparent border-none p-0"
           onClick={handleClick}
+          aria-expanded={!close}
+          aria-controls="navbar-menu"
+          aria-label={close ? t("navbar.abrirMenu") : t("navbar.cerrarMenu")}
         >
-          menu
-        </span>
+          {close ? "menu" : "menu"}
+        </button>
       </div>
       <div
+        id="navbar-menu"
         className={`${
-          close ? "hidden" : "flex absolute right-0 top-full bg-primary-50 p-4"
-        }  flex-col items-center gap-4 lg:mt-0 lg:flex lg:w-auto lg:flex-row`}
+          close
+            ? "hidden"
+            : "flex absolute right-0 top-full bg-primary-50 dark:bg-primary-900 p-4 z-50 shadow-lg"
+        } flex-col items-center gap-4 xl:mt-0 xl:flex xl:w-auto xl:flex-row xl:static xl:bg-transparent xl:p-0 xl:shadow-none`}
       >
-        <div className="botones-navbar">
+        <ul className="flex flex-col xl:flex-row items-center gap-4 list-none p-0 m-0">
           {estaLogueado && (
             <>
-              <Button
-                variant="secundario"
-                onClick={() => {
-                  {
-                    navigate("/biblioteca");
-                  }
-                }}
-              >
-                Mi Biblioteca
-              </Button>
-              <Button
-                variant="secundario"
-                onClick={() => {
-                  {
-                    navigate("/estadisticas");
-                  }
-                }}
-              >
-                Estadísticas
-              </Button>
-              <Button
-                variant="secundario"
-                onClick={() => {
-                  {
-                    navigate("/miperfil");
-                  }
-                }}
-              >
-                Mi Perfil
-              </Button>
+              <li className="w-full lg:w-auto">
+                <NavLink to="/biblioteca" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                      onClick={handleClick}
+                    >
+                      {t("navbar.miBiblioteca")}
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+              <li className="w-full lg:w-auto">
+                <NavLink to="/estadisticas" end className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                      onClick={handleClick}
+                    >
+                      {t("navbar.estadisticas")}
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
+              <li className="w-full lg:w-auto">
+                <NavLink to="/miperfil" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                      onClick={handleClick}
+                    >
+                      {t("navbar.miPerfil")}
+                    </Button>
+                  )}
+                </NavLink>
+              </li>
               {esAdmin && (
                 <>
-                  <Button
-                    variant="secundario"
-                    onClick={() => {
-                      {
-                        navigate("/estadisticas/globales");
-                      }
-                    }}
-                  >
-                    Estadísticas Globales
-                  </Button>
-                  <Button
-                    variant="secundario"
-                    onClick={() => {
-                      {
-                        navigate("/gestion");
-                      }
-                    }}
-                  >
-                    Gestión
-                  </Button>
+                  <li className="w-full lg:w-auto">
+                    <NavLink to="/estadisticas/globales" className="nav-link">
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "primario" : "secundario"}
+                          className="w-full"
+                          onClick={handleClick}
+                        >
+                          {t("navbar.estadisticasGlobales")}
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
+                  <li className="w-full lg:w-auto">
+                    <NavLink to="/gestion" className="nav-link">
+                      {({ isActive }) => (
+                        <Button
+                          variant={isActive ? "primario" : "secundario"}
+                          className="w-full"
+                          onClick={handleClick}
+                        >
+                          {t("navbar.gestion")}
+                        </Button>
+                      )}
+                    </NavLink>
+                  </li>
                 </>
               )}
             </>
           )}
-        </div>
-        <div className="botones-navbar">
+        </ul>
+        <div className="flex flex-col xl:flex-row items-center gap-4 xl:pt-0 dark:border-primary-800 w-full lg:w-auto">
           {!estaLogueado ? (
-            location.pathname === "/" ? (
-              <NavLink to="/login">
-                <Button variant="primario">Comienza</Button>
-              </NavLink>
-            ) : (
-              <>
-                <NavLink to="/login">
-                  <Button variant="secundario">Log in</Button>
+            <ul className="flex flex-col xl:flex-row gap-2 list-none p-0 m-0">
+              <li>
+                <NavLink to="/login" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                      onClick={handleClick}
+                    >
+                      {t("navbar.login")}
+                    </Button>
+                  )}
                 </NavLink>
-                <NavLink to="/registro">
-                  <Button variant="secundario">Registro</Button>
+              </li>
+              <li>
+                <NavLink to="/registro" className="nav-link">
+                  {({ isActive }) => (
+                    <Button
+                      variant={isActive ? "primario" : "secundario"}
+                      className="w-full"
+                      onClick={handleClick}
+                    >
+                      {t("navbar.registro")}
+                    </Button>
+                  )}
                 </NavLink>
-              </>
-            )
+              </li>
+            </ul>
           ) : (
             <Button
               variant="fantasma"
-              onClick={() => {
-                {
-                  navigate("/");
-                }
-              }}
+              onClick={handleLogout}
+              className="w-full"
             >
-              Salir
+              {t("navbar.salir")}
             </Button>
           )}
+          <ThemeToggle />
+          <LanguageSwitcher />
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;

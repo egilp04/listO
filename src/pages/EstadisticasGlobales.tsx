@@ -3,83 +3,176 @@ import Select from "../componentes/Inputs/Select";
 import { meses } from "../utils/constants/Meses";
 import CardEstadisticaG from "../componentes/tarjetas/cardEstadisticaG";
 import CardEstadisticaT from "../componentes/tarjetas/cardEstadisticaT";
-
-interface EstadisticaTop {
-  value: string[];
-}
+import { useAdminStatsStore } from "../store/useAdminStatsStore";
+import type {
+  TarjetaEstadisticas,
+  TarjetaEstadisticasTop,
+} from "../interfaces/TarjetasEstadisticasGlobales";
+import { lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
+const RegistroUsuarios = lazy(
+  () => import("../componentes/Charts/RegistroUsuarios"),
+);
+const DistribucionGeneros = lazy(
+  () => import("../componentes/Charts/DistribucionGenero"),
+);
 
 const EstadisticasGlobales = () => {
-  const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState([]);
+  const { t, i18n } = useTranslation();
+  const fetchTarjetasEstadisticas = useAdminStatsStore(
+    (state) => state.fetchTarjetasEstadisticas,
+  );
+
+  const fetchUsuariosPorMes = useAdminStatsStore(
+    (state) => state.fetchUsuariosPorMes,
+  );
+  const fetchTarjetasEstadisticasTop = useAdminStatsStore(
+    (state) => state.fetchTarjetasEstadisticasTop,
+  );
+
+  const [infoTarjetaEstadistica, setInfoTarjetaEstadistica] = useState<
+    TarjetaEstadisticas[]
+  >([]);
   const [infoEstadisticasTop, setInfoEstadisticasTop] = useState<
-    EstadisticaTop[]
+    TarjetaEstadisticasTop[]
   >([]);
 
-  useEffect(() => {
-    const getDataEstadistica = async () => {
-      try {
-        const res = await fetch("/src/mock/cardsAdminStats.json");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        console.log("RESPUESTA", res);
-        const data = await res.json();
-        console.log(data);
-        setInfoTarjetaEstadistica(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    getDataEstadistica();
-  }, []);
-
   const [mesSeleccionado, setMesSeleccionado] = useState("");
+  const [conteoUsuario, setConteoUsuario] = useState(0);
+
   useEffect(() => {
-    const getDataTop = async () => {
-      const res = await fetch("/src/mock/cardTopStatsAdmin.json");
-      const data = await res.json();
-      console.log(data);
+    const cargarTarjetas = async () => {
+      const data = await fetchTarjetasEstadisticas();
+      setInfoTarjetaEstadistica(data);
+    };
+    cargarTarjetas();
+  }, [fetchTarjetasEstadisticas, i18n.language]);
+
+  useEffect(() => {
+    const cargarTarjetas = async () => {
+      const data = await fetchTarjetasEstadisticasTop();
       setInfoEstadisticasTop(data);
     };
-    getDataTop();
-  }, []);
-  const conteo = 10;
+    cargarTarjetas();
+  }, [fetchTarjetasEstadisticasTop, i18n.language]);
+
+  useEffect(() => {
+    const cargarUsuarios = async () => {
+      if (mesSeleccionado) {
+        const count = await fetchUsuariosPorMes(mesSeleccionado);
+        setConteoUsuario(count);
+      }
+    };
+    cargarUsuarios();
+  }, [mesSeleccionado, fetchUsuariosPorMes]);
+
   return (
-    <div className=" flex flex-col items-center gap-10 md:gap-12 2xl:gap-18 2xl:items-stretch">
-      <h2 className="flex justify-center">Estadísticas Globales</h2>
-      <div className="shadow-elevation-3 bg-primary-50 flex flex-row gap-6 p-4 rounded-sm justify-between items-center w-full">
-        <h3 className="w-full text-primary-700">
-          Usuarios registrados por mes: {conteo}
-        </h3>
-        <Select
-          variant="primario"
-          options={meses}
-          value={mesSeleccionado}
-          onChange={(e) => setMesSeleccionado(e.target.value)}
-        />{" "}
-      </div>
-      <div className="grid grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10">
-        {infoTarjetaEstadistica.map(({ label, value }) => (
-          <CardEstadisticaG texto={label} numero={value}></CardEstadisticaG>
-        ))}
-      </div>
-      <div className="w-full flex flex-col items-center justify-center pr-10 pl-10 md:pr-28 md:pl-28 mb-10">
-        <div className="flex flex-col bg-primary-500 p-6 w-full rounded-sm">
-          <div className="flex flex-row gap-6  justify-center items-center mb-6 md:mb-0">
-            <div className=" w-28 flex flex-row gap-2 h-full">
-              <img src="/src/assets/img/logo/logo.webp" alt="logo" />
-            </div>
-            <h3 className="text-primary-50">Generos Favoritos</h3>
-          </div>
-          <div className="flex flex-col gap-2">
-            {infoEstadisticasTop.map(({ value }, index) =>
-              value.map((val) => (
-                <CardEstadisticaT numero={index} texto={val} />
+    <section
+      className="flex flex-col items-center mb-10 gap-10 2xl:gap-14 2xl:items-stretch"
+      aria-labelledby="global-stats-title"
+    >
+      <header className="flex justify-center">
+        <h1 id="global-stats-title">{t("estadisticasGlobales.titulo")}</h1>
+      </header>
+      <article className="shadow-md transition-shadow duration-500 hover:shadow-elevation-3 bg-primary-50 dark:bg-primary-850 flex flex-col md:flex-row gap-4 md:gap-6 p-4 rounded-sm justify-between items-center w-full">
+        <h2 className="w-full text-center md:text-left text-primary-900 dark:text-primary-50 text-xl">
+          {t("estadisticasGlobales.usuariosPorMes")}
+          <strong> {conteoUsuario}</strong>
+        </h2>
+        <div className="w-full md:w-auto flex justify-center md:justify-end">
+          <label htmlFor="select-mes" className="sr-only">
+            {t("estadisticasGlobales.seleccionMesLabel")}
+          </label>
+          <Select
+            id="select-mes"
+            variant="primario"
+            options={meses}
+            value={mesSeleccionado}
+            manejarambio={(e) => setMesSeleccionado(e.target.value)}
+          />
+        </div>
+      </article>
+      <section
+        className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 md:gap-6 lg:gap-10"
+        aria-label={t("estadisticasGlobales.resumenLabel")}
+      >
+        {infoTarjetaEstadistica.length > 0 ? (
+          infoTarjetaEstadistica.map(({ label, value, id }) => (
+            <CardEstadisticaG
+              key={`est-num-${id}`}
+              texto={label}
+              numero={value}
+            />
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500 dark:text-primary-50">
+            {t("estadisticas.cargandoEstadisticas")}
+          </p>
+        )}
+      </section>
+      <article className="w-full flex flex-col items-center justify-center px-4 md:px-28">
+        <div className="flex flex-col bg-primary-975 p-6 w-full rounded-sm shadow-lg">
+          <header className="flex flex-row gap-6 justify-center items-center mb-6 md:mb-0">
+            <figure className="w-28">
+              <img
+                className="hover:scale-110 transition-transform duration-700"
+                src="/logo.webp"
+                alt={t("estadisticasGlobales.logoAlt")}
+                width={112}
+                height={112}
+                loading="lazy"
+              />
+            </figure>
+            <h3 className="text-primary-50 text-shimmer text-2xl font-semibold">
+              {t("estadisticasGlobales.generosFavoritos")}
+            </h3>
+          </header>
+
+          <ol className="flex flex-col gap-2 mt-4">
+            {infoEstadisticasTop.map((info) =>
+              info.value.map((nombreGenero, index) => (
+                <li key={`${info.id}-${index}`}>
+                  <CardEstadisticaT numero={index + 1} texto={nombreGenero} />
+                </li>
               )),
             )}
-          </div>
+          </ol>
         </div>
-      </div>
-    </div>
+      </article>
+
+      <section
+        className="w-full flex flex-col gap-10"
+        aria-label={t("estadisticasGlobales.visualizacionesLabel")}
+      >
+        <figure className="w-full min-h-75">
+          <Suspense
+            fallback={
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span>
+                  {t("estadisticasGlobales.cargandoGraficoRegistros")}
+                </span>
+              </div>
+            }
+          >
+            <RegistroUsuarios />
+          </Suspense>
+        </figure>
+
+        <figure className="w-full min-h-75">
+          <Suspense
+            fallback={
+              <div className="text-primary-1100 dark:text-primary-50 text-center">
+                <span>
+                  {t("estadisticasGlobales.cargandoGraficoDistribucion")}
+                </span>
+              </div>
+            }
+          >
+            <DistribucionGeneros />
+          </Suspense>
+        </figure>
+      </section>
+    </section>
   );
 };
 

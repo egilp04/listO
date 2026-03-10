@@ -1,88 +1,162 @@
-import type { FormHTMLAttributes } from "react";
+import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
 import { Link, useNavigate } from "react-router-dom";
 
-interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
+import { useAuthStore } from "../../store/useAuthStore";
+import { useNotificationStore } from "../../store/useNotificationStore";
+import { supabase } from "../../utils/supabaseClient";
+import { useTranslation } from "react-i18next";
+
+interface LoginProps extends FormHTMLAttributes<HTMLFormElement> {
   error?: string;
-  login?: boolean;
+  login: boolean;
 }
 
-export const Login_ChangePasswd = ({
-  error,
-  login,
-  ...props
-}: RegistroProps) => {
+export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+  const { login: loginAction, error: authError, clearError } = useAuthStore();
+  const { setNotificacion } = useNotificationStore();
+  const [formData, setFormData] = useState({
+    email: "",
+    passwd: "",
+    nueva_passwd: "",
+    confirm_passwd: "",
+  });
+  const texto = login
+    ? t("formLogin.botonLogin")
+    : t("formRecuperacion.botonEnviar");
+  const [erroresActivos, setErroresActivos] = useState<Record<string, boolean>>(
+    {},
+  );
 
-  const texto = login ? "Login" : "Enviar";
+  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const manejarError = (nombre: string, hayError: boolean) => {
+    setErroresActivos({ ...erroresActivos, [nombre]: hayError });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (login) {
-      console.log("Navegando a Biblioteca...");
-      navigate("/biblioteca", {
-        state: {
-          isLogged: false,
-          esAdmin: true,
-        },
-      });
+      try {
+        await loginAction(formData.email, formData.passwd);
+        navigate("/biblioteca");
+      } catch (err) {
+        console.error("Login failed", err);
+      }
     } else {
-      console.log("Volviendo al Login...");
-      navigate("/login");
+      try {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+          formData.email,
+          {
+            redirectTo: `${window.location.origin}/actualizar-password`,
+          },
+        );
+
+        if (resetError) throw resetError;
+
+        setNotificacion(t("formLogin.notifRecuperacion"), "exito");
+        setFormData({ ...formData, email: "" });
+      } catch (err) {
+        console.error("Error al recuperar contraseña", err);
+        setNotificacion(t("formLogin.notifRecuperacionError"), "error");
+      }
     }
   };
 
   return (
-    <form className="card-login_passwd" {...props}>
+    <form className="form-login_passwd" onSubmit={handleSubmit} {...props}>
       {login ? (
-        <>
-          <h2>Inicio Sesión</h2>
+        <section>
+          <header className="mb-4">
+            <h2 className="text-center">{t("formLogin.titulo")}</h2>
+          </header>
 
-          <div className="flex-login-passwd">
+          <fieldset className="flex-login-passwd border-none p-0 m-0">
+            <legend className="sr-only">{t("formLogin.legendAcceso")}</legend>
+
             <Inputs
-              label="Usuario"
+              label={t("formLogin.labelUsuario")}
               type="text"
-              placeholder="Ej: enrique@gmail.com"
-              name="nombre"
+              placeholder={t("formLogin.placeholderUsuario")}
+              name="email"
+              error={t("formLogin.errorEmail")}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
             />
             <Inputs
-              label="Apellidos"
+              label={t("formLogin.labelContrasena")}
               type="password"
-              placeholder="********"
-              name="`passwd"
+              placeholder={t("formLogin.placeholderContrasena")}
+              name="passwd"
+              error={t("formLogin.errorContrasena")}
+              regex={/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/}
+              value={formData.passwd}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
             />
-          </div>
-          <span className="text-sm mt-4 block text-center">
-            ¿Has olvidado la contraseña? Pulse{" "}
-            <Link
-              to="/recuperar"
-              className="text-primary-600 font-bold hover:underline cursor-pointer"
-            >
-              AQUÍ
-            </Link>
-          </span>
-        </>
+          </fieldset>
+
+          <nav
+            className="mt-4 text-center"
+            aria-label={t("formLogin.recuperacionLabel")}
+          >
+            <span className="text-sm font-medium block text-black dark:text-primary-50">
+              {t("formLogin.olvidoContrasena")}{" "}
+              <Link
+                to="/recuperar"
+                onClick={() => clearError()}
+                className="text-primary-1100 dark:text-primary-50 dark:underline font-bold hover:underline cursor-pointer"
+              >
+                {t("formLogin.olvidoContrasenaEnlace")}
+              </Link>
+            </span>
+          </nav>
+        </section>
       ) : (
-        <>
-          <h2>Recuperar Contraseña</h2>
+        <section>
+          <header className="mb-4">
+            <h2 className="text-center">{t("formRecuperacion.titulo")}</h2>
+          </header>
 
-          <div className="flex-login-passwd">
+          <fieldset className="flex-login-passwd border-none p-0 m-0">
+            <legend className="sr-only">
+              {t("formRecuperacion.legendCredenciales")}
+            </legend>
             <Inputs
-              label="Nueva Contraseña"
-              type="password"
-              placeholder="********"
-              name="nueva_passwd"
+              label={t("formRecuperacion.labelEmail")}
+              type="text"
+              placeholder={t("formRecuperacion.placeholderEmail")}
+              name="email"
+              error={t("formRecuperacion.errorEmail")}
+              regex={/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/}
+              value={formData.email}
+              manejarCambio={manejarCambio}
+              manejarError={manejarError}
             />
-            <Inputs label="Apellidos" type="password" placeholder="********" />
-          </div>
-        </>
+          </fieldset>
+        </section>
       )}
-
-      <Button onClick={handleClick}>{texto}</Button>
-
-      {error && <p className="span-error mt-1 h-4">{error}</p>}
+      <footer className="mt-6 flex flex-col items-center">
+        <Button type="submit" className="w-full">
+          {texto}
+        </Button>
+        {(error || authError) && (
+          <p
+            role="alert"
+            className="span-error mt-1 h-4 text-red-500 dark:text-red-200"
+          >
+            {error || t("formLogin.authError")}
+          </p>
+        )}
+      </footer>
     </form>
   );
 };

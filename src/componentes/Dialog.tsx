@@ -1,10 +1,15 @@
+import { createPortal } from "react-dom";
 import Button from "./Button";
+import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DialogInterface {
   titulo: string;
   descripcion: string;
   show: boolean;
-  onClose: () => void;
+  onClose: (confirmar: boolean) => void;
+  textoConfirmar?: string;
+  textoCancelar?: string;
 }
 
 const Dialog = ({
@@ -12,36 +17,120 @@ const Dialog = ({
   descripcion,
   show = false,
   onClose,
+  textoConfirmar,
+  textoCancelar,
 }: DialogInterface) => {
+  const { t } = useTranslation();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (show) {
+      previouslyFocused.current = document.activeElement as HTMLElement;
+
+      if (modalRef.current) {
+        const titleElement = modalRef.current.querySelector(
+          "#dialog-title",
+        ) as HTMLElement;
+        if (titleElement) {
+          titleElement.focus();
+        }
+      }
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          onClose(false);
+          return;
+        }
+
+        if (e.key === "Tab" && modalRef.current) {
+          const focusableElements = modalRef.current.querySelectorAll(
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          );
+
+          if (focusableElements.length === 0) return;
+
+          const firstElement = focusableElements[0] as HTMLElement;
+          const lastElement = focusableElements[
+            focusableElements.length - 1
+          ] as HTMLElement;
+
+          if (e.shiftKey) {
+            if (
+              document.activeElement === firstElement ||
+              document.activeElement ===
+                modalRef.current.querySelector("#dialog-title")
+            ) {
+              lastElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastElement) {
+              firstElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      };
+
+      document.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown);
+        if (previouslyFocused.current) {
+          previouslyFocused.current.focus();
+        }
+      };
+    }
+  }, [show, onClose]);
+
   if (!show) return null;
-  return (
-    <>
-      <div className="dialog-overlay" onClick={onClose}></div>
-      <div className="dialog">
-        <div className="flex justify-end">
-          <span
-            className="material-symbols-outlined cursor-pointer hover:text-gray-500"
-            onClick={onClose}
+  return createPortal(
+    <div
+      className="dialog-overlay"
+      onClick={() => onClose(false)}
+      role="presentation"
+    >
+      <section
+        className="dialog shadow-elevation-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dialog-title"
+        aria-describedby="dialog-desc"
+        ref={modalRef}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <header className="flex justify-end p-2">
+          <button
+            className="material-symbols-outlined cursor-pointer hover:text-danger-500 transition-colors bg-transparent border-none p-0"
+            onClick={() => onClose(false)}
+            aria-label={t("dialog.cerrar")}
           >
             close
-          </span>
-        </div>
+          </button>
+        </header>
+        <article className="flex flex-col gap-4 px-6 ">
+          <h2 id="dialog-title" className="dark:text-primary-900" tabIndex={-1}>
+            {titulo}
+          </h2>
+          <p id="dialog-desc" className="dark:text-primary-900">
+            {descripcion}
+          </p>
+        </article>
 
-        <div className="flex flex-col gap-4">
-          <h2 className="text-xl font-bold">{titulo}</h2>
-          <p className="text-gray-600">{descripcion}</p>
-        </div>
-
-        <div className="flex flex-row gap-2 justify-end mt-6">
-          <Button variant="fantasma" onClick={onClose}>
-            <span>No, cancelar</span>
+        <footer className="flex flex-row gap-4 justify-center mt-8 p-6 bg-gray-50 dark:bg-primary-850">
+          <Button variant="fantasma" onClick={() => onClose(false)}>
+            {textoCancelar || t("dialog.botonCancelar")}
           </Button>
-          <Button className="bg-danger-500 text-white">
-            <span>Sí, confirmar</span>
+          <Button
+            className="bg-danger-500 text-white hover:bg-danger-600"
+            onClick={() => onClose(true)}
+          >
+            {textoConfirmar || t("dialog.botonConfirmar")}
           </Button>
-        </div>
-      </div>
-    </>
+        </footer>
+      </section>
+    </div>,
+    document.body,
   );
 };
 
