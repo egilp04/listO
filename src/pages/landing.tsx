@@ -88,13 +88,15 @@ const Landing = () => {
           <img
             src={heroLight}
             alt={t('landing.heroImgAlt')}
+            width={1280}
+            height={720}
             className="w-full h-auto object-cover rounded-xl shadow-elevation-1 
                        transition-all duration-100
                        dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
           />
         </figure>
 
-        <article className="flex flex-col mt-8 mb-[40px] gap-6 2xl:mb-25 md:gap-10 xl:gap-personalizado-50 px-4 md:px-10 lg:px-20 fade-in-up">
+        <article className="flex flex-col mt-8 mb-btn-h-lg gap-6 2xl:mb-25 md:gap-10 xl:gap-personalizado-50 px-4 md:px-10 lg:px-20 fade-in-up">
           <h2>{t('landing.bitacorasTitulo')}</h2>
           <p className="text-pretty">
             {t('landing.bitacorasDescripcion')}
@@ -153,6 +155,8 @@ const Landing = () => {
             <img
               src={card5}
               alt={t('landing.ctaImgAlt')}
+              width={800}
+              height={600}
               className="w-full h-auto object-cover rounded-xl shadow-elevation-1 transition-all duration-100 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
             />
           </figure>
