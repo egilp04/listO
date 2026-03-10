@@ -4,10 +4,18 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string;
   error?: string;
   variant?: "primario" | "info";
+  mensajeError?: string;
 }
 
-function TextArea({ label, error, name, disabled, variant = "primario", ...props }: TextAreaProps) {
-
+function TextArea({
+  label,
+  error,
+  name,
+  disabled,
+  mensajeError,
+  variant = "primario",
+  ...props
+}: TextAreaProps) {
   const colorClass = error ? "input-error" : `input-border-${variant}`;
 
   return (
@@ -31,10 +39,11 @@ function TextArea({ label, error, name, disabled, variant = "primario", ...props
         disabled={disabled}
         aria-invalid={!!error}
         aria-describedby={error ? `${name}-error` : undefined}
-        className={`dark:text-primary-50 input-style-comun textarea-style textarea-responsive ${disabled
+        className={`dark:text-primary-50 input-style-comun textarea-style textarea-responsive ${
+          disabled
             ? "input-disabled cursor-not-allowed"
             : `cursor-text ${colorClass}`
-          }`}
+        }`}
         {...props}
       />
 
