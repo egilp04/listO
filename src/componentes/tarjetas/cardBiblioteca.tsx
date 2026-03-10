@@ -1,20 +1,10 @@
 import Button from "../Button";
 import { useItemStore } from "../../store/useItemStore";
 
-interface Item {
-  id_item: string;
-  imagen: string;
-  id_tipo: string;
-  tipo: string;
-  generosIds: string[];
-  generos: string[];
-  informacion: string;
-  descripcion: string;
-  valoracion: number;
-}
+import type { ItemBiblioteca } from "../../interfaces/ItemInterfaces";
 
 interface CardBibliotecaProps {
-  item: Item;
+  item: ItemBiblioteca;
 }
 
 import { useNavigate } from "react-router-dom";

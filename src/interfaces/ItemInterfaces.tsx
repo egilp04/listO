@@ -14,6 +14,7 @@ export interface ItemBiblioteca {
     id_item: string;
     imagen: string;
     tipo: string;
+    id_tipo: string;
     generosIds: string[];
     generos: string[];
     informacion: string;
