@@ -25,6 +25,8 @@ const CardEstadistica: React.FC<CardEstadisticaProps> = ({
             src={imagen}
             alt="icono representativo"
             aria-hidden="true"
+            width={32}
+            height={32}
             className="w-8 h-8 object-contain animate-aparicion-giro"
           />
         </figure>

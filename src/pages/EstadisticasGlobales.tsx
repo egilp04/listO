@@ -118,6 +118,8 @@ const EstadisticasGlobales = () => {
                 className="hover:scale-110 transition-transform duration-700"
                 src="/logo.webp"
                 alt={t("estadisticasGlobales.logoAlt")}
+                width={112}
+                height={112}
                 loading="lazy"
               />
             </figure>

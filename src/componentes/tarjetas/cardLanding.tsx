@@ -15,9 +15,8 @@ const CardLanding: React.FC<CardLandingProps> = ({
 }) => {
   return (
     <article
-      className={`card-landing flex flex-col ${
-        invertido ? "md:flex-row-reverse" : "md:flex-row"
-      } w-full h-auto md:h-62.5 lg:h-125 overflow-hidden rounded-xl shadow-sm`}
+      className={`card-landing flex flex-col ${invertido ? "md:flex-row-reverse" : "md:flex-row"
+        } w-full h-auto md:h-62.5 lg:h-125 overflow-hidden rounded-xl shadow-sm`}
       data-invertido={invertido.toString()}
     >
       <section className="flex flex-col flex-1 items-center md:items-start h-full text-center md:text-left p-personalizado-30 md:p-6 lg:p-10">
@@ -37,6 +36,8 @@ const CardLanding: React.FC<CardLandingProps> = ({
           src={imagen}
           alt={`Ilustración de la función: ${titulo}`}
           loading="lazy"
+          width={800}
+          height={600}
           className="w-full h-full object-cover transition-all duration-300 hover:scale-105 dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
         />
       </figure>

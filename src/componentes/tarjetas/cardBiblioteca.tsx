@@ -4,6 +4,7 @@ import { useItemStore } from "../../store/useItemStore";
 interface Item {
   id_item: string;
   imagen: string;
+  id_tipo: string;
   tipo: string;
   generosIds: string[];
   generos: string[];
@@ -66,12 +67,12 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
   return (
     <article
       className={`card-biblioteca ${isDeleting
-          ? "animate-slide-rotate-out"
-          : esNuevo
-            ? "animate-drop-and-spin"
-            : fueNuevo
-              ? ""
-              : "animate-slide-rotate-in"
+        ? "animate-slide-rotate-out"
+        : esNuevo
+          ? "animate-drop-and-spin"
+          : fueNuevo
+            ? ""
+            : "animate-slide-rotate-in"
         }`}
     >
       <header className="relative h-32 md:h-40">
@@ -80,6 +81,8 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
             src={item.imagen}
             alt={`${item.tipo}: ${item.informacion}`}
             loading="lazy"
+            width={400}
+            height={300}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -159,7 +162,7 @@ const CardBiblioteca: React.FC<CardBibliotecaProps> = ({ item }) => {
           descripcion={t("cardBiblioteca.dialogDescripcion", {
             titulo: item.informacion.split(" -")[0],
           })}
-          textoConfirmar={t("dialog.botonEliminar")}
+          textoConfirmar={t("comun.eliminar")}
           show={showDialog}
           onClose={async (confirmar) => {
             setShowDialog(false);

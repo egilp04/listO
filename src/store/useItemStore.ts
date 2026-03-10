@@ -78,9 +78,9 @@ export const useItemStore = create<ItemState>((set, get) => ({
             const itemsMapeados: ItemBiblioteca[] = (data || []).map((item: any) => ({
                 id_item: item.id_item,
                 imagen: item.imagen_url || "",
-                id_tipo: item.id_tipo || "",
+                id_tipo: String(item.id_tipo || ""),
                 tipo: item.tipo?.nombre || "",
-                generosIds: (item.genero_item || []).map((gi: any) => gi.genero?.id_genero).filter(Boolean),
+                generosIds: (item.genero_item || []).map((gi: any) => String(gi.genero?.id_genero)).filter(Boolean),
                 generos: (item.genero_item || []).map((gi: any) => gi.genero?.nombre).filter(Boolean),
                 informacion: item.titulo || "",
                 descripcion: item.informacion || "",
