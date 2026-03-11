@@ -1,7 +1,7 @@
-import { useState, useEffect, type FormHTMLAttributes } from "react";
+import { useState, type FormHTMLAttributes } from "react";
 import Inputs from "../Inputs/Inputs";
 import Button from "../Button";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
 import { useNotificationStore } from "../../store/useNotificationStore";
 import { supabase } from "../../utils/supabaseClient";
@@ -14,7 +14,7 @@ interface RegistroProps extends FormHTMLAttributes<HTMLFormElement> {
 
 export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { error: authError } = useAuthStore();
   const { setNotificacion } = useNotificationStore();
 
@@ -27,17 +27,17 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     {},
   );
 
-  const [updateSuccess, setUpdateSuccess] = useState(false);
+  // const [updateSuccess, setUpdateSuccess] = useState(false);
 
-  useEffect(() => {
-    const finalizeUpdate = async () => {
-      if (updateSuccess) {
-        navigate("/biblioteca");
-        setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
-      }
-    };
-    finalizeUpdate();
-  }, [updateSuccess, navigate, setNotificacion, t]);
+  // useEffect(() => {
+  //   const finalizeUpdate = async () => {
+  //     if (updateSuccess) {
+  //       navigate("/biblioteca");
+  //       setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
+  //     }
+  //   };
+  //   finalizeUpdate();
+  // }, [updateSuccess, navigate, setNotificacion, t]);
 
   const manejarCambio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,20 +64,24 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     }
 
     try {
-      const { error } = await supabase.auth.updateUser({
+      const { data } = await supabase.auth.updateUser({
         password: formData.nueva_passwd,
       });
 
-      if (error) {
-        setNotificacion(
-          t("formRecuperacionPasswd.notifErrorActualizar", {
-            mensaje: error.message,
-          }),
-          "error",
-        );
-      } else {
-        setUpdateSuccess(true);
-      }
+      console.log("DATA", data);
+
+      // if (error) {
+      //   setNotificacion(
+      //     t("formRecuperacionPasswd.notifErrorActualizar", {
+      //       // mensaje: error.message,
+      //     }),
+      //     "error",
+      //   );
+      // } else {
+      //   setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
+      //   navigate("/biblioteca");
+      //   // setUpdateSuccess(true);
+      // }
     } catch (err) {
       console.error("Error al actualizar contraseña", err);
       setNotificacion(t("formRecuperacionPasswd.notifErrorEnlace"), "error");
