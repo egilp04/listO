@@ -64,24 +64,24 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
     }
 
     try {
-      const { data } = await supabase.auth.updateUser({
+      const { data, error } = await supabase.auth.updateUser({
         password: formData.nueva_passwd,
       });
 
       console.log("DATA", data);
+      console.log("error", error);
 
-      // if (error) {
-      //   setNotificacion(
-      //     t("formRecuperacionPasswd.notifErrorActualizar", {
-      //       // mensaje: error.message,
-      //     }),
-      //     "error",
-      //   );
-      // } else {
-      //   setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
-      //   navigate("/biblioteca");
-      //   // setUpdateSuccess(true);
-      // }
+      if (error) {
+        setNotificacion(
+          t("formRecuperacionPasswd.notifErrorActualizar", {
+            // mensaje: error.message,
+          }),
+          "error",
+        );
+      } else {
+        setNotificacion(t("formRecuperacionPasswd.notifExito"), "exito");
+        // setUpdateSuccess(true);
+      }
     } catch (err) {
       console.error("Error al actualizar contraseña", err);
       setNotificacion(t("formRecuperacionPasswd.notifErrorEnlace"), "error");
