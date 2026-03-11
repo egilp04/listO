@@ -74,8 +74,6 @@ export const LanguageSwitcher = () => {
           })}
         </ul>
       )}
-
-      {/* Fondo invisible para cerrar al hacer clic fuera */}
       {abierto && (
         <div
           className="fixed inset-0 z-40"

@@ -7,15 +7,17 @@ export default defineConfig({
   plugins: [
     react(),
     tailwindcss(),
-    visualizer({
-      open: true, // Abre el navegador automáticamente al terminar
-      gzipSize: true, // Muestra el peso real que descargará el usuario (comprimido)
-      brotliSize: true, // Otra métrica de compresión moderna
-      filename: "analisis-bundle.html", // El archivo que se va a generar
-    }),
   ],
   build: {
     rollupOptions: {
+      plugins: [
+        visualizer({
+          open: true,
+          gzipSize: true,
+          brotliSize: true,
+          filename: "dist/analisis-bundle.html",
+        }),
+      ],
       output: {
         manualChunks: {
           "react-vendor": [
@@ -30,7 +32,6 @@ export default defineConfig({
         },
       },
     },
-    // Opcional: aumento del límite de advertencia por si un vendor pesa mucho
     chunkSizeWarningLimit: 600,
   },
   esbuild: {

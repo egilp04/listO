@@ -162,8 +162,11 @@ function App() {
   if ((loading || minLoadingTime) && !session) {
     return <Loading />;
   }
-
-  return <RouterProvider router={router} />;
+  return (
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 }
 
 export default App;
