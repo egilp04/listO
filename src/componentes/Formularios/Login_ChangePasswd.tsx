@@ -144,8 +144,8 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
           </fieldset>
         </section>
       )}
-      <footer className="mt-6 flex flex-col items-center">
-        <Button type="submit" className="w-full">
+      <footer className="mt-2 flex flex-col items-center w-full">
+        <Button type="submit" className="w-1/2 md:w-48">
           {texto}
         </Button>
         {(error || authError) && (
