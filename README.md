@@ -66,6 +66,7 @@ Para instalar todas las dependencias listadas en el package.json de una sola vez
 
 ```bash
 npm install
+```
 
 ### 3. Desglose de Instalación Manual (Por Tecnologías)
 Si estás construyendo un proyecto similar desde cero, estos son los comandos exactos utilizados para montar nuestra arquitectura:
@@ -73,6 +74,7 @@ Si estás construyendo un proyecto similar desde cero, estos son los comandos ex
 Core de React y Enrutamiento:
 ```bash
 npm install react react-dom react-router-dom
+```
 
 Backend as a Service y Estado Global:
 ```bash
