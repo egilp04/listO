@@ -102,9 +102,9 @@ Para la ejecución en local: npm run dev
 
 👥 Equipo de Desarrollo
 Proyecto final del ciclo formativo 2DAWB, desarrollado y diseñado por:
-Evelia Gil Paredes
-María Ceballos
-Alberto Mera
+Evelia Gil Paredes,
+María Ceballos,
+Alberto Mera,
 Enrique Ambrona
 
 ### Desarrollado con ❤️, React y mucho café.
