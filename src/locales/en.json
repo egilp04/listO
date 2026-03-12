@@ -222,7 +222,7 @@
     "errorEmail": "Incorrect email format",
     "labelContrasena": "Password",
     "placeholderContrasena": "********",
-    "errorContrasena": "Must match password",
+    "errorContrasena": "Password must have at least one uppercase and special characters",
     "recuperacionLabel": "Account recovery",
     "olvidoContrasena": "Forgot password? Click",
     "olvidoContrasenaEnlace": "HERE",

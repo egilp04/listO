@@ -22,25 +22,27 @@ const AuthLayout = () => {
           backgroundImage: `url(${fondoLogin})`,
         }}
       />
-      {state.atras !== true && <Navbar />}
+      {state.atras !== true &&
+        !window.location.href.includes("/actualizar-password") && <Navbar />}
       <main className="grow flex-col flex items-center justify-center w-full p-4">
         {mostrar && (
           <div
             role="alert"
             aria-live="assertive"
-            className={`mensaje-alerta ${tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
-              }`}
+            className={`mensaje-alerta ${
+              tipo === "exito" ? "mensaje-alerta-exito" : "mensaje-alerta-error"
+            }`}
           >
             <span>{mensaje}</span>
           </div>
         )}
         {state.atras === true && (
-          <nav className="w-full mb-6" aria-label={t('layout.navRetornoLabel')}>
+          <nav className="w-full mb-6" aria-label={t("layout.navRetornoLabel")}>
             <button
               type="button"
               className="material-symbols-outlined text-4xl cursor-pointer bg-primary-50 dark:bg-primary-900 dark:text-primary-50 rounded-sm px-4 py-4 md:px-8 border-none"
               onClick={() => navigate(-1)}
-              aria-label={t('layout.volverAtras')}
+              aria-label={t("layout.volverAtras")}
             >
               arrow_back
             </button>

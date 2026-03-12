@@ -222,7 +222,7 @@
     "errorEmail": "Correo no huele bien",
     "labelContrasena": "Secreto",
     "placeholderContrasena": "********",
-    "errorContrasena": "No es el secreto",
+    "errorContrasena": "El secreto debe ser difícil (con mayúsculas)",
     "recuperacionLabel": "Buscar rastro",
     "olvidoContrasena": "¿Perdiste el secreto? Ladra",
     "olvidoContrasenaEnlace": "AQUÍ",

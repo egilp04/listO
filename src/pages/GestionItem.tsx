@@ -188,7 +188,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
 
         <section className="flex flex-col gap-1 w-full">
           <span className="font-medium text-primary-900 dark:text-primary-50 mb-1">{t('gestionItem.campoValoracion')}</span>
-          <div className="flex gap-2 bg-white dark:bg-primary-800 p-2 rounded-lg justify-center border-2 border-transparent hover:border-primary-200 transition-colors shadow-sm h-[60px] items-center">
+          <div className="flex gap-2 bg-white dark:bg-primary-800 p-2 rounded-lg justify-center border-2 border-transparent hover:border-primary-200 transition-colors shadow-sm h-15 items-center">
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}

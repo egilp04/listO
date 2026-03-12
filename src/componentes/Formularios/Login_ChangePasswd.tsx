@@ -77,7 +77,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
             <h2 className="text-center">{t("formLogin.titulo")}</h2>
           </header>
 
-          <fieldset className="flex-login-passwd border-none p-0 m-0">
+          <fieldset className="login-passwd border-none p-0 m-0">
             <legend className="sr-only">{t("formLogin.legendAcceso")}</legend>
 
             <Inputs
@@ -126,7 +126,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
             <h2 className="text-center">{t("formRecuperacion.titulo")}</h2>
           </header>
 
-          <fieldset className="flex-login-passwd border-none p-0 m-0">
+          <fieldset className="login-passwd border-none p-0 m-0">
             <legend className="sr-only">
               {t("formRecuperacion.legendCredenciales")}
             </legend>

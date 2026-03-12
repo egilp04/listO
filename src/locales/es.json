@@ -222,7 +222,7 @@
     "errorEmail": "Formato de email incorrecto",
     "labelContrasena": "Contraseña",
     "placeholderContrasena": "********",
-    "errorContrasena": "Debe coincidir con la contraseña",
+    "errorContrasena": "La contraseña debe tener una mayúscula mínimo y carácteres especiales",
     "recuperacionLabel": "Recuperación de cuenta",
     "olvidoContrasena": "¿Has olvidado la contraseña? Pulse",
     "olvidoContrasenaEnlace": "AQUÍ",

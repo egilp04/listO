@@ -222,7 +222,7 @@
     "errorEmail": "Ungültiges E-Mail-Format",
     "labelContrasena": "Passwort",
     "placeholderContrasena": "********",
-    "errorContrasena": "Muss mit dem Passwort übereinstimmen",
+    "errorContrasena": "Das Passwort muss mindestens einen Großbuchstaben und Sonderzeichen enthalten",
     "recuperacionLabel": "Kontowiederherstellung",
     "olvidoContrasena": "Passwort vergessen? Hier",
     "olvidoContrasenaEnlace": "KLICKEN",
