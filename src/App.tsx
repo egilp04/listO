@@ -7,9 +7,10 @@ import { Login_ChangePasswd } from "./componentes/Formularios/Login_ChangePasswd
 import { Registro } from "./componentes/Formularios/Registro";
 import { Recuperacion_Passwd } from "./componentes/Formularios/Recuperacion_Passwd";
 import Loading from "./componentes/Loading";
-import Landing from "./pages/landing";
 import { useAuthStore } from "./store/useAuthStore";
 import { supabase } from "./utils/supabaseClient";
+
+const Landing = lazy(() => import("./pages/landing"));
 const Estadisticas = lazy(() => import("./pages/Estadisticas"));
 const EstadisticasGlobales = lazy(() => import("./pages/EstadisticasGlobales"));
 const Biblioteca = lazy(() => import("./pages/biblioteca"));
@@ -97,7 +98,16 @@ const router = createBrowserRouter([
   },
   {
     element: <LandingLayout />,
-    children: [{ path: "/", element: <Landing></Landing> }],
+    children: [
+      {
+        path: "/",
+        element: (
+          <CargaPerezosa>
+            <Landing />
+          </CargaPerezosa>
+        ),
+      },
+    ],
   },
   {
     element: <AuthLayout />,
