@@ -28,7 +28,7 @@
     "miPerfil": "Mi Perfil",
     "estadisticasGlobales": "Estadísticas Globales",
     "gestion": "Gestión",
-    "login": "Log in",
+    "login": "Iniciar sesión",
     "registro": "Registro",
     "salir": "Salir",
     "navPrincipalLabel": "Navegación principal"
@@ -215,7 +215,7 @@
     "notiEmailExiste": "Este email ya existe, prueba con otro"
   },
   "formLogin": {
-    "titulo": "Inicio Sesión",
+    "titulo": "Iniciar Sesión",
     "legendAcceso": "Datos de acceso del usuario",
     "labelUsuario": "Usuario",
     "placeholderUsuario": "Ej: enrique@gmail.com",
@@ -226,7 +226,7 @@
     "recuperacionLabel": "Recuperación de cuenta",
     "olvidoContrasena": "¿Has olvidado la contraseña? Pulse",
     "olvidoContrasenaEnlace": "AQUÍ",
-    "botonLogin": "Login",
+    "botonLogin": "Iniciar sesión",
     "notifRecuperacion": "Si el correo está registrado, recibirás un enlace para recuperar tu contraseña.",
     "authError": "Email y/o contraseñas inválidas.",
     "notifRecuperacionError": "Error al recuperar contraseña"

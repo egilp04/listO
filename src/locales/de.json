@@ -226,7 +226,7 @@
     "recuperacionLabel": "Kontowiederherstellung",
     "olvidoContrasena": "Passwort vergessen? Hier",
     "olvidoContrasenaEnlace": "KLICKEN",
-    "botonLogin": "Login",
+    "botonLogin": "Anmelden",
     "notifRecuperacion": "Wenn die E-Mail registriert ist, erhalten Sie einen Link zum Zurücksetzen Ihres Passworts.",
     "authError": "Ungültige E-Mail-Adresse und/oder Passwörter.",
     "notifRecuperacionError": "Fehler bei der Passwortwiederherstellung"
