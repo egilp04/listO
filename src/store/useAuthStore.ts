@@ -49,18 +49,32 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       supabase.auth.onAuthStateChange(async (_event, session) => {
         if (session) {
-          const { data: usuario } = await supabase
-            .from("usuario")
-            .select("*, rol(nombre)")
-            .ilike("email", session.user.email!)
-            .single();
+          if (_event === "USER_UPDATED") {
+            set({
+              session,
+              user: session.user,
+              role: null,
+              loading: false,
+            });
+            return;
+          }
+          try {
+            const { data: usuario, error } = await supabase
+              .from("usuario")
+              .select("*, rol(nombre)")
+              .ilike("email", session.user.email!)
+              .single();
 
-          set({
-            session,
-            user: usuario ? { ...session.user, ...usuario } : session.user,
-            role: usuario?.rol?.nombre ?? null,
-            loading: false,
-          });
+            if (error) throw error;
+            set({
+              session,
+              user: usuario ? { ...session.user, ...usuario } : session.user,
+              role: usuario?.rol?.nombre ?? null,
+              loading: false,
+            });
+          } catch (e) {
+            console.log("ERROR ONCHANGE", e);
+          }
         } else {
           set({ session: null, user: null, role: null, loading: false });
         }
