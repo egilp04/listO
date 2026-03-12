@@ -306,7 +306,7 @@
     "notifExito": "Palavra-passe atualizada com sucesso.",
     "notifErroresFormulario": "Por favor, corrija os erros antes de continuar",
     "notifNoCoinciden": "As palavras-passe não coincidem",
-    "notifErrorActualizar": "Erro ao atualizar: {{mensaje}}",
+    "notifErrorActualizar": "Erro ao atualizar, lembre-se que não pode ser usado",
     "notifErrorEnlace": "Erro ao atualizar. O link poderá ter expirado."
   },
   "select": {

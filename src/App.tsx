@@ -125,6 +125,9 @@ const router = createBrowserRouter([
 function App() {
   const { initialize, loading, session } = useAuthStore();
   const [minLoadingTime, setMinLoadingTime] = useState(true);
+  const { logout } = useAuthStore() as {
+    logout: () => Promise<void>;
+  };
 
   useEffect(() => {
     initialize();
@@ -152,12 +155,13 @@ function App() {
       if (event === "PASSWORD_RECOVERY") {
         router.navigate("/actualizar-password");
       } else if (event === "USER_UPDATED") {
-        router.navigate("/biblioteca");
+        logout();
+        router.navigate("/login");
       }
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [logout]);
 
   if ((loading || minLoadingTime) && !session) {
     return <Loading />;
