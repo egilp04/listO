@@ -222,7 +222,7 @@
     "errorEmail": "电子邮件格式不正确",
     "labelContrasena": "密码",
     "placeholderContrasena": "********",
-    "errorContrasena": "必须与密码一致",
+    "errorContrasena": "密码必须包含至少一个大写字母和特殊字符",
     "recuperacionLabel": "账号找回",
     "olvidoContrasena": "忘记密码了？请点击",
     "olvidoContrasenaEnlace": "此处",
