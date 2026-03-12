@@ -48,32 +48,32 @@ Si deseas clonar el proyecto o reconstruir el entorno desde cero, sigue estos pa
 ```bash
 git clone [https://github.com/egilp04/listO.git](https://github.com/egilp04/listO.git)
 cd listO
+
 2. Instalación Automática
 Para instalar todas las dependencias listadas en el package.json de una sola vez:
-
 Bash
 npm install
-📦 3. Desglose de Instalación Manual (Por Tecnologías)
+
+3. Desglose de Instalación Manual (Por Tecnologías)
 Si estás construyendo un proyecto similar desde cero, estos son los comandos exactos utilizados para montar nuestra arquitectura:
 
 Core de React y Enrutamiento:
-
 Bash
 npm install react react-dom react-router-dom
-Backend as a Service y Estado Global:
 
+Backend as a Service y Estado Global:
 Bash
 npm install @supabase/supabase-js zustand
-Estilos, UI y Animaciones:
 
+Estilos, UI y Animaciones:
 Bash
 npm install tailwindcss @tailwindcss/vite lucide-react react-icons recharts gsap
-Internacionalización (i18n):
 
+Internacionalización (i18n):
 Bash
 npm install i18next react-i18next i18next-browser-languagedetector i18next-resources-to-backend
-Telemetría y Analíticas (Vercel):
 
+Telemetría y Analíticas (Vercel):
 Bash
 npm install @vercel/analytics @vercel/speed-insights
 
