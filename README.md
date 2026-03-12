@@ -11,15 +11,9 @@
 
 🔗 **[Visita la aplicación en vivo aquí](https://list-o.vercel.app/)**
 
----
-
-## 📸 Capturas de Pantalla
-
-*(Nota: Sube un par de imágenes de tu app a tu repositorio y ponlas aquí)*
 
 <div align="center">
-  <img src="[https://via.placeholder.com/400x250?text=Dashboard+ListO](https://via.placeholder.com/400x250?text=Dashboard+ListO)" alt="Dashboard ListO" width="400"/>
-  <img src="[https://via.placeholder.com/400x250?text=Biblioteca+ListO](https://via.placeholder.com/400x250?text=Biblioteca+ListO)" alt="Biblioteca ListO" width="400"/>
+<img src="./public/logo.webp" alt="Logo ListO" width="400" />
 </div>
 
 ---
