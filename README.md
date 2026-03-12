@@ -13,6 +13,17 @@
 
 ---
 
+## 📸 Capturas de Pantalla
+
+*(Nota: Sube un par de imágenes de tu app a tu repositorio y ponlas aquí)*
+
+<div align="center">
+  <img src="[https://via.placeholder.com/400x250?text=Dashboard+ListO](https://via.placeholder.com/400x250?text=Dashboard+ListO)" alt="Dashboard ListO" width="400"/>
+  <img src="[https://via.placeholder.com/400x250?text=Biblioteca+ListO](https://via.placeholder.com/400x250?text=Biblioteca+ListO)" alt="Biblioteca ListO" width="400"/>
+</div>
+
+---
+
 ## 🧩 Módulos del Sistema
 
 El sistema está dividido en una arquitectura modular altamente escalable, cumpliendo con los estándares de separación de responsabilidades:
@@ -46,46 +57,58 @@ Si deseas clonar el proyecto o reconstruir el entorno desde cero, sigue estos pa
 
 ### 1. Clonar el repositorio
 ```bash
-git clone [https://github.com/egilp04/listO.git](https://github.com/egilp04/listO.git)
+git clone https://github.com/egilp04/listO.git
 cd listO
+```
 
-2. Instalación Automática
+### 2.Instalación Automática 
 Para instalar todas las dependencias listadas en el package.json de una sola vez:
-Bash
+
+```bash
 npm install
 
-3. Desglose de Instalación Manual (Por Tecnologías)
+### 3. Desglose de Instalación Manual (Por Tecnologías)
 Si estás construyendo un proyecto similar desde cero, estos son los comandos exactos utilizados para montar nuestra arquitectura:
 
 Core de React y Enrutamiento:
-Bash
+```bash
 npm install react react-dom react-router-dom
 
 Backend as a Service y Estado Global:
-Bash
+```bash
 npm install @supabase/supabase-js zustand
+```
 
 Estilos, UI y Animaciones:
-Bash
+```bash
 npm install tailwindcss @tailwindcss/vite lucide-react react-icons recharts gsap
+```
 
 Internacionalización (i18n):
-Bash
+```bash
 npm install i18next react-i18next i18next-browser-languagedetector i18next-resources-to-backend
+```
 
 Telemetría y Analíticas (Vercel):
-Bash
+```bash
 npm install @vercel/analytics @vercel/speed-insights
+```
+
+### 4. Configurar Variables de Entorno
+Crea un archivo .env.local en la raíz del proyecto. Deberás enlazarlo a tu proyecto de Supabase para que la base de datos conecte:
+VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+VITE_SUPABASE_ANON_KEY=tu-clave-anonima-publica
+
+### 5. Levantar el Servidor
+Inicia el servidor de desarrollo de Vite.
+Bash
+Para la ejecución en local: npm run dev
 
 👥 Equipo de Desarrollo
 Proyecto final del ciclo formativo 2DAWB, desarrollado y diseñado por:
-
-Evelia Gil Paredes (@egilp04)
-
+Evelia Gil Paredes
 María Ceballos
-
 Alberto Mera
-
 Enrique Ambrona
 
-Desarrollado con ❤️, React y mucho café.
+### Desarrollado con ❤️, React y mucho café.
