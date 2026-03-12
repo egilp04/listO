@@ -306,7 +306,7 @@
     "notifExito": "Passwort erfolgreich aktualisiert.",
     "notifErroresFormulario": "Bitte korrigieren Sie die Fehler, bevor Sie fortfahren",
     "notifNoCoinciden": "Die Passwörter stimmen nicht überein",
-    "notifErrorActualizar": "Fehler beim Aktualisieren: {{mensaje}}",
+    "notifErrorActualizar": "Fehler bei der Aktualisierung, es wird davon ausgegangen, dass Sie es nicht verwenden können",
     "notifErrorEnlace": "Fehler beim Aktualisieren. Der Link könnte abgelaufen sein."
   },
   "select": {

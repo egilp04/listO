@@ -306,7 +306,7 @@
     "notifExito": "密码更新成功。",
     "notifErroresFormulario": "请在继续前修正错误",
     "notifNoCoinciden": "密码不匹配",
-    "notifErrorActualizar": "更新时出错：{{mensaje}}",
+    "notifErrorActualizar": "更新时出错",
     "notifErrorEnlace": "更新出错。链接可能已过期。"
   },
   "select": {

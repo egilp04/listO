@@ -306,7 +306,7 @@
     "notifExito": "Password updated successfully.",
     "notifErroresFormulario": "Please correct the errors before continuing",
     "notifNoCoinciden": "Passwords do not match",
-    "notifErrorActualizar": "Error updating: {{mensaje}}",
+    "notifErrorActualizar": "Error updating, remeber it can´t be used one",
     "notifErrorEnlace": "Error updating. The link might have expired."
   },
   "select": {
