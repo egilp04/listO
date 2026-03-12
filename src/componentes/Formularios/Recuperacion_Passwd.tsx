@@ -96,7 +96,7 @@ export const Recuperacion_Passwd = ({ error, ...props }: RegistroProps) => {
           </h2>
         </header>
 
-        <fieldset className="flex-login-passwd border-none p-0 m-0">
+        <fieldset className="login-passwd border-none p-0 m-0">
           <legend className="sr-only">
             {t("formRecuperacionPasswd.legendNuevasCredenciales")}
           </legend>
