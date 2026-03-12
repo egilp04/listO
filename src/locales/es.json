@@ -306,7 +306,7 @@
     "notifExito": "Contraseña actualizada con éxito.",
     "notifErroresFormulario": "Por favor, corrige los errores antes de continuar",
     "notifNoCoinciden": "Las contraseñas no coinciden",
-    "notifErrorActualizar": "Error al actualizar: {{mensaje}}",
+    "notifErrorActualizar": "Error al actualizar, recuerda que no puede ser una ya usada",
     "notifErrorEnlace": "Error al actualizar. El enlace podría haber expirado."
   },
   "select": {

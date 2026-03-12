@@ -306,7 +306,7 @@
     "notifExito": "Secreto guardado, ¡Guau!",
     "notifErroresFormulario": "¡Quieto! Arregla los errores",
     "notifNoCoinciden": "No son iguales",
-    "notifErrorActualizar": "Error al morder: {{mensaje}}",
+    "notifErrorActualizar": "Error al buscar, no puedes usar un secreto ya usado",
     "notifErrorEnlace": "El rastro se enfrió. El enlace murió."
   },
   "select": {
