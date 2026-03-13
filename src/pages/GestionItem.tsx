@@ -151,7 +151,7 @@ const GestionItem: React.FC<GestionItemProps> = ({ item: propItem }) => {
   };
 
   const cabeceraGestion =
-    "w-full bg-primary-600 dark:bg-primary-850 p-2 md:p-3 flex justify-center items-center relative cursor-pointer text-white hover:bg-primary-700 transition-colors";
+    "w-full bg-primary-950 dark:bg-primary-850 p-2 md:p-3 flex justify-center items-center relative cursor-pointer text-white hover:bg-primary-700 transition-colors";
 
   return (
     <form
