@@ -92,13 +92,15 @@ npm install @vercel/analytics @vercel/speed-insights
 
 ### 4. Configurar Variables de Entorno
 Crea un archivo .env.local en la raíz del proyecto. Deberás enlazarlo a tu proyecto de Supabase para que la base de datos conecte:
+
 VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
 VITE_SUPABASE_ANON_KEY=tu-clave-anonima-publica
 
 ### 5. Levantar el Servidor
 Inicia el servidor de desarrollo de Vite.
-Bash
+```bash
 Para la ejecución en local: npm run dev
+```
 
 👥 Equipo de Desarrollo
 Proyecto final del ciclo formativo 2DAWB, desarrollado y diseñado por:
