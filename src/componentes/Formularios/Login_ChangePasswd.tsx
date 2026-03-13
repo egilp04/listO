@@ -109,7 +109,7 @@ export const Login_ChangePasswd = ({ error, login, ...props }: LoginProps) => {
             aria-label={t("formLogin.recuperacionLabel")}
           >
             <span className="text-sm font-medium block text-black dark:text-primary-50">
-              {t("formLogin.olvidoContrasena")}{" "}
+              {t("formLogin.olvidoContrasena")}
               <Link
                 to="/recuperar"
                 onClick={() => clearError()}
