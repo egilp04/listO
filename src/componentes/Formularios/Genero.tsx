@@ -182,7 +182,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             </legend>
 
             <div
-              className="flex flex-col gap-1 ml-1"
+              className="flex flex-col gap-1 ml-1 items-start"
               role="group"
               aria-describedby="error-tipo"
             >
@@ -205,7 +205,7 @@ export const Genero = ({ crear, item, ...props }: RegistroProps) => {
             {errores.tipoItem === true && (
               <span
                 id="error-tipo"
-                className="text-red-500 dark:text-red-100 text-sm mt-1"
+                className="text-red-700 dark:text-red-100 text-sm mt-1"
                 role="alert"
               >
                 {t("formGenero.errorTipo")}
