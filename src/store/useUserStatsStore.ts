@@ -222,7 +222,7 @@ export const useUserStatsStore = create<UserStatsState>((set) => ({
         id_item,
         titulo,
         valoracion,
-        tipo (nombre)
+        tipo!inner (nombre)
       `,
         )
         .eq("id_usuario", usuarioId)
