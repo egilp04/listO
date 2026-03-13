@@ -98,11 +98,11 @@ function Inputs({
         )}
       </div>
       {smError && (
-        <footer className="my-3">
+        <footer className="my-2">
           <p
             id={`${name}-error`}
             aria-live="polite"
-            className="span-error h-4 text-red-500 dark:text-red-200 text-sm"
+            className="span-error text-red-500 dark:text-red-200 text-sm"
           >
             {error}
           </p>
