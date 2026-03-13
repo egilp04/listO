@@ -90,6 +90,7 @@ const Landing = () => {
             alt={t('landing.heroImgAlt')}
             width={1280}
             height={720}
+            fetchPriority="high"
             className="w-full h-auto object-cover rounded-xl shadow-elevation-1 
                        transition-all duration-100
                        dark:brightness-[0.7] dark:saturate-[0.45] dark:contrast-[1.6]"
